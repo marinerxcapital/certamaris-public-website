@@ -5,20 +5,22 @@ export const SITE_DESCRIPTION =
   "Maritime cyber compliance and assurance software for fleet-scale operators. Fleet visibility, control mapping, evidence and findings, audit readiness, and regulatory intelligence for IMO cyber-risk management and IACS UR E26/E27.";
 
 /**
- * INTEGRATION POINTS — FUTURE LOVABLE APPLICATION
+ * INTEGRATION POINTS — CertaMaris application (Lovable-built, TanStack Start)
  * -------------------------------------------------
  * These four URLs are the seams between this marketing site and the
- * authenticated product application being built separately in Lovable.
- * Set the corresponding environment variables once the application has
- * a real deployed URL. Until then they fall back to a placeholder path
- * so links never silently 404 in development.
+ * authenticated product application. Set the corresponding environment
+ * variables to override per-deploy; the fallbacks below point at the
+ * application's real routes as of 2026-07-26.
  *
- *   NEXT_PUBLIC_APP_SIGN_IN_URL
- *   NEXT_PUBLIC_APP_GET_STARTED_URL
+ *   NEXT_PUBLIC_APP_SIGN_IN_URL       -> real route: /auth/login
+ *   NEXT_PUBLIC_APP_GET_STARTED_URL   -> no self-serve signup route exists yet
+ *                                        in the app; still a placeholder --
+ *                                        decide sales-assisted vs self-serve
+ *                                        before wiring this one for real.
  *   NEXT_PUBLIC_APP_SCHEDULING_URL     (booking/calendar embed for Book a Demo)
  *   NEXT_PUBLIC_APP_SALES_EMAIL        (mailto fallback for Contact Sales)
  */
-export const APP_SIGN_IN_URL = process.env.NEXT_PUBLIC_APP_SIGN_IN_URL ?? "https://app.certamaris.com/sign-in";
+export const APP_SIGN_IN_URL = process.env.NEXT_PUBLIC_APP_SIGN_IN_URL ?? "https://app.certamaris.com/auth/login";
 export const APP_GET_STARTED_URL = process.env.NEXT_PUBLIC_APP_GET_STARTED_URL ?? "https://app.certamaris.com/get-started";
 export const APP_SCHEDULING_URL = process.env.NEXT_PUBLIC_APP_SCHEDULING_URL ?? "";
 export const APP_SALES_EMAIL = process.env.NEXT_PUBLIC_APP_SALES_EMAIL ?? "sales@certamaris.com";

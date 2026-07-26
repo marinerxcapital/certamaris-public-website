@@ -79,7 +79,7 @@ Grep the codebase for `INTEGRATION POINT` to find all four seams:
 
 | Element | File | Behavior today | Behavior once configured |
 |---|---|---|---|
-| "Sign in" link | `components/Nav.tsx` | Points to `https://app.certamaris.com/sign-in` placeholder | Set `NEXT_PUBLIC_APP_SIGN_IN_URL` |
+| "Sign in" link | `components/Nav.tsx` | Points to `https://app.certamaris.com/auth/login`, the app's real login route | Override with `NEXT_PUBLIC_APP_SIGN_IN_URL` if the route changes |
 | "Get started" button | `components/Nav.tsx` | Points to `https://app.certamaris.com/get-started` placeholder | Set `NEXT_PUBLIC_APP_GET_STARTED_URL` |
 | "Book a demo" | Throughout, routes to `/contact` | Full on-page form, validated, no scheduling embed | Add a scheduling embed (Calendly-style) into the Contact page and/or set `NEXT_PUBLIC_APP_SCHEDULING_URL` |
 | "Contact Sales" | `app/contact/page.tsx` | `mailto:` link using `NEXT_PUBLIC_APP_SALES_EMAIL` | Update the env var once a real sales inbox is confirmed |
