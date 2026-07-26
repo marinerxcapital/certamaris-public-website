@@ -13,15 +13,18 @@ export const SITE_DESCRIPTION =
  * application's real routes as of 2026-07-26.
  *
  *   NEXT_PUBLIC_APP_SIGN_IN_URL       -> real route: /auth/login
- *   NEXT_PUBLIC_APP_GET_STARTED_URL   -> no self-serve signup route exists yet
- *                                        in the app; still a placeholder --
- *                                        decide sales-assisted vs self-serve
- *                                        before wiring this one for real.
+ *   NEXT_PUBLIC_APP_GET_STARTED_URL   -> no self-serve signup route exists in
+ *                                        the app (enterprise/sales-assisted
+ *                                        product), so this now defaults to
+ *                                        this site's own /contact page
+ *                                        instead of a dead app.certamaris.com
+ *                                        path. Point it at a real self-serve
+ *                                        signup route if that ever ships.
  *   NEXT_PUBLIC_APP_SCHEDULING_URL     (booking/calendar embed for Book a Demo)
  *   NEXT_PUBLIC_APP_SALES_EMAIL        (mailto fallback for Contact Sales)
  */
 export const APP_SIGN_IN_URL = process.env.NEXT_PUBLIC_APP_SIGN_IN_URL ?? "https://app.certamaris.com/auth/login";
-export const APP_GET_STARTED_URL = process.env.NEXT_PUBLIC_APP_GET_STARTED_URL ?? "https://app.certamaris.com/get-started";
+export const APP_GET_STARTED_URL = process.env.NEXT_PUBLIC_APP_GET_STARTED_URL ?? "/contact";
 export const APP_SCHEDULING_URL = process.env.NEXT_PUBLIC_APP_SCHEDULING_URL ?? "";
 export const APP_SALES_EMAIL = process.env.NEXT_PUBLIC_APP_SALES_EMAIL ?? "sales@certamaris.com";
 export const CONTACT_FORWARD_ENDPOINT = process.env.CONTACT_FORWARD_ENDPOINT ?? "";
