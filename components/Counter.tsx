@@ -8,17 +8,16 @@ export function Counter({ to, label, suffix = "" }: { to: number; label: string;
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-40px" });
   const reduced = usePrefersReducedMotion();
-  const count = useMotionValue(reduced ? to : 0);
+  // Initial value is the real target, not 0: this is statically exported, so
+  // whatever renders here is what crawlers, no-JS clients, and the first paint show.
+  const count = useMotionValue(to);
   const rounded = useTransform(count, (v) => Math.round(v));
 
   useEffect(() => {
-    if (inView) {
-      if (reduced) {
-        count.set(to);
-      } else {
-        const controls = animate(count, to, { duration: 1.1, ease: [0.16, 1, 0.3, 1] });
-        return () => controls.stop();
-      }
+    if (inView && !reduced) {
+      count.set(0);
+      const controls = animate(count, to, { duration: 1.1, ease: [0.16, 1, 0.3, 1] });
+      return () => controls.stop();
     }
   }, [inView, to, reduced, count]);
 
