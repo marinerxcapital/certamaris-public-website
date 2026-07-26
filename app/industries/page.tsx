@@ -15,6 +15,7 @@ export default function IndustriesPage() {
   return (
     <>
       <PageHero
+        emphasis="elevated"
         eyebrow="Industries"
         title="Built for every seat in the maritime compliance chain."
         intro="Different roles need different views of the same underlying record. Here is how each stakeholder actually uses CertaMaris."

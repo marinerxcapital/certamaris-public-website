@@ -54,6 +54,7 @@ export default function PlatformPage() {
   return (
     <>
       <PageHero
+        emphasis="elevated"
         eyebrow="Platform"
         title="One controlled record from applicability to recurring operations."
         intro="CertaMaris keeps regulatory requirements, fleet assets, evidence, decisions, plan content, and quality review connected — without removing the human judgment those decisions require."

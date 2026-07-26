@@ -16,6 +16,7 @@ export default function CompliancePage() {
   return (
     <>
       <PageHero
+        emphasis="elevated"
         eyebrow="Compliance"
         title="The regulatory landscape, explained plainly."
         intro="This page gives an operational overview of the requirements CertaMaris helps structure work around. It is not legal or regulatory advice — read it alongside the official source text."

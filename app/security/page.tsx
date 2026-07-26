@@ -32,6 +32,7 @@ export default function SecurityPage() {
   return (
     <>
       <PageHero
+        emphasis="elevated"
         eyebrow="Security & Trust"
         title="What's implemented, what's planned, and what's configurable — stated plainly."
         intro="We'd rather tell you exactly where a control stands today than round up. This page is updated as the platform matures toward general availability."

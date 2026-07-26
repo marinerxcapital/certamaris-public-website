@@ -55,6 +55,7 @@ export default function SolutionsPage() {
   return (
     <>
       <PageHero
+        emphasis="elevated"
         eyebrow="Solutions"
         title="Five ways CertaMaris removes friction from fleet compliance."
         intro="Each solution addresses a distinct part of the compliance lifecycle. Together they keep a fleet's cyber-risk posture traceable from requirement to recurring review."

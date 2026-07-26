@@ -22,6 +22,7 @@ export default function PricingPage() {
   return (
     <>
       <PageHero
+        emphasis="elevated"
         eyebrow="Pricing"
         title="Priced to fleet size and scope — not a one-size list price."
         intro="Maritime fleets vary too much in size, vessel type, and existing compliance maturity for a fixed public price list to be meaningful. We scope every engagement individually."
