@@ -33,10 +33,11 @@ export function ReferenceLabel({
 }) {
   return (
     <p
-      className={`font-mono text-[12px] uppercase tracking-[0.12em] ${
+      className={`inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.14em] ${
         inverse ? "text-ocean-light" : "text-ocean"
       } ${className}`}
     >
+      <span aria-hidden="true" className="h-px w-3 shrink-0 bg-current opacity-60" />
       {children}
     </p>
   );

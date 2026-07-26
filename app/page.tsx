@@ -75,7 +75,10 @@ export default function HomePage() {
       {/* TRUST / CONTEXT RAIL */}
       <div className="bg-paper hairline-b hairline-top">
         <div className="shell py-5 flex flex-wrap items-center gap-3">
-          <span className="font-mono text-[12px] uppercase tracking-[0.1em] text-structural mr-2">Regulatory context</span>
+          <span className="inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.14em] text-structural mr-2">
+            <span aria-hidden="true" className="h-px w-3 shrink-0 bg-current opacity-60" />
+            Regulatory context
+          </span>
           <span className="inline-flex items-center rounded-full border border-ocean/25 bg-white px-3.5 py-1.5 text-[13px] font-mono text-navy">
             IMO Res. MSC.428(98) → ISM Code integration
           </span>
