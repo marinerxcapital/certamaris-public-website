@@ -1,0 +1,338 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --surface-page: #ffffff;
+  --surface-paper: #f5f8fa;
+  --surface-raised: #eef3f6;
+  --surface-navy: #0b2a4a;
+  --ink-primary: #0b2a4a;
+  --ink-secondary: #45596c;
+  --ink-tertiary: #5c6d7e;
+  --ink-inverse: #f5f8fa;
+  --accent-ocean: #126faa;
+  --accent-ocean-cta: #1478b8;
+  --accent-ocean-light: #4fade0;
+  --accent-wash: #e7f3fb;
+  --status-ok: #147a4c;
+  --status-ok-bg: #e7f5ec;
+  --status-caution: #b4740a;
+  --status-caution-bg: #fbf1df;
+  --status-critical: #b3261e;
+  --status-critical-bg: #fbeae9;
+  --hairline: rgba(11, 42, 74, 0.12);
+  --hairline-strong: rgba(11, 42, 74, 0.22);
+  --section-space: clamp(4rem, 8vw, 6rem);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto;
+  background: var(--surface-paper);
+}
+
+body {
+  margin: 0;
+  background: transparent;
+  color: var(--ink-primary);
+  font-family: var(--font-body), Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.site-background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: var(--surface-paper);
+}
+
+.site-background-image,
+.site-background-fog {
+  position: absolute;
+  inset: 0;
+}
+
+.site-background-image {
+  z-index: 0;
+  background-image: url("/bg/hero-flow-1920.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.site-background-fog {
+  z-index: 1;
+  opacity: 0.85;
+  mix-blend-mode: soft-light;
+}
+
+.site-content {
+  position: relative;
+  z-index: 1;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display), Arial, sans-serif;
+  color: var(--ink-primary);
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  margin: 0;
+}
+
+h1 { font-weight: 700; }
+h2, h3, h4 { font-weight: 600; }
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+img, video, svg {
+  display: block;
+  max-width: 100%;
+}
+
+@keyframes certamaris-icon-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.certamaris-logo-mark {
+  animation: certamaris-icon-rotate 1.15s linear infinite;
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .certamaris-logo-mark {
+    animation: none;
+    will-change: auto;
+  }
+}
+
+button, input, select, textarea {
+  font-family: var(--font-body), Arial, sans-serif;
+  font-size: inherit;
+  color: inherit;
+}
+
+::selection {
+  background: var(--accent-wash);
+  color: var(--ink-primary);
+}
+
+.font-mono {
+  font-family: var(--font-mono), Consolas, monospace;
+}
+
+/* Layout primitives */
+
+.shell {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-left: clamp(20px, 4vw, 64px);
+  padding-right: clamp(20px, 4vw, 64px);
+}
+
+.section-y {
+  padding-block: var(--section-space);
+}
+
+/* Skip link */
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: var(--surface-navy);
+  color: var(--ink-inverse);
+  padding: 12px 20px;
+  font-size: 14px;
+  border-radius: 0 0 4px 0;
+}
+
+.skip-link:focus {
+  left: 0;
+}
+
+/* Focus states */
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--accent-ocean);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Reduced motion: neutralize all custom motion globally */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0ms !important;
+    transform: none !important;
+    scroll-behavior: auto !important;
+  }
+
+  .hero-video-el {
+    display: none !important;
+  }
+
+  .hero-video-poster {
+    opacity: 1 !important;
+  }
+
+  .site-background-fog {
+    display: none !important;
+  }
+}
+
+.bg-paper a.text-ocean {
+  color: #126faa;
+}
+
+/* Hairline utility */
+
+.hairline-top {
+  border-top: 1px solid var(--hairline);
+}
+
+.hairline-b {
+  border-bottom: 1px solid var(--hairline);
+}
+
+/* Hero video background */
+
+.hero-video-frame {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+  background: var(--surface-navy);
+}
+
+.hero-video-poster,
+.hero-video-el {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 62% 45%;
+  transition: opacity 0.4s ease;
+}
+
+.hero-video-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    rgba(245, 248, 250, 0.94) 0%,
+    rgba(245, 248, 250, 0.72) 22%,
+    rgba(11, 42, 74, 0.12) 50%,
+    rgba(11, 42, 74, 0.34) 100%
+  );
+}
+
+.hero-section {
+  position: relative;
+  min-height: 92vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.hero-copy-block {
+  position: relative;
+  isolation: isolate;
+}
+
+.hero-copy-block::before {
+  content: "";
+  position: absolute;
+  top: -2.5rem;
+  bottom: -2.5rem;
+  left: -4vw;
+  right: -34vw;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    rgba(245, 248, 250, 0.96) 0%,
+    rgba(245, 248, 250, 0.9) 65%,
+    rgba(245, 248, 250, 0) 100%
+  );
+}
+
+.hero-copy-block .text-ocean {
+  color: #1a5f9e;
+}
+
+@media (max-width: 1279px) {
+  .site-background-image {
+    background-image: url("/bg/hero-flow-1280.webp");
+  }
+}
+
+@media (max-width: 767px) {
+  .site-background-image {
+    background-image: url("/bg/hero-flow-800.webp");
+  }
+
+  .site-background-fog {
+    display: none;
+  }
+
+  .hero-video-poster,
+  .hero-video-el {
+    object-position: 78% 42%;
+  }
+
+  .hero-video-scrim {
+    background: linear-gradient(
+      180deg,
+      rgba(245, 248, 250, 0.97) 0%,
+      rgba(245, 248, 250, 0.93) 38%,
+      rgba(245, 248, 250, 0.8) 58%,
+      rgba(11, 42, 74, 0.25) 100%
+    );
+  }
+
+  .hero-section {
+    min-height: 86vh;
+  }
+
+  .hero-copy-block::before {
+    inset: -2rem -20px;
+    width: auto;
+    background: linear-gradient(
+      180deg,
+      rgba(245, 248, 250, 0.96) 0%,
+      rgba(245, 248, 250, 0.88) 72%,
+      rgba(245, 248, 250, 0) 100%
+    );
+  }
+}

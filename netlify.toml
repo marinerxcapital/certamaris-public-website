@@ -1,0 +1,21 @@
+[build]
+  command = "npm run build:static"
+  publish = "out"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# The contact form API route (app/api/contact) requires a Node server and is
+# NOT included in the static export used here. For this static deployment to
+# actually deliver submissions, set NEXT_PUBLIC_CONTACT_ENDPOINT (see
+# .env.example) to a publicly callable endpoint before building — the form
+# will POST to it directly from the browser instead of the local API route.
+# Deploy to Vercel (or another Node host) instead if you'd rather use the
+# built-in /api/contact route unchanged.

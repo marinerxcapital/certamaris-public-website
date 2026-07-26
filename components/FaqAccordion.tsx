@@ -1,0 +1,39 @@
+"use client";
+
+import { useState } from "react";
+
+export function FaqAccordion({ items }: { items: { question: string; answer: string }[] }) {
+  const [open, setOpen] = useState<number | null>(0);
+
+  return (
+    <div className="divide-y" style={{ borderColor: "var(--hairline)" }}>
+      {items.map((item, index) => {
+        const isOpen = open === index;
+        return (
+          <div key={item.question} className="hairline-b py-5" style={{ borderColor: "var(--hairline)" }}>
+            <h3>
+              <button
+                type="button"
+                className="w-full flex items-center justify-between gap-4 text-left"
+                aria-expanded={isOpen}
+                aria-controls={`faq-panel-${index}`}
+                id={`faq-trigger-${index}`}
+                onClick={() => setOpen(isOpen ? null : index)}
+              >
+                <span className="text-[16px] font-medium text-navy">{item.question}</span>
+                <span aria-hidden="true" className={`shrink-0 text-ocean transition-transform ${isOpen ? "rotate-45" : ""}`}>
+                  +
+                </span>
+              </button>
+            </h3>
+            {isOpen && (
+              <div id={`faq-panel-${index}`} role="region" aria-labelledby={`faq-trigger-${index}`} className="mt-3 text-[14.5px] text-structural leading-relaxed max-w-2xl">
+                {item.answer}
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}

@@ -1,0 +1,15 @@
+node_modules
+.next
+out
+.wrangler
+artifacts
+qa-screenshots
+pnpm-lock.yaml
+public/product/test-executive.png
+.env
+.env.local
+!.env.example
+.DS_Store
+*.log
+*.tsbuildinfo
+*.cpuprofile

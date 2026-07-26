@@ -1,0 +1,58 @@
+import type { Metadata } from "next";
+import { IBM_Plex_Mono, Inter, Space_Grotesk } from "next/font/google";
+import { Nav } from "@/components/Nav";
+import { Footer } from "@/components/Footer";
+import { SiteBackground } from "@/components/SiteBackground";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/constants";
+import "./globals.css";
+
+const display = Space_Grotesk({ subsets: ["latin"], weight: ["500", "700"], variable: "--font-display" });
+const body = Inter({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-body" });
+const mono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-mono" });
+
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  title: { default: `${SITE_NAME} — ${SITE_TAGLINE}`, template: `%s — ${SITE_NAME}` },
+  description: SITE_DESCRIPTION,
+  alternates: { canonical: SITE_URL },
+  openGraph: {
+    title: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    description: SITE_DESCRIPTION,
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    images: [{ url: "/og/certamaris-og.jpg", width: 1200, height: 630 }],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    description: SITE_DESCRIPTION,
+    images: ["/og/certamaris-og.jpg"],
+  },
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: SITE_NAME,
+    url: SITE_URL,
+    description: SITE_DESCRIPTION,
+    logo: `${SITE_URL}/brand/certamaris-full.png`,
+  };
+
+  return (
+    <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
+      <body>
+        <SiteBackground />
+        <div className="site-content">
+          {/* eslint-disable-next-line @next/next/no-sync-scripts */}
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+          <Nav />
+          <main id="main-content">{children}</main>
+          <Footer />
+        </div>
+      </body>
+    </html>
+  );
+}
