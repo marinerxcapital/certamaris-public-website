@@ -7,7 +7,7 @@ jobs:
   fix-dns:
     runs-on: ubuntu-latest
     steps:
-      - name: Update Cloudflare DNS for app.certamaris.com
+      - name: Delete Railway DNS and attach Workers custom domain
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -20,7 +20,10 @@ jobs:
           token = os.environ["CLOUDFLARE_API_TOKEN"]
           account = os.environ["CLOUDFLARE_ACCOUNT_ID"]
           zone = os.environ["ZONE_ID"]
-          headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
+          headers = {
+              "Authorization": f"Bearer {token}",
+              "Content-Type": "application/json",
+          }
 
           def call(method, url, body=None):
               data = None if body is None else json.dumps(body).encode()
@@ -30,52 +33,74 @@ jobs:
                       return resp.status, json.load(resp)
               except urllib.error.HTTPError as e:
                   err_body = e.read().decode("utf-8", errors="replace")
-                  print("HTTP_ERROR", method, url, e.code, err_body[:1000])
+                  print("HTTP_ERROR", method, url, e.code, err_body[:1500])
                   raise
 
-          # Verify token
           st, verify = call("GET", "https://api.cloudflare.com/client/v4/user/tokens/verify")
-          print("token_verify", st, verify.get("success"), verify.get("result", {}).get("status"))
+          print("token_verify", st, verify.get("success"), (verify.get("result") or {}).get("status"))
 
-          # Verify zone access
           st, z = call("GET", f"https://api.cloudflare.com/client/v4/zones/{zone}")
           print("zone", st, z.get("success"), (z.get("result") or {}).get("name"), (z.get("result") or {}).get("status"))
 
-          # List and delete existing app records
-          st, listed = call("GET", f"https://api.cloudflare.com/client/v4/zones/{zone}/dns_records?name=app.certamaris.com")
+          st, listed = call(
+              "GET",
+              f"https://api.cloudflare.com/client/v4/zones/{zone}/dns_records?name=app.certamaris.com",
+          )
           print("list_success", listed.get("success"), "count", len(listed.get("result") or []))
           for rec in listed.get("result") or []:
               rid = rec["id"]
-              st, deleted = call("DELETE", f"https://api.cloudflare.com/client/v4/zones/{zone}/dns_records/{rid}")
+              st, deleted = call(
+                  "DELETE",
+                  f"https://api.cloudflare.com/client/v4/zones/{zone}/dns_records/{rid}",
+              )
               print("deleted", rid, rec.get("type"), rec.get("content"), deleted.get("success"))
 
-          # Create proxied CNAME to Worker
-          st, created = call(
-              "POST",
-              f"https://api.cloudflare.com/client/v4/zones/{zone}/dns_records",
-              {
-                  "type": "CNAME",
-                  "name": "app",
-                  "content": "certamaris-app.marinerx-capital.workers.dev",
-                  "proxied": True,
-                  "ttl": 1,
-              },
-          )
-          print("create_success", created.get("success"), created.get("errors"), (created.get("result") or {}).get("id"))
+          # Prefer Workers custom domain (creates managed DNS). Fallback: proxied CNAME.
+          attach_ok = False
+          try:
+              st, attached = call(
+                  "PUT",
+                  f"https://api.cloudflare.com/client/v4/accounts/{account}/workers/domains",
+                  {
+                      "hostname": "app.certamaris.com",
+                      "service": "certamaris-app",
+                      "environment": "production",
+                      "zone_id": zone,
+                  },
+              )
+              print("attach_success", attached.get("success"), attached.get("errors"), (attached.get("result") or {}).get("id"))
+              attach_ok = bool(attached.get("success"))
+          except Exception as ex:
+              print("attach_exception", ex)
 
-          # Attach Workers custom domain
-          st, attached = call(
-              "PUT",
-              f"https://api.cloudflare.com/client/v4/accounts/{account}/workers/domains",
-              {
-                  "hostname": "app.certamaris.com",
-                  "service": "certamaris-app",
-                  "environment": "production",
-                  "zone_id": zone,
-              },
-          )
-          print("attach_success", attached.get("success"), attached.get("errors"), (attached.get("result") or {}).get("id"))
-          if not created.get("success") or not attached.get("success"):
-              raise SystemExit(1)
+          if not attach_ok:
+              st, created = call(
+                  "POST",
+                  f"https://api.cloudflare.com/client/v4/zones/{zone}/dns_records",
+                  {
+                      "type": "CNAME",
+                      "name": "app",
+                      "content": "certamaris-app.marinerx-capital.workers.dev",
+                      "proxied": True,
+                      "ttl": 1,
+                  },
+              )
+              print("create_success", created.get("success"), created.get("errors"), (created.get("result") or {}).get("id"))
+              if not created.get("success"):
+                  raise SystemExit(2)
+              st, attached = call(
+                  "PUT",
+                  f"https://api.cloudflare.com/client/v4/accounts/{account}/workers/domains",
+                  {
+                      "hostname": "app.certamaris.com",
+                      "service": "certamaris-app",
+                      "environment": "production",
+                      "zone_id": zone,
+                  },
+              )
+              print("attach_retry", attached.get("success"), attached.get("errors"))
+              if not attached.get("success"):
+                  print("WARN: DNS CNAME created; custom domain attach may still be pending")
+
           print("DONE")
           PY
