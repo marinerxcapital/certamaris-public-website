@@ -20,7 +20,7 @@ clearly labeled integration points.
 | Motion | Framer Motion 12, Vanta FOG, Three.js |
 | Fonts | Space Grotesk (display), Inter (body), IBM Plex Mono (data/labels) — via `next/font/google` |
 | Hosting target | Cloudflare Workers with static assets through `wrangler.jsonc` |
-| Node | 20+ (built and tested on 22) |
+| Node | 22+ |
 
 No CMS, no headless backend, no external UI kit. Content lives in typed
 files under `lib/`, making it trivial to wire up a real CMS later without
@@ -291,6 +291,7 @@ three           0.134.0
 vanta           0.5.24
 tailwindcss     3.4.17  (dev)
 typescript      5.7.3   (dev)
+wrangler        4.114.0 (dev)
 ```
 
 Minimal by design — no UI kit, no animation library beyond framer-motion,

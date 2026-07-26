@@ -18,11 +18,12 @@ Additional completed work:
 - Added root-mounted `components/SiteBackground.tsx` with supplied image layer plus `VANTA.FOG`.
 - Pinned `vanta@0.5.24`, `three@0.134.0`, and `@types/three@0.134.0`.
 - Added `types/vanta.d.ts`.
+- Pinned `wrangler@4.114.0` as a dev dependency so GitHub Actions uses the repository CLI instead of fetching an unpinned latest Wrangler release.
 - Strengthened hero-copy scrim and darkened the hero eyebrow context to preserve contrast over the rendered composite.
 - Disabled the Vanta canvas under `prefers-reduced-motion: reduce`, below 768px, and when the document is hidden.
 - Added `/bg/*` to the Cloudflare Worker stable-asset cache classification.
 - Patched production dependencies: `next@16.2.12`, `postcss@8.5.23`, and npm overrides for `postcss@8.5.23` and `sharp@0.35.3`.
-- Changed `wrangler.jsonc` compatibility date to `2026-07-08` after `wrangler check startup` showed Wrangler 4.107's profiler did not support `2026-07-25`.
+- Kept `wrangler.jsonc` compatibility date at `2026-07-08`, which passed startup analysis with pinned `wrangler@4.114.0`.
 - Added `.github/workflows/ci-deploy.yml`.
 - Set GitHub repository secret `CLOUDFLARE_ACCOUNT_ID`.
 
@@ -254,7 +255,7 @@ Verification after the WebP/Vanta update:
 - `npm.cmd run typecheck`: PASS.
 - `npm.cmd run build:static`: PASS.
 - `wrangler.cmd deploy --config wrangler.jsonc --dry-run --keep-vars`: PASS.
-- `wrangler.cmd check startup --config wrangler.jsonc`: PASS after setting `compatibility_date` to `2026-07-08`, the newest date supported by the installed Wrangler/workerd binary.
+- `npx.cmd wrangler check startup --config wrangler.jsonc`: PASS with pinned `wrangler@4.114.0`.
 - `wrangler.cmd deploy --config wrangler.jsonc --keep-vars`: PASS. Production Worker version `b8ec7f7e-2013-441f-98fa-2d1ca0a4e0ac`.
 - `https://certamaris.com/bg/hero-flow-1920.webp`, `hero-flow-1280.webp`, and `hero-flow-800.webp`: PASS, HTTP 200 with one-week cache and security headers.
 - `https://certamaris.com`: PASS, HTTP 200, HTTPS, security headers.
