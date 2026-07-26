@@ -34,6 +34,10 @@ const config: Config = {
         critical: "#B3261E",
         criticalBg: "#FBEAE9",
       },
+      brass: {
+        DEFAULT: "#B8823A",
+        soft: "rgba(184,130,58,0.32)",
+      },
     },
     extend: {
       fontFamily: {

@@ -15,6 +15,8 @@
   --accent-ocean-cta: #1478b8;
   --accent-ocean-light: #4fade0;
   --accent-wash: #e7f3fb;
+  --accent-brass: #b8823a;
+  --accent-brass-soft: rgba(184, 130, 58, 0.32);
   --status-ok: #147a4c;
   --status-ok-bg: #e7f5ec;
   --status-caution: #b4740a;
@@ -243,6 +245,20 @@ textarea:focus-visible,
   object-fit: cover;
   object-position: 62% 45%;
   transition: opacity 0.4s ease;
+  filter: contrast(1.07) saturate(1.1);
+}
+
+.hero-glow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    640px circle at 84% 16%,
+    var(--accent-brass-soft) 0%,
+    rgba(184, 130, 58, 0) 62%
+  );
+  mix-blend-mode: multiply;
 }
 
 .hero-video-scrim {

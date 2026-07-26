@@ -49,10 +49,13 @@ export default function HomePage() {
       {/* HERO */}
       <section className="hero-section" aria-labelledby="hero-title">
         <HeroVideo />
-        <div className="shell relative z-10 py-24">
+        <div className="shell relative z-10 py-28 sm:py-32">
           <div className="hero-copy-block max-w-2xl">
             <Eyebrow>Maritime cyber compliance &amp; assurance</Eyebrow>
-            <h1 id="hero-title" className="text-[40px] sm:text-[52px] lg:text-[60px] leading-[1.04] mb-6">
+            <h1
+              id="hero-title"
+              className="text-[46px] sm:text-[68px] lg:text-[84px] leading-[0.98] tracking-[-0.02em] mb-8"
+            >
               Cyber compliance your fleet can prove.
             </h1>
             <p className="text-[17px] sm:text-[18px] text-navy/80 max-w-xl mb-9 leading-relaxed">
@@ -70,14 +73,18 @@ export default function HomePage() {
       </section>
 
       {/* TRUST / CONTEXT RAIL */}
-      <div className="bg-navy text-white/85">
-        <div className="shell py-4 flex flex-wrap items-center gap-x-8 gap-y-2 text-[13px] font-mono">
-          <span className="text-white/50 uppercase tracking-[0.1em]">Regulatory context</span>
-          <span>IMO Res. MSC.428(98) → ISM Code integration</span>
-          <span className="text-white/30">·</span>
-          <span>IACS UR E26 — Cyber Resilience of Ships</span>
-          <span className="text-white/30">·</span>
-          <span>IACS UR E27 — On-board Systems &amp; Equipment</span>
+      <div className="bg-paper hairline-b hairline-top">
+        <div className="shell py-5 flex flex-wrap items-center gap-3">
+          <span className="font-mono text-[12px] uppercase tracking-[0.1em] text-structural mr-2">Regulatory context</span>
+          <span className="inline-flex items-center rounded-full border border-ocean/25 bg-white px-3.5 py-1.5 text-[13px] font-mono text-navy">
+            IMO Res. MSC.428(98) → ISM Code integration
+          </span>
+          <span className="inline-flex items-center rounded-full border border-ocean/25 bg-white px-3.5 py-1.5 text-[13px] font-mono text-navy">
+            IACS UR E26 — Cyber Resilience of Ships
+          </span>
+          <span className="inline-flex items-center rounded-full border border-ocean/25 bg-white px-3.5 py-1.5 text-[13px] font-mono text-navy">
+            IACS UR E27 — On-board Systems &amp; Equipment
+          </span>
         </div>
       </div>
 

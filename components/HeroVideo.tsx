@@ -56,6 +56,7 @@ export function HeroVideo() {
           <source src="/video/hero-fog.mp4" type="video/mp4" />
         </video>
       )}
+      <div className="hero-glow" />
       <div className="hero-video-scrim" />
     </div>
   );
