@@ -9,7 +9,7 @@ The missing `hero-flow-1920.webp`, `hero-flow-1280.webp`, and `hero-flow-800.web
 Current production deployment:
 
 - Cloudflare Worker `certamaris-site`
-- Final Worker version `b8ec7f7e-2013-441f-98fa-2d1ca0a4e0ac`
+- Final Worker version `eb5094df-decc-4d99-be6d-71b340ebbc5f`
 - Domains verified: `https://certamaris.com` and `https://www.certamaris.com`
 
 Additional completed work:
@@ -256,7 +256,7 @@ Verification after the WebP/Vanta update:
 - `npm.cmd run build:static`: PASS.
 - `wrangler.cmd deploy --config wrangler.jsonc --dry-run --keep-vars`: PASS.
 - `npx.cmd wrangler check startup --config wrangler.jsonc`: PASS with pinned `wrangler@4.114.0`.
-- `wrangler.cmd deploy --config wrangler.jsonc --keep-vars`: PASS. Production Worker version `b8ec7f7e-2013-441f-98fa-2d1ca0a4e0ac`.
+- `npx.cmd wrangler deploy --config wrangler.jsonc --keep-vars`: PASS from pushed `main` checkout. Production Worker version `eb5094df-decc-4d99-be6d-71b340ebbc5f`.
 - `https://certamaris.com/bg/hero-flow-1920.webp`, `hero-flow-1280.webp`, and `hero-flow-800.webp`: PASS, HTTP 200 with one-week cache and security headers.
 - `https://certamaris.com`: PASS, HTTP 200, HTTPS, security headers.
 - `https://www.certamaris.com`: PASS, HTTP 301 to `https://certamaris.com`.
