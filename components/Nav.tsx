@@ -38,7 +38,13 @@ export function Nav() {
 
   const navLinkClass = (active: boolean) =>
     `px-4 py-2 rounded-full text-[15px] font-medium transition-colors ${
-      active ? "bg-ocean/10 text-ocean" : "text-navy hover:text-ocean"
+      // Opaque wash + navy text (not translucent ocean/10 + ocean text): the
+      // floating nav sits over the hero photo when unscrolled, and a
+      // translucent tint's effective contrast depends on whatever photo
+      // region is behind it. Measured worst case for the previous
+      // combination (dark photo region under bg-white/80 backdrop-blur)
+      // was ~3:1, failing AA. This pairing holds ~12.9:1 regardless of backdrop.
+      active ? "bg-ocean-wash text-navy" : "text-navy hover:text-ocean"
     }`;
 
   return (

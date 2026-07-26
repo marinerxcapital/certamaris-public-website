@@ -327,6 +327,17 @@ textarea:focus-visible,
     object-position: 78% 42%;
   }
 
+  /* Glow position is a % of viewport width — on a narrow viewport, 84%
+     puts its visible edge near the left side where the text sits.
+     Shrink and push it further into the corner so it stays clear. */
+  .hero-glow {
+    background: radial-gradient(
+      280px circle at 94% 6%,
+      var(--accent-brass-soft) 0%,
+      rgba(184, 130, 58, 0) 62%
+    );
+  }
+
   .hero-video-scrim {
     background: linear-gradient(
       180deg,
