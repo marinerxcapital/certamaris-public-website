@@ -15,7 +15,7 @@ jobs:
         run: |
           set -euo pipefail
           python3 <<'PY'
-          import json, os, urllib.request
+          import json, os, urllib.error, urllib.request
 
           token = os.environ["CLOUDFLARE_API_TOKEN"]
           account = os.environ["CLOUDFLARE_ACCOUNT_ID"]
@@ -25,19 +25,32 @@ jobs:
           def call(method, url, body=None):
               data = None if body is None else json.dumps(body).encode()
               req = urllib.request.Request(url, data=data, headers=headers, method=method)
-              with urllib.request.urlopen(req) as resp:
-                  return json.load(resp)
+              try:
+                  with urllib.request.urlopen(req) as resp:
+                      return resp.status, json.load(resp)
+              except urllib.error.HTTPError as e:
+                  err_body = e.read().decode("utf-8", errors="replace")
+                  print("HTTP_ERROR", method, url, e.code, err_body[:1000])
+                  raise
+
+          # Verify token
+          st, verify = call("GET", "https://api.cloudflare.com/client/v4/user/tokens/verify")
+          print("token_verify", st, verify.get("success"), verify.get("result", {}).get("status"))
+
+          # Verify zone access
+          st, z = call("GET", f"https://api.cloudflare.com/client/v4/zones/{zone}")
+          print("zone", st, z.get("success"), (z.get("result") or {}).get("name"), (z.get("result") or {}).get("status"))
 
           # List and delete existing app records
-          listed = call("GET", f"https://api.cloudflare.com/client/v4/zones/{zone}/dns_records?name=app.certamaris.com")
+          st, listed = call("GET", f"https://api.cloudflare.com/client/v4/zones/{zone}/dns_records?name=app.certamaris.com")
           print("list_success", listed.get("success"), "count", len(listed.get("result") or []))
           for rec in listed.get("result") or []:
               rid = rec["id"]
-              deleted = call("DELETE", f"https://api.cloudflare.com/client/v4/zones/{zone}/dns_records/{rid}")
+              st, deleted = call("DELETE", f"https://api.cloudflare.com/client/v4/zones/{zone}/dns_records/{rid}")
               print("deleted", rid, rec.get("type"), rec.get("content"), deleted.get("success"))
 
           # Create proxied CNAME to Worker
-          created = call(
+          st, created = call(
               "POST",
               f"https://api.cloudflare.com/client/v4/zones/{zone}/dns_records",
               {
@@ -48,10 +61,10 @@ jobs:
                   "ttl": 1,
               },
           )
-          print("create_success", created.get("success"), created.get("errors"), created.get("result", {}).get("id"))
+          print("create_success", created.get("success"), created.get("errors"), (created.get("result") or {}).get("id"))
 
           # Attach Workers custom domain
-          attached = call(
+          st, attached = call(
               "PUT",
               f"https://api.cloudflare.com/client/v4/accounts/{account}/workers/domains",
               {
@@ -61,7 +74,7 @@ jobs:
                   "zone_id": zone,
               },
           )
-          print("attach_success", attached.get("success"), attached.get("errors"), attached.get("result", {}).get("id"))
+          print("attach_success", attached.get("success"), attached.get("errors"), (attached.get("result") or {}).get("id"))
           if not created.get("success") or not attached.get("success"):
               raise SystemExit(1)
           print("DONE")
