@@ -8,16 +8,15 @@ type VantaEffect = {
   resize?: () => void;
 };
 
-type VantaFogFactory = (options: {
+type VantaNetFactory = (options: {
   el: HTMLElement;
   THREE: typeof ThreeNamespace;
-  highlightColor: number;
-  midtoneColor: number;
-  lowlightColor: number;
-  baseColor: number;
-  blurFactor: number;
-  speed: number;
-  zoom: number;
+  color: number;
+  backgroundColor: number;
+  points: number;
+  maxDistance: number;
+  spacing: number;
+  showDots: boolean;
   mouseControls: boolean;
   touchControls: boolean;
   gyroControls: boolean;
@@ -26,11 +25,11 @@ type VantaFogFactory = (options: {
 }) => VantaEffect;
 
 export function SiteBackground() {
-  const fogRef = useRef<HTMLDivElement>(null);
+  const netRef = useRef<HTMLDivElement>(null);
   const effectRef = useRef<VantaEffect | null>(null);
   const [canAnimate, setCanAnimate] = useState(false);
 
-  const destroyFog = useCallback(() => {
+  const destroyNet = useCallback(() => {
     effectRef.current?.destroy();
     effectRef.current = null;
   }, []);
@@ -59,26 +58,25 @@ export function SiteBackground() {
     let cancelled = false;
     let startTimer: number | undefined;
 
-    if (!canAnimate || !fogRef.current) {
-      destroyFog();
+    if (!canAnimate || !netRef.current) {
+      destroyNet();
       return undefined;
     }
 
     startTimer = window.setTimeout(() => {
-      Promise.all([import("three"), import("vanta/dist/vanta.fog.min")])
+      Promise.all([import("three"), import("vanta/dist/vanta.net.min")])
         .then(([THREE, vantaModule]) => {
-          if (cancelled || !fogRef.current || effectRef.current) return;
-          const createFog = (vantaModule.default ?? vantaModule) as VantaFogFactory;
-          effectRef.current = createFog({
-            el: fogRef.current,
+          if (cancelled || !netRef.current || effectRef.current) return;
+          const createNet = (vantaModule.default ?? vantaModule) as VantaNetFactory;
+          effectRef.current = createNet({
+            el: netRef.current,
             THREE,
-            highlightColor: 0xeaf2f8,
-            midtoneColor: 0xcfe0ed,
-            lowlightColor: 0xa8c4da,
-            baseColor: 0xf5f8fa,
-            blurFactor: 0.62,
-            speed: 0.55,
-            zoom: 0.85,
+            color: 0x1c5f8f,
+            backgroundColor: 0xf5f8fa,
+            points: 8,
+            maxDistance: 22,
+            spacing: 18,
+            showDots: true,
             mouseControls: false,
             touchControls: false,
             gyroControls: false,
@@ -87,21 +85,21 @@ export function SiteBackground() {
           });
         })
         .catch(() => {
-          destroyFog();
+          destroyNet();
         });
     }, 180);
 
     return () => {
       cancelled = true;
       if (startTimer !== undefined) window.clearTimeout(startTimer);
-      destroyFog();
+      destroyNet();
     };
-  }, [canAnimate, destroyFog]);
+  }, [canAnimate, destroyNet]);
 
   return (
     <div className="site-background" aria-hidden="true">
       <div className="site-background-image" />
-      <div ref={fogRef} className="site-background-fog" />
+      <div ref={netRef} className="site-background-net" />
     </div>
   );
 }

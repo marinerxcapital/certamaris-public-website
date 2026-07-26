@@ -56,7 +56,7 @@ body {
 }
 
 .site-background-image,
-.site-background-fog {
+.site-background-net {
   position: absolute;
   inset: 0;
 }
@@ -69,10 +69,10 @@ body {
   background-repeat: no-repeat;
 }
 
-.site-background-fog {
+.site-background-net {
   z-index: 1;
-  opacity: 0.85;
-  mix-blend-mode: soft-light;
+  opacity: 0.55;
+  mix-blend-mode: normal;
 }
 
 .site-content {
@@ -205,7 +205,7 @@ textarea:focus-visible,
     opacity: 1 !important;
   }
 
-  .site-background-fog {
+  .site-background-net {
     display: none !important;
   }
 }
@@ -281,8 +281,8 @@ textarea:focus-visible,
   pointer-events: none;
   background: linear-gradient(
     90deg,
-    rgba(245, 248, 250, 0.96) 0%,
-    rgba(245, 248, 250, 0.9) 65%,
+    rgba(245, 248, 250, 0.97) 0%,
+    rgba(245, 248, 250, 0.9) 62%,
     rgba(245, 248, 250, 0) 100%
   );
 }
@@ -302,7 +302,7 @@ textarea:focus-visible,
     background-image: url("/bg/hero-flow-800.webp");
   }
 
-  .site-background-fog {
+  .site-background-net {
     display: none;
   }
 

@@ -1,4 +1,4 @@
-declare module "vanta/dist/vanta.fog.min" {
-  const createFog: unknown;
-  export default createFog;
+declare module "vanta/dist/vanta.net.min" {
+  const createNet: unknown;
+  export default createNet;
 }
