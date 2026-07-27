@@ -2,6 +2,7 @@ import { Button } from "@/components/Button";
 import { PageHero } from "@/components/PageHero";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
+import { PRIMARY_CTA_LABEL } from "@/lib/constants";
 import { pageMetadata } from "@/lib/metadata";
 import { industries } from "@/lib/solutions-industries";
 
@@ -32,13 +33,13 @@ export default function IndustriesPage() {
       </nav>
 
       {industries.map((item, index) => (
-        <Section key={item.id} id={item.id} surface={index % 2 ? "paper" : "page"}>
+        <Section key={item.id} id={item.id} surface={index % 2 ? "paper" : "page"} spacing="compact">
           <div className="grid lg:grid-cols-[1fr_1.1fr] gap-14">
             <Reveal>
               <Eyebrow>{item.eyebrow}</Eyebrow>
               <h2 className="text-[27px] sm:text-[32px] leading-[1.15] mb-4">{item.headline}</h2>
               <Button href="/contact" variant="secondary" className="mt-2">
-                Talk to our team
+                {PRIMARY_CTA_LABEL}
               </Button>
             </Reveal>
             <Reveal delay={0.06}>

@@ -10,6 +10,7 @@ import { ProductScreenFrame, ProductScreenTile } from "@/components/ProductScree
 import { Reveal, RevealGroup } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
 import { StatusBadge } from "@/components/StatusBadge";
+import { PRIMARY_CTA_LABEL, SECONDARY_CTA_LABEL } from "@/lib/constants";
 import { capabilityPillars, personas, processSteps } from "@/lib/content";
 
 const productScreens = [
@@ -63,9 +64,9 @@ export default function HomePage() {
               IACS UR E26/E27 — so readiness is a standing state, not a scramble before survey.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Button href="/contact">Book a demo</Button>
+              <Button href="/contact">{PRIMARY_CTA_LABEL}</Button>
               <Button href="/platform" variant="secondary">
-                Explore the platform
+                {SECONDARY_CTA_LABEL}
               </Button>
             </div>
           </div>
@@ -163,7 +164,7 @@ export default function HomePage() {
             The site should show the system operators actually use.
           </h2>
         </Reveal>
-        <RevealGroup className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6" stagger={0.05}>
+        <RevealGroup className="grid sm:grid-cols-2 gap-6" stagger={0.05}>
           {productScreens.map((screen) => (
             <ProductScreenTile key={screen.src} {...screen} />
           ))}
@@ -229,7 +230,7 @@ export default function HomePage() {
             </p>
           </Reveal>
           <Reveal delay={0.08}>
-            <Button href="/contact">Book a demo</Button>
+            <Button href="/contact">{PRIMARY_CTA_LABEL}</Button>
           </Reveal>
         </div>
       </Section>

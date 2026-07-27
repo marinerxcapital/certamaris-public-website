@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { BrandLogo } from "@/components/BrandLogo";
 import { Button } from "@/components/Button";
-import { NAV_GROUPS, APP_SIGN_IN_URL, APP_GET_STARTED_URL } from "@/lib/constants";
+import { NAV_GROUPS, APP_SIGN_IN_URL, APP_GET_STARTED_URL, PRIMARY_CTA_LABEL, SECONDARY_CTA_LABEL } from "@/lib/constants";
 
 export function Nav() {
   const path = usePathname();
@@ -46,6 +46,9 @@ export function Nav() {
       // was ~3:1, failing AA. This pairing holds ~12.9:1 regardless of backdrop.
       active ? "bg-ocean-wash text-navy" : "text-navy hover:text-ocean"
     }`;
+  const mobileLinks = Array.from(
+    new Map([...NAV_GROUPS.flatMap((g) => g.links), ["Contact", "/contact"] as [string, string]].map(([label, href]) => [href, [label, href] as [string, string]])).values()
+  );
 
   return (
     <header className="sticky top-3 sm:top-4 z-50 px-3 sm:px-4">
@@ -119,7 +122,7 @@ export function Nav() {
               className="inline-flex items-center rounded-full bg-navy px-5 py-2.5 text-[15px] font-semibold text-white hover:bg-[#0e3a68] transition-colors"
               data-integration-point="get-started"
             >
-              Get started
+              {PRIMARY_CTA_LABEL}
             </a>
           </div>
 
@@ -141,26 +144,20 @@ export function Nav() {
               className="lg:hidden absolute left-0 right-0 top-full mt-3 rounded-2xl border border-structural/10 bg-white shadow-card"
             >
               <div className="py-6 px-6 flex flex-col gap-1">
-                {NAV_GROUPS.flatMap((g) => g.links).map(([label, href]) => (
+                {mobileLinks.map(([label, href]) => (
                   <Link key={href} href={href} className="py-2.5 text-[16px] font-medium text-navy hairline-b">
                     {label}
                   </Link>
                 ))}
-                <Link href="/pricing" className="py-2.5 text-[16px] font-medium text-navy hairline-b">
-                  Pricing
-                </Link>
-                <Link href="/contact" className="py-2.5 text-[16px] font-medium text-navy">
-                  Contact
-                </Link>
                 <div className="flex flex-col gap-3 mt-4">
                   <a href={APP_SIGN_IN_URL} className="text-center py-2.5 text-[15px] font-medium border border-navy/20 rounded-full" data-integration-point="sign-in">
                     Sign in
                   </a>
                   <a href={APP_GET_STARTED_URL} className="text-center py-2.5 text-[15px] font-semibold bg-navy text-white rounded-full" data-integration-point="get-started">
-                    Get started
+                    {PRIMARY_CTA_LABEL}
                   </a>
-                  <Button href="/contact" variant="secondary" className="justify-center rounded-full">
-                    Book a demo
+                  <Button href="/platform" variant="secondary" className="justify-center rounded-full">
+                    {SECONDARY_CTA_LABEL}
                   </Button>
                 </div>
               </div>

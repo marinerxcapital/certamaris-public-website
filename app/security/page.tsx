@@ -8,7 +8,7 @@ import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata(
   "Security & Trust",
-  "How CertaMaris handles data, access control, and tenant isolation — with current, planned, and configurable controls stated plainly.",
+  "How CertaMaris handles data, access control, and tenant isolation, with current and configurable controls stated plainly.",
   "/security"
 );
 
@@ -21,11 +21,11 @@ const controls: ControlItem[] = [
   { title: "Encryption at rest", body: "Stored data is encrypted at rest using the hosting provider's managed encryption capabilities.", status: "ok" },
   { title: "Audit history", body: "Evidence, findings, and plan changes retain a version and reviewer history rather than overwriting prior state.", status: "ok" },
   { title: "Environment separation", body: "Development, staging, and production environments are kept separate, with production data excluded from lower environments.", status: "ok" },
-  { title: "Formal third-party certification (e.g., SOC 2, ISO 27001)", body: "Not yet completed. This is a planned control; specific certification targets and timelines will be published here once confirmed, not before.", status: "pending" },
+  { title: "Formal third-party certification (e.g., SOC 2, ISO 27001)", body: "Formal third-party certification is not claimed on this website. If certification is completed, the certificate scope and dates will be published with the same specificity as other controls.", status: "pending" },
   { title: "Single sign-on (SSO) and SCIM provisioning", body: "Configurable for enterprise customers as part of onboarding; availability depends on plan and identity provider.", status: "caution" },
   { title: "Incident response process", body: "A documented internal incident response process exists for the application; customer-facing incident notification terms are defined per contract.", status: "ok" },
-  { title: "Subprocessor transparency", body: "A current subprocessor list is maintained and available on request; a public subprocessor register is planned.", status: "pending" },
-  { title: "Data retention configuration", body: "Retention periods for evidence, logs, and account data are configurable per contract and will be documented in full ahead of general availability.", status: "pending" },
+  { title: "Subprocessor transparency", body: "A current subprocessor list is maintained and available on request for active procurement and customer review.", status: "caution" },
+  { title: "Data retention configuration", body: "Retention periods for evidence, logs, and account data are defined by customer agreement and implementation scope.", status: "caution" },
 ];
 
 export default function SecurityPage() {
@@ -34,8 +34,8 @@ export default function SecurityPage() {
       <PageHero
         emphasis="elevated"
         eyebrow="Security & Trust"
-        title="What's implemented, what's planned, and what's configurable — stated plainly."
-        intro="We'd rather tell you exactly where a control stands today than round up. This page is updated as the platform matures toward general availability."
+        title="What's implemented, what's configurable, and what's not claimed."
+        intro="Security pages lose credibility when they round up. This page separates implemented platform controls from configurable customer terms and controls not claimed on this website."
       />
 
       <Section>
@@ -52,7 +52,7 @@ export default function SecurityPage() {
             <div className="flex flex-wrap gap-2">
               <StatusBadge status="ok" label="Implemented control" />
               <StatusBadge status="caution" label="Known exception tracked" />
-              <StatusBadge status="pending" label="Evidence reviewed" />
+              <StatusBadge status="pending" label="Not claimed" />
             </div>
           </Reveal>
           <Reveal delay={0.08}>
@@ -66,7 +66,7 @@ export default function SecurityPage() {
         </div>
       </Section>
 
-      <Section surface="paper">
+      <Section surface="paper" spacing="compact">
         <Reveal className="max-w-2xl mb-12">
           <Eyebrow>Trust evidence</Eyebrow>
           <h2 className="text-[28px] sm:text-[34px] leading-[1.14]">
@@ -91,7 +91,7 @@ export default function SecurityPage() {
         </div>
       </Section>
 
-      <Section>
+      <Section spacing="compact">
         <Reveal className="max-w-2xl mb-10">
           <Eyebrow>Control status</Eyebrow>
           <h2 className="text-[28px] sm:text-[34px] leading-[1.14]">Platform security commitments.</h2>
@@ -106,7 +106,7 @@ export default function SecurityPage() {
                 </div>
                 <StatusBadge
                   status={item.status}
-                  label={item.status === "ok" ? "Current" : item.status === "caution" ? "Configurable" : "Planned"}
+                  label={item.status === "ok" ? "Current" : item.status === "caution" ? "Configurable" : "Not claimed"}
                 />
               </div>
             </Reveal>
@@ -114,7 +114,7 @@ export default function SecurityPage() {
         </div>
       </Section>
 
-      <Section surface="paper">
+      <Section surface="paper" spacing="compact">
         <Reveal className="max-w-2xl">
           <Eyebrow>Customer responsibilities</Eyebrow>
           <h2 className="text-[26px] leading-[1.16] mb-4">Security is shared, not outsourced.</h2>
@@ -130,7 +130,7 @@ export default function SecurityPage() {
         </Reveal>
       </Section>
 
-      <Section>
+      <Section spacing="tight">
         <Reveal>
           <BoundaryPanel className="max-w-3xl" />
         </Reveal>

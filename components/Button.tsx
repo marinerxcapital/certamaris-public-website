@@ -10,7 +10,7 @@ type ButtonProps = {
 };
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-sm px-6 py-3 text-[15px] font-semibold transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-ocean";
+  "inline-flex items-center justify-center gap-2 rounded-md px-6 py-3 text-[15px] font-semibold transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-ocean";
 
 const variants: Record<NonNullable<ButtonProps["variant"]>, string> = {
   primary: "bg-[#1478B8] text-white hover:bg-[#0f639a]",

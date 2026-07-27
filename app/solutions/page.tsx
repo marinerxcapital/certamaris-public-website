@@ -3,6 +3,7 @@ import { PageHero } from "@/components/PageHero";
 import { ProductScreenFrame, ProductScreenTile } from "@/components/ProductScreens";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
+import { PRIMARY_CTA_LABEL } from "@/lib/constants";
 import { pageMetadata } from "@/lib/metadata";
 import { solutions } from "@/lib/solutions-industries";
 
@@ -83,7 +84,7 @@ export default function SolutionsPage() {
               sufficiency, findings, corrective action ownership, and board reporting live inside CertaMaris.
             </p>
           </Reveal>
-          <Reveal delay={0.08} className="grid sm:grid-cols-3 gap-5">
+          <Reveal delay={0.08} className="grid sm:grid-cols-2 gap-5">
             {featuredScreens.map((screen) => (
               <ProductScreenTile
                 key={screen.src}
@@ -99,13 +100,13 @@ export default function SolutionsPage() {
       </Section>
 
       {solutions.map((item, index) => (
-        <Section key={item.id} id={item.id} surface={index % 2 ? "paper" : "page"}>
+        <Section key={item.id} id={item.id} surface={index % 2 ? "paper" : "page"} spacing="compact">
           <div className="grid lg:grid-cols-[0.85fr_1.15fr] gap-14 items-start">
             <Reveal>
               <Eyebrow>{item.eyebrow}</Eyebrow>
               <h2 className="text-[27px] sm:text-[32px] leading-[1.15] mb-4">{item.headline}</h2>
               <Button href="/contact" variant="secondary" className="mt-2">
-                Discuss this for your fleet
+                {PRIMARY_CTA_LABEL}
               </Button>
             </Reveal>
             <Reveal delay={0.06}>

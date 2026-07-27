@@ -24,7 +24,7 @@ export function ProductScreenFrame({
 
   return (
     <figure
-      className={`overflow-hidden rounded-sm border bg-white shadow-card ${className}`}
+      className={`overflow-hidden rounded-md border bg-white shadow-card ${className}`}
       style={{ borderColor: "var(--hairline-strong)" }}
     >
       <div
@@ -61,7 +61,7 @@ export function ProductScreenFrame({
 export function ProductScreenTile({ title, body, ...screen }: ProductScreenTileProps) {
   return (
     <article className="grid gap-4">
-      <ProductScreenFrame sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw" {...screen} />
+      <ProductScreenFrame sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 45vw, (min-width: 640px) 50vw, 100vw" {...screen} />
       <div>
         <h3 className="mb-1.5 text-[15px] font-semibold">{title}</h3>
         <p className="text-[13.5px] leading-relaxed text-structural">{body}</p>

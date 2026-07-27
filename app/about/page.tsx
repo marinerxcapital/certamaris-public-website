@@ -2,6 +2,7 @@ import { Button } from "@/components/Button";
 import { PageHero } from "@/components/PageHero";
 import { Reveal, RevealGroup } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
+import { PRIMARY_CTA_LABEL } from "@/lib/constants";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata(
@@ -50,9 +51,9 @@ export default function AboutPage() {
             <h2 className="text-[27px] sm:text-[32px] leading-[1.16] mb-5">Grounded in maritime operations.</h2>
             <p className="text-[15.5px] text-structural leading-relaxed">
               CertaMaris's product direction is informed by hands-on U.S. merchant-marine deck operations and formal
-              marine transportation training — not a purely software-first read of maritime regulation. Specific
-              leadership credentials and organizational details are being finalized ahead of public launch and will
-              be published here once confirmed.
+              marine transportation training, not a purely software-first read of maritime regulation. The public
+              site keeps personal biographies and corporate particulars limited until they can be stated with the
+              same precision as the platform's regulatory boundaries.
             </p>
           </Reveal>
         </div>
@@ -82,7 +83,7 @@ export default function AboutPage() {
             </p>
           </Reveal>
           <Reveal delay={0.06}>
-            <Button href="/contact">Book a demo</Button>
+            <Button href="/contact">{PRIMARY_CTA_LABEL}</Button>
           </Reveal>
         </div>
       </Section>

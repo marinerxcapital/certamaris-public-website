@@ -54,9 +54,11 @@ function rewriteRscRequest(request: Request): Request {
   const url = new URL(request.url);
   if (!url.searchParams.has("_rsc")) return request;
 
-  const match = url.pathname.match(/^\/([^/]+)\/__next\.([^.]+)\.__PAGE__\.txt$/);
-  if (match && match[1] === match[2]) {
-    url.pathname = `/${match[1]}/__next.${match[1]}/__PAGE__.txt`;
+  const marker = "/__next.";
+  const markerIndex = url.pathname.indexOf(marker);
+  if (markerIndex > 0 && url.pathname.endsWith(".txt")) {
+    const routePath = url.pathname.slice(0, markerIndex);
+    url.pathname = routePath === "/" ? "/index.txt" : `${routePath}.txt`;
     return new Request(url.toString(), request);
   }
 

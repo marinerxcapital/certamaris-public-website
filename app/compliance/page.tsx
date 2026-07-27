@@ -22,7 +22,7 @@ export default function CompliancePage() {
         intro="This page gives an operational overview of the requirements CertaMaris helps structure work around. It is not legal or regulatory advice — read it alongside the official source text."
       />
 
-      <Section>
+      <Section spacing="compact">
         <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-14 items-center">
           <Reveal>
             <Eyebrow>In the product</Eyebrow>
@@ -73,7 +73,7 @@ export default function CompliancePage() {
         </div>
       </Section>
 
-      <Section surface="paper">
+      <Section surface="paper" spacing="compact">
         <div className="grid lg:grid-cols-[280px_1fr] gap-14">
           <Reveal>
             <Eyebrow>02</Eyebrow>
@@ -98,7 +98,7 @@ export default function CompliancePage() {
         </div>
       </Section>
 
-      <Section>
+      <Section spacing="compact">
         <div className="grid lg:grid-cols-[280px_1fr] gap-14">
           <Reveal>
             <Eyebrow>03</Eyebrow>
@@ -118,7 +118,7 @@ export default function CompliancePage() {
         </div>
       </Section>
 
-      <Section surface="paper">
+      <Section surface="paper" spacing="compact">
         <div className="grid lg:grid-cols-[280px_1fr] gap-14">
           <Reveal>
             <Eyebrow>04</Eyebrow>
@@ -138,7 +138,7 @@ export default function CompliancePage() {
         </div>
       </Section>
 
-      <Section surface="paper">
+      <Section surface="paper" spacing="compact">
         <Reveal className="max-w-2xl mb-12">
           <Eyebrow>Operational proof</Eyebrow>
           <h2 className="text-[28px] sm:text-[34px] leading-[1.14]">
@@ -163,7 +163,7 @@ export default function CompliancePage() {
         </div>
       </Section>
 
-      <Section>
+      <Section spacing="tight">
         <Reveal>
           <BoundaryPanel className="max-w-3xl" />
         </Reveal>

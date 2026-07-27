@@ -7,7 +7,7 @@ export const metadata = pageMetadata("Accessibility", "The CertaMaris accessibil
 export default function AccessibilityPage() {
   return (
     <>
-      <PageHero eyebrow="Legal" title="Accessibility Statement" intro="Last updated: to be set at publication." />
+      <PageHero eyebrow="Legal" title="Accessibility Statement" intro="Current website accessibility statement." />
       <Section>
         <div className="max-w-2xl space-y-8 text-[15px] text-navy/85 leading-relaxed">
           <div>
@@ -29,8 +29,8 @@ export default function AccessibilityPage() {
           <div>
             <h2 className="text-[19px] font-semibold mb-2">Known limitations</h2>
             <p>
-              We are not aware of any outstanding accessibility barriers at time of publication. If you encounter
-              one, we want to know about it.
+              We review public pages for keyboard access, heading structure, contrast, reduced-motion behavior, and
+              responsive readability. If you encounter a barrier, we want to know about it.
             </p>
           </div>
           <div>

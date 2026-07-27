@@ -2,6 +2,7 @@ import { Button } from "@/components/Button";
 import { PageHero } from "@/components/PageHero";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
+import { PRIMARY_CTA_LABEL } from "@/lib/constants";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata(
@@ -44,13 +45,13 @@ export default function PricingPage() {
           </Reveal>
           <Reveal delay={0.08}>
             <div className="border rounded-sm p-8 bg-paper" style={{ borderColor: "var(--hairline-strong)" }}>
-              <p className="font-mono text-[12px] uppercase tracking-[0.1em] text-ocean mb-3">Request a quote</p>
+              <p className="font-mono text-[12px] uppercase tracking-[0.1em] text-ocean mb-3">Scope a proposal</p>
               <h3 className="text-[22px] font-semibold mb-3">Tell us about your fleet.</h3>
               <p className="text-[14.5px] text-structural leading-relaxed mb-6">
-                A short conversation is usually enough to scope a fixed proposal — no lengthy procurement process
+                A short readiness call is usually enough to scope a fixed proposal, with no lengthy procurement process
                 required to get a real number.
               </p>
-              <Button href="/contact">Request pricing</Button>
+              <Button href="/contact">{PRIMARY_CTA_LABEL}</Button>
             </div>
           </Reveal>
         </div>

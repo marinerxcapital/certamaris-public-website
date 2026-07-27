@@ -7,7 +7,7 @@ export const metadata = pageMetadata("Privacy Policy", "How CertaMaris collects,
 export default function PrivacyPage() {
   return (
     <>
-      <PageHero eyebrow="Legal" title="Privacy Policy" intro="Last updated: to be set at publication." />
+      <PageHero eyebrow="Legal" title="Privacy Policy" intro="Current website policy." />
       <Section>
         <div className="max-w-2xl space-y-8 text-[15px] text-navy/85 leading-relaxed">
           <div>
@@ -33,15 +33,15 @@ export default function PrivacyPage() {
             <p>
               Inquiry and contact-form data is retained for as long as reasonably necessary to respond to your
               inquiry and maintain a business record of the interaction. Specific retention periods by data
-              category are being finalized and will be published here before general availability.
+              category may vary by inquiry type, applicable agreement, and legal requirement.
             </p>
           </div>
           <div>
             <h2 className="text-[19px] font-semibold mb-2">4. Cookies and analytics</h2>
             <p>
               This website may use cookies or similar technologies for basic functionality and, where enabled,
-              privacy-conscious analytics to understand aggregate site usage. Any analytics provider in use, along
-              with its data retention terms, will be disclosed here once finalized.
+              privacy-conscious analytics to understand aggregate site usage. Analytics tooling is reviewed for
+              business necessity, access control, and retention before use.
             </p>
           </div>
           <div>
@@ -55,8 +55,8 @@ export default function PrivacyPage() {
             <h2 className="text-[19px] font-semibold mb-2">6. Contact</h2>
             <p>
               Questions about this policy can be directed to <span className="font-medium">privacy@certamaris.com</span>.
-              The controlling legal entity name and registered address for CertaMaris will be published here
-              ahead of general availability, pending final confirmation.
+              Do not include passwords, credentials, vessel-security details, or other sensitive operational
+              information in a website contact request.
             </p>
           </div>
         </div>

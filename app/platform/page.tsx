@@ -6,8 +6,9 @@ import { ProcessStepList } from "@/components/ProcessStepList";
 import { ProductScreenFrame, ProductScreenTile } from "@/components/ProductScreens";
 import { Reveal, RevealGroup } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
-import { pageMetadata } from "@/lib/metadata";
+import { PRIMARY_CTA_LABEL } from "@/lib/constants";
 import { capabilityPillars, processSteps } from "@/lib/content";
+import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata(
   "Platform",
@@ -78,7 +79,7 @@ export default function PlatformPage() {
         </RevealGroup>
       </Section>
 
-      <Section id="trace-chain" surface="paper">
+      <Section id="trace-chain" surface="paper" spacing="compact">
         <div className="grid lg:grid-cols-2 gap-14 items-center">
           <Reveal>
             <Eyebrow>How the pieces connect</Eyebrow>
@@ -102,7 +103,7 @@ export default function PlatformPage() {
         </div>
       </Section>
 
-      <Section>
+      <Section spacing="compact">
         <Reveal className="max-w-2xl mb-12">
           <Eyebrow>Work products</Eyebrow>
           <h2 className="text-[28px] sm:text-[34px] leading-[1.14]">Concrete artifacts, not vague dashboards.</h2>
@@ -117,7 +118,7 @@ export default function PlatformPage() {
         </RevealGroup>
       </Section>
 
-      <Section id="operational-screens" surface="paper">
+      <Section id="operational-screens" surface="paper" spacing="compact">
         <Reveal className="max-w-2xl mb-12">
           <Eyebrow>Operational screens</Eyebrow>
           <h2 className="text-[28px] sm:text-[34px] leading-[1.14]">The record becomes usable operating rhythm.</h2>
@@ -129,7 +130,7 @@ export default function PlatformPage() {
         </RevealGroup>
       </Section>
 
-      <Section>
+      <Section spacing="compact">
         <Reveal className="max-w-2xl mb-12">
           <Eyebrow>Process</Eyebrow>
           <h2 className="text-[28px] sm:text-[34px] leading-[1.14]">From scope to continuous readiness.</h2>
@@ -139,12 +140,12 @@ export default function PlatformPage() {
         </Reveal>
       </Section>
 
-      <Section>
+      <Section spacing="tight">
         <Reveal>
           <BoundaryPanel className="max-w-3xl mb-8" />
         </Reveal>
         <Reveal delay={0.06}>
-          <Button href="/contact">Book a demo</Button>
+          <Button href="/contact">{PRIMARY_CTA_LABEL}</Button>
         </Reveal>
       </Section>
     </>

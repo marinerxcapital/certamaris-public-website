@@ -7,14 +7,14 @@ export const metadata = pageMetadata("Terms of Service", "The terms governing us
 export default function TermsPage() {
   return (
     <>
-      <PageHero eyebrow="Legal" title="Terms of Service" intro="Last updated: to be set at publication." />
+      <PageHero eyebrow="Legal" title="Terms of Service" intro="Current website terms." />
       <Section>
         <div className="max-w-2xl space-y-8 text-[15px] text-navy/85 leading-relaxed">
           <div>
             <h2 className="text-[19px] font-semibold mb-2">1. Scope of this website</h2>
             <p>
               This website provides information about the CertaMaris platform and enables prospective customers to
-              request a demo or contact our team. It does not itself provide compliance workflows — those are
+              request a readiness call or contact our team. It does not itself provide compliance workflows. Those are
               delivered through the authenticated CertaMaris application under a separate customer agreement.
             </p>
           </div>
@@ -49,10 +49,11 @@ export default function TermsPage() {
             </p>
           </div>
           <div>
-            <h2 className="text-[19px] font-semibold mb-2">6. Governing law</h2>
+            <h2 className="text-[19px] font-semibold mb-2">6. Customer agreements</h2>
             <p>
-              The governing law and venue for disputes arising from use of this website will be specified here
-              once the controlling legal entity and jurisdiction are finalized ahead of general availability.
+              If CertaMaris enters a customer agreement with you, that agreement controls the ordered services,
+              governing law, venue, data-processing terms, and order-specific obligations. This public website page
+              does not alter any signed agreement.
             </p>
           </div>
           <div>

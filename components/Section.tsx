@@ -4,19 +4,23 @@ export function Section({
   children,
   id,
   surface = "page",
+  spacing = "standard",
   className = "",
   as: Tag = "section",
 }: {
   children: ReactNode;
   id?: string;
   surface?: "page" | "paper" | "navy";
+  spacing?: "standard" | "compact" | "tight";
   className?: string;
   as?: ElementType;
 }) {
   const surfaceClass =
     surface === "paper" ? "bg-paper" : surface === "navy" ? "bg-navy text-white" : "bg-white";
+  const spacingClass =
+    spacing === "compact" ? "section-y-compact" : spacing === "tight" ? "section-y-tight" : "section-y";
   return (
-    <Tag id={id} className={`section-y ${surfaceClass} ${className}`}>
+    <Tag id={id} className={`${spacingClass} ${surfaceClass} ${className}`}>
       <div className="shell">{children}</div>
     </Tag>
   );
