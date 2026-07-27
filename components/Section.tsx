@@ -1,4 +1,4 @@
-import type { ElementType, ReactNode } from "react";
+import { createElement, type ElementType, type ReactNode } from "react";
 
 export function Section({
   children,
@@ -19,10 +19,10 @@ export function Section({
     surface === "paper" ? "bg-paper" : surface === "navy" ? "bg-navy text-white" : "bg-white";
   const spacingClass =
     spacing === "compact" ? "section-y-compact" : spacing === "tight" ? "section-y-tight" : "section-y";
-  return (
-    <Tag id={id} className={`${spacingClass} ${surfaceClass} ${className}`}>
-      <div className="shell">{children}</div>
-    </Tag>
+  return createElement(
+    Tag,
+    { id, className: `${spacingClass} ${surfaceClass} ${className}` },
+    <div className="shell">{children}</div>
   );
 }
 

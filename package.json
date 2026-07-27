@@ -10,18 +10,18 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@react-three/fiber": "^9.6.1",
     "framer-motion": "12.42.2",
     "next": "16.2.12",
     "react": "19.0.0",
     "react-dom": "19.0.0",
-    "three": "0.134.0",
-    "vanta": "0.5.24"
+    "three": "^0.178.0"
   },
   "devDependencies": {
     "@types/node": "22.10.7",
     "@types/react": "19.0.7",
     "@types/react-dom": "19.0.3",
-    "@types/three": "0.134.0",
+    "@types/three": "^0.178.1",
     "autoprefixer": "10.4.20",
     "cross-env": "7.0.3",
     "postcss": "8.5.23",

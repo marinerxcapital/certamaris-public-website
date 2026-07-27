@@ -58,7 +58,7 @@ body {
 }
 
 .site-background-image,
-.site-background-net {
+.site-background-silk {
   position: absolute;
   inset: 0;
 }
@@ -71,10 +71,17 @@ body {
   background-repeat: no-repeat;
 }
 
-.site-background-net {
+.site-background-silk {
   z-index: 1;
-  opacity: 0.55;
-  mix-blend-mode: normal;
+  opacity: 0.12;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+.site-background-silk canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
 }
 
 .site-content {
@@ -215,7 +222,7 @@ textarea:focus-visible,
     opacity: 1 !important;
   }
 
-  .site-background-net {
+  .site-background-silk {
     display: none !important;
   }
 }
@@ -232,6 +239,11 @@ textarea:focus-visible,
 
 .hairline-b {
   border-bottom: 1px solid var(--hairline);
+}
+
+.footer-logo {
+  filter: brightness(0) invert(1);
+  opacity: 0.92;
 }
 
 /* Hero video background */
@@ -323,10 +335,16 @@ textarea:focus-visible,
 
 @media (max-width: 767px) {
   .site-background-image {
-    background-image: url("/bg/hero-flow-800.webp");
+    background-image: none;
+    background: linear-gradient(
+      180deg,
+      rgba(245, 248, 250, 0.98) 0%,
+      rgba(238, 243, 246, 0.96) 48%,
+      rgba(245, 248, 250, 0.92) 100%
+    );
   }
 
-  .site-background-net {
+  .site-background-silk {
     display: none;
   }
 
@@ -361,13 +379,6 @@ textarea:focus-visible,
   }
 
   .hero-copy-block::before {
-    inset: -2rem -20px;
-    width: auto;
-    background: linear-gradient(
-      180deg,
-      rgba(245, 248, 250, 0.96) 0%,
-      rgba(245, 248, 250, 0.88) 72%,
-      rgba(245, 248, 250, 0) 100%
-    );
+    content: none;
   }
 }

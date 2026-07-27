@@ -1,45 +1,36 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
-import type * as ThreeNamespace from "three";
+import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
 
-type VantaEffect = {
-  destroy: () => void;
-  resize?: () => void;
+const Silk = dynamic(() => import("./Silk"), {
+  ssr: false,
+  loading: () => null,
+});
+
+type NavigatorWithConnection = Navigator & {
+  connection?: {
+    saveData?: boolean;
+  };
 };
 
-type VantaNetFactory = (options: {
-  el: HTMLElement;
-  THREE: typeof ThreeNamespace;
-  color: number;
-  backgroundColor: number;
-  points: number;
-  maxDistance: number;
-  spacing: number;
-  showDots: boolean;
-  mouseControls: boolean;
-  touchControls: boolean;
-  gyroControls: boolean;
-  minHeight: number;
-  minWidth: number;
-}) => VantaEffect;
-
 export function SiteBackground() {
-  const netRef = useRef<HTMLDivElement>(null);
-  const effectRef = useRef<VantaEffect | null>(null);
   const [canAnimate, setCanAnimate] = useState(false);
-
-  const destroyNet = useCallback(() => {
-    effectRef.current?.destroy();
-    effectRef.current = null;
-  }, []);
 
   useEffect(() => {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const compactViewport = window.matchMedia("(max-width: 767px)");
+    const lowCoreDevice = typeof navigator.hardwareConcurrency === "number" && navigator.hardwareConcurrency <= 2;
+    const savesData = Boolean((navigator as NavigatorWithConnection).connection?.saveData);
 
     const syncAnimationState = () => {
-      setCanAnimate(!reducedMotion.matches && !compactViewport.matches && document.visibilityState === "visible");
+      setCanAnimate(
+        !reducedMotion.matches &&
+          !compactViewport.matches &&
+          !lowCoreDevice &&
+          !savesData &&
+          document.visibilityState === "visible"
+      );
     };
 
     syncAnimationState();
@@ -54,52 +45,14 @@ export function SiteBackground() {
     };
   }, []);
 
-  useEffect(() => {
-    let cancelled = false;
-    let startTimer: number | undefined;
-
-    if (!canAnimate || !netRef.current) {
-      destroyNet();
-      return undefined;
-    }
-
-    startTimer = window.setTimeout(() => {
-      Promise.all([import("three"), import("vanta/dist/vanta.net.min")])
-        .then(([THREE, vantaModule]) => {
-          if (cancelled || !netRef.current || effectRef.current) return;
-          const createNet = (vantaModule.default ?? vantaModule) as VantaNetFactory;
-          effectRef.current = createNet({
-            el: netRef.current,
-            THREE,
-            color: 0x1c5f8f,
-            backgroundColor: 0xf5f8fa,
-            points: 8,
-            maxDistance: 22,
-            spacing: 18,
-            showDots: true,
-            mouseControls: false,
-            touchControls: false,
-            gyroControls: false,
-            minHeight: 200,
-            minWidth: 200,
-          });
-        })
-        .catch(() => {
-          destroyNet();
-        });
-    }, 180);
-
-    return () => {
-      cancelled = true;
-      if (startTimer !== undefined) window.clearTimeout(startTimer);
-      destroyNet();
-    };
-  }, [canAnimate, destroyNet]);
-
   return (
     <div className="site-background" aria-hidden="true">
       <div className="site-background-image" />
-      <div ref={netRef} className="site-background-net" />
+      {canAnimate ? (
+        <div className="site-background-silk">
+          <Silk speed={6.2} scale={1} color="#0149FD" noiseIntensity={0.45} rotation={0} />
+        </div>
+      ) : null}
     </div>
   );
 }

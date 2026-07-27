@@ -59,7 +59,7 @@ export default function HomePage() {
             >
               Cyber compliance your fleet can prove.
             </h1>
-            <p className="text-[17px] sm:text-[18px] text-navy/80 max-w-xl mb-9 leading-relaxed">
+            <p className="font-display text-[18px] sm:text-[20px] font-medium tracking-[-0.015em] text-navy/76 max-w-[34rem] mb-9 leading-[1.58]">
               CertaMaris structures the evidence, control mapping, and findings behind IMO cyber-risk management and
               IACS UR E26/E27 — so readiness is a standing state, not a scramble before survey.
             </p>

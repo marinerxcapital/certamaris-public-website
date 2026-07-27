@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { BrandLogo } from "@/components/BrandLogo";
 import { FOOTER_GROUPS, FOOTER_STANDING_LINE, SITE_TAGLINE } from "@/lib/constants";
 
 export function Footer() {
@@ -8,10 +7,15 @@ export function Footer() {
       <div className="shell py-16">
         <div className="grid grid-cols-2 md:grid-cols-6 gap-10">
           <div className="col-span-2">
-            <div className="mb-3 inline-flex rounded-sm bg-white px-3 py-2">
-              <BrandLogo />
-            </div>
-            <p className="text-white/65 text-[14px] max-w-xs">{SITE_TAGLINE}</p>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/brand/certamaris-footer-transparent.png"
+              alt="CertaMaris"
+              width={2048}
+              height={357}
+              className="footer-logo mb-4 h-auto w-[188px] sm:w-[212px]"
+            />
+            <p className="text-white/65 text-[14px] max-w-[15rem] leading-relaxed">{SITE_TAGLINE}</p>
           </div>
           {FOOTER_GROUPS.map((group) => (
             <div key={group.title}>
