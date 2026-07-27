@@ -6,7 +6,7 @@ import { pageMetadata } from "@/lib/metadata";
 import { APP_SALES_EMAIL } from "@/lib/constants";
 
 export const metadata = pageMetadata(
-  "Contact & Book a Demo",
+  "Contact & Readiness Call",
   "Book a CertaMaris readiness call, or contact our sales team directly about your fleet's cyber compliance program.",
   "/contact"
 );
