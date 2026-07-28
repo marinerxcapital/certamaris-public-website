@@ -5,6 +5,7 @@ import { Reveal } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
 import { StatusBadge } from "@/components/StatusBadge";
 import { pageMetadata } from "@/lib/metadata";
+import { productProofScreens } from "@/lib/product-screens";
 
 export const metadata = pageMetadata(
   "Security & Trust",
@@ -58,11 +59,13 @@ export default function SecurityPage() {
           </Reveal>
           <Reveal delay={0.08}>
             <ProductScreenFrame
-              src="/product/clean/requirement-control-mapping.png"
-              alt="CertaMaris access-control detail screen showing control owner, status, last tested date, implementation description, known exception, and requirement mappings."
+              src={productProofScreens.requirementMapping.src}
+              alt={productProofScreens.requirementMapping.alt}
               label="Access control record"
+              lightboxTitle={productProofScreens.requirementMapping.title}
+              lightboxBody={productProofScreens.requirementMapping.body}
               priority
-              galleryOrder={1}
+              galleryOrder={productProofScreens.requirementMapping.galleryOrder}
             />
           </Reveal>
         </div>
@@ -75,22 +78,18 @@ export default function SecurityPage() {
             Security posture is only useful when evidence stays current.
           </h2>
         </Reveal>
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-3 gap-6">
           <ProductScreenTile
-            src="/product/clean/evidence-coverage.png"
-            alt="CertaMaris evidence sufficiency and coverage matrix showing freshness status, coverage gaps, and request-evidence actions."
-            label="Evidence coverage"
+            {...productProofScreens.evidenceCoverage}
             title="Freshness and sufficiency"
-            body="Security evidence is tracked for coverage and freshness, with gaps and expiring support surfaced before review."
-            galleryOrder={2}
           />
           <ProductScreenTile
-            src="/product/clean/findings-register.png"
-            alt="CertaMaris findings and risks register showing risk ratings, owners, due dates, and action status."
-            label="Findings and risks"
-            title="Accountable remediation"
-            body="Security gaps move into an owned register with severity, status, engagement context, due dates, and aging."
-            galleryOrder={3}
+            {...productProofScreens.findingsRegister}
+            title="Security findings"
+          />
+          <ProductScreenTile
+            {...productProofScreens.correctiveActions}
+            title="Verified remediation"
           />
         </div>
       </Section>

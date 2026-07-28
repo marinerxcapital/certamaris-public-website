@@ -9,6 +9,7 @@ import { Eyebrow, Section } from "@/components/Section";
 import { PRIMARY_CTA_LABEL } from "@/lib/constants";
 import { capabilityPillars, processSteps } from "@/lib/content";
 import { pageMetadata } from "@/lib/metadata";
+import { productProofScreens } from "@/lib/product-screens";
 
 export const metadata = pageMetadata(
   "Platform",
@@ -28,30 +29,9 @@ const workProducts: { title: string; body: string }[] = [
 ];
 
 const platformScreens = [
-  {
-    src: "/product/clean/evidence-coverage.png",
-    alt: "CertaMaris evidence sufficiency and coverage matrix with coverage gaps, missing evidence, freshness status, and request evidence actions.",
-    label: "Evidence coverage",
-    title: "Evidence ledger",
-    body: "Coverage, sufficiency, freshness, and request actions are visible at the control level.",
-    galleryOrder: 2,
-  },
-  {
-    src: "/product/clean/findings-register.png",
-    alt: "CertaMaris findings and risks register with open findings, risk ratings, owner assignment, due dates, and aging.",
-    label: "Findings register",
-    title: "Findings and risks",
-    body: "Open findings, risk ratings, owner assignment, due dates, and aging live in one register.",
-    galleryOrder: 3,
-  },
-  {
-    src: "/product/clean/corrective-actions.png",
-    alt: "CertaMaris corrective actions register showing remediation work, owners, status, priority, and due dates.",
-    label: "Corrective actions",
-    title: "Verified remediation",
-    body: "Findings become owned actions with due dates, progress, and verification before closure.",
-    galleryOrder: 4,
-  },
+  productProofScreens.evidenceCoverage,
+  productProofScreens.findingsRegister,
+  productProofScreens.correctiveActions,
 ];
 
 export default function PlatformPage() {
@@ -98,11 +78,13 @@ export default function PlatformPage() {
           </Reveal>
           <Reveal delay={0.08}>
             <ProductScreenFrame
-              src="/product/clean/requirement-control-mapping.png"
-              alt="CertaMaris control detail screen showing requirement mappings, implementation context, evidence tabs, exceptions, and validation history."
+              src={productProofScreens.requirementMapping.src}
+              alt={productProofScreens.requirementMapping.alt}
               label="Control detail and evidence mapping"
+              lightboxTitle={productProofScreens.requirementMapping.title}
+              lightboxBody={productProofScreens.requirementMapping.body}
               priority
-              galleryOrder={1}
+              galleryOrder={productProofScreens.requirementMapping.galleryOrder}
             />
           </Reveal>
         </div>

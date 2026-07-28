@@ -4,6 +4,7 @@ import { ProductScreenFrame, ProductScreenGallery, ProductScreenTile } from "@/c
 import { Reveal, RevealGroup } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
 import { pageMetadata } from "@/lib/metadata";
+import { productProofScreens } from "@/lib/product-screens";
 import { articles } from "@/lib/resources";
 
 export const metadata = pageMetadata(
@@ -36,11 +37,13 @@ export default function ResourcesPage() {
           </Reveal>
           <Reveal delay={0.08}>
             <ProductScreenFrame
-              src="/product/clean/evidence-coverage.png"
-              alt="CertaMaris evidence coverage matrix showing control sufficiency, freshness, coverage gaps, and request-evidence actions."
+              src={productProofScreens.evidenceCoverage.src}
+              alt={productProofScreens.evidenceCoverage.alt}
               label="Evidence sufficiency matrix"
+              lightboxTitle={productProofScreens.evidenceCoverage.title}
+              lightboxBody={productProofScreens.evidenceCoverage.body}
               priority
-              galleryOrder={2}
+              galleryOrder={productProofScreens.evidenceCoverage.galleryOrder}
             />
           </Reveal>
         </div>
@@ -53,30 +56,26 @@ export default function ResourcesPage() {
             Start with the workflow, then go deeper.
           </h2>
         </Reveal>
-        <RevealGroup className="grid md:grid-cols-3 gap-6" stagger={0.05}>
+        <RevealGroup className="grid md:grid-cols-2 lg:grid-cols-4 gap-6" stagger={0.05}>
           <ProductScreenTile
-            src="/product/clean/requirement-control-mapping.png"
-            alt="CertaMaris requirement mapping screen showing control implementation and mapped regulatory requirements."
-            label="Requirement mapping"
+            {...productProofScreens.requirementMapping}
             title="Regulatory intelligence"
             body="Use the IMO and IACS explainers to understand why mapping has to stay attached to controls, exceptions, and validation history."
-            galleryOrder={1}
           />
           <ProductScreenTile
-            src="/product/clean/findings-register.png"
-            alt="CertaMaris findings and risks register showing findings, risk ratings, owners, due dates, and status."
-            label="Findings register"
+            {...productProofScreens.findingsRegister}
             title="Evidence and findings"
             body="Use the evidence and corrective-action articles to see why sufficiency, owner response, and verification need a structured trail."
-            galleryOrder={3}
           />
           <ProductScreenTile
-            src="/product/clean/executive-reporting.png"
-            alt="CertaMaris board pack showing portfolio health, risk exposure, regulator standing, attestations, and KPIs."
-            label="Board pack"
+            {...productProofScreens.correctiveActions}
+            title="Corrective-action verification"
+            body="Use the verification article to see why closure should remain separate from the action owner's own update."
+          />
+          <ProductScreenTile
+            {...productProofScreens.executiveReporting}
             title="Risk and governance"
             body="Use the governance articles to connect risk registers and executive reporting back to the underlying assurance record."
-            galleryOrder={5}
           />
         </RevealGroup>
       </Section>

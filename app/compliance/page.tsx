@@ -5,6 +5,7 @@ import { ProductScreenFrame, ProductScreenGallery, ProductScreenTile } from "@/c
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
 import { pageMetadata } from "@/lib/metadata";
+import { productProofScreens } from "@/lib/product-screens";
 
 export const metadata = pageMetadata(
   "Compliance",
@@ -40,11 +41,13 @@ export default function CompliancePage() {
           </Reveal>
           <Reveal delay={0.08}>
             <ProductScreenFrame
-              src="/product/clean/requirement-control-mapping.png"
-              alt="CertaMaris control detail screen showing a control objective, implementation description, known exception, and requirement mappings."
+              src={productProofScreens.requirementMapping.src}
+              alt={productProofScreens.requirementMapping.alt}
               label="Control detail and evidence mapping"
+              lightboxTitle={productProofScreens.requirementMapping.title}
+              lightboxBody={productProofScreens.requirementMapping.body}
               priority
-              galleryOrder={1}
+              galleryOrder={productProofScreens.requirementMapping.galleryOrder}
             />
           </Reveal>
         </div>
@@ -147,22 +150,18 @@ export default function CompliancePage() {
             The requirement story continues into evidence and reporting.
           </h2>
         </Reveal>
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           <ProductScreenTile
-            src="/product/clean/evidence-coverage.png"
-            alt="CertaMaris evidence coverage matrix showing controls in scope, coverage gaps, expiring evidence, missing evidence, and request-evidence actions."
-            label="Evidence coverage"
-            title="Evidence sufficiency"
-            body="Coverage status, freshness, and missing evidence are tracked at the control level instead of buried in a file share."
-            galleryOrder={2}
+            {...productProofScreens.evidenceCoverage}
           />
           <ProductScreenTile
-            src="/product/clean/executive-reporting.png"
-            alt="CertaMaris board pack showing portfolio health, strategic risk exposure, regulator standing, attestation status, KPIs, and risk heatmap."
-            label="Board pack"
-            title="Governance reporting"
-            body="The same control and evidence record rolls up into board-facing health, strategic risk, and attestation views."
-            galleryOrder={5}
+            {...productProofScreens.findingsRegister}
+          />
+          <ProductScreenTile
+            {...productProofScreens.correctiveActions}
+          />
+          <ProductScreenTile
+            {...productProofScreens.executiveReporting}
           />
         </div>
       </Section>

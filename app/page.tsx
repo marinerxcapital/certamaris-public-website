@@ -12,40 +12,13 @@ import { Eyebrow, Section } from "@/components/Section";
 import { StatusBadge } from "@/components/StatusBadge";
 import { PRIMARY_CTA_LABEL, SECONDARY_CTA_LABEL } from "@/lib/constants";
 import { capabilityPillars, personas, processSteps } from "@/lib/content";
+import { productProofScreens } from "@/lib/product-screens";
 
 const productScreens = [
-  {
-    src: "/product/clean/evidence-coverage.png",
-    alt: "CertaMaris evidence coverage matrix showing control coverage, freshness, and request-evidence actions.",
-    label: "Evidence workflow",
-    title: "Evidence coverage and freshness",
-    body: "The evidence view makes stale, expiring, and missing support visible before a reviewer or surveyor asks for it.",
-    galleryOrder: 2,
-  },
-  {
-    src: "/product/clean/findings-register.png",
-    alt: "CertaMaris findings and risks register showing open findings, risk ratings, owners, due dates, and action status.",
-    label: "Findings and actions",
-    title: "Findings with action ownership",
-    body: "Findings, risks, overdue actions, owners, and due dates stay connected instead of disappearing into email threads.",
-    galleryOrder: 3,
-  },
-  {
-    src: "/product/clean/corrective-actions.png",
-    alt: "CertaMaris corrective actions register showing remediation work, owners, status, priority, and due dates.",
-    label: "Corrective actions",
-    title: "Remediation that can be verified",
-    body: "Corrective actions stay owned, time-bound, and visible through verification instead of ending as an untracked finding.",
-    galleryOrder: 4,
-  },
-  {
-    src: "/product/clean/executive-reporting.png",
-    alt: "CertaMaris board pack screen showing portfolio health, strategic risk exposure, regulator standing, attestation status, and KPI trends.",
-    label: "Executive reporting",
-    title: "Executive reporting",
-    body: "Board-facing views summarize assurance posture, strategic risk, attestations, and operating KPIs from the same record.",
-    galleryOrder: 5,
-  },
+  productProofScreens.evidenceCoverage,
+  productProofScreens.findingsRegister,
+  productProofScreens.correctiveActions,
+  productProofScreens.executiveReporting,
 ];
 
 export default function HomePage() {
@@ -153,12 +126,12 @@ export default function HomePage() {
           </Reveal>
           <Reveal delay={0.08}>
             <ProductScreenFrame
-              src="/product/clean/requirement-control-mapping.png"
-              alt="CertaMaris control detail screen showing requirement mappings, implementation context, evidence tabs, known exceptions, and validation history."
+              src={productProofScreens.requirementMapping.src}
+              alt={productProofScreens.requirementMapping.alt}
               label="Requirement-to-control mapping"
-              lightboxTitle="Requirement mapping with evidence context"
-              lightboxBody="A control record keeps its regulatory mappings, implementation context, evidence, exceptions, and validation history together for review."
-              galleryOrder={1}
+              lightboxTitle={productProofScreens.requirementMapping.title}
+              lightboxBody={productProofScreens.requirementMapping.body}
+              galleryOrder={productProofScreens.requirementMapping.galleryOrder}
               priority
             />
           </Reveal>

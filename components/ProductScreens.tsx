@@ -42,7 +42,9 @@ type RegisteredScreen = {
 type GalleryState = {
   activeScreenId: string | null;
   listeners: Set<() => void>;
+  registeredScreens: RegisteredScreen[];
   screens: RegisteredScreen[];
+  screenAliases: Map<string, string>;
   trigger: HTMLButtonElement | null;
 };
 
@@ -55,7 +57,9 @@ function getGalleryState(pathname: string) {
   const created: GalleryState = {
     activeScreenId: null,
     listeners: new Set(),
+    registeredScreens: [],
     screens: [],
+    screenAliases: new Map(),
     trigger: null,
   };
   galleryStore.set(pathname, created);
@@ -70,31 +74,54 @@ function notifyGallery(pathname: string) {
 
 function registerScreen(pathname: string, screen: RegisteredScreen) {
   const state = getGalleryState(pathname);
-  const existingIndex = state.screens.findIndex((item) => item.id === screen.id);
+  const existingIndex = state.registeredScreens.findIndex((item) => item.id === screen.id);
   if (existingIndex === -1) {
-    state.screens = [...state.screens, screen];
+    state.registeredScreens = [...state.registeredScreens, screen];
   } else {
-    const nextScreens = [...state.screens];
+    const nextScreens = [...state.registeredScreens];
     nextScreens[existingIndex] = screen;
-    state.screens = nextScreens;
+    state.registeredScreens = nextScreens;
   }
-  state.screens.sort((left, right) => left.galleryOrder - right.galleryOrder);
+  rebuildGalleryScreens(state);
   notifyGallery(pathname);
 }
 
 function unregisterScreen(pathname: string, screenId: string) {
   const state = getGalleryState(pathname);
-  state.screens = state.screens.filter((item) => item.id !== screenId);
-  if (state.activeScreenId === screenId) {
+  state.registeredScreens = state.registeredScreens.filter((item) => item.id !== screenId);
+  rebuildGalleryScreens(state);
+  if (!state.screens.some((screen) => screen.id === state.activeScreenId)) {
     state.activeScreenId = null;
   }
   notifyGallery(pathname);
 }
 
+function rebuildGalleryScreens(state: GalleryState) {
+  const sortedScreens = [...state.registeredScreens].sort((left, right) => {
+    const orderDelta = left.galleryOrder - right.galleryOrder;
+    return orderDelta || left.id.localeCompare(right.id);
+  });
+  const canonicalBySrc = new Map<string, RegisteredScreen>();
+  const aliases = new Map<string, string>();
+
+  for (const screen of sortedScreens) {
+    const canonical = canonicalBySrc.get(screen.src);
+    if (canonical) {
+      aliases.set(screen.id, canonical.id);
+    } else {
+      canonicalBySrc.set(screen.src, screen);
+      aliases.set(screen.id, screen.id);
+    }
+  }
+
+  state.screens = Array.from(canonicalBySrc.values());
+  state.screenAliases = aliases;
+}
+
 function openScreen(pathname: string, screenId: string, trigger: HTMLButtonElement | null) {
   const state = getGalleryState(pathname);
   state.trigger = trigger;
-  state.activeScreenId = screenId;
+  state.activeScreenId = state.screenAliases.get(screenId) ?? screenId;
   notifyGallery(pathname);
 }
 

@@ -5,6 +5,7 @@ import { Reveal } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
 import { PRIMARY_CTA_LABEL } from "@/lib/constants";
 import { pageMetadata } from "@/lib/metadata";
+import { productProofScreens } from "@/lib/product-screens";
 import { solutions } from "@/lib/solutions-industries";
 
 export const metadata = pageMetadata(
@@ -13,57 +14,27 @@ export const metadata = pageMetadata(
   "/solutions"
 );
 
-const solutionScreens: Record<string, { src: string; alt: string; label: string; caption: string }> = {
-  "fleet-compliance": {
-    src: "/product/clean/fleet-inventory.png",
-    alt: "CertaMaris fleet and facilities screen showing vessel counts, regions, in-scope assets, criticality, status, and last review dates.",
-    label: "Fleet and facilities",
-    caption: "Fleet scope, vessel status, locations, criticality, and review cadence stay visible before any audit package is assembled.",
-  },
-  "audit-readiness": {
-    src: "/product/clean/executive-dashboard.png",
-    alt: "CertaMaris executive assurance dashboard showing program health, regulator ratings, critical findings, board attestation, and attention items.",
-    label: "Readiness dashboard",
-    caption: "Readiness is shown as current operating state: program health, regulator standing, critical findings, attestation, and attention items.",
-  },
-  "evidence-findings": {
-    src: "/product/clean/findings-register.png",
-    alt: "CertaMaris findings and risks register showing open findings, rating, status, engagement, owner, due date, and age.",
-    label: "Findings register",
-    caption: "Evidence gaps turn into governed findings with rating, owner, status, due date, age, and related action context.",
-  },
-  "regulatory-intelligence": {
-    src: "/product/clean/requirement-control-mapping.png",
-    alt: "CertaMaris control detail screen showing requirement mappings, implementation context, status, criticality, and validation dates.",
-    label: "Requirement mapping",
-    caption: "Requirement changes have somewhere concrete to land: mapped controls, affected objectives, coverage, validation, and exceptions.",
-  },
-  "executive-reporting": {
-    src: "/product/clean/executive-reporting.png",
-    alt: "CertaMaris board pack showing portfolio health, strategic risk exposure, regulator standing, board attestations, KPIs, and risk heatmap.",
-    label: "Board pack",
-    caption: "Executive reporting rolls up the same live record into governance-ready portfolio health, strategic risk, attestation, and KPI views.",
-  },
+const solutionScreens: Record<string, typeof productProofScreens[keyof typeof productProofScreens]> = {
+  "fleet-compliance": productProofScreens.fleetInventory,
+  "audit-readiness": productProofScreens.evidenceCoverage,
+  "evidence-findings": productProofScreens.findingsRegister,
+  "regulatory-intelligence": productProofScreens.requirementMapping,
+  "executive-reporting": productProofScreens.executiveReporting,
 };
 
 const featuredScreens = [
-  { ...solutionScreens["regulatory-intelligence"], galleryOrder: 1 },
-  {
-    src: "/product/clean/evidence-coverage.png",
-    alt: "CertaMaris evidence sufficiency and coverage matrix showing coverage gaps, missing evidence, freshness status, and request-evidence actions.",
-    label: "Evidence coverage",
-    caption: "Coverage, freshness, and missing support are visible at the control level before a review turns into a document chase.",
-    galleryOrder: 2,
-  },
-  { ...solutionScreens["evidence-findings"], galleryOrder: 3 },
+  productProofScreens.requirementMapping,
+  productProofScreens.evidenceCoverage,
+  productProofScreens.findingsRegister,
+  productProofScreens.correctiveActions,
 ];
 
 const solutionScreenOrder: Record<string, number> = {
-  "regulatory-intelligence": 1,
-  "evidence-findings": 3,
-  "fleet-compliance": 4,
-  "audit-readiness": 5,
-  "executive-reporting": 6,
+  "regulatory-intelligence": productProofScreens.requirementMapping.galleryOrder,
+  "audit-readiness": productProofScreens.evidenceCoverage.galleryOrder,
+  "evidence-findings": productProofScreens.findingsRegister.galleryOrder,
+  "executive-reporting": productProofScreens.executiveReporting.galleryOrder,
+  "fleet-compliance": productProofScreens.fleetInventory.galleryOrder,
 };
 
 export default function SolutionsPage() {
@@ -106,8 +77,8 @@ export default function SolutionsPage() {
                 src={screen.src}
                 alt={screen.alt}
                 label={screen.label}
-                title={screen.label}
-                body={screen.caption}
+                title={screen.title}
+                body={screen.body}
                 galleryOrder={screen.galleryOrder}
               />
             ))}
@@ -147,10 +118,12 @@ export default function SolutionsPage() {
                 src={solutionScreens[item.id].src}
                 alt={solutionScreens[item.id].alt}
                 label={solutionScreens[item.id].label}
+                lightboxTitle={solutionScreens[item.id].title}
+                lightboxBody={solutionScreens[item.id].body}
                 galleryOrder={solutionScreenOrder[item.id]}
               />
               <p className="mt-4 text-[13.5px] text-structural leading-relaxed">
-                {solutionScreens[item.id].caption}
+                {solutionScreens[item.id].body}
               </p>
             </Reveal>
           </div>
