@@ -40,6 +40,7 @@ export default function ResourcesPage() {
               alt="CertaMaris evidence coverage matrix showing control sufficiency, freshness, coverage gaps, and request-evidence actions."
               label="Evidence sufficiency matrix"
               priority
+              galleryOrder={2}
             />
           </Reveal>
         </div>
@@ -59,6 +60,7 @@ export default function ResourcesPage() {
             label="Requirement mapping"
             title="Regulatory intelligence"
             body="Use the IMO and IACS explainers to understand why mapping has to stay attached to controls, exceptions, and validation history."
+            galleryOrder={1}
           />
           <ProductScreenTile
             src="/product/clean/findings-register.png"
@@ -66,6 +68,7 @@ export default function ResourcesPage() {
             label="Findings register"
             title="Evidence and findings"
             body="Use the evidence and corrective-action articles to see why sufficiency, owner response, and verification need a structured trail."
+            galleryOrder={3}
           />
           <ProductScreenTile
             src="/product/clean/executive-reporting.png"
@@ -73,6 +76,7 @@ export default function ResourcesPage() {
             label="Board pack"
             title="Risk and governance"
             body="Use the governance articles to connect risk registers and executive reporting back to the underlying assurance record."
+            galleryOrder={5}
           />
         </RevealGroup>
       </Section>

@@ -62,6 +62,7 @@ export default function SecurityPage() {
               alt="CertaMaris access-control detail screen showing control owner, status, last tested date, implementation description, known exception, and requirement mappings."
               label="Access control record"
               priority
+              galleryOrder={1}
             />
           </Reveal>
         </div>
@@ -81,6 +82,7 @@ export default function SecurityPage() {
             label="Evidence coverage"
             title="Freshness and sufficiency"
             body="Security evidence is tracked for coverage and freshness, with gaps and expiring support surfaced before review."
+            galleryOrder={2}
           />
           <ProductScreenTile
             src="/product/clean/findings-register.png"
@@ -88,6 +90,7 @@ export default function SecurityPage() {
             label="Findings and risks"
             title="Accountable remediation"
             body="Security gaps move into an owned register with severity, status, engagement context, due dates, and aging."
+            galleryOrder={3}
           />
         </div>
       </Section>

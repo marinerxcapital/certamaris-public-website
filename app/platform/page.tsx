@@ -34,6 +34,7 @@ const platformScreens = [
     label: "Evidence coverage",
     title: "Evidence ledger",
     body: "Coverage, sufficiency, freshness, and request actions are visible at the control level.",
+    galleryOrder: 2,
   },
   {
     src: "/product/clean/findings-register.png",
@@ -41,13 +42,15 @@ const platformScreens = [
     label: "Findings register",
     title: "Findings and risks",
     body: "Open findings, risk ratings, owner assignment, due dates, and aging live in one register.",
+    galleryOrder: 3,
   },
   {
-    src: "/product/clean/executive-reporting.png",
-    alt: "CertaMaris board pack with portfolio health, strategic risk exposure, regulator standing, attestation status, KPI cards, and strategic risk heatmap.",
-    label: "Board pack",
-    title: "Readiness package",
-    body: "Executive views roll up assurance state without detaching it from the underlying work.",
+    src: "/product/clean/corrective-actions.png",
+    alt: "CertaMaris corrective actions register showing remediation work, owners, status, priority, and due dates.",
+    label: "Corrective actions",
+    title: "Verified remediation",
+    body: "Findings become owned actions with due dates, progress, and verification before closure.",
+    galleryOrder: 4,
   },
 ];
 
@@ -99,6 +102,7 @@ export default function PlatformPage() {
               alt="CertaMaris control detail screen showing requirement mappings, implementation context, evidence tabs, exceptions, and validation history."
               label="Control detail and evidence mapping"
               priority
+              galleryOrder={1}
             />
           </Reveal>
         </div>

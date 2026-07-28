@@ -47,10 +47,24 @@ const solutionScreens: Record<string, { src: string; alt: string; label: string;
 };
 
 const featuredScreens = [
-  solutionScreens["fleet-compliance"],
-  solutionScreens["evidence-findings"],
-  solutionScreens["executive-reporting"],
+  { ...solutionScreens["regulatory-intelligence"], galleryOrder: 1 },
+  {
+    src: "/product/clean/evidence-coverage.png",
+    alt: "CertaMaris evidence sufficiency and coverage matrix showing coverage gaps, missing evidence, freshness status, and request-evidence actions.",
+    label: "Evidence coverage",
+    caption: "Coverage, freshness, and missing support are visible at the control level before a review turns into a document chase.",
+    galleryOrder: 2,
+  },
+  { ...solutionScreens["evidence-findings"], galleryOrder: 3 },
 ];
+
+const solutionScreenOrder: Record<string, number> = {
+  "regulatory-intelligence": 1,
+  "evidence-findings": 3,
+  "fleet-compliance": 4,
+  "audit-readiness": 5,
+  "executive-reporting": 6,
+};
 
 export default function SolutionsPage() {
   return (
@@ -94,6 +108,7 @@ export default function SolutionsPage() {
                 label={screen.label}
                 title={screen.label}
                 body={screen.caption}
+                galleryOrder={screen.galleryOrder}
               />
             ))}
           </Reveal>
@@ -132,6 +147,7 @@ export default function SolutionsPage() {
                 src={solutionScreens[item.id].src}
                 alt={solutionScreens[item.id].alt}
                 label={solutionScreens[item.id].label}
+                galleryOrder={solutionScreenOrder[item.id]}
               />
               <p className="mt-4 text-[13.5px] text-structural leading-relaxed">
                 {solutionScreens[item.id].caption}

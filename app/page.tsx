@@ -15,18 +15,12 @@ import { capabilityPillars, personas, processSteps } from "@/lib/content";
 
 const productScreens = [
   {
-    src: "/product/clean/requirement-control-mapping.png",
-    alt: "CertaMaris control detail screen showing requirement mappings, implementation context, coverage status, and validation dates.",
-    label: "Requirement mapping",
-    title: "Requirement-to-control mapping",
-    body: "Controls show their mapped requirements, coverage state, validation owner, and review date in the same workspace.",
-  },
-  {
     src: "/product/clean/evidence-coverage.png",
     alt: "CertaMaris evidence coverage matrix showing control coverage, freshness, and request-evidence actions.",
     label: "Evidence workflow",
     title: "Evidence coverage and freshness",
     body: "The evidence view makes stale, expiring, and missing support visible before a reviewer or surveyor asks for it.",
+    galleryOrder: 2,
   },
   {
     src: "/product/clean/findings-register.png",
@@ -34,6 +28,15 @@ const productScreens = [
     label: "Findings and actions",
     title: "Findings with action ownership",
     body: "Findings, risks, overdue actions, owners, and due dates stay connected instead of disappearing into email threads.",
+    galleryOrder: 3,
+  },
+  {
+    src: "/product/clean/corrective-actions.png",
+    alt: "CertaMaris corrective actions register showing remediation work, owners, status, priority, and due dates.",
+    label: "Corrective actions",
+    title: "Remediation that can be verified",
+    body: "Corrective actions stay owned, time-bound, and visible through verification instead of ending as an untracked finding.",
+    galleryOrder: 4,
   },
   {
     src: "/product/clean/executive-reporting.png",
@@ -41,6 +44,7 @@ const productScreens = [
     label: "Executive reporting",
     title: "Executive reporting",
     body: "Board-facing views summarize assurance posture, strategic risk, attestations, and operating KPIs from the same record.",
+    galleryOrder: 5,
   },
 ];
 
@@ -135,23 +139,26 @@ export default function HomePage() {
           <Reveal>
             <Eyebrow>Product view</Eyebrow>
             <h2 className="text-[28px] sm:text-[34px] leading-[1.14] mb-5">
-              Readiness, risk, evidence, and board status in one working product.
+              Traceability, evidence, and remediation in one working product.
             </h2>
             <p className="text-[15.5px] text-structural leading-relaxed mb-6">
-              CertaMaris shows the current assurance state directly: program health, aggregate risk exposure,
-              regulator standing, open findings, and attention items tied back to the work behind them.
+              CertaMaris keeps the work behind readiness visible: mapped requirements, implementation context,
+              evidence coverage, known exceptions, findings, and accountable next actions.
             </p>
             <div className="flex flex-wrap gap-2 mb-2">
-              <StatusBadge status="ok" label="Program health visible" />
-              <StatusBadge status="caution" label="Attention items tracked" />
-              <StatusBadge status="critical" label="Critical findings surfaced" />
+              <StatusBadge status="ok" label="Requirements mapped" />
+              <StatusBadge status="caution" label="Evidence freshness visible" />
+              <StatusBadge status="critical" label="Findings owned" />
             </div>
           </Reveal>
           <Reveal delay={0.08}>
             <ProductScreenFrame
-              src="/product/clean/executive-dashboard.png"
-              alt="CertaMaris executive assurance dashboard showing program health, aggregate risk exposure, regulator ratings, critical findings, board attestation, risk exposure trend, and attention items."
-              label="Executive assurance dashboard"
+              src="/product/clean/requirement-control-mapping.png"
+              alt="CertaMaris control detail screen showing requirement mappings, implementation context, evidence tabs, known exceptions, and validation history."
+              label="Requirement-to-control mapping"
+              lightboxTitle="Requirement mapping with evidence context"
+              lightboxBody="A control record keeps its regulatory mappings, implementation context, evidence, exceptions, and validation history together for review."
+              galleryOrder={1}
               priority
             />
           </Reveal>

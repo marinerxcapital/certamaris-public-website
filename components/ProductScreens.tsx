@@ -20,11 +20,13 @@ type ProductScreenFrameProps = {
   sizes?: string;
   lightboxTitle?: string;
   lightboxBody?: string;
+  galleryOrder?: number;
 };
 
 type ProductScreenTileProps = ProductScreenFrameProps & {
   title: string;
   body: string;
+  galleryOrder: number;
 };
 
 type RegisteredScreen = {
@@ -34,6 +36,7 @@ type RegisteredScreen = {
   label: string;
   title: string;
   body: string;
+  galleryOrder: number;
 };
 
 type GalleryState = {
@@ -75,6 +78,7 @@ function registerScreen(pathname: string, screen: RegisteredScreen) {
     nextScreens[existingIndex] = screen;
     state.screens = nextScreens;
   }
+  state.screens.sort((left, right) => left.galleryOrder - right.galleryOrder);
   notifyGallery(pathname);
 }
 
@@ -155,6 +159,7 @@ function ProductScreenFrameInner({
   label,
   title,
   body,
+  galleryOrder = Number.MAX_SAFE_INTEGER,
   priority = false,
   className = "",
   sizes = "(min-width: 1024px) 50vw, (min-width: 640px) 80vw, 100vw",
@@ -171,12 +176,13 @@ function ProductScreenFrameInner({
       label,
       title,
       body,
+      galleryOrder,
     });
 
     return () => {
       unregisterScreen(pathname, screenId);
     };
-  }, [alt, body, label, pathname, screenId, src, title]);
+  }, [alt, body, galleryOrder, label, pathname, screenId, src, title]);
 
   return (
     <button

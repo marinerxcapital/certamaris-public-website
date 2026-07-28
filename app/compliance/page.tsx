@@ -44,6 +44,7 @@ export default function CompliancePage() {
               alt="CertaMaris control detail screen showing a control objective, implementation description, known exception, and requirement mappings."
               label="Control detail and evidence mapping"
               priority
+              galleryOrder={1}
             />
           </Reveal>
         </div>
@@ -153,6 +154,7 @@ export default function CompliancePage() {
             label="Evidence coverage"
             title="Evidence sufficiency"
             body="Coverage status, freshness, and missing evidence are tracked at the control level instead of buried in a file share."
+            galleryOrder={2}
           />
           <ProductScreenTile
             src="/product/clean/executive-reporting.png"
@@ -160,6 +162,7 @@ export default function CompliancePage() {
             label="Board pack"
             title="Governance reporting"
             body="The same control and evidence record rolls up into board-facing health, strategic risk, and attestation views."
+            galleryOrder={5}
           />
         </div>
       </Section>
