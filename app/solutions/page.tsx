@@ -16,7 +16,7 @@ export const metadata = pageMetadata(
 
 const solutionScreens: Record<string, typeof productProofScreens[keyof typeof productProofScreens]> = {
   "fleet-compliance": productProofScreens.fleetInventory,
-  "audit-readiness": productProofScreens.evidenceCoverage,
+  "audit-readiness": productProofScreens.auditReadiness,
   "evidence-findings": productProofScreens.findingsRegister,
   "regulatory-intelligence": productProofScreens.requirementMapping,
   "executive-reporting": productProofScreens.executiveReporting,
@@ -27,11 +27,12 @@ const featuredScreens = [
   productProofScreens.evidenceCoverage,
   productProofScreens.findingsRegister,
   productProofScreens.correctiveActions,
+  productProofScreens.auditReadiness,
 ];
 
 const solutionScreenOrder: Record<string, number> = {
   "regulatory-intelligence": productProofScreens.requirementMapping.galleryOrder,
-  "audit-readiness": productProofScreens.evidenceCoverage.galleryOrder,
+  "audit-readiness": productProofScreens.auditReadiness.galleryOrder,
   "evidence-findings": productProofScreens.findingsRegister.galleryOrder,
   "executive-reporting": productProofScreens.executiveReporting.galleryOrder,
   "fleet-compliance": productProofScreens.fleetInventory.galleryOrder,
@@ -67,7 +68,8 @@ export default function SolutionsPage() {
             </h2>
             <p className="text-[15.5px] text-structural leading-relaxed">
               These are sanitized product views, not decorative mockups. They show where fleet scope, evidence
-              sufficiency, findings, corrective action ownership, and board reporting live inside CertaMaris.
+              sufficiency, findings, corrective action ownership, audit readiness, and governance reporting live inside
+              CertaMaris.
             </p>
           </Reveal>
           <Reveal delay={0.08} className="grid sm:grid-cols-2 gap-5">

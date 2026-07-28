@@ -32,7 +32,8 @@ export default function ResourcesPage() {
             </h2>
             <p className="text-[15.5px] text-structural leading-relaxed">
               The resource library is more useful when readers can see where the concept lives: requirement mapping,
-              evidence sufficiency, findings, risk decisions, corrective actions, and executive reporting.
+              evidence sufficiency, findings, risk decisions, corrective actions, readiness packages, and governance
+              reporting.
             </p>
           </Reveal>
           <Reveal delay={0.08}>
@@ -56,7 +57,7 @@ export default function ResourcesPage() {
             Start with the workflow, then go deeper.
           </h2>
         </Reveal>
-        <RevealGroup className="grid md:grid-cols-2 lg:grid-cols-4 gap-6" stagger={0.05}>
+        <RevealGroup className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6" stagger={0.05}>
           <ProductScreenTile
             {...productProofScreens.requirementMapping}
             title="Regulatory intelligence"
@@ -71,6 +72,11 @@ export default function ResourcesPage() {
             {...productProofScreens.correctiveActions}
             title="Corrective-action verification"
             body="Use the verification article to see why closure should remain separate from the action owner's own update."
+          />
+          <ProductScreenTile
+            {...productProofScreens.auditReadiness}
+            title="Audit readiness"
+            body="Use the readiness workflow to see why scope, evidence, findings, actions, exceptions, and reviewer notes need to stay inspectable."
           />
           <ProductScreenTile
             {...productProofScreens.executiveReporting}

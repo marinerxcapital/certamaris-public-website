@@ -32,6 +32,7 @@ const platformScreens = [
   productProofScreens.evidenceCoverage,
   productProofScreens.findingsRegister,
   productProofScreens.correctiveActions,
+  productProofScreens.auditReadiness,
 ];
 
 export default function PlatformPage() {
@@ -110,7 +111,7 @@ export default function PlatformPage() {
           <Eyebrow>Operational screens</Eyebrow>
           <h2 className="text-[28px] sm:text-[34px] leading-[1.14]">The record becomes usable operating rhythm.</h2>
         </Reveal>
-        <RevealGroup className="grid md:grid-cols-3 gap-6" stagger={0.05}>
+        <RevealGroup className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6" stagger={0.05}>
           {platformScreens.map((screen) => (
             <ProductScreenTile key={screen.src} {...screen} />
           ))}

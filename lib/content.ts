@@ -94,7 +94,7 @@ export const personas: Persona[] = [
   {
     id: "owners-operators",
     title: "Ship owners & operators",
-    detail: "Fleet-wide readiness status and financial exposure without chasing individual vessels for updates.",
+    detail: "Fleet-wide readiness status, open findings, and owner decisions without chasing individual vessels for updates.",
   },
   {
     id: "technical-managers",

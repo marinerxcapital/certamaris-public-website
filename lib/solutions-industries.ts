@@ -78,7 +78,7 @@ export const solutions: SolutionEntry[] = [
     eyebrow: "Solutions · 05",
     headline: "Governance-grade reporting without a slide deck rebuilt from scratch.",
     body: [
-      "Boards and executive teams need fleet-wide cyber-compliance status in a format built for a governance conversation — trend over time, outstanding decisions, and where exposure concentrates — not a raw export of every open finding.",
+      "Boards and executive teams need fleet-wide cyber-compliance status in a format built for a governance conversation — trend over time, outstanding decisions, and where operational risk needs review — not a raw export of every open finding.",
       "Executive & Board Reporting draws directly from the same live data operators and technical managers use day to day, so the number in the boardroom matches the number on the vessel.",
     ],
     capabilities: [
@@ -106,10 +106,10 @@ export const industries: IndustryEntry[] = [
     eyebrow: "Industries · 01",
     headline: "Fleet-wide readiness without chasing individual vessels for status.",
     body: [
-      "Owners and operators carry the commercial consequence of a cyber-compliance gap — off-hire risk, insurer conversations, and charterer scrutiny — without always having direct visibility into vessel-level detail.",
-      "CertaMaris gives owners and operators a fleet-wide view of readiness, open findings, and exposure, with the ability to drill into any vessel's underlying detail when it matters.",
+      "Owners and operators carry the operational consequence of a cyber-compliance gap — survey preparation, insurer conversations, and charterer scrutiny — without always having direct visibility into vessel-level detail.",
+      "CertaMaris gives owners and operators a fleet-wide view of readiness, open findings, and review decisions, with the ability to drill into any vessel's underlying detail when it matters.",
     ],
-    priorities: ["Fleet-wide readiness visibility", "Financial and operational exposure by vessel", "Insurer and charterer-ready reporting"],
+    priorities: ["Fleet-wide readiness visibility", "Open findings and review decisions by vessel", "Insurer and charterer-ready reporting"],
   },
   {
     id: "technical-managers",

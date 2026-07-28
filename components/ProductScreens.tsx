@@ -245,7 +245,7 @@ function ProductScreenFrameInner({
           className="aspect-[1440/1040] w-full object-cover object-top"
         />
       </figure>
-      <span className="pointer-events-none absolute bottom-3 right-3 rounded-full border border-white/40 bg-navy/82 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.12em] text-white opacity-0 transition-opacity duration-150 group-hover:opacity-100 group-focus-visible:opacity-100">
+      <span className="pointer-events-none absolute bottom-3 right-3 rounded-full border border-white/40 bg-navy/82 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.12em] text-white opacity-100 transition-opacity duration-150 sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-visible:opacity-100">
         Expand
       </span>
     </button>
@@ -493,7 +493,7 @@ export function ProductScreenFrame({
 
 export function ProductScreenTile({ title, body, ...screen }: ProductScreenTileProps) {
   return (
-    <article className="grid gap-4">
+    <article className="grid content-start gap-3.5">
       <ProductScreenFrameInner
         sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 45vw, (min-width: 640px) 50vw, 100vw"
         {...screen}
@@ -501,7 +501,7 @@ export function ProductScreenTile({ title, body, ...screen }: ProductScreenTileP
         body={body}
       />
       <div>
-        <h3 className="mb-1.5 text-[15px] font-semibold">{title}</h3>
+        <h3 className="mb-1.5 text-[15px] font-semibold leading-snug">{title}</h3>
         <p className="text-[13.5px] leading-relaxed text-structural">{body}</p>
       </div>
     </article>

@@ -40,13 +40,21 @@ export const productProofScreens = {
     body: "Corrective actions stay owned, time-bound, and visible through verification instead of ending as an untracked finding.",
     galleryOrder: 4,
   },
+  auditReadiness: {
+    src: "/product/clean/audit-readiness.png",
+    alt: "CertaMaris audit readiness package screen showing scope status, required evidence, open findings, corrective actions awaiting verification, exceptions, and reviewer notes.",
+    label: "Audit readiness",
+    title: "Readiness package preparation",
+    body: "A readiness package keeps scope, evidence, findings, corrective actions, exceptions, and reviewer notes structured for inspection without claiming an audit outcome.",
+    galleryOrder: 5,
+  },
   executiveReporting: {
     src: "/product/clean/executive-reporting.png",
-    alt: "CertaMaris board pack screen showing a sanitized governance roll-up of portfolio health, risk exposure, attestation status, KPIs, and risk heatmap.",
-    label: "Board pack",
+    alt: "CertaMaris governance reporting screen showing assurance posture, evidence freshness, corrective actions awaiting verification, owner reviews, governance decisions, and review package sections.",
+    label: "Governance reporting",
     title: "Governance reporting",
-    body: "A board-facing roll-up summarizes assurance posture, strategic risk, attestations, and operating indicators from the same underlying record.",
-    galleryOrder: 5,
+    body: "A governance roll-up summarizes assurance posture, evidence freshness, corrective actions, and owner review decisions without unsupported financial, certification, or regulator claims.",
+    galleryOrder: 6,
   },
   fleetInventory: {
     src: "/product/clean/fleet-inventory.png",
@@ -54,7 +62,7 @@ export const productProofScreens = {
     label: "Fleet and facilities",
     title: "Fleet scope and review cadence",
     body: "Fleet scope, vessel status, locations, criticality, and review cadence stay visible before any audit package is assembled.",
-    galleryOrder: 6,
+    galleryOrder: 7,
   },
 } satisfies Record<string, ProductProofScreen>;
 
@@ -63,5 +71,6 @@ export const productProofSequence = [
   productProofScreens.evidenceCoverage,
   productProofScreens.findingsRegister,
   productProofScreens.correctiveActions,
+  productProofScreens.auditReadiness,
   productProofScreens.executiveReporting,
 ];

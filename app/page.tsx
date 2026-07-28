@@ -18,6 +18,7 @@ const productScreens = [
   productProofScreens.evidenceCoverage,
   productProofScreens.findingsRegister,
   productProofScreens.correctiveActions,
+  productProofScreens.auditReadiness,
   productProofScreens.executiveReporting,
 ];
 
@@ -145,7 +146,7 @@ export default function HomePage() {
             The site should show the system operators actually use.
           </h2>
         </Reveal>
-        <RevealGroup className="grid sm:grid-cols-2 gap-6" stagger={0.05}>
+        <RevealGroup className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" stagger={0.05}>
           {productScreens.map((screen) => (
             <ProductScreenTile key={screen.src} {...screen} />
           ))}

@@ -150,7 +150,7 @@ export default function CompliancePage() {
             The requirement story continues into evidence and reporting.
           </h2>
         </Reveal>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
           <ProductScreenTile
             {...productProofScreens.evidenceCoverage}
           />
@@ -159,6 +159,9 @@ export default function CompliancePage() {
           />
           <ProductScreenTile
             {...productProofScreens.correctiveActions}
+          />
+          <ProductScreenTile
+            {...productProofScreens.auditReadiness}
           />
           <ProductScreenTile
             {...productProofScreens.executiveReporting}
