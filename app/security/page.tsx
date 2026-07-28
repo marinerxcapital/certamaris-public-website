@@ -1,6 +1,6 @@
 import { BoundaryPanel } from "@/components/BoundaryPanel";
 import { PageHero } from "@/components/PageHero";
-import { ProductScreenFrame, ProductScreenTile } from "@/components/ProductScreens";
+import { ProductScreenFrame, ProductScreenGallery, ProductScreenTile } from "@/components/ProductScreens";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
 import { StatusBadge } from "@/components/StatusBadge";
@@ -31,6 +31,7 @@ const controls: ControlItem[] = [
 export default function SecurityPage() {
   return (
     <>
+      <ProductScreenGallery />
       <PageHero
         emphasis="elevated"
         eyebrow="Security & Trust"

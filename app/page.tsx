@@ -6,7 +6,7 @@ import { CapabilityCard } from "@/components/CapabilityCard";
 import { HeroVideo } from "@/components/HeroVideo";
 import { PersonaCard } from "@/components/PersonaCard";
 import { ProcessStepList } from "@/components/ProcessStepList";
-import { ProductScreenFrame, ProductScreenTile } from "@/components/ProductScreens";
+import { ProductScreenFrame, ProductScreenGallery, ProductScreenTile } from "@/components/ProductScreens";
 import { Reveal, RevealGroup } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
 import { StatusBadge } from "@/components/StatusBadge";
@@ -47,6 +47,7 @@ const productScreens = [
 export default function HomePage() {
   return (
     <>
+      <ProductScreenGallery />
       {/* HERO */}
       <section className="hero-section" aria-labelledby="hero-title">
         <HeroVideo />

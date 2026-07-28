@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { BoundaryPanel } from "@/components/BoundaryPanel";
 import { PageHero } from "@/components/PageHero";
-import { ProductScreenFrame, ProductScreenTile } from "@/components/ProductScreens";
+import { ProductScreenFrame, ProductScreenGallery, ProductScreenTile } from "@/components/ProductScreens";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
 import { pageMetadata } from "@/lib/metadata";
@@ -15,6 +15,7 @@ export const metadata = pageMetadata(
 export default function CompliancePage() {
   return (
     <>
+      <ProductScreenGallery />
       <PageHero
         emphasis="elevated"
         eyebrow="Compliance"

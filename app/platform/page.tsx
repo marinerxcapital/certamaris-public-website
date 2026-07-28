@@ -3,7 +3,7 @@ import { Button } from "@/components/Button";
 import { CapabilityCard } from "@/components/CapabilityCard";
 import { PageHero } from "@/components/PageHero";
 import { ProcessStepList } from "@/components/ProcessStepList";
-import { ProductScreenFrame, ProductScreenTile } from "@/components/ProductScreens";
+import { ProductScreenFrame, ProductScreenGallery, ProductScreenTile } from "@/components/ProductScreens";
 import { Reveal, RevealGroup } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
 import { PRIMARY_CTA_LABEL } from "@/lib/constants";
@@ -54,6 +54,7 @@ const platformScreens = [
 export default function PlatformPage() {
   return (
     <>
+      <ProductScreenGallery />
       <PageHero
         emphasis="elevated"
         eyebrow="Platform"

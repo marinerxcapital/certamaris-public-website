@@ -1,6 +1,6 @@
 import { Button } from "@/components/Button";
 import { PageHero } from "@/components/PageHero";
-import { ProductScreenFrame, ProductScreenTile } from "@/components/ProductScreens";
+import { ProductScreenFrame, ProductScreenGallery, ProductScreenTile } from "@/components/ProductScreens";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
 import { PRIMARY_CTA_LABEL } from "@/lib/constants";
@@ -55,6 +55,7 @@ const featuredScreens = [
 export default function SolutionsPage() {
   return (
     <>
+      <ProductScreenGallery />
       <PageHero
         emphasis="elevated"
         eyebrow="Solutions"

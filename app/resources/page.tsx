@@ -1,6 +1,6 @@
 import { ArticleCard } from "@/components/ArticleCard";
 import { PageHero } from "@/components/PageHero";
-import { ProductScreenFrame, ProductScreenTile } from "@/components/ProductScreens";
+import { ProductScreenFrame, ProductScreenGallery, ProductScreenTile } from "@/components/ProductScreens";
 import { Reveal, RevealGroup } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
 import { pageMetadata } from "@/lib/metadata";
@@ -15,6 +15,7 @@ export const metadata = pageMetadata(
 export default function ResourcesPage() {
   return (
     <>
+      <ProductScreenGallery />
       <PageHero
         eyebrow="Resources"
         title="Plain-language explainers on maritime cyber compliance."
