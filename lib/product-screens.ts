@@ -49,7 +49,7 @@ export const productProofScreens = {
     galleryOrder: 5,
   },
   executiveReporting: {
-    src: "/product/clean/executive-reporting.png",
+    src: "/product/clean/governance-reporting.png",
     alt: "CertaMaris governance reporting screen showing assurance posture, evidence freshness, corrective actions awaiting verification, owner reviews, governance decisions, and review package sections.",
     label: "Governance reporting",
     title: "Governance reporting",

@@ -52,7 +52,7 @@ Each screenshot may support only the claims below:
 | `findings-register.png` | Findings remain owned, risk-rated, aged, and tied to action context. |
 | `corrective-actions.png` | Corrective actions remain time-bound and independently verifiable before closure. |
 | `audit-readiness.png` | Readiness packages can organize scope, evidence, findings, actions, exceptions, and reviewer notes for inspection. |
-| `executive-reporting.png` | Governance reporting can summarize assurance posture, freshness, actions, and review decisions from the same record. |
+| `governance-reporting.png` | Governance reporting can summarize assurance posture, freshness, actions, and review decisions from the same record. |
 | `fleet-inventory.png` | Fleet scope and review cadence can remain visible where vessel or facility scope matters. |
 
 ## Legal and Regulatory Boundaries
