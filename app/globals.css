@@ -327,6 +327,21 @@ textarea:focus-visible,
   color: #1a5f9e;
 }
 
+.hero-product-proof {
+  position: relative;
+  isolation: isolate;
+  border: 1px solid rgba(11, 42, 74, 0.16);
+  border-radius: 10px;
+  background: rgba(245, 248, 250, 0.9);
+  box-shadow: 0 24px 70px rgba(11, 42, 74, 0.18);
+  padding: clamp(16px, 2vw, 24px);
+  backdrop-filter: blur(18px);
+}
+
+.hero-product-proof figure {
+  box-shadow: 0 18px 50px rgba(11, 42, 74, 0.18);
+}
+
 @media (max-width: 1279px) {
   .site-background-image {
     background-image: url("/bg/hero-flow-1280.webp");
@@ -380,5 +395,11 @@ textarea:focus-visible,
 
   .hero-copy-block::before {
     content: none;
+  }
+
+  .hero-product-proof {
+    border-radius: 8px;
+    padding: 14px;
+    box-shadow: 0 16px 42px rgba(11, 42, 74, 0.14);
   }
 }

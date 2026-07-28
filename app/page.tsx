@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { BoundaryPanel } from "@/components/BoundaryPanel";
 import { Button } from "@/components/Button";
-import { Counter } from "@/components/Counter";
 import { CapabilityCard } from "@/components/CapabilityCard";
 import { HeroVideo } from "@/components/HeroVideo";
 import { PersonaCard } from "@/components/PersonaCard";
@@ -9,17 +8,26 @@ import { ProcessStepList } from "@/components/ProcessStepList";
 import { ProductScreenFrame, ProductScreenGallery, ProductScreenTile } from "@/components/ProductScreens";
 import { Reveal, RevealGroup } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
-import { StatusBadge } from "@/components/StatusBadge";
 import { PRIMARY_CTA_LABEL, SECONDARY_CTA_LABEL } from "@/lib/constants";
 import { capabilityPillars, personas, processSteps } from "@/lib/content";
 import { productProofScreens } from "@/lib/product-screens";
 
 const productScreens = [
+  productProofScreens.requirementMapping,
   productProofScreens.evidenceCoverage,
   productProofScreens.findingsRegister,
   productProofScreens.correctiveActions,
   productProofScreens.auditReadiness,
   productProofScreens.executiveReporting,
+];
+
+const proofSteps = [
+  "Requirement mapping",
+  "Evidence sufficiency",
+  "Findings ownership",
+  "Action verification",
+  "Audit readiness",
+  "Governance reporting",
 ];
 
 export default function HomePage() {
@@ -29,24 +37,58 @@ export default function HomePage() {
       {/* HERO */}
       <section className="hero-section" aria-labelledby="hero-title">
         <HeroVideo />
-        <div className="shell relative z-10 py-28 sm:py-32">
-          <div className="hero-copy-block max-w-2xl">
-            <Eyebrow>Maritime cyber compliance &amp; assurance</Eyebrow>
-            <h1
-              id="hero-title"
-              className="text-[46px] sm:text-[68px] lg:text-[84px] leading-[0.98] tracking-[-0.02em] mb-8"
-            >
-              Cyber compliance your fleet can prove.
-            </h1>
-            <p className="font-display text-[18px] sm:text-[20px] font-medium tracking-[-0.015em] text-navy/76 max-w-[34rem] mb-9 leading-[1.58]">
-              CertaMaris structures the evidence, control mapping, and findings behind IMO cyber-risk management and
-              IACS UR E26/E27 — so readiness is a standing state, not a scramble before survey.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <Button href="/contact">{PRIMARY_CTA_LABEL}</Button>
-              <Button href="/platform" variant="secondary">
-                {SECONDARY_CTA_LABEL}
-              </Button>
+        <div className="shell relative z-10 py-20 sm:py-28 lg:py-24">
+          <div className="grid gap-8 lg:grid-cols-[0.86fr_1.14fr] lg:items-center lg:gap-12">
+            <div className="hero-copy-block max-w-2xl">
+              <Eyebrow>Maritime cyber compliance &amp; assurance</Eyebrow>
+              <h1
+                id="hero-title"
+                className="text-[42px] sm:text-[68px] lg:text-[78px] leading-[0.98] tracking-[-0.02em] mb-6 sm:mb-8"
+              >
+                Cyber compliance your fleet can prove.
+              </h1>
+              <p className="font-display text-[17px] sm:text-[20px] font-medium tracking-[-0.015em] text-navy/76 max-w-[34rem] mb-7 leading-[1.52] sm:mb-9 sm:leading-[1.58]">
+                CertaMaris turns IMO cyber-risk management and IACS UR E26/E27 readiness into a controlled product
+                record: mapped requirements, current evidence, owned findings, verified actions, and review packages.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <Button href="/contact">{PRIMARY_CTA_LABEL}</Button>
+                <Button href="/platform" variant="secondary">
+                  {SECONDARY_CTA_LABEL}
+                </Button>
+              </div>
+            </div>
+
+            <div className="hero-product-proof">
+              <div className="mb-4 flex items-end justify-between gap-4">
+                <div>
+                  <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-structural">Live proof path</p>
+                  <p className="mt-1 text-[14px] font-medium text-navy">
+                    Requirement to readiness package, shown inside the product.
+                  </p>
+                </div>
+                <Link href="/platform#trace-chain" className="hidden text-[13.5px] font-semibold text-ocean hover:underline sm:inline">
+                  Inspect platform →
+                </Link>
+              </div>
+              <ProductScreenFrame
+                src={productProofScreens.requirementMapping.src}
+                alt={productProofScreens.requirementMapping.alt}
+                label={productProofScreens.requirementMapping.label}
+                lightboxTitle={productProofScreens.requirementMapping.title}
+                lightboxBody={productProofScreens.requirementMapping.body}
+                galleryOrder={productProofScreens.requirementMapping.galleryOrder}
+                priority
+                sizes="(min-width: 1280px) 50vw, (min-width: 768px) 78vw, 100vw"
+              />
+              <ol className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2 sm:grid-cols-3">
+                {proofSteps.map((step, index) => (
+                  <li key={step} className="flex items-center gap-2 text-[12.5px] font-medium text-navy/75">
+                    <span className="font-mono text-[11px] text-ocean">{String(index + 1).padStart(2, "0")}</span>
+                    <span>{step}</span>
+                  </li>
+                ))}
+              </ol>
             </div>
           </div>
         </div>
@@ -94,8 +136,35 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* CAPABILITY PILLARS */}
       <Section id="product-screens" surface="paper">
+        <Reveal className="max-w-3xl mb-12">
+          <Eyebrow>Inside the product</Eyebrow>
+          <h2 className="text-[30px] sm:text-[36px] leading-[1.12]">
+            A clear path from requirement to governance review.
+          </h2>
+          <p className="mt-4 max-w-2xl text-[15.5px] leading-relaxed text-structural">
+            These views are sequenced the way the work happens. Operational proof comes first; governance reporting
+            stays connected to the underlying record.
+          </p>
+        </Reveal>
+        <RevealGroup className="grid gap-7 md:grid-cols-2 lg:grid-cols-6" stagger={0.05}>
+          {productScreens.map((screen, index) => (
+            <ProductScreenTile
+              key={screen.src}
+              {...screen}
+              tileClassName={index < 2 ? "lg:col-span-3" : "lg:col-span-2"}
+              sizes={
+                index < 2
+                  ? "(min-width: 1280px) 42vw, (min-width: 768px) 50vw, 100vw"
+                  : "(min-width: 1280px) 28vw, (min-width: 768px) 50vw, 100vw"
+              }
+            />
+          ))}
+        </RevealGroup>
+      </Section>
+
+      {/* CAPABILITY PILLARS */}
+      <Section surface="paper" spacing="compact">
         <Reveal className="max-w-2xl mb-12">
           <Eyebrow>Platform</Eyebrow>
           <h2 className="text-[30px] sm:text-[36px] leading-[1.12]">Six capabilities, one assurance record.</h2>
@@ -103,52 +172,6 @@ export default function HomePage() {
         <RevealGroup className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5" stagger={0.06}>
           {capabilityPillars.map((item, index) => (
             <CapabilityCard key={item.id} item={item} index={index} />
-          ))}
-        </RevealGroup>
-      </Section>
-
-      {/* PRODUCT DEMONSTRATION */}
-      <Section>
-        <div className="grid lg:grid-cols-2 gap-14 items-center">
-          <Reveal>
-            <Eyebrow>Product view</Eyebrow>
-            <h2 className="text-[28px] sm:text-[34px] leading-[1.14] mb-5">
-              Traceability, evidence, and remediation in one working product.
-            </h2>
-            <p className="text-[15.5px] text-structural leading-relaxed mb-6">
-              CertaMaris keeps the work behind readiness visible: mapped requirements, implementation context,
-              evidence coverage, known exceptions, findings, and accountable next actions.
-            </p>
-            <div className="flex flex-wrap gap-2 mb-2">
-              <StatusBadge status="ok" label="Requirements mapped" />
-              <StatusBadge status="caution" label="Evidence freshness visible" />
-              <StatusBadge status="critical" label="Findings owned" />
-            </div>
-          </Reveal>
-          <Reveal delay={0.08}>
-            <ProductScreenFrame
-              src={productProofScreens.requirementMapping.src}
-              alt={productProofScreens.requirementMapping.alt}
-              label="Requirement-to-control mapping"
-              lightboxTitle={productProofScreens.requirementMapping.title}
-              lightboxBody={productProofScreens.requirementMapping.body}
-              galleryOrder={productProofScreens.requirementMapping.galleryOrder}
-              priority
-            />
-          </Reveal>
-        </div>
-      </Section>
-
-      <Section surface="paper">
-        <Reveal className="max-w-2xl mb-12">
-          <Eyebrow>Inside the product</Eyebrow>
-          <h2 className="text-[30px] sm:text-[36px] leading-[1.12]">
-            The site should show the system operators actually use.
-          </h2>
-        </Reveal>
-        <RevealGroup className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" stagger={0.05}>
-          {productScreens.map((screen) => (
-            <ProductScreenTile key={screen.src} {...screen} />
           ))}
         </RevealGroup>
       </Section>
@@ -162,16 +185,6 @@ export default function HomePage() {
         <Reveal delay={0.08}>
           <ProcessStepList steps={processSteps} />
         </Reveal>
-      </Section>
-
-      {/* PROOF POINTS (structurally honest, no fabricated stats) */}
-      <Section>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-          <Counter to={10} label="Compliance domains covered" />
-          <Counter to={5} label="Platform capability pillars" />
-          <Counter to={13} label="Trace-chain stages from requirement to review" />
-          <Counter to={2} label="Design-stage IACS URs supported (E26 / E27)" />
-        </div>
       </Section>
 
       {/* WHO IT'S FOR */}

@@ -27,6 +27,7 @@ type ProductScreenTileProps = ProductScreenFrameProps & {
   title: string;
   body: string;
   galleryOrder: number;
+  tileClassName?: string;
 };
 
 type RegisteredScreen = {
@@ -491,9 +492,9 @@ export function ProductScreenFrame({
   );
 }
 
-export function ProductScreenTile({ title, body, ...screen }: ProductScreenTileProps) {
+export function ProductScreenTile({ title, body, tileClassName = "", ...screen }: ProductScreenTileProps) {
   return (
-    <article className="grid content-start gap-3.5">
+    <article className={`grid content-start gap-3.5 ${tileClassName}`}>
       <ProductScreenFrameInner
         sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 45vw, (min-width: 640px) 50vw, 100vw"
         {...screen}
