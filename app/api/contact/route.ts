@@ -8,6 +8,8 @@ type ContactPayload = {
   email?: string;
   company?: string;
   fleetSize?: string;
+  primaryNeed?: string;
+  timing?: string;
   message?: string;
 };
 
@@ -25,9 +27,11 @@ export async function POST(request: Request) {
   const email = (body.email ?? "").trim();
   const company = (body.company ?? "").trim();
   const fleetSize = (body.fleetSize ?? "").trim();
+  const primaryNeed = (body.primaryNeed ?? "").trim();
+  const timing = (body.timing ?? "").trim();
   const message = (body.message ?? "").trim();
 
-  if (!name || !email || !company || !fleetSize || !message) {
+  if (!name || !email || !company || !fleetSize || !primaryNeed || !timing || !message) {
     return NextResponse.json({ error: "All fields are required." }, { status: 400 });
   }
   if (!EMAIL_RE.test(email)) {
@@ -42,22 +46,23 @@ export async function POST(request: Request) {
    * ---------------------------------------
    * Set CONTACT_FORWARD_ENDPOINT to a webhook, transactional email API, or
    * CRM intake endpoint to actually deliver these submissions. Until that
-   * environment variable is configured, submissions are accepted and
-   * validated but no delivery is claimed.
+   * environment variable is configured, the form returns 503 so the website
+   * does not create a false "request received" state.
    */
   if (CONTACT_FORWARD_ENDPOINT) {
     try {
       await fetch(CONTACT_FORWARD_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, company, fleetSize, message, source: "certamaris-website" }),
+        body: JSON.stringify({ name, email, company, fleetSize, primaryNeed, timing, message, source: "certamaris-website" }),
       });
     } catch {
       console.error("Contact forwarding failed.");
-      return NextResponse.json({ error: "Delivery failed. Please try again shortly." }, { status: 502 });
+      return NextResponse.json({ error: "Delivery failed. Please use the direct email fallback." }, { status: 502 });
     }
   } else {
     console.warn("CONTACT_FORWARD_ENDPOINT is not configured; validated contact submission was not delivered.");
+    return NextResponse.json({ error: "Contact delivery is not configured. Please email sales directly." }, { status: 503 });
   }
 
   return NextResponse.json({ ok: true });

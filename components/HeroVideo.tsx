@@ -39,6 +39,8 @@ export function HeroVideo() {
         src="/video/hero-fog-poster.webp"
         alt=""
         className="hero-video-poster"
+        decoding="async"
+        fetchPriority="high"
         style={{ opacity: allowMotion ? 0 : 1 }}
       />
       {allowMotion && (
@@ -49,7 +51,7 @@ export function HeroVideo() {
           loop
           playsInline
           autoPlay
-          preload="auto"
+          preload="metadata"
           poster="/video/hero-fog-poster.webp"
         >
           <source src="/video/hero-fog.webm" type="video/webm" />

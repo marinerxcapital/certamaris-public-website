@@ -13,9 +13,9 @@ export default function PrivacyPage() {
           <div>
             <h2 className="text-[19px] font-semibold mb-2">1. Information we collect</h2>
             <p>
-              When you submit a form on this website (for example, requesting a demo or contacting sales), we
+              When you submit a form on this website (for example, requesting a readiness call or contacting sales), we
               collect the information you provide directly: your name, work email address, company name, fleet
-              size, and any message you include. We also collect standard technical information automatically,
+              size, conversation focus, planning horizon, and any message you include. We also collect standard technical information automatically,
               such as IP address, browser type, and pages visited, through server logs and any analytics tooling
               we enable.
             </p>
@@ -23,8 +23,8 @@ export default function PrivacyPage() {
           <div>
             <h2 className="text-[19px] font-semibold mb-2">2. How we use information</h2>
             <p>
-              We use the information you submit to respond to your inquiry, schedule and prepare for demo calls,
-              and communicate with you about CertaMaris. We do not sell personal information collected through
+              We use the information you submit to respond to your inquiry, route and prepare for readiness
+              conversations, and communicate with you about CertaMaris. We do not sell personal information collected through
               this website to third parties.
             </p>
           </div>

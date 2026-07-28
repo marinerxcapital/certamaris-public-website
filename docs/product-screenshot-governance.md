@@ -55,6 +55,14 @@ Each screenshot may support only the claims below:
 | `governance-reporting.png` | Governance reporting can summarize assurance posture, freshness, actions, and review decisions from the same record. |
 | `fleet-inventory.png` | Fleet scope and review cadence can remain visible where vessel or facility scope matters. |
 
+## Placement and Sequencing
+
+- The primary marketing sequence is requirement mapping -> evidence sufficiency -> findings ownership -> corrective-action verification -> audit readiness -> governance reporting.
+- Homepage and solution overview sections should make the first one or two proof screens visually dominant. Later governance and fleet-scope views should support the story rather than compete with the operational proof screens.
+- Use audit-readiness screens where the page discusses review packages, survey preparation, or readiness workflow.
+- Use governance reporting only where leadership, board, owner review, or recurring reporting is the point.
+- Fleet inventory is route-contextual and should not replace the core proof sequence unless fleet scope is the section's primary claim.
+
 ## Legal and Regulatory Boundaries
 
 - Do not imply CertaMaris provides legal or regulatory advice.

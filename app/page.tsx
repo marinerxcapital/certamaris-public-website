@@ -31,6 +31,25 @@ const proofSteps = [
   "Governance reporting",
 ];
 
+const whyNow = [
+  {
+    title: "Evidence drift compounds",
+    body: "Procedures, assessments, and screenshots age at different speeds. Without freshness rules, a file can look complete while no longer supporting the requirement it was collected for.",
+  },
+  {
+    title: "Requirement changes create hidden work",
+    body: "IMO, IACS, flag-state, and internal policy updates do not affect every vessel equally. The hard part is knowing which controls, systems, and evidence records need attention.",
+  },
+  {
+    title: "Ownership fades between reviews",
+    body: "Findings and corrective actions lose credibility when owner updates, reviewer decisions, and verification evidence live in separate threads.",
+  },
+  {
+    title: "Survey readiness is cumulative",
+    body: "A review package is only persuasive when scope, evidence, findings, corrective actions, exceptions, and reviewer notes already share the same record.",
+  },
+];
+
 export default function HomePage() {
   return (
     <>
@@ -114,6 +133,23 @@ export default function HomePage() {
           </span>
         </div>
       </div>
+
+      <Section spacing="compact">
+        <Reveal className="max-w-2xl mb-12">
+          <Eyebrow>Why now</Eyebrow>
+          <h2 className="text-[30px] sm:text-[36px] leading-[1.12]">
+            The work gets harder when the record is assembled only before review.
+          </h2>
+        </Reveal>
+        <RevealGroup className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5" stagger={0.05}>
+          {whyNow.map((item) => (
+            <div key={item.title} className="h-full rounded-sm border bg-white p-5" style={{ borderColor: "var(--hairline)" }}>
+              <h3 className="mb-2 text-[16px] font-semibold">{item.title}</h3>
+              <p className="text-[13.5px] leading-relaxed text-structural">{item.body}</p>
+            </div>
+          ))}
+        </RevealGroup>
+      </Section>
 
       {/* PROBLEM FRAMING */}
       <Section id="product-dashboard">

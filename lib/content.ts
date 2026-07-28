@@ -140,14 +140,14 @@ export const faqItems: { question: string; answer: string }[] = [
       "Yes. Tenant-isolated workspaces support fleet-level structures with role-based access so technical managers, DPAs, and executives see the scope relevant to their responsibility.",
   },
   {
-    question: "What happens on a demo call?",
+    question: "What happens in a readiness conversation?",
     answer:
-      "A working session on your fleet's current compliance state, existing evidence and assessment condition, accountable roles, and the specific IACS UR E26/E27 or IMO cyber-risk workflows most relevant to your operation.",
+      "A working conversation around your fleet's current compliance state, existing evidence and assessment condition, accountable roles, and the specific IACS UR E26/E27 or IMO cyber-risk workflows most relevant to your operation.",
   },
   {
     question: "Is there a free trial?",
     answer:
-      "Access is arranged per engagement based on fleet size and scope. Request a tailored quote and our team will scope a path to get your fleet onboarded, including any qualification period appropriate to your organization.",
+      "Access is arranged per engagement based on fleet size, workflow scope, evidence condition, and onboarding requirements. Send a readiness request and CertaMaris will scope the appropriate next step without publishing unsupported price points on the website.",
   },
   {
     question: "How is data isolated between different operators?",

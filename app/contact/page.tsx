@@ -7,15 +7,15 @@ import { APP_SALES_EMAIL } from "@/lib/constants";
 
 export const metadata = pageMetadata(
   "Contact & Readiness Call",
-  "Book a CertaMaris readiness call, or contact our sales team directly about your fleet's cyber compliance program.",
+  "Send CertaMaris a readiness-call request, or contact the team directly about your fleet's cyber compliance program.",
   "/contact"
 );
 
 const expectations = [
-  { title: "Length", body: "Most calls run 30 minutes. We keep it focused on your fleet, not a generic product tour." },
-  { title: "What we cover", body: "Current compliance state, evidence and assessment condition, accountable roles, and the IACS UR E26/E27 or IMO cyber-risk workflows most relevant to you." },
-  { title: "What to prepare", body: "A rough sense of fleet size, current SMS cyber-risk coverage, and any upcoming survey or audit dates helps — nothing needs to be polished beforehand." },
-  { title: "After the call", body: "We'll follow up with a written summary and, where it makes sense, a scoped path to onboarding your fleet." },
+  { title: "No calendar assumption", body: "The form starts a routed request. It does not create a calendar event or imply a scheduling integration is already in place." },
+  { title: "What the intake captures", body: "Fleet scope, current evidence condition, readiness pressure, accountable roles, and the IACS UR E26/E27 or IMO cyber-risk workflows most relevant to you." },
+  { title: "What to prepare", body: "A rough sense of vessel count, current SMS cyber-risk coverage, and any upcoming survey or review pressure helps. Nothing needs to be polished before you write in." },
+  { title: "What happens next", body: "If the request is deliverable through the configured channel, CertaMaris uses the context to route a focused conversation. If delivery is unavailable, use the direct email fallback shown below." },
 ];
 
 export default function ContactPage() {
@@ -23,8 +23,8 @@ export default function ContactPage() {
     <>
       <PageHero
         eyebrow="Contact"
-        title="Book a readiness call, or reach our team directly."
-        intro="Tell us about your fleet and we'll route you to the right conversation — whether that's a product walkthrough, a technical question, or a scoping discussion."
+        title="Request a readiness call with enough context to make it useful."
+        intro="Tell us what is happening across your fleet, what evidence or review pressure exists, and which workflow needs structure. The form routes a request; it is not a calendar booking."
       />
 
       <Section>

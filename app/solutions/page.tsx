@@ -72,8 +72,8 @@ export default function SolutionsPage() {
               CertaMaris.
             </p>
           </Reveal>
-          <Reveal delay={0.08} className="grid sm:grid-cols-2 gap-5">
-            {featuredScreens.map((screen) => (
+          <Reveal delay={0.08} className="grid gap-5 sm:grid-cols-2 lg:grid-cols-6">
+            {featuredScreens.map((screen, index) => (
               <ProductScreenTile
                 key={screen.src}
                 src={screen.src}
@@ -82,6 +82,12 @@ export default function SolutionsPage() {
                 title={screen.title}
                 body={screen.body}
                 galleryOrder={screen.galleryOrder}
+                tileClassName={index < 2 ? "lg:col-span-3" : "lg:col-span-2"}
+                sizes={
+                  index < 2
+                    ? "(min-width: 1280px) 32vw, (min-width: 768px) 50vw, 100vw"
+                    : "(min-width: 1280px) 22vw, (min-width: 768px) 50vw, 100vw"
+                }
               />
             ))}
           </Reveal>

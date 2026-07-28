@@ -18,6 +18,19 @@ const principles = [
   { title: "Built for fleets, not files", body: "Every design decision is tested against what changes when a fleet is ten vessels rather than one — because that's where informal processes usually break first." },
 ];
 
+const boundaries = [
+  { title: "What CertaMaris does", body: "Structures requirements, scope, evidence, findings, corrective actions, readiness packages, and governance reporting into one controlled product record." },
+  { title: "What CertaMaris does not do", body: "It does not replace qualified reviewers, classification societies, flag states, auditors, legal counsel, or accountable maritime personnel." },
+  { title: "How claims are handled", body: "The public website avoids unsupported customer, certification, pricing, audit-pass, or regulator-approval claims. Product proof is tied to inspectable workflow screens." },
+];
+
+const proofStandards = [
+  "Sanitized product screenshots must support a specific workflow claim.",
+  "Operational labels are preferred over fake names, fake customers, or fake metrics.",
+  "Evidence, findings, corrective actions, and governance views remain connected to regulatory boundaries.",
+  "Public explanations stay subordinate to official IMO, IACS, flag-state, and classification-society text.",
+];
+
 export default function AboutPage() {
   return (
     <>
@@ -69,6 +82,46 @@ export default function AboutPage() {
             <div key={item.title} className="border rounded-sm p-6 bg-white" style={{ borderColor: "var(--hairline)" }}>
               <h3 className="text-[16.5px] font-semibold mb-2">{item.title}</h3>
               <p className="text-[14px] text-structural leading-relaxed">{item.body}</p>
+            </div>
+          ))}
+        </RevealGroup>
+      </Section>
+
+      <Section spacing="compact">
+        <div className="grid lg:grid-cols-[0.8fr_1.2fr] gap-14 items-start">
+          <Reveal>
+            <Eyebrow>Trust boundaries</Eyebrow>
+            <h2 className="text-[28px] sm:text-[34px] leading-[1.14] mb-4">
+              Credibility comes from saying the boundary clearly.
+            </h2>
+            <p className="text-[15px] text-structural leading-relaxed">
+              CertaMaris is designed to make maritime cyber-compliance work easier to inspect and maintain. It is not
+              designed to blur who makes the regulated decision or who controls the official requirement.
+            </p>
+          </Reveal>
+          <RevealGroup className="grid gap-5" stagger={0.05}>
+            {boundaries.map((item) => (
+              <div key={item.title} className="rounded-sm border bg-paper p-5" style={{ borderColor: "var(--hairline)" }}>
+                <h3 className="mb-1.5 text-[16px] font-semibold">{item.title}</h3>
+                <p className="text-[14px] leading-relaxed text-structural">{item.body}</p>
+              </div>
+            ))}
+          </RevealGroup>
+        </div>
+      </Section>
+
+      <Section surface="paper" spacing="compact">
+        <Reveal className="max-w-2xl mb-10">
+          <Eyebrow>Proof discipline</Eyebrow>
+          <h2 className="text-[28px] sm:text-[34px] leading-[1.14]">
+            The marketing proof follows the same standard as the product.
+          </h2>
+        </Reveal>
+        <RevealGroup className="grid sm:grid-cols-2 gap-4" stagger={0.05}>
+          {proofStandards.map((standard) => (
+            <div key={standard} className="flex gap-3 rounded-sm border bg-white p-4" style={{ borderColor: "var(--hairline)" }}>
+              <span aria-hidden="true" className="mt-2 h-2 w-2 shrink-0 rounded-full bg-ocean" />
+              <p className="text-[14px] leading-relaxed text-navy/85">{standard}</p>
             </div>
           ))}
         </RevealGroup>

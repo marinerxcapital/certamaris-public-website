@@ -3,6 +3,8 @@ type ContactPayload = {
   email?: string;
   company?: string;
   fleetSize?: string;
+  primaryNeed?: string;
+  timing?: string;
   message?: string;
 };
 
@@ -115,9 +117,11 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
   const email = (body.email ?? "").trim();
   const company = (body.company ?? "").trim();
   const fleetSize = (body.fleetSize ?? "").trim();
+  const primaryNeed = (body.primaryNeed ?? "").trim();
+  const timing = (body.timing ?? "").trim();
   const message = (body.message ?? "").trim();
 
-  if (!name || !email || !company || !fleetSize || !message) {
+  if (!name || !email || !company || !fleetSize || !primaryNeed || !timing || !message) {
     return json({ error: "All fields are required." }, 400);
   }
   if (!EMAIL_RE.test(email)) {
@@ -131,14 +135,15 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
     const forwarded = await fetch(env.CONTACT_FORWARD_ENDPOINT, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email, company, fleetSize, message, source: "certamaris-website" }),
+      body: JSON.stringify({ name, email, company, fleetSize, primaryNeed, timing, message, source: "certamaris-website" }),
     });
 
     if (!forwarded.ok) {
-      return json({ error: "Delivery failed. Please try again shortly." }, 502);
+      return json({ error: "Delivery failed. Please use the direct email fallback." }, 502);
     }
   } else {
     console.warn("CONTACT_FORWARD_ENDPOINT is not configured; validated contact submission was not delivered.");
+    return json({ error: "Contact delivery is not configured. Please email sales directly." }, 503);
   }
 
   return json({ ok: true });
