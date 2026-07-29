@@ -2,8 +2,6 @@ import Link from "next/link";
 import { BoundaryPanel } from "@/components/BoundaryPanel";
 import { Button } from "@/components/Button";
 import { CapabilityCard } from "@/components/CapabilityCard";
-import { HeroVideo } from "@/components/HeroVideo";
-import { MotionField } from "@/components/MotionField";
 import { PersonaCard } from "@/components/PersonaCard";
 import { ProcessStepList } from "@/components/ProcessStepList";
 import { ProductScreenFrame, ProductScreenGallery, ProductScreenTile } from "@/components/ProductScreens";
@@ -55,9 +53,7 @@ export default function HomePage() {
     <>
       <ProductScreenGallery />
       {/* HERO */}
-      <section className="hero-section" aria-labelledby="hero-title">
-        <HeroVideo />
-        <MotionField variant="hero" />
+      <section className="hero-section relative isolate" aria-labelledby="hero-title">
         <div className="shell relative z-10 py-20 sm:py-28 lg:py-24">
           <div className="grid gap-8 lg:grid-cols-[0.86fr_1.14fr] lg:items-center lg:gap-12">
             <div className="hero-copy-block max-w-2xl">
@@ -174,8 +170,7 @@ export default function HomePage() {
         </div>
       </Section>
 
-      <Section id="product-screens" surface="paper" className="motion-host motion-host--proof">
-        <MotionField variant="proof" />
+      <Section id="product-screens" surface="paper">
         <Reveal className="max-w-3xl mb-12">
           <Eyebrow>Inside the product</Eyebrow>
           <h2 className="text-[30px] sm:text-[36px] leading-[1.12]">
@@ -216,8 +211,7 @@ export default function HomePage() {
       </Section>
 
       {/* HOW IT WORKS */}
-      <Section className="motion-host motion-host--process">
-        <MotionField variant="process" />
+      <Section>
         <Reveal className="max-w-2xl mb-12">
           <Eyebrow>How it works</Eyebrow>
           <h2 className="text-[30px] sm:text-[36px] leading-[1.12]">From scope to continuous readiness.</h2>

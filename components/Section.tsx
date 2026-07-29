@@ -16,13 +16,17 @@ export function Section({
   as?: ElementType;
 }) {
   const surfaceClass =
-    surface === "paper" ? "bg-paper" : surface === "navy" ? "bg-navy text-white" : "bg-white";
+    surface === "paper"
+      ? "section-surface section-surface--paper"
+      : surface === "navy"
+        ? "section-surface section-surface--navy text-white"
+        : "section-surface section-surface--page";
   const spacingClass =
     spacing === "compact" ? "section-y-compact" : spacing === "tight" ? "section-y-tight" : "section-y";
   return createElement(
     Tag,
     { id, className: `${spacingClass} ${surfaceClass} ${className}` },
-    <div className="shell">{children}</div>
+    <div className="shell relative z-10">{children}</div>
   );
 }
 

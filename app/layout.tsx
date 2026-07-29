@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Mono, Inter, Space_Grotesk } from "next/font/google";
+import Script from "next/script";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
-import { SiteBackground } from "@/components/SiteBackground";
+import { PixelGridBackground } from "@/components/PixelGridBackground";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/constants";
 import "./globals.css";
 
@@ -44,8 +45,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
       <body>
-        <SiteBackground />
-        <div className="site-content">
+        <Script src="https://cdn.aidesigner.ai/effects/runtime/v1.js" strategy="afterInteractive" />
+        <div className="site-root relative isolate min-h-screen overflow-x-clip">
+          <PixelGridBackground className="fixed inset-0 -z-10 pointer-events-none" />
           {/* eslint-disable-next-line @next/next/no-sync-scripts */}
           <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
           <Nav />

@@ -22,8 +22,8 @@ export default function AccessibilityPage() {
             <h2 className="text-[19px] font-semibold mb-2">Motion and animation</h2>
             <p>
               This site respects your operating system's reduced-motion preference. When enabled, scroll-triggered
-              animation, the hero background video, and decorative motion are disabled in favor of a stable, fully
-              legible static presentation — with no loss of information or functionality.
+              animation and decorative background motion are reduced in favor of a stable, fully legible presentation
+              with no loss of information or functionality.
             </p>
           </div>
           <div>

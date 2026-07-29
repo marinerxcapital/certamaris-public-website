@@ -27,7 +27,7 @@ const SECURITY_HEADERS: Record<string, string> = {
   "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
   "X-Frame-Options": "SAMEORIGIN",
   "Content-Security-Policy-Report-Only":
-    "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self'; font-src 'self' data:; connect-src 'self' https://app.certamaris.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self';",
+    "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.aidesigner.ai; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self'; font-src 'self' data:; connect-src 'self' https://app.certamaris.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self';",
 };
 
 export default {
@@ -95,9 +95,7 @@ function withHeaders(response: Response, request: Request): Response {
 function isStableAsset(pathname: string): boolean {
   return (
     pathname.startsWith("/brand/") ||
-    pathname.startsWith("/bg/") ||
     pathname.startsWith("/product/") ||
-    pathname.startsWith("/video/") ||
     pathname.startsWith("/og/") ||
     pathname === "/favicon.ico" ||
     pathname === "/icon.png" ||

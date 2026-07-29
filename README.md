@@ -31,7 +31,8 @@ Superseded register: `...\02_HANDOFF\SUPERSEDED_REPOS_REGISTER_2026-07-29.md`
 | UI | React 19 |
 | Language | TypeScript 5.7 (strict mode) |
 | Styling | Tailwind CSS 3.4, custom design tokens in `app/globals.css` |
-| Motion | Framer Motion 12, Vanta FOG, Three.js |
+| Foreground motion | Framer Motion 12 for reveals and product-adjacent microinteractions |
+| Background treatment | AI Designer Pixel Grid runtime loaded once from `app/layout.tsx` |
 | Fonts | Space Grotesk (display), Inter (body), IBM Plex Mono (data/labels) — via `next/font/google` |
 | Hosting target | Cloudflare Workers with static assets through `wrangler.jsonc` |
 | Node | 22+ |
@@ -162,7 +163,7 @@ app/
   api/contact/route.ts    Server-side form handler (Node deployments only)
 
 components/               Nav, Footer, Button, Section, PageHero, Reveal,
-                           AssuranceGraph, HeroVideo, CapabilityCard,
+                           AssuranceGraph, PixelGridBackground, CapabilityCard,
                            PersonaCard, ProcessStepList, StatusBadge, Counter,
                            FaqAccordion, ArticleCard, ContactForm, BoundaryPanel
 
@@ -172,7 +173,6 @@ lib/                      constants.ts, content.ts, solutions-industries.ts,
 public/
   brand/                  Logo mark, full lockup, favicons (derived from
                            the approved CertaMaris brand assets)
-  video/                  hero-fog.mp4 / .webm / poster.webp
   og/                     Open Graph social image
 ```
 
@@ -181,30 +181,19 @@ listed in the brief is implemented with final copy, not placeholder text.
 
 ---
 
-## 7. The hero video
+## 7. Background system
 
-`public/video/hero-fog.mp4` / `.webm` were encoded from a supplied
-ship-in-fog atmosphere clip: trimmed to ~8s, audio stripped, downscaled and
-compressed for web delivery (mp4 ~3.3MB, webm ~1.3MB), with a static WebP
-poster frame extracted for the loading state and reduced-motion fallback.
+The site uses one global AI Designer Pixel Grid background. The runtime is
+loaded once in `app/layout.tsx`, and the effect markup lives in
+`components/PixelGridBackground.tsx` with the approved CertaMaris blue
+configuration. Page and section surfaces use restrained translucent overlays
+from `app/globals.css` so headings, body copy, cards, forms, and product
+screens remain readable.
 
-**Known limitation:** the source clip has slight forward drift frame to
-frame, so it does not loop perfectly seamlessly — there's a small jump cut
-at the loop point rather than a true seamless loop. It's subtle enough not
-to be distracting at the intended background-atmosphere role, but if a
-perfectly seamless loop matters, re-export a version with a matched
-start/end frame, or extend the clip and crossfade the last quarter-second
-in a video editor before replacing the file (same filename, same encode
-settings work fine).
-
-`components/HeroVideo.tsx` handles the rest correctly:
-- Autoplays muted, looped, `playsInline` — but only when
-  `prefers-reduced-motion` is not set and the connection isn't in
-  save-data mode.
-- Falls back to the static poster image in all other cases, with no video
-  element even created in the DOM under reduced motion.
-- Purely decorative (`aria-hidden`) — the real headline and body copy carry
-  all the actual information.
+The previous decorative background systems were removed from the live source:
+the hero video assets, WebP atmospheric background assets, Silk/WebGL canvas
+background, Three.js dependencies, and homepage motion-field overlays.
+Reduced-motion users receive a stable non-animated page background.
 
 ---
 
@@ -301,15 +290,13 @@ next            16.2.12
 react           19.0.0
 react-dom       19.0.0
 framer-motion   12.42.2
-three           0.134.0
-vanta           0.5.24
 tailwindcss     3.4.17  (dev)
 typescript      5.7.3   (dev)
 wrangler        4.114.0 (dev)
 ```
 
 Minimal by design — no UI kit, no animation library beyond framer-motion,
-no analytics SDK pre-installed.
+no WebGL background package, no analytics SDK pre-installed.
 
 ---
 

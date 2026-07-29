@@ -1,5 +1,9 @@
 # CertaMaris Marketing Fix, Refine, Motion Deployment Record
 
+## Superseded background note - 2026-07-29
+
+The Vanta/WebP/hero-video background described below is historical only. The live source now uses the AI Designer Pixel Grid background documented in `docs/2026-07-29-pixel-grid-background-deployment.md`. Do not restore `SiteBackground`, `Silk`, `HeroVideo`, `MotionField`, `/public/bg/*`, `/public/video/*`, `three`, or `@react-three/fiber` unless a future owner-approved design change explicitly requires them.
+
 ## Superseding addendum - 2026-07-25 17:05 PT
 
 Status: ready, with one CI secret follow-up.

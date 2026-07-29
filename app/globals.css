@@ -39,7 +39,7 @@ html {
 
 body {
   margin: 0;
-  background: transparent;
+  background: #fbfdff;
   color: var(--ink-primary);
   font-family: var(--font-body), Arial, sans-serif;
   font-size: 16px;
@@ -48,146 +48,53 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-.site-background {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
+.site-root {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.pixel-grid-background {
+  opacity: 0.34;
   overflow: hidden;
   pointer-events: none;
-  background: var(--surface-paper);
 }
 
-.site-background-image,
-.site-background-silk {
-  position: absolute;
-  inset: 0;
+[data-aifx-wm] {
+  display: none !important;
 }
 
-.site-background-image {
-  z-index: 0;
-  background-image: url("/bg/hero-flow-1920.webp");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.site-background-silk {
-  z-index: 1;
-  opacity: 0.12;
-  mix-blend-mode: multiply;
-  pointer-events: none;
-}
-
-.site-background-silk canvas {
-  display: block;
-  width: 100% !important;
-  height: 100% !important;
-}
-
-.site-content {
+.section-surface {
   position: relative;
-  z-index: 1;
-}
-
-.motion-host {
-  position: relative;
+  isolation: isolate;
   overflow: hidden;
 }
 
-.motion-host > .shell {
-  position: relative;
-  z-index: 1;
-}
-
-.motion-host > .shell > :not(.motion-field) {
-  position: relative;
-  z-index: 1;
-}
-
-.motion-field {
-  --motion-opacity: 0.1;
+.section-surface::before,
+.page-hero-section::before,
+.hero-section::before {
+  content: "";
   position: absolute;
   inset: 0;
-  z-index: 1;
-  overflow: hidden;
+  z-index: -1;
   pointer-events: none;
-  contain: paint;
-  opacity: var(--motion-opacity);
 }
 
-.motion-field--hero {
-  --motion-opacity: 0.14;
+.section-surface--page::before {
+  background: rgba(255, 255, 255, 0.9);
 }
 
-.motion-field--proof {
-  --motion-opacity: 0.105;
+.section-surface--paper::before,
+.page-hero-section::before {
+  background: rgba(245, 248, 250, 0.9);
 }
 
-.motion-field--process {
-  --motion-opacity: 0.09;
+.section-surface--navy {
+  background: var(--surface-navy);
 }
 
-.motion-field__grid,
-.motion-field__trace,
-.motion-field__sweep {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  will-change: transform, opacity;
-}
-
-.motion-field__grid {
-  background-image:
-    linear-gradient(rgba(18, 111, 170, 0.18) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(18, 111, 170, 0.14) 1px, transparent 1px);
-  background-size: 86px 86px;
-  mask-image: linear-gradient(90deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
-  animation: certamaris-motion-drift 28s ease-in-out infinite;
-}
-
-.motion-field__trace {
-  height: 1px;
-  top: 38%;
-  background: linear-gradient(90deg, transparent, rgba(1, 73, 253, 0.5), rgba(184, 130, 58, 0.36), transparent);
-  transform-origin: center;
-  animation: certamaris-motion-trace 18s ease-in-out infinite alternate;
-}
-
-.motion-field__trace--two {
-  top: 64%;
-  animation-duration: 24s;
-  animation-delay: -8s;
-  opacity: 0.68;
-}
-
-.motion-field__sweep {
-  width: 42%;
-  left: 29%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.72), transparent);
-  filter: blur(18px);
-  animation: certamaris-motion-sweep 22s ease-in-out infinite;
-}
-
-.motion-field--hero .motion-field__grid {
-  background-size: 104px 104px;
-  mask-image: linear-gradient(100deg, transparent 0%, #000 28%, #000 78%, transparent 100%);
-}
-
-.motion-field--hero .motion-field__trace {
-  top: 30%;
-}
-
-.motion-field--hero .motion-field__trace--two {
-  top: 72%;
-}
-
-.motion-field--process .motion-field__grid {
-  background-size: 112px 72px;
-  mask-image: linear-gradient(90deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
-}
-
-.motion-field--process .motion-field__trace {
-  top: 46%;
+.hero-section::before {
+  background: rgba(245, 248, 250, 0.74);
 }
 
 h1, h2, h3, h4 {
@@ -219,53 +126,6 @@ img, video, svg {
 @keyframes certamaris-icon-rotate {
   to {
     transform: rotate(360deg);
-  }
-}
-
-@keyframes certamaris-motion-drift {
-  0% {
-    transform: translate3d(-4%, 0, 0);
-  }
-
-  50% {
-    transform: translate3d(4%, -1.5%, 0);
-  }
-
-  100% {
-    transform: translate3d(-4%, 0, 0);
-  }
-}
-
-@keyframes certamaris-motion-sweep {
-  0% {
-    transform: translate3d(-42%, 0, 0);
-    opacity: 0;
-  }
-
-  18%,
-  72% {
-    opacity: 1;
-  }
-
-  100% {
-    transform: translate3d(42%, 0, 0);
-    opacity: 0;
-  }
-}
-
-@keyframes certamaris-motion-trace {
-  0% {
-    transform: translate3d(-18%, 0, 0) scaleX(0.82);
-    opacity: 0.26;
-  }
-
-  48% {
-    opacity: 0.58;
-  }
-
-  100% {
-    transform: translate3d(18%, 0, 0) scaleX(1);
-    opacity: 0.26;
   }
 }
 
@@ -362,19 +222,7 @@ textarea:focus-visible,
     scroll-behavior: auto !important;
   }
 
-  .hero-video-el {
-    display: none !important;
-  }
-
-  .hero-video-poster {
-    opacity: 1 !important;
-  }
-
-  .site-background-silk {
-    display: none !important;
-  }
-
-  .motion-field {
+  .pixel-grid-background {
     display: none !important;
   }
 }
@@ -398,53 +246,6 @@ textarea:focus-visible,
   opacity: 0.92;
 }
 
-/* Hero video background */
-
-.hero-video-frame {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  z-index: 0;
-  background: var(--surface-navy);
-}
-
-.hero-video-poster,
-.hero-video-el {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 62% 45%;
-  transition: opacity 0.4s ease;
-  filter: contrast(1.07) saturate(1.1);
-}
-
-.hero-glow {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background: radial-gradient(
-    640px circle at 84% 16%,
-    var(--accent-brass-soft) 0%,
-    rgba(184, 130, 58, 0) 62%
-  );
-  mix-blend-mode: multiply;
-}
-
-.hero-video-scrim {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    100deg,
-    rgba(245, 248, 250, 0.94) 0%,
-    rgba(245, 248, 250, 0.72) 22%,
-    rgba(11, 42, 74, 0.12) 50%,
-    rgba(11, 42, 74, 0.34) 100%
-  );
-}
-
 .hero-section {
   position: relative;
   min-height: 92vh;
@@ -456,23 +257,6 @@ textarea:focus-visible,
 .hero-copy-block {
   position: relative;
   isolation: isolate;
-}
-
-.hero-copy-block::before {
-  content: "";
-  position: absolute;
-  top: -2.5rem;
-  bottom: -2.5rem;
-  left: -4vw;
-  right: -34vw;
-  z-index: -1;
-  pointer-events: none;
-  background: linear-gradient(
-    90deg,
-    rgba(245, 248, 250, 0.97) 0%,
-    rgba(245, 248, 250, 0.9) 62%,
-    rgba(245, 248, 250, 0) 100%
-  );
 }
 
 .hero-copy-block .text-ocean {
@@ -494,70 +278,26 @@ textarea:focus-visible,
   box-shadow: 0 18px 50px rgba(11, 42, 74, 0.18);
 }
 
-@media (max-width: 1279px) {
-  .site-background-image {
-    background-image: url("/bg/hero-flow-1280.webp");
-  }
-}
-
 @media (max-width: 767px) {
-  .site-background-image {
-    background-image: none;
-    background: linear-gradient(
-      180deg,
-      rgba(245, 248, 250, 0.98) 0%,
-      rgba(238, 243, 246, 0.96) 48%,
-      rgba(245, 248, 250, 0.92) 100%
-    );
+  .pixel-grid-background {
+    opacity: 0.22;
   }
 
-  .site-background-silk {
-    display: none;
+  .section-surface--page::before {
+    background: rgba(255, 255, 255, 0.94);
   }
 
-  .motion-field {
-    --motion-opacity: 0.055;
+  .section-surface--paper::before,
+  .page-hero-section::before {
+    background: rgba(245, 248, 250, 0.94);
   }
 
-  .motion-field__grid,
-  .motion-field__trace,
-  .motion-field__sweep {
-    animation: none;
-    will-change: auto;
-  }
-
-  .hero-video-poster,
-  .hero-video-el {
-    object-position: 78% 42%;
-  }
-
-  /* Glow position is a % of viewport width — on a narrow viewport, 84%
-     puts its visible edge near the left side where the text sits.
-     Shrink and push it further into the corner so it stays clear. */
-  .hero-glow {
-    background: radial-gradient(
-      280px circle at 94% 6%,
-      var(--accent-brass-soft) 0%,
-      rgba(184, 130, 58, 0) 62%
-    );
-  }
-
-  .hero-video-scrim {
-    background: linear-gradient(
-      180deg,
-      rgba(245, 248, 250, 0.97) 0%,
-      rgba(245, 248, 250, 0.93) 38%,
-      rgba(245, 248, 250, 0.8) 58%,
-      rgba(11, 42, 74, 0.25) 100%
-    );
+  .hero-section::before {
+    background: rgba(245, 248, 250, 0.9);
   }
 
   .hero-section {
     min-height: 86vh;
-  }
-
-  .hero-copy-block::before {
-    content: none;
   }
 
   .hero-product-proof {

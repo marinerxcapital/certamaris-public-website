@@ -10,7 +10,7 @@ const securityHeaders = [
   {
     key: "Content-Security-Policy-Report-Only",
     value:
-      "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self'; font-src 'self' data:; connect-src 'self' https://app.certamaris.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self';",
+      "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.aidesigner.ai; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self'; font-src 'self' data:; connect-src 'self' https://app.certamaris.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self';",
   },
 ];
 
@@ -35,10 +35,6 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/product/:path*",
-        headers: [...securityHeaders, { key: "Cache-Control", value: "public, max-age=604800, stale-while-revalidate=86400" }],
-      },
-      {
-        source: "/video/:path*",
         headers: [...securityHeaders, { key: "Cache-Control", value: "public, max-age=604800, stale-while-revalidate=86400" }],
       },
       {
