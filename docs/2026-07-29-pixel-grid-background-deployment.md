@@ -72,4 +72,18 @@ The live component adds the system class `pixel-grid-background` and uses a root
 - Mobile nav: PASS, drawer opened with no duplicate labels.
 - Product lightbox: PASS, first product screenshot opened and Escape closed the lightbox.
 - Final screenshots saved under `qa-screenshots/pixel-grid-final-home-desktop.png`, `qa-screenshots/pixel-grid-final-home-tablet.png`, and `qa-screenshots/pixel-grid-final-home-mobile.png`.
-- Live deployment: pending at this log stage.
+## Deployment result
+
+- Implementation commit: `6e5664e38de8b31d7a32190c614c00b690261019`
+- Initial deployed Worker version: `ef4b2c12-5b61-40dd-ad4d-e0ecdd5b68fb`
+- `origin/main` verification after push: PASS, remote `main` matched local implementation commit.
+- Live HTTP verification: PASS, all 20 public routes returned HTTP 200.
+- Live RSC prefetch verification: PASS, `/platform/__next.platform.__PAGE__.txt?_rsc=pixelcheck` returned HTTP 200.
+- Live HTML verification: PASS after cache revalidation, `https://certamaris.com/` includes the AI Designer runtime and Pixel Grid markup and no longer includes `hero-fog`.
+- Live browser QA: PASS on 60 route/viewport checks across 1440px, 768px, and 390px.
+- Live browser console and network: PASS, zero console warnings/errors and zero HTTP responses >= 400.
+- Live mobile nav: PASS, no duplicate labels.
+- Live product lightbox: PASS, first product screenshot opened and Escape closed the lightbox.
+- Live reduced motion: PASS, `prefers-reduced-motion: reduce` matched and the Pixel Grid layer computed to `display: none`.
+
+This log was updated after the live deployment and requires a docs-only follow-up commit so the source tree records the completed rollout.
