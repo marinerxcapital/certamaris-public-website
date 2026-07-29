@@ -7,6 +7,20 @@ built to stand on its own and to later link out to the authenticated
 CertaMaris application (being built separately in Lovable) through four
 clearly labeled integration points.
 
+## Monorepo notice (2026-07-29)
+
+Canonical product monorepo: **https://github.com/marinerxcapital/certamaris**  
+Draft consolidation PR: **https://github.com/marinerxcapital/certamaris/pull/14**  
+Import SHA for this marketing tree: **`dc0fee34`** on **`main`**.  
+Monorepo path (post-import): **`apps/marketing`**.
+
+This single-repo tree remains the **live marketing deploy source** for `certamaris.com` until the owner explicitly cuts over deploys to the monorepo. **Do not stop production marketing work here** until that cutover is authorized. Prefer the monorepo for consolidated multi-app development after cutover.
+
+Hub handoff: `C:\Users\Skyler B. Brown\Desktop\certamaris master\02_HANDOFF\2026-07-29-SUPERGROK-MONOREPO-CONSOLIDATION.md`  
+Superseded register: `...\02_HANDOFF\SUPERSEDED_REPOS_REGISTER_2026-07-29.md`
+
+**Signed:** SuperGrok Heavy · **Date:** 2026-07-29
+
 ---
 
 ## 1. Tech stack
