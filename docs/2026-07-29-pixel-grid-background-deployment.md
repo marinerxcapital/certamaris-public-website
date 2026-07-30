@@ -22,8 +22,8 @@ Scope: Replace decorative background systems with the supplied AI Designer Pixel
   data-aifx="blocky"
   data-aifx-colors="#f4f8ff,#dceaff,#a9c9ff,#4f91ff,#006cfe"
   data-aifx-bg="#fbfdff"
-  data-aifx-speed="0.16"
-  data-aifx-block-size="72"
+  data-aifx-speed="0.24"
+  data-aifx-block-size="56"
   data-aifx-levels="8"
   data-aifx-scale="1.15"
   data-aifx-drift-angle="24"
@@ -39,6 +39,8 @@ The live component adds the system class `pixel-grid-background` and uses a root
 ## Visibility tuning
 
 - Current Pixel Grid opacity: `0.46` on desktop/tablet and `0.32` below 768px.
+- Current Pixel Grid speed: `0.24`.
+- Current Pixel Grid block size: `56`.
 - Current section surface overlay: `0.86` opacity on page/paper surfaces and `0.68` on the homepage hero.
 - Current mobile surface overlay: `0.90` on page/paper surfaces and `0.84` on the homepage hero.
 - The effect remains disabled under `prefers-reduced-motion: reduce`.
