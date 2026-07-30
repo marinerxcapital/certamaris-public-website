@@ -1,72 +1,164 @@
 import Link from "next/link";
-import { BoundaryPanel } from "@/components/BoundaryPanel";
 import { Button } from "@/components/Button";
-import { CapabilityCard } from "@/components/CapabilityCard";
-import { PersonaCard } from "@/components/PersonaCard";
-import { ProcessStepList } from "@/components/ProcessStepList";
-import { ProductScreenFrame, ProductScreenGallery, ProductScreenTile } from "@/components/ProductScreens";
+import { HomepageProductShowcase } from "@/components/HomepageProductShowcase";
+import { ProductScreenFrame } from "@/components/ProductScreens";
 import { Reveal, RevealGroup } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
-import { PRIMARY_CTA_LABEL, SECONDARY_CTA_LABEL } from "@/lib/constants";
-import { capabilityPillars, personas, processSteps } from "@/lib/content";
+import { PRIMARY_CTA_LABEL, REGULATORY_BOUNDARY, SECONDARY_CTA_LABEL } from "@/lib/constants";
 import { productProofScreens } from "@/lib/product-screens";
 
-const productScreens = [
-  productProofScreens.requirementMapping,
-  productProofScreens.evidenceCoverage,
-  productProofScreens.findingsRegister,
-  productProofScreens.correctiveActions,
-  productProofScreens.auditReadiness,
-  productProofScreens.executiveReporting,
+const problemItems = [
+  {
+    title: "Evidence separates from the requirement.",
+    body: "Files age in drives and inboxes until reviewers have to reconstruct why a document was collected, which control it supports, and whether it is still current.",
+  },
+  {
+    title: "Findings lose operational ownership.",
+    body: "A finding is only useful when the owner, corrective action, due date, verification evidence, and reviewer decision stay connected between reviews.",
+  },
+  {
+    title: "Requirement changes create hidden fleet work.",
+    body: "IMO, IACS, flag-state, and internal policy changes rarely touch every vessel in the same way. The risk is not seeing which systems and records must move.",
+  },
 ];
 
-const proofSteps = [
-  "Requirement mapping",
-  "Evidence sufficiency",
-  "Findings ownership",
-  "Action verification",
-  "Audit readiness",
-  "Governance reporting",
+const traceStages = [
+  {
+    title: "Requirement",
+    record: "Applicable clause, policy, vessel scope, and review basis.",
+    owner: "Compliance lead",
+    decision: "Applicability and scope are recorded.",
+  },
+  {
+    title: "Control",
+    record: "Mapped procedure, system, safeguard, or responsible function.",
+    owner: "Technical manager",
+    decision: "Control ownership and implementation context are linked.",
+  },
+  {
+    title: "Evidence",
+    record: "Versioned artifact, freshness state, custodian, and sufficiency review.",
+    owner: "Evidence custodian",
+    decision: "Support is accepted, rejected, or requested.",
+  },
+  {
+    title: "Finding",
+    record: "Observed gap, criterion, severity, affected asset, and rationale.",
+    owner: "Reviewer",
+    decision: "Finding is assigned with the supporting record intact.",
+  },
+  {
+    title: "Corrective Action",
+    record: "Remediation owner, target date, dependency, and verification artifact.",
+    owner: "Action owner",
+    decision: "Closure requires evidence, not status language.",
+  },
+  {
+    title: "Readiness Package",
+    record: "Controlled scope, evidence set, exceptions, findings, actions, and notes.",
+    owner: "Accountable reviewer",
+    decision: "The review package is inspectable without promising an outcome.",
+  },
 ];
 
-const whyNow = [
+const showcaseSteps = [
   {
-    title: "Evidence drift compounds",
-    body: "Procedures, assessments, and screenshots age at different speeds. Without freshness rules, a file can look complete while no longer supporting the requirement it was collected for.",
+    id: "requirements",
+    kicker: "Requirement to control",
+    title: "Map requirements to the controls and systems that answer them.",
+    body: "Keep IMO cyber-risk management, IACS UR E26/E27, SMS procedures, and internal controls in one traceable record.",
+    owner: "Compliance lead and technical manager",
+    decision: "Applicability, control ownership, and implementation context.",
+    screen: productProofScreens.requirementMapping,
   },
   {
-    title: "Requirement changes create hidden work",
-    body: "IMO, IACS, flag-state, and internal policy updates do not affect every vessel equally. The hard part is knowing which controls, systems, and evidence records need attention.",
+    id: "evidence",
+    kicker: "Evidence sufficiency",
+    title: "Review coverage, freshness, and missing support before the review cycle.",
+    body: "Evidence is useful only when the system shows what it supports, who owns it, and whether it is still current enough for inspection.",
+    owner: "Evidence custodian and reviewer",
+    decision: "Accepted support, missing evidence, freshness exception, or request.",
+    screen: productProofScreens.evidenceCoverage,
   },
   {
-    title: "Ownership fades between reviews",
-    body: "Findings and corrective actions lose credibility when owner updates, reviewer decisions, and verification evidence live in separate threads.",
+    id: "findings",
+    kicker: "Finding to action",
+    title: "Assign findings and corrective actions without losing the underlying proof.",
+    body: "The observed condition, criterion, action owner, due date, and verification evidence remain tied to the same assurance record.",
+    owner: "Reviewer and action owner",
+    decision: "Action plan, priority, due date, and verification requirement.",
+    screen: productProofScreens.correctiveActions,
   },
   {
-    title: "Survey readiness is cumulative",
-    body: "A review package is only persuasive when scope, evidence, findings, corrective actions, exceptions, and reviewer notes already share the same record.",
+    id: "readiness",
+    kicker: "Controlled package",
+    title: "Prepare a readiness package from approved records, not a document scramble.",
+    body: "Scope, evidence, findings, corrective actions, exceptions, and reviewer notes are assembled from controlled work already in the product.",
+    owner: "Accountable reviewer",
+    decision: "Package readiness, exceptions requiring review, and owner sign-off.",
+    screen: productProofScreens.auditReadiness,
+  },
+];
+
+const capabilities = [
+  {
+    title: "Fleet assurance visibility",
+    body: "See vessels, facilities, open findings, evidence freshness, and readiness gaps without asking each operating unit for a separate status view.",
+    href: "/industries",
+  },
+  {
+    title: "Requirement and control mapping",
+    body: "Tie IMO, IACS, SMS, and internal policy obligations to controls, systems, owners, and implementation context.",
+    href: "/platform",
+  },
+  {
+    title: "Evidence, findings, and corrective actions",
+    body: "Maintain one record from evidence request through reviewer decision, finding ownership, remediation, and verification.",
+    href: "/solutions",
+  },
+  {
+    title: "Readiness packages and governance reporting",
+    body: "Create inspection-ready packages and governance roll-ups from the operational record without inventing outcomes or unsupported claims.",
+    href: "/compliance",
+  },
+];
+
+const audiences = [
+  {
+    title: "Ship owners and operators",
+    body: "A controlled view of readiness across the fleet, including open decisions that need leadership attention.",
+  },
+  {
+    title: "Technical managers and DPAs",
+    body: "A practical system for mapping SMS cyber procedures, vessel scope, evidence, and findings to the review record.",
+  },
+  {
+    title: "Maritime cybersecurity and IT/OT teams",
+    body: "A way to connect shipboard systems, technical safeguards, and remediation work to the compliance questions they support.",
+  },
+  {
+    title: "Classification, assurance, and review stakeholders",
+    body: "A structured evidence trail that separates applicability, sufficiency, exceptions, and reviewer decisions.",
   },
 ];
 
 export default function HomePage() {
   return (
     <>
-      <ProductScreenGallery />
-      {/* HERO */}
-      <section className="hero-section relative isolate" aria-labelledby="hero-title">
-        <div className="shell relative z-10 py-20 sm:py-28 lg:py-24">
-          <div className="grid gap-8 lg:grid-cols-[0.86fr_1.14fr] lg:items-center lg:gap-12">
-            <div className="hero-copy-block max-w-2xl">
-              <Eyebrow>Maritime cyber compliance &amp; assurance</Eyebrow>
+      <section className="hero-section landing-hero relative isolate" aria-labelledby="hero-title">
+        <div className="shell relative z-10 py-16 sm:py-20 lg:py-24">
+          <div className="grid gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:gap-14">
+            <Reveal className="hero-copy-block max-w-2xl">
+              <Eyebrow>Maritime cyber compliance and assurance</Eyebrow>
               <h1
                 id="hero-title"
-                className="text-[42px] sm:text-[68px] lg:text-[78px] leading-[0.98] tracking-[-0.02em] mb-6 sm:mb-8"
+                className="mb-6 text-[42px] leading-[0.98] tracking-[-0.02em] sm:text-[64px] lg:text-[76px]"
               >
-                Cyber compliance your fleet can prove.
+                Turn maritime cyber requirements into provable readiness.
               </h1>
-              <p className="font-display text-[17px] sm:text-[20px] font-medium tracking-[-0.015em] text-navy/76 max-w-[34rem] mb-7 leading-[1.52] sm:mb-9 sm:leading-[1.58]">
-                CertaMaris turns IMO cyber-risk management and IACS UR E26/E27 readiness into a controlled product
-                record: mapped requirements, current evidence, owned findings, verified actions, and review packages.
+              <p className="mb-8 max-w-[39rem] font-display text-[17px] font-medium leading-[1.55] tracking-[-0.01em] text-navy/76 sm:text-[20px]">
+                CertaMaris connects requirements, controls, evidence, findings, corrective actions, and reviewer
+                decisions in one controlled assurance record across your fleet.
               </p>
               <div className="flex flex-wrap gap-4">
                 <Button href="/contact">{PRIMARY_CTA_LABEL}</Button>
@@ -74,192 +166,177 @@ export default function HomePage() {
                   {SECONDARY_CTA_LABEL}
                 </Button>
               </div>
-            </div>
+              <p className="mt-6 font-mono text-[12px] uppercase tracking-[0.14em] text-structural">
+                IMO MSC.428(98) <span aria-hidden="true">•</span> IACS UR E26 <span aria-hidden="true">•</span> IACS UR E27
+              </p>
+            </Reveal>
 
-            <div className="hero-product-proof">
-              <div className="mb-4 flex items-end justify-between gap-4">
+            <Reveal delay={0.08} className="hero-signal-panel">
+              <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
                 <div>
-                  <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-structural">Live proof path</p>
-                  <p className="mt-1 text-[14px] font-medium text-navy">
-                    Requirement to readiness package, shown inside the product.
-                  </p>
+                  <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-structural">Assurance trace</p>
+                  <p className="mt-1 text-[15px] font-semibold text-navy">Requirement → readiness package</p>
                 </div>
-                <Link href="/platform#trace-chain" className="hidden text-[13.5px] font-semibold text-ocean hover:underline sm:inline">
-                  Inspect platform →
+                <Link href="/platform#trace-chain" className="text-[13.5px] font-semibold text-ocean hover:underline">
+                  Inspect platform
                 </Link>
               </div>
-              <ProductScreenFrame
-                src={productProofScreens.requirementMapping.src}
-                alt={productProofScreens.requirementMapping.alt}
-                label={productProofScreens.requirementMapping.label}
-                lightboxTitle={productProofScreens.requirementMapping.title}
-                lightboxBody={productProofScreens.requirementMapping.body}
-                galleryOrder={productProofScreens.requirementMapping.galleryOrder}
-                priority
-                sizes="(min-width: 1280px) 50vw, (min-width: 768px) 78vw, 100vw"
-              />
-              <ol className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2 sm:grid-cols-3">
-                {proofSteps.map((step, index) => (
-                  <li key={step} className="flex items-center gap-2 text-[12.5px] font-medium text-navy/75">
-                    <span className="font-mono text-[11px] text-ocean">{String(index + 1).padStart(2, "0")}</span>
-                    <span>{step}</span>
-                  </li>
+
+              <div className="hero-chain" aria-label="Requirement to readiness proof chain">
+                {["Requirement", "Control", "Evidence", "Finding", "Action", "Readiness"].map((item, index) => (
+                  <div key={item} className="hero-chain-node">
+                    <span className="font-mono text-[10px] text-ocean">{String(index + 1).padStart(2, "0")}</span>
+                    <span>{item}</span>
+                  </div>
                 ))}
-              </ol>
-            </div>
+              </div>
+
+              <div className="mt-6">
+                <ProductScreenFrame
+                  {...productProofScreens.requirementMapping}
+                  interactive={false}
+                  priority
+                  sizes="(min-width: 1280px) 48vw, (min-width: 768px) 82vw, 100vw"
+                />
+              </div>
+            </Reveal>
           </div>
         </div>
       </section>
 
-      {/* TRUST / CONTEXT RAIL */}
-      <div className="bg-paper hairline-b hairline-top">
-        <div className="shell py-5 flex flex-wrap items-center gap-3">
-          <span className="inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.14em] text-structural mr-2">
-            <span aria-hidden="true" className="h-px w-3 shrink-0 bg-current opacity-60" />
-            Regulatory context
-          </span>
-          <span className="inline-flex items-center rounded-full border border-ocean/25 bg-white px-3.5 py-1.5 text-[13px] font-mono text-navy">
-            IMO Res. MSC.428(98) → ISM Code integration
-          </span>
-          <span className="inline-flex items-center rounded-full border border-ocean/25 bg-white px-3.5 py-1.5 text-[13px] font-mono text-navy">
-            IACS UR E26 — Cyber Resilience of Ships
-          </span>
-          <span className="inline-flex items-center rounded-full border border-ocean/25 bg-white px-3.5 py-1.5 text-[13px] font-mono text-navy">
-            IACS UR E27 — On-board Systems &amp; Equipment
-          </span>
-        </div>
-      </div>
-
       <Section spacing="compact">
-        <Reveal className="max-w-2xl mb-12">
-          <Eyebrow>Why now</Eyebrow>
-          <h2 className="text-[30px] sm:text-[36px] leading-[1.12]">
-            The work gets harder when the record is assembled only before review.
+        <Reveal className="mb-10 max-w-2xl">
+          <Eyebrow>The operational problem</Eyebrow>
+          <h2 className="text-[30px] leading-[1.12] sm:text-[38px]">
+            Compliance breaks when the evidence trail is fragmented.
           </h2>
         </Reveal>
-        <RevealGroup className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5" stagger={0.05}>
-          {whyNow.map((item) => (
-            <div key={item.title} className="h-full rounded-sm border bg-white p-5" style={{ borderColor: "var(--hairline)" }}>
-              <h3 className="mb-2 text-[16px] font-semibold">{item.title}</h3>
-              <p className="text-[13.5px] leading-relaxed text-structural">{item.body}</p>
-            </div>
+        <RevealGroup className="grid gap-4 md:grid-cols-3" stagger={0.05}>
+          {problemItems.map((item) => (
+            <article key={item.title} className="border-l border-ocean/35 bg-white/70 py-1 pl-5">
+              <h3 className="mb-2 text-[18px] font-semibold leading-snug">{item.title}</h3>
+              <p className="text-[14.5px] leading-relaxed text-structural">{item.body}</p>
+            </article>
           ))}
         </RevealGroup>
       </Section>
 
-      {/* PROBLEM FRAMING */}
-      <Section id="product-dashboard">
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
-          <Reveal>
-            <Eyebrow>The problem</Eyebrow>
-            <h2 className="text-[30px] sm:text-[36px] leading-[1.12] mb-5">
-              Spreadsheets don&apos;t survive a fleet-wide requirement change.
-            </h2>
-          </Reveal>
-          <Reveal delay={0.06}>
-            <p className="text-[16px] text-structural leading-relaxed mb-4">
-              Most operators manage cyber compliance through a mix of shared drives, vessel-specific binders, and
-              email threads with technical managers. Each piece works on its own. None of it connects.
-            </p>
-            <p className="text-[16px] text-structural leading-relaxed">
-              When a requirement changes, or a surveyor asks who reviewed a piece of evidence and when, the honest
-              answer often takes days to reconstruct. CertaMaris keeps that answer current at all times — evidence,
-              control mappings, findings, and decisions linked from the moment they&apos;re created.
-            </p>
-          </Reveal>
-        </div>
-      </Section>
-
-      <Section id="product-screens" surface="paper">
-        <Reveal className="max-w-3xl mb-12">
-          <Eyebrow>Inside the product</Eyebrow>
-          <h2 className="text-[30px] sm:text-[36px] leading-[1.12]">
-            A clear path from requirement to governance review.
+      <Section id="trace-chain" surface="paper">
+        <Reveal className="mb-12 max-w-3xl">
+          <Eyebrow>Assurance trace</Eyebrow>
+          <h2 className="text-[30px] leading-[1.12] sm:text-[38px]">
+            One connected chain from requirement to verified readiness.
           </h2>
           <p className="mt-4 max-w-2xl text-[15.5px] leading-relaxed text-structural">
-            These views are sequenced the way the work happens. Operational proof comes first; governance reporting
-            stays connected to the underlying record.
+            CertaMaris is built around the record that reviewers actually need: what was required, what control answered
+            it, what evidence supported it, what finding emerged, what action closed it, and what package contains it.
           </p>
         </Reveal>
-        <RevealGroup className="grid gap-7 md:grid-cols-2 lg:grid-cols-6" stagger={0.05}>
-          {productScreens.map((screen, index) => (
-            <ProductScreenTile
-              key={screen.src}
-              {...screen}
-              tileClassName={index < 2 ? "lg:col-span-3" : "lg:col-span-2"}
-              sizes={
-                index < 2
-                  ? "(min-width: 1280px) 42vw, (min-width: 768px) 50vw, 100vw"
-                  : "(min-width: 1280px) 28vw, (min-width: 768px) 50vw, 100vw"
-              }
-            />
+        <RevealGroup className="assurance-trace" stagger={0.04}>
+          {traceStages.map((stage, index) => (
+            <article key={stage.title} className="assurance-trace-card">
+              <div className="mb-4 flex items-center justify-between gap-3">
+                <span className="font-mono text-[12px] text-ocean">{String(index + 1).padStart(2, "0")}</span>
+                {index < traceStages.length - 1 ? <span className="hidden text-ocean/65 lg:block" aria-hidden="true">→</span> : null}
+              </div>
+              <h3 className="mb-3 text-[18px] font-semibold">{stage.title}</h3>
+              <dl className="grid gap-3 text-[13.5px] leading-relaxed">
+                <div>
+                  <dt className="font-mono text-[10px] uppercase tracking-[0.12em] text-structural">Record</dt>
+                  <dd className="mt-1 text-navy/82">{stage.record}</dd>
+                </div>
+                <div>
+                  <dt className="font-mono text-[10px] uppercase tracking-[0.12em] text-structural">Owner</dt>
+                  <dd className="mt-1 text-navy/82">{stage.owner}</dd>
+                </div>
+                <div>
+                  <dt className="font-mono text-[10px] uppercase tracking-[0.12em] text-structural">Decision</dt>
+                  <dd className="mt-1 text-navy/82">{stage.decision}</dd>
+                </div>
+              </dl>
+            </article>
           ))}
         </RevealGroup>
       </Section>
 
-      {/* CAPABILITY PILLARS */}
-      <Section surface="paper" spacing="compact">
-        <Reveal className="max-w-2xl mb-12">
-          <Eyebrow>Platform</Eyebrow>
-          <h2 className="text-[30px] sm:text-[36px] leading-[1.12]">Six capabilities, one assurance record.</h2>
+      <Section id="product-dashboard">
+        <Reveal className="mb-12 max-w-3xl">
+          <Eyebrow>Product in action</Eyebrow>
+          <h2 className="text-[30px] leading-[1.12] sm:text-[38px]">
+            Inspect the workflow inline, without leaving the page.
+          </h2>
+          <p className="mt-4 max-w-2xl text-[15.5px] leading-relaxed text-structural">
+            Select a workflow stage to keep the product view and the explanation together. No modal, no fullscreen
+            overlay, and no hidden hover-only interaction.
+          </p>
         </Reveal>
-        <RevealGroup className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5" stagger={0.06}>
-          {capabilityPillars.map((item, index) => (
-            <CapabilityCard key={item.id} item={item} index={index} />
-          ))}
-        </RevealGroup>
-      </Section>
-
-      {/* HOW IT WORKS */}
-      <Section>
-        <Reveal className="max-w-2xl mb-12">
-          <Eyebrow>How it works</Eyebrow>
-          <h2 className="text-[30px] sm:text-[36px] leading-[1.12]">From scope to continuous readiness.</h2>
-        </Reveal>
-        <Reveal delay={0.08}>
-          <ProcessStepList steps={processSteps} />
-        </Reveal>
-      </Section>
-
-      {/* WHO IT'S FOR */}
-      <Section surface="paper">
-        <div className="flex items-end justify-between flex-wrap gap-4 mb-12">
-          <Reveal className="max-w-xl">
-            <Eyebrow>Who it&apos;s for</Eyebrow>
-            <h2 className="text-[30px] sm:text-[36px] leading-[1.12]">Built for every seat in the compliance chain.</h2>
-          </Reveal>
-          <Link href="/industries" className="text-[14.5px] font-medium text-ocean hover:underline">
-            See all industries →
-          </Link>
-        </div>
-        <RevealGroup className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5" stagger={0.06}>
-          {personas.map((item) => (
-            <PersonaCard key={item.id} item={item} />
-          ))}
-        </RevealGroup>
-      </Section>
-
-      {/* REGULATORY BOUNDARY */}
-      <Section>
         <Reveal>
-          <BoundaryPanel className="max-w-3xl" />
+          <HomepageProductShowcase steps={showcaseSteps} />
         </Reveal>
       </Section>
 
-      {/* FINAL CTA */}
+      <Section surface="paper" spacing="compact">
+        <Reveal className="mb-10 max-w-2xl">
+          <Eyebrow>Platform capabilities</Eyebrow>
+          <h2 className="text-[30px] leading-[1.12] sm:text-[38px]">A tighter operating model for maritime cyber assurance.</h2>
+        </Reveal>
+        <RevealGroup className="grid gap-4 md:grid-cols-2" stagger={0.05}>
+          {capabilities.map((item, index) => (
+            <article key={item.title} className="capability-strip">
+              <span className="font-mono text-[12px] text-ocean">{String(index + 1).padStart(2, "0")}</span>
+              <div>
+                <h3 className="mb-2 text-[18px] font-semibold">{item.title}</h3>
+                <p className="mb-3 text-[14.5px] leading-relaxed text-structural">{item.body}</p>
+                <Link href={item.href} className="text-[14px] font-semibold text-ocean hover:underline">
+                  Learn more
+                </Link>
+              </div>
+            </article>
+          ))}
+        </RevealGroup>
+      </Section>
+
+      <Section>
+        <div className="grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
+          <Reveal>
+            <Eyebrow>Who it serves</Eyebrow>
+            <h2 className="text-[30px] leading-[1.12] sm:text-[38px]">Built for the roles that carry the review record.</h2>
+          </Reveal>
+          <RevealGroup className="grid gap-4 sm:grid-cols-2" stagger={0.05}>
+            {audiences.map((item) => (
+              <article key={item.title} className="audience-note">
+                <h3 className="mb-2 text-[17px] font-semibold">{item.title}</h3>
+                <p className="text-[14.5px] leading-relaxed text-structural">{item.body}</p>
+              </article>
+            ))}
+          </RevealGroup>
+        </div>
+      </Section>
+
+      <Section surface="paper" spacing="compact">
+        <Reveal className="trust-note mx-auto max-w-4xl">
+          <p className="mb-2 font-mono text-[11px] uppercase tracking-[0.14em] text-ocean">Regulatory boundary</p>
+          <p className="text-[15px] leading-relaxed text-navy/78">{REGULATORY_BOUNDARY}</p>
+        </Reveal>
+      </Section>
+
       <Section surface="navy">
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
-          <Reveal className="max-w-xl">
-            <h2 className="text-[30px] sm:text-[38px] leading-[1.1] text-white mb-3">
-              See CertaMaris against your fleet.
+        <div className="final-cta-grid">
+          <Reveal className="max-w-2xl">
+            <p className="mb-3 font-mono text-[12px] uppercase tracking-[0.14em] text-ocean-light">Readiness discussion</p>
+            <h2 className="mb-4 text-[30px] leading-[1.08] text-white sm:text-[42px]">
+              See how CertaMaris would structure readiness across your fleet.
             </h2>
-            <p className="text-[15.5px] text-white/70 leading-relaxed">
-              A focused session on your current compliance state, evidence condition, and the IACS UR E26/E27 or IMO
-              cyber-risk workflows most relevant to your operation.
+            <p className="max-w-xl text-[15.5px] leading-relaxed text-white/72">
+              A focused conversation around your fleet scope, evidence condition, open findings, and the readiness
+              workflows that need a controlled system of record.
             </p>
           </Reveal>
-          <Reveal delay={0.08}>
+          <Reveal delay={0.08} className="flex flex-col gap-3 sm:flex-row lg:justify-end">
             <Button href="/contact">{PRIMARY_CTA_LABEL}</Button>
+            <Button href="/platform" variant="secondary" className="border-white/35 text-white hover:bg-white/10">
+              {SECONDARY_CTA_LABEL}
+            </Button>
           </Reveal>
         </div>
       </Section>

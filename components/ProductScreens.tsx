@@ -21,6 +21,7 @@ type ProductScreenFrameProps = {
   lightboxTitle?: string;
   lightboxBody?: string;
   galleryOrder?: number;
+  interactive?: boolean;
 };
 
 type ProductScreenTileProps = ProductScreenFrameProps & {
@@ -152,7 +153,7 @@ function getOptimizedBase(src: string) {
   return src.replace("/product/clean/", "/product/optimized/").replace(/\.png$/, "");
 }
 
-function ProductScreenImage({
+export function ProductScreenImage({
   src,
   alt,
   sizes,
@@ -191,12 +192,15 @@ function ProductScreenFrameInner({
   priority = false,
   className = "",
   sizes = "(min-width: 1024px) 50vw, (min-width: 640px) 80vw, 100vw",
+  interactive = true,
 }: ProductScreenFrameProps & { title: string; body: string }) {
   const pathname = usePathname();
   const screenId = useId();
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
+    if (!interactive) return;
+
     registerScreen(pathname, {
       id: screenId,
       src,
@@ -210,7 +214,32 @@ function ProductScreenFrameInner({
     return () => {
       unregisterScreen(pathname, screenId);
     };
-  }, [alt, body, galleryOrder, label, pathname, screenId, src, title]);
+  }, [alt, body, galleryOrder, interactive, label, pathname, screenId, src, title]);
+
+  const frame = (
+    <figure
+      className="overflow-hidden rounded-md border bg-white shadow-card"
+      style={{ borderColor: "var(--hairline-strong)" }}
+    >
+      <div className="flex h-9 items-center gap-2 border-b bg-paper px-3" style={{ borderColor: "var(--hairline)" }}>
+        <span className="size-2 rounded-full bg-status-critical" aria-hidden="true" />
+        <span className="size-2 rounded-full bg-status-caution" aria-hidden="true" />
+        <span className="size-2 rounded-full bg-status-ok" aria-hidden="true" />
+        <span className="ml-2 truncate font-mono text-[11px] uppercase tracking-[0.1em] text-structural">{label}</span>
+      </div>
+      <ProductScreenImage
+        src={src}
+        alt={alt}
+        sizes={sizes}
+        priority={priority}
+        className="aspect-[1440/1040] w-full object-cover object-top"
+      />
+    </figure>
+  );
+
+  if (!interactive) {
+    return <div className={`relative block w-full rounded-md text-left ${className}`}>{frame}</div>;
+  }
 
   return (
     <button
@@ -223,29 +252,7 @@ function ProductScreenFrameInner({
       onClick={() => openScreen(pathname, screenId, buttonRef.current)}
       className={`group relative block w-full cursor-zoom-in rounded-md text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-ocean ${className}`}
     >
-      <figure
-        className="overflow-hidden rounded-md border bg-white shadow-card transition-transform duration-200 group-hover:-translate-y-0.5"
-        style={{ borderColor: "var(--hairline-strong)" }}
-      >
-        <div
-          className="flex h-9 items-center gap-2 border-b bg-paper px-3"
-          style={{ borderColor: "var(--hairline)" }}
-        >
-          <span className="size-2 rounded-full bg-status-critical" aria-hidden="true" />
-          <span className="size-2 rounded-full bg-status-caution" aria-hidden="true" />
-          <span className="size-2 rounded-full bg-status-ok" aria-hidden="true" />
-          <span className="ml-2 truncate font-mono text-[11px] uppercase tracking-[0.1em] text-structural">
-            {label}
-          </span>
-        </div>
-        <ProductScreenImage
-          src={src}
-          alt={alt}
-          sizes={sizes}
-          priority={priority}
-          className="aspect-[1440/1040] w-full object-cover object-top"
-        />
-      </figure>
+      <div className="transition-transform duration-200 group-hover:-translate-y-0.5">{frame}</div>
       <span className="pointer-events-none absolute bottom-3 right-3 rounded-full border border-white/40 bg-navy/82 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.12em] text-white opacity-100 transition-opacity duration-150 sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-visible:opacity-100">
         Expand
       </span>
