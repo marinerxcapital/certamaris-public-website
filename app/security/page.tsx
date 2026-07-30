@@ -1,6 +1,6 @@
 import { BoundaryPanel } from "@/components/BoundaryPanel";
 import { PageHero } from "@/components/PageHero";
-import { ProductScreenFrame, ProductScreenGallery, ProductScreenTile } from "@/components/ProductScreens";
+import { ProductScreenFrame, ProductScreenTile } from "@/components/ProductScreens";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
 import { StatusBadge } from "@/components/StatusBadge";
@@ -32,7 +32,6 @@ const controls: ControlItem[] = [
 export default function SecurityPage() {
   return (
     <>
-      <ProductScreenGallery />
       <PageHero
         emphasis="elevated"
         eyebrow="Security & Trust"
@@ -102,7 +101,7 @@ export default function SecurityPage() {
         <div className="space-y-4 max-w-3xl">
           {controls.map((item) => (
             <Reveal key={item.title}>
-              <div className="flex items-start justify-between gap-6 border rounded-sm p-5" style={{ borderColor: "var(--hairline)" }}>
+              <div className="premium-card flex items-start justify-between gap-6 p-5">
                 <div>
                   <h3 className="text-[15.5px] font-semibold mb-1.5">{item.title}</h3>
                   <p className="text-[14px] text-structural leading-relaxed">{item.body}</p>

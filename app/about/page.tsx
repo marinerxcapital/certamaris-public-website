@@ -79,7 +79,7 @@ export default function AboutPage() {
         </Reveal>
         <RevealGroup className="grid sm:grid-cols-2 gap-5" stagger={0.06}>
           {principles.map((item) => (
-            <div key={item.title} className="border rounded-sm p-6 bg-white" style={{ borderColor: "var(--hairline)" }}>
+            <div key={item.title} className="premium-card p-6">
               <h3 className="text-[16.5px] font-semibold mb-2">{item.title}</h3>
               <p className="text-[14px] text-structural leading-relaxed">{item.body}</p>
             </div>
@@ -101,7 +101,7 @@ export default function AboutPage() {
           </Reveal>
           <RevealGroup className="grid gap-5" stagger={0.05}>
             {boundaries.map((item) => (
-              <div key={item.title} className="rounded-sm border bg-paper p-5" style={{ borderColor: "var(--hairline)" }}>
+              <div key={item.title} className="premium-card p-5">
                 <h3 className="mb-1.5 text-[16px] font-semibold">{item.title}</h3>
                 <p className="text-[14px] leading-relaxed text-structural">{item.body}</p>
               </div>
@@ -119,7 +119,7 @@ export default function AboutPage() {
         </Reveal>
         <RevealGroup className="grid sm:grid-cols-2 gap-4" stagger={0.05}>
           {proofStandards.map((standard) => (
-            <div key={standard} className="flex gap-3 rounded-sm border bg-white p-4" style={{ borderColor: "var(--hairline)" }}>
+            <div key={standard} className="premium-card flex gap-3 p-4">
               <span aria-hidden="true" className="mt-2 h-2 w-2 shrink-0 rounded-full bg-ocean" />
               <p className="text-[14px] leading-relaxed text-navy/85">{standard}</p>
             </div>

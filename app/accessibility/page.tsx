@@ -9,7 +9,7 @@ export default function AccessibilityPage() {
     <>
       <PageHero eyebrow="Legal" title="Accessibility Statement" intro="Current website accessibility statement." />
       <Section>
-        <div className="max-w-2xl space-y-8 text-[15px] text-navy/85 leading-relaxed">
+        <div className="legal-panel max-w-3xl space-y-8 text-[15px] text-navy/85 leading-relaxed">
           <div>
             <h2 className="text-[19px] font-semibold mb-2">Our commitment</h2>
             <p>

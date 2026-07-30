@@ -48,7 +48,7 @@ export default function ContactPage() {
             </div>
           </Reveal>
           <Reveal delay={0.08}>
-            <div className="border rounded-sm p-7 sm:p-9 bg-paper" style={{ borderColor: "var(--hairline-strong)" }}>
+            <div className="premium-card p-7 sm:p-9">
               <ContactForm />
             </div>
           </Reveal>

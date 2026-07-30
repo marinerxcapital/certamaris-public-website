@@ -5,7 +5,22 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { BrandLogo } from "@/components/BrandLogo";
 import { Button } from "@/components/Button";
-import { NAV_GROUPS, APP_SIGN_IN_URL, APP_GET_STARTED_URL, PRIMARY_CTA_LABEL, SECONDARY_CTA_LABEL } from "@/lib/constants";
+import { APP_SIGN_IN_URL, APP_GET_STARTED_URL, PRIMARY_CTA_LABEL, SECONDARY_CTA_LABEL } from "@/lib/constants";
+
+const primaryLinks: [string, string][] = [
+  ["Platform", "/platform"],
+  ["Solutions", "/solutions"],
+  ["Industries", "/industries"],
+  ["Compliance", "/compliance"],
+  ["Resources", "/resources"],
+];
+
+const companyLinks: [string, string][] = [
+  ["About", "/about"],
+  ["Security & Trust", "/security"],
+  ["Pricing", "/pricing"],
+  ["FAQ", "/faq"],
+];
 
 export function Nav() {
   const path = usePathname();
@@ -46,9 +61,7 @@ export function Nav() {
       // was ~3:1, failing AA. This pairing holds ~12.9:1 regardless of backdrop.
       active ? "bg-ocean-wash text-navy" : "text-navy hover:text-ocean"
     }`;
-  const mobileLinks = Array.from(
-    new Map([...NAV_GROUPS.flatMap((g) => g.links), ["Contact", "/contact"] as [string, string]].map(([label, href]) => [href, [label, href] as [string, string]])).values()
-  );
+  const mobileLinks = [...primaryLinks, ...companyLinks, ["Contact", "/contact"] as [string, string]];
 
   return (
     <header className="sticky top-3 sm:top-4 z-50 px-3 sm:px-4">
@@ -66,48 +79,44 @@ export function Nav() {
           </Link>
 
           <nav aria-label="Primary" className="hidden lg:flex items-center gap-1" ref={menuRef}>
+            {primaryLinks.map(([label, href]) => (
+              <Link
+                key={href}
+                href={href}
+                className={navLinkClass(href === "/resources" ? path.startsWith("/resources") : path === href)}
+              >
+                {label}
+              </Link>
+            ))}
             <button
               type="button"
-              className={`flex items-center gap-1 ${navLinkClass(menuOpen)}`}
+              className={`flex items-center gap-1 ${navLinkClass(menuOpen || companyLinks.some(([, href]) => path === href))}`}
               aria-expanded={menuOpen}
               aria-controls="mega-menu"
               onClick={() => setMenuOpen((v) => !v)}
             >
-              Product
+              Company
               <span aria-hidden="true" className={`transition-transform ${menuOpen ? "rotate-180" : ""}`}>
                 ⌄
               </span>
             </button>
-            <Link href="/resources" className={navLinkClass(path.startsWith("/resources"))}>
-              Resources
-            </Link>
-            <Link href="/pricing" className={navLinkClass(path === "/pricing")}>
-              Pricing
-            </Link>
-            <Link href="/about" className={navLinkClass(path === "/about")}>
-              About
-            </Link>
 
             {menuOpen && (
               <div
                 id="mega-menu"
-                className="absolute left-1/2 top-full mt-3 w-[min(640px,calc(100vw-2rem))] -translate-x-1/2 rounded-2xl border border-structural/10 bg-white shadow-card"
+                className="absolute right-4 top-full mt-3 w-[min(360px,calc(100vw-2rem))] rounded-2xl border border-structural/10 bg-white shadow-card"
               >
-                <div className="grid grid-cols-2 gap-8 p-8">
-                  {NAV_GROUPS.map((group) => (
-                    <div key={group.title}>
-                      <p className="font-mono text-[11px] uppercase tracking-[0.1em] text-structural mb-3">{group.title}</p>
-                      <ul className="space-y-2">
-                        {group.links.map(([label, href]) => (
-                          <li key={href}>
-                            <Link href={href} className="text-[15px] text-navy hover:text-ocean transition-colors">
-                              {label}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
+                <div className="p-6">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.1em] text-structural mb-3">Company</p>
+                  <ul className="grid gap-2">
+                    {companyLinks.map(([label, href]) => (
+                      <li key={href}>
+                        <Link href={href} className="block rounded-md px-3 py-2 text-[15px] text-navy transition-colors hover:bg-ocean-wash hover:text-navy">
+                          {label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
             )}

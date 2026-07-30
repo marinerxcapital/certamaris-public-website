@@ -9,7 +9,7 @@ export default function TermsPage() {
     <>
       <PageHero eyebrow="Legal" title="Terms of Service" intro="Current website terms." />
       <Section>
-        <div className="max-w-2xl space-y-8 text-[15px] text-navy/85 leading-relaxed">
+        <div className="legal-panel max-w-3xl space-y-8 text-[15px] text-navy/85 leading-relaxed">
           <div>
             <h2 className="text-[19px] font-semibold mb-2">1. Scope of this website</h2>
             <p>

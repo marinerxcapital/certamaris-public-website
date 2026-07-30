@@ -1,6 +1,6 @@
 import { Button } from "@/components/Button";
 import { PageHero } from "@/components/PageHero";
-import { ProductScreenFrame, ProductScreenGallery, ProductScreenTile } from "@/components/ProductScreens";
+import { ProductScreenFrame, ProductScreenTile } from "@/components/ProductScreens";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
 import { PRIMARY_CTA_LABEL } from "@/lib/constants";
@@ -41,7 +41,6 @@ const solutionScreenOrder: Record<string, number> = {
 export default function SolutionsPage() {
   return (
     <>
-      <ProductScreenGallery />
       <PageHero
         emphasis="elevated"
         eyebrow="Solutions"
@@ -49,7 +48,7 @@ export default function SolutionsPage() {
         intro="Each solution addresses a distinct part of the compliance lifecycle. Together they keep a fleet's cyber-risk posture traceable from requirement to recurring review."
       />
 
-      <nav aria-label="Jump to solution" className="bg-white border-b" style={{ borderColor: "var(--hairline)" }}>
+      <nav aria-label="Jump to solution" className="jump-nav border-b" style={{ borderColor: "var(--hairline)" }}>
         <div className="shell py-4 flex flex-wrap gap-x-6 gap-y-2">
           {solutions.map((item) => (
             <a key={item.id} href={`#${item.id}`} className="text-[14px] font-medium text-navy hover:text-ocean transition-colors">

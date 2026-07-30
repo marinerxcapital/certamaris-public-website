@@ -6,11 +6,11 @@ export function FaqAccordion({ items }: { items: { question: string; answer: str
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <div className="divide-y" style={{ borderColor: "var(--hairline)" }}>
+    <div className="grid gap-3">
       {items.map((item, index) => {
         const isOpen = open === index;
         return (
-          <div key={item.question} className="hairline-b py-5" style={{ borderColor: "var(--hairline)" }}>
+          <div key={item.question} className="premium-card px-5 py-4">
             <h3>
               <button
                 type="button"

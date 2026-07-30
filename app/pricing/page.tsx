@@ -58,7 +58,7 @@ export default function PricingPage() {
             </div>
           </Reveal>
           <Reveal delay={0.08}>
-            <div className="border rounded-sm p-8 bg-paper" style={{ borderColor: "var(--hairline-strong)" }}>
+            <div className="premium-card p-8">
               <p className="font-mono text-[12px] uppercase tracking-[0.1em] text-ocean mb-3">Scope a proposal</p>
               <h3 className="text-[22px] font-semibold mb-3">Tell us about your fleet.</h3>
               <p className="text-[14.5px] text-structural leading-relaxed mb-6">
@@ -86,7 +86,7 @@ export default function PricingPage() {
           <Reveal delay={0.06}>
             <ul className="space-y-3">
               {engagementSignals.map((signal) => (
-                <li key={signal} className="flex gap-3 rounded-sm border bg-white p-4 text-[14.5px] leading-relaxed text-navy/85" style={{ borderColor: "var(--hairline)" }}>
+                <li key={signal} className="premium-card flex gap-3 p-4 text-[14.5px] leading-relaxed text-navy/85">
                   <span aria-hidden="true" className="mt-1 h-2 w-2 shrink-0 rounded-full bg-ocean" />
                   {signal}
                 </li>
@@ -104,7 +104,7 @@ export default function PricingPage() {
         <div className="grid md:grid-cols-3 gap-5">
           {engagementPath.map((step) => (
             <Reveal key={step.title}>
-              <div className="h-full rounded-sm border bg-paper p-6" style={{ borderColor: "var(--hairline)" }}>
+              <div className="premium-card h-full p-6">
                 <h3 className="mb-2 text-[16px] font-semibold">{step.title}</h3>
                 <p className="text-[14px] leading-relaxed text-structural">{step.body}</p>
               </div>

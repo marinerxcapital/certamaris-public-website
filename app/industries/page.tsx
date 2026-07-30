@@ -22,7 +22,7 @@ export default function IndustriesPage() {
         intro="Different roles need different views of the same underlying record. Here is how each stakeholder actually uses CertaMaris."
       />
 
-      <nav aria-label="Jump to industry" className="bg-white border-b" style={{ borderColor: "var(--hairline)" }}>
+      <nav aria-label="Jump to industry" className="jump-nav border-b" style={{ borderColor: "var(--hairline)" }}>
         <div className="shell py-4 flex flex-wrap gap-x-6 gap-y-2">
           {industries.map((item) => (
             <a key={item.id} href={`#${item.id}`} className="text-[14px] font-medium text-navy hover:text-ocean transition-colors">

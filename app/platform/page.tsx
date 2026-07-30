@@ -3,7 +3,7 @@ import { Button } from "@/components/Button";
 import { CapabilityCard } from "@/components/CapabilityCard";
 import { PageHero } from "@/components/PageHero";
 import { ProcessStepList } from "@/components/ProcessStepList";
-import { ProductScreenFrame, ProductScreenGallery, ProductScreenTile } from "@/components/ProductScreens";
+import { ProductScreenFrame, ProductScreenTile } from "@/components/ProductScreens";
 import { Reveal, RevealGroup } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
 import { PRIMARY_CTA_LABEL } from "@/lib/constants";
@@ -38,14 +38,13 @@ const platformScreens = [
 export default function PlatformPage() {
   return (
     <>
-      <ProductScreenGallery />
       <PageHero
         emphasis="elevated"
         eyebrow="Platform"
         title="One controlled record from applicability to recurring operations."
         intro="CertaMaris keeps regulatory requirements, fleet assets, evidence, decisions, plan content, and quality review connected — without removing the human judgment those decisions require."
         aside={
-          <div className="border rounded-sm px-5 py-4 bg-white" style={{ borderColor: "var(--hairline-strong)" }}>
+          <div className="premium-card px-5 py-4">
             <p className="font-display font-bold text-[32px] leading-none text-navy">6</p>
             <p className="text-[13px] text-structural mt-1">capability pillars, one assurance record</p>
           </div>
@@ -98,7 +97,7 @@ export default function PlatformPage() {
         </Reveal>
         <RevealGroup className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5" stagger={0.05}>
           {workProducts.map((item) => (
-            <div key={item.title} className="border rounded-sm p-5 bg-paper" style={{ borderColor: "var(--hairline)" }}>
+            <div key={item.title} className="premium-card p-5">
               <h3 className="text-[15px] font-semibold mb-1.5">{item.title}</h3>
               <p className="text-[13.5px] text-structural leading-relaxed">{item.body}</p>
             </div>

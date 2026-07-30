@@ -54,7 +54,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
-      <section className="bg-paper border-b" style={{ borderColor: "var(--hairline)" }}>
+      <section className="page-hero-section page-hero-polished relative isolate overflow-hidden border-b" style={{ borderColor: "var(--hairline)" }}>
         <div className="shell py-16">
           <Link href="/resources" className="text-[13.5px] font-medium text-ocean hover:underline mb-6 inline-block">
             ← All resources
@@ -67,7 +67,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         </div>
       </section>
       <Section>
-        <div className="max-w-2xl space-y-8">
+        <div className="article-panel max-w-3xl space-y-8">
           {sections.map((section) => (
             <section key={section.heading} className="space-y-3">
               <h2 className="text-[22px] sm:text-[25px] leading-tight">{section.heading}</h2>
@@ -82,8 +82,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               <Link
                 key={link.href}
                 href={link.href}
-                className="block rounded-sm border border-hairline bg-white p-4 text-[14.5px] font-medium text-navy transition-colors hover:border-ocean/50 hover:text-ocean"
-                style={{ borderColor: "var(--hairline)" }}
+                className="premium-card block p-4 text-[14.5px] font-medium text-navy transition-colors hover:border-ocean/50 hover:text-ocean"
               >
                 {link.title}
               </Link>
