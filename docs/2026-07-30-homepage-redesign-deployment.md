@@ -30,7 +30,7 @@ Scope: Redesign the public landing page around the requirement-to-readiness stor
 - Local Worker browser QA: PASS at 1440px, 1280px, 768px, 390px, 360px, and simulated 200% zoom width.
 - Reduced motion: PASS, Pixel Grid layer computed to `display: none`.
 - Homepage lightbox removal: PASS, zero homepage product lightbox triggers, zero `Expand` text, zero product lightbox DOM.
-- Pixel Grid: PASS, one `data-aifx="blocky"` instance, speed `0.24`, block size `56`, and `pointer-events: none`.
+- Pixel Grid: PASS, one `data-aifx="blocky"` instance and `pointer-events: none`. **Params refreshed 2026-07-30** — speed `0.16`, block-size `72`, contrast `1.45`, six-stop colors including `#012B6D`; see `docs/2026-07-30-pixel-grid-params-visibility-deployment.md`.
 - Homepage image/network smoke: PASS, no failed asset responses; visible product screenshots loaded after scrolling.
 - Screenshots saved under `qa-screenshots/homepage-redesign-desktop.png`, `qa-screenshots/homepage-redesign-tablet.png`, and `qa-screenshots/homepage-redesign-mobile.png`.
 

@@ -3,20 +3,21 @@ type PixelGridBackgroundProps = {
 };
 
 export function PixelGridBackground({
-  className = "absolute inset-0 -z-10 pointer-events-none",
+  className = "fixed inset-0 z-0 pointer-events-none",
 }: PixelGridBackgroundProps) {
   return (
     <div
       data-aifx="blocky"
-      data-aifx-colors="#f4f8ff,#dceaff,#a9c9ff,#4f91ff,#006cfe"
-      data-aifx-bg="#fbfdff"
-      data-aifx-speed="0.24"
-      data-aifx-block-size="56"
+      data-aifx-colors="#F4F8FF,#DCEAFF,#A9C9FF,#4F91FF,#006CFE,#012B6D"
+      data-aifx-bg="#FBFDFF"
+      data-aifx-bg-alpha="1"
+      data-aifx-speed="0.16"
+      data-aifx-block-size="72"
       data-aifx-levels="8"
       data-aifx-scale="1.15"
       data-aifx-drift-angle="24"
-      data-aifx-glint="0.08"
-      data-aifx-contrast="0.78"
+      data-aifx-glint="0.14"
+      data-aifx-contrast="1.45"
       className={`pixel-grid-background ${className}`}
       aria-hidden="true"
     />

@@ -1,98 +1,65 @@
 # CertaMaris Pixel Grid Background Deployment Log
 
-Date: 2026-07-29
-Source path: `C:\certamaris-startup-site-pnpm\certamaris-startup-site`
-Scope: Replace decorative background systems with the supplied AI Designer Pixel Grid effect.
+Date: 2026-07-29 (initial) · **Updated: 2026-07-30** (params + full-page visibility)  
+Source path: `C:\certamaris-startup-site-pnpm\certamaris-startup-site`  
+Scope: AI Designer Pixel Grid as the marketing site background.
+
+> For the latest param set and visibility layering, also see  
+> `docs/2026-07-30-pixel-grid-params-visibility-deployment.md`.
 
 ## Current background system
 
-- Runtime: `https://cdn.aidesigner.ai/effects/runtime/v1.js`
-- Runtime loading point: `app/layout.tsx`
+- Runtime: `https://cdn.aidesigner.ai/effects/runtime/v1.js` (**loaded once** in `app/layout.tsx`)
 - Effect component: `components/PixelGridBackground.tsx`
-- Effect instance count in source: one root Pixel Grid layer
+- Effect instance count in source: **one** root Pixel Grid layer
 - Pointer behavior: `pointer-events: none`
-- Layering: fixed negative z-index background inside the root `relative isolate` container
-- Reduced motion: the Pixel Grid layer is hidden by the global `prefers-reduced-motion: reduce` CSS rule
-- Runtime watermark: the injected `data-aifx-wm` element is hidden so it does not overlay product proof or mobile content
+- Layering: `fixed inset-0 z-0` behind content shell `relative z-10`
+- Reduced motion: Pixel Grid hidden via global `prefers-reduced-motion: reduce` CSS rule
+- Runtime watermark: injected `data-aifx-wm` hidden so it does not overlay product proof or mobile content
 
-## Pixel Grid configuration
+## Pixel Grid configuration (current)
 
 ```tsx
 <div
   data-aifx="blocky"
-  data-aifx-colors="#f4f8ff,#dceaff,#a9c9ff,#4f91ff,#006cfe"
-  data-aifx-bg="#fbfdff"
-  data-aifx-speed="0.24"
-  data-aifx-block-size="56"
+  data-aifx-colors="#F4F8FF,#DCEAFF,#A9C9FF,#4F91FF,#006CFE,#012B6D"
+  data-aifx-bg="#FBFDFF"
+  data-aifx-bg-alpha="1"
+  data-aifx-speed="0.16"
+  data-aifx-block-size="72"
   data-aifx-levels="8"
   data-aifx-scale="1.15"
   data-aifx-drift-angle="24"
-  data-aifx-glint="0.08"
-  data-aifx-contrast="0.78"
-  className="absolute inset-0 -z-10 pointer-events-none"
+  data-aifx-glint="0.14"
+  data-aifx-contrast="1.45"
+  className="pixel-grid-background fixed inset-0 z-0 pointer-events-none"
   aria-hidden="true"
 />
 ```
 
-The live component adds the system class `pixel-grid-background` and uses a root fixed-position variant so one shared effect can cover the marketing site without duplicate runtime instances.
+## Visibility tuning (current)
 
-## Visibility tuning
+- Pixel Grid CSS opacity: `0.78` desktop/tablet; `0.62` below 768px
+- Section page/paper shells: **transparent** (no full-bleed opaque washes)
+- Cards / nav / hero panels: translucent surfaces for readability
+- Final CTA: translucent navy band; footer solid navy
+- Effect disabled under `prefers-reduced-motion: reduce`
 
-- Current Pixel Grid opacity: `0.46` on desktop/tablet and `0.32` below 768px.
-- Current Pixel Grid speed: `0.24`.
-- Current Pixel Grid block size: `56`.
-- Current section surface overlay: `0.86` opacity on page/paper surfaces and `0.68` on the homepage hero.
-- Current mobile surface overlay: `0.90` on page/paper surfaces and `0.84` on the homepage hero.
-- The effect remains disabled under `prefers-reduced-motion: reduce`.
+## Removed background systems (still removed)
 
-## Removed background systems
+- `components/SiteBackground.tsx`, `Silk.tsx`, `HeroVideo.tsx`, `MotionField.tsx`
+- `types/vanta.d.ts`, `public/bg/*`, `public/video/*`
+- `@react-three/fiber`, `three`, `@types/three`
 
-- `components/SiteBackground.tsx`
-- `components/Silk.tsx`
-- `components/HeroVideo.tsx`
-- `components/MotionField.tsx`
-- `types/vanta.d.ts`
-- `public/bg/*`
-- `public/video/*`
-- `@react-three/fiber`
-- `three`
-- `@types/three`
+## Historical validation (2026-07-29 deploy)
 
-## Source updates
+- Initial implementation commit: `6e5664e38de8b31d7a32190c614c00b690261019`
+- Initial Worker version: `ef4b2c12-5b61-40dd-ad4d-e0ecdd5b68fb`
+- Live QA of that build is recorded in the original rollout notes below this revision.
 
-- `app/layout.tsx` loads the AI Designer runtime once and renders the shared Pixel Grid layer.
-- `app/page.tsx` no longer renders hero video or homepage motion fields.
-- `app/globals.css` removes old animated/gradient/video background CSS and adds Pixel Grid opacity, section overlays, and reduced-motion handling.
-- `components/Section.tsx` and `components/PageHero.tsx` use the same surface overlay model so the Pixel Grid is visible without reducing content contrast.
-- `next.config.ts` and `worker/index.ts` allow the AI Designer script in CSP report-only headers and remove stable-cache handling for deleted `/video/*` and `/bg/*` assets.
+## 2026-07-30 local verification (params + visibility)
 
-## Validation checklist
-
-- `npm.cmd run typecheck`: PASS.
-- `npm.cmd run build:static`: PASS. Existing static-export warnings about headers/rewrites not applying during export remain expected because the Cloudflare Worker applies those production headers and RSC rewrites.
-- `npm.cmd audit --omit=dev --audit-level=high`: PASS, 0 vulnerabilities.
-- Lint script: NOT APPLICABLE, no `lint` script exists.
-- Test script: NOT APPLICABLE, no `test` script exists.
-- Local Worker browser QA: PASS on 60 route/viewport checks: 20 public routes across 1440px, 768px, and 390px.
-- Browser console and network: PASS, zero console warnings/errors and zero HTTP responses >= 400 through local Worker QA.
-- Pixel Grid runtime: PASS, one root `data-aifx="blocky"` instance and one runtime script after hydration.
-- Old background DOM: PASS, zero `.site-background`, `.site-background-silk`, `.motion-field`, `.hero-video-frame`, or `video` elements.
-- Reduced motion: PASS, `prefers-reduced-motion: reduce` matched and the Pixel Grid layer computed to `display: none`.
-- Mobile nav: PASS, drawer opened with no duplicate labels.
-- Product lightbox: PASS, first product screenshot opened and Escape closed the lightbox.
-- Final screenshots saved under `qa-screenshots/pixel-grid-final-home-desktop.png`, `qa-screenshots/pixel-grid-final-home-tablet.png`, and `qa-screenshots/pixel-grid-final-home-mobile.png`.
-## Deployment result
-
-- Implementation commit: `6e5664e38de8b31d7a32190c614c00b690261019`
-- Initial deployed Worker version: `ef4b2c12-5b61-40dd-ad4d-e0ecdd5b68fb`
-- `origin/main` verification after push: PASS, remote `main` matched local implementation commit.
-- Live HTTP verification: PASS, all 20 public routes returned HTTP 200.
-- Live RSC prefetch verification: PASS, `/platform/__next.platform.__PAGE__.txt?_rsc=pixelcheck` returned HTTP 200.
-- Live HTML verification: PASS after cache revalidation, `https://certamaris.com/` includes the AI Designer runtime and Pixel Grid markup and no longer includes `hero-fog`.
-- Live browser QA: PASS on 60 route/viewport checks across 1440px, 768px, and 390px.
-- Live browser console and network: PASS, zero console warnings/errors and zero HTTP responses >= 400.
-- Live mobile nav: PASS, no duplicate labels.
-- Live product lightbox: PASS, first product screenshot opened and Escape closed the lightbox.
-- Live reduced motion: PASS, `prefers-reduced-motion: reduce` matched and the Pixel Grid layer computed to `display: none`.
-
-This log was updated after the live deployment and requires a docs-only follow-up commit so the source tree records the completed rollout.
+- `npm.cmd run typecheck`: **PASS**
+- `npm.cmd run build:static`: **PASS** (expected export header warnings)
+- Single runtime script + single `data-aifx="blocky"` host confirmed in source
+- Production marketing deploy of this revision: **pending owner**

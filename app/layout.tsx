@@ -46,13 +46,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
       <body>
         <Script src="https://cdn.aidesigner.ai/effects/runtime/v1.js" strategy="afterInteractive" />
-        <div className="site-root relative isolate min-h-screen overflow-x-clip">
-          <PixelGridBackground className="fixed inset-0 -z-10 pointer-events-none" />
+        <div className="site-root relative min-h-screen overflow-x-clip">
+          <PixelGridBackground className="fixed inset-0 z-0 pointer-events-none" />
           {/* eslint-disable-next-line @next/next/no-sync-scripts */}
           <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-          <Nav />
-          <main id="main-content">{children}</main>
-          <Footer />
+          <div className="relative z-10">
+            <Nav />
+            <main id="main-content">{children}</main>
+            <Footer />
+          </div>
         </div>
       </body>
     </html>

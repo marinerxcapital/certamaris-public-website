@@ -34,12 +34,13 @@
 
 html {
   scroll-behavior: auto;
-  background: var(--surface-paper);
+  /* Fallback base when Pixel Grid is reduced-motion-hidden; otherwise the fixed grid paints above */
+  background: #fbfdff;
 }
 
 body {
   margin: 0;
-  background: #fbfdff;
+  background: transparent;
   color: var(--ink-primary);
   font-family: var(--font-body), Arial, sans-serif;
   font-size: 16px;
@@ -50,47 +51,48 @@ body {
 
 .site-root {
   position: relative;
-  overflow: hidden;
-  isolation: isolate;
+  overflow-x: clip;
+  /* Do not isolate: keep the fixed Pixel Grid as a single full-viewport layer. */
 }
 
 .pixel-grid-background {
-  opacity: 0.46;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  opacity: 0.78;
   overflow: hidden;
   pointer-events: none;
+}
+
+/* Ensure the AI Designer canvas fills the fixed full-screen host */
+.pixel-grid-background canvas,
+.pixel-grid-background > * {
+  width: 100% !important;
+  height: 100% !important;
 }
 
 [data-aifx-wm] {
   display: none !important;
 }
 
+/* Section shells stay transparent so the shared Pixel Grid reads through header→footer.
+   Readability comes from translucent cards / header chrome, not full-bleed washes. */
 .section-surface {
   position: relative;
-  isolation: isolate;
-  overflow: hidden;
+  background: transparent;
 }
 
-.section-surface::before,
-.page-hero-section::before,
-.hero-section::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-}
-
-.section-surface--page::before {
-  background: rgba(255, 255, 255, 0.86);
-}
-
-.section-surface--paper::before,
-.page-hero-section::before {
-  background: rgba(245, 248, 250, 0.86);
+.section-surface--page,
+.section-surface--paper,
+.page-hero-section {
+  background: transparent;
 }
 
 .section-surface--navy {
-  background: var(--surface-navy);
+  /* Translucent brand band — white CTA copy needs a surface, grid still peeks through */
+  background: rgba(11, 42, 74, 0.88);
+  backdrop-filter: blur(10px);
 }
 
 .premium-card {
@@ -224,28 +226,13 @@ body {
 .footer-premium {
   position: relative;
   overflow: hidden;
-}
-
-.footer-premium::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(rgba(79, 173, 224, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(79, 173, 224, 0.07) 1px, transparent 1px),
-    radial-gradient(circle at 14% 18%, rgba(79, 173, 224, 0.16), transparent 28%);
-  background-size: 52px 52px, 52px 52px, auto;
-  opacity: 0.72;
-  pointer-events: none;
+  /* Solid brand footer for link contrast; grid remains fixed behind the rest of the page */
+  background: var(--surface-navy);
 }
 
 .footer-premium > * {
   position: relative;
   z-index: 1;
-}
-
-.hero-section::before {
-  background: rgba(245, 248, 250, 0.68);
 }
 
 h1, h2, h3, h4 {
@@ -402,7 +389,8 @@ textarea:focus-visible,
   min-height: 86vh;
   display: flex;
   align-items: center;
-  overflow: hidden;
+  overflow: visible;
+  background: transparent;
 }
 
 .landing-hero {
@@ -411,7 +399,6 @@ textarea:focus-visible,
 
 .hero-copy-block {
   position: relative;
-  isolation: isolate;
 }
 
 .hero-copy-block .text-ocean {
@@ -435,29 +422,13 @@ textarea:focus-visible,
 
 .hero-signal-panel {
   position: relative;
-  isolation: isolate;
   overflow: hidden;
   border: 1px solid rgba(11, 42, 74, 0.14);
   border-radius: 12px;
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(245, 248, 250, 0.76)),
-    radial-gradient(circle at 20% 20%, rgba(20, 120, 184, 0.12), transparent 34%);
+  background: rgba(255, 255, 255, 0.72);
   box-shadow: 0 28px 90px rgba(11, 42, 74, 0.17);
   padding: clamp(16px, 2vw, 24px);
-  backdrop-filter: blur(16px);
-}
-
-.hero-signal-panel::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background-image:
-    linear-gradient(rgba(18, 111, 170, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(18, 111, 170, 0.1) 1px, transparent 1px);
-  background-size: 44px 44px;
-  mask-image: linear-gradient(135deg, rgba(0, 0, 0, 0.95), transparent 72%);
-  pointer-events: none;
+  backdrop-filter: blur(14px);
 }
 
 .hero-chain {
@@ -535,20 +506,7 @@ textarea:focus-visible,
 
 @media (max-width: 767px) {
   .pixel-grid-background {
-    opacity: 0.32;
-  }
-
-  .section-surface--page::before {
-    background: rgba(255, 255, 255, 0.9);
-  }
-
-  .section-surface--paper::before,
-  .page-hero-section::before {
-    background: rgba(245, 248, 250, 0.9);
-  }
-
-  .hero-section::before {
-    background: rgba(245, 248, 250, 0.84);
+    opacity: 0.62;
   }
 
   .hero-section {

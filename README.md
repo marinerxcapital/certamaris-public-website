@@ -183,17 +183,28 @@ listed in the brief is implemented with final copy, not placeholder text.
 
 ## 7. Background system
 
-The site uses one global AI Designer Pixel Grid background. The runtime is
-loaded once in `app/layout.tsx`, and the effect markup lives in
-`components/PixelGridBackground.tsx` with the approved CertaMaris blue
-configuration. Page and section surfaces use restrained translucent overlays
-from `app/globals.css` so headings, body copy, cards, forms, and product
-screens remain readable.
+The site uses **one** global AI Designer Pixel Grid background.
+
+| Item | Value |
+|---|---|
+| Runtime (once) | `https://cdn.aidesigner.ai/effects/runtime/v1.js` in `app/layout.tsx` |
+| Effect host | `components/PixelGridBackground.tsx` — single instance |
+| Layering | `fixed inset-0 z-0 pointer-events-none`; content shell `relative z-10` |
+| colors | `#F4F8FF,#DCEAFF,#A9C9FF,#4F91FF,#006CFE,#012B6D` |
+| bg / bg-alpha | `#FBFDFF` / `1` |
+| speed / block-size / levels | `0.16` / `72` / `8` |
+| scale / drift-angle | `1.15` / `24` |
+| glint / contrast | `0.14` / `1.45` |
+
+Section page/paper shells stay **transparent** so the grid reads across the
+page. Readability comes from translucent cards, the sticky nav chrome, and
+(where needed) a translucent navy CTA band. Footer remains solid navy for
+link contrast. See `docs/2026-07-30-pixel-grid-params-visibility-deployment.md`.
 
 The previous decorative background systems were removed from the live source:
-the hero video assets, WebP atmospheric background assets, Silk/WebGL canvas
-background, Three.js dependencies, and homepage motion-field overlays.
-Reduced-motion users receive a stable non-animated page background.
+hero video, WebP atmospheric assets, Silk/WebGL, Three.js, and motion-field
+overlays. Reduced-motion users get a stable non-animated page background
+(`display: none` on the Pixel Grid host).
 
 ---
 

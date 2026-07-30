@@ -3,7 +3,7 @@ import { FOOTER_GROUPS, FOOTER_STANDING_LINE, SITE_TAGLINE } from "@/lib/constan
 
 export function Footer() {
   return (
-    <footer className="footer-premium bg-navy text-white">
+    <footer className="footer-premium text-white">
       <div className="shell py-16">
         <div className="grid grid-cols-2 md:grid-cols-6 gap-10">
           <div className="col-span-2">

@@ -145,7 +145,7 @@ const audiences = [
 export default function HomePage() {
   return (
     <>
-      <section className="hero-section landing-hero relative isolate" aria-labelledby="hero-title">
+      <section className="hero-section landing-hero relative" aria-labelledby="hero-title">
         <div className="shell relative z-10 py-16 sm:py-20 lg:py-24">
           <div className="grid gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:gap-14">
             <Reveal className="hero-copy-block max-w-2xl">

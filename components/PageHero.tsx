@@ -23,8 +23,8 @@ export function PageHero({
 }) {
   const elevated = emphasis === "elevated";
   return (
-    <section className="page-hero-section page-hero-polished relative isolate overflow-hidden border-b" style={{ borderColor: "var(--hairline)" }}>
-      <div className={`shell ${elevated ? "py-20 sm:py-24" : "py-16 sm:py-20"}`}>
+    <section className="page-hero-section page-hero-polished relative overflow-visible border-b" style={{ borderColor: "var(--hairline)" }}>
+      <div className={`shell relative z-10 ${elevated ? "py-20 sm:py-24" : "py-16 sm:py-20"}`}>
         <div className="grid lg:grid-cols-[1fr_auto] gap-10 items-end">
           <div className="max-w-2xl">
             <Eyebrow>{eyebrow}</Eyebrow>
