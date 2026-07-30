@@ -91,10 +91,18 @@ Scope: Public marketing site only (`certamaris.com`). No app/API/auth/DB/Cyber T
 
 ## Explicit non-goals
 
-- No production Worker deploy in this step (owner-directed when ready)
 - No authenticated app / Railway API / Neon / Cyber Twin edits
 - No monorepo cutover
 
-## Next
+## Production ship (2026-07-30)
 
-- Owner: deploy marketing Worker when ready so live `certamaris.com` picks up params + visibility.
+| Step | Result |
+|---|---|
+| Commit | `1adbafd` — *Make Pixel Grid the full-page marketing background with owner params.* |
+| Push | `origin/main` @ `marinerxcapital/certamaris-public-website` (`db962ad..1adbafd`) |
+| Build | `npm run build:static` PASS |
+| Deploy | `npx wrangler deploy --config wrangler.jsonc --keep-vars` → Worker `certamaris-site` version **`88f86c47-45f9-4890-b887-e86f0dcc74a9`** |
+| Live `https://certamaris.com/` | HTTP **200**; HTML includes speed `0.16`, block-size `72`, contrast `1.45`, bg-alpha `1`, `#012B6D`, aidesigner runtime, `fixed inset-0 z-0` |
+| Live `https://www.certamaris.com/` | HTTP **200**; same Pixel Grid markers |
+
+**Signed:** SuperGrok · **Date:** 2026-07-30

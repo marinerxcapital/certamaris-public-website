@@ -57,9 +57,11 @@ Scope: AI Designer Pixel Grid as the marketing site background.
 - Initial Worker version: `ef4b2c12-5b61-40dd-ad4d-e0ecdd5b68fb`
 - Live QA of that build is recorded in the original rollout notes below this revision.
 
-## 2026-07-30 local verification (params + visibility)
+## 2026-07-30 local verification + production ship (params + visibility)
 
 - `npm.cmd run typecheck`: **PASS**
 - `npm.cmd run build:static`: **PASS** (expected export header warnings)
 - Single runtime script + single `data-aifx="blocky"` host confirmed in source
-- Production marketing deploy of this revision: **pending owner**
+- Git: `1adbafd` pushed to `origin/main` (`marinerxcapital/certamaris-public-website`)
+- Worker `certamaris-site` version: **`88f86c47-45f9-4890-b887-e86f0dcc74a9`**
+- Live `certamaris.com` / `www.certamaris.com`: HTTP 200 with new Pixel Grid params verified in HTML
