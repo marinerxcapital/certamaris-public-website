@@ -36,6 +36,13 @@ Scope: Replace decorative background systems with the supplied AI Designer Pixel
 
 The live component adds the system class `pixel-grid-background` and uses a root fixed-position variant so one shared effect can cover the marketing site without duplicate runtime instances.
 
+## Visibility tuning
+
+- Current Pixel Grid opacity: `0.46` on desktop/tablet and `0.32` below 768px.
+- Current section surface overlay: `0.86` opacity on page/paper surfaces and `0.68` on the homepage hero.
+- Current mobile surface overlay: `0.90` on page/paper surfaces and `0.84` on the homepage hero.
+- The effect remains disabled under `prefers-reduced-motion: reduce`.
+
 ## Removed background systems
 
 - `components/SiteBackground.tsx`

@@ -55,7 +55,7 @@ body {
 }
 
 .pixel-grid-background {
-  opacity: 0.34;
+  opacity: 0.46;
   overflow: hidden;
   pointer-events: none;
 }
@@ -81,12 +81,12 @@ body {
 }
 
 .section-surface--page::before {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.86);
 }
 
 .section-surface--paper::before,
 .page-hero-section::before {
-  background: rgba(245, 248, 250, 0.9);
+  background: rgba(245, 248, 250, 0.86);
 }
 
 .section-surface--navy {
@@ -94,7 +94,7 @@ body {
 }
 
 .hero-section::before {
-  background: rgba(245, 248, 250, 0.74);
+  background: rgba(245, 248, 250, 0.68);
 }
 
 h1, h2, h3, h4 {
@@ -280,20 +280,20 @@ textarea:focus-visible,
 
 @media (max-width: 767px) {
   .pixel-grid-background {
-    opacity: 0.22;
+    opacity: 0.32;
   }
 
   .section-surface--page::before {
-    background: rgba(255, 255, 255, 0.94);
+    background: rgba(255, 255, 255, 0.9);
   }
 
   .section-surface--paper::before,
   .page-hero-section::before {
-    background: rgba(245, 248, 250, 0.94);
+    background: rgba(245, 248, 250, 0.9);
   }
 
   .hero-section::before {
-    background: rgba(245, 248, 250, 0.9);
+    background: rgba(245, 248, 250, 0.84);
   }
 
   .hero-section {
