@@ -131,12 +131,13 @@ export default function CompliancePage() {
           <Reveal delay={0.06} className="max-w-2xl space-y-4">
             <p className="text-[15.5px] text-structural leading-relaxed">
               IMO guidance, IACS unified requirements, and flag-state circulars change on independent schedules.
-              CertaMaris tracks the source text and versions your fleet is mapped against, and surfaces which
-              mappings, evidence, and plan sections are affected when the underlying requirement changes.
+              When a mapped requirement version changes, CertaMaris can show which control mappings, evidence, and
+              plan sections are linked to that requirement so the team can review impact without reconstructing
+              scope from scattered files.
             </p>
             <p className="text-[15.5px] text-structural leading-relaxed">
-              This turns a regulatory update into a scoped, assignable task list rather than an open-ended review —
-              while leaving the interpretation and applicability judgment to qualified reviewers.
+              That turns a regulatory update into scoped follow-up work rather than an open-ended review — while
+              leaving interpretation and applicability judgment to qualified reviewers.
             </p>
           </Reveal>
         </div>

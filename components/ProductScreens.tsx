@@ -62,24 +62,22 @@ function ProductScreenFrameInner({
   return (
     <div className={`relative block w-full rounded-md text-left ${className}`}>
       <figure
-        className="product-screen-frame overflow-hidden rounded-md border bg-white shadow-card"
-        style={{ borderColor: "var(--hairline-strong)" }}
+        className="product-screen-frame overflow-hidden rounded-md border border-navy/15 bg-white shadow-card"
       >
-        <div className="flex h-9 items-center gap-2 border-b bg-paper px-3" style={{ borderColor: "var(--hairline)" }}>
-          <span className="size-2 rounded-full bg-status-critical" aria-hidden="true" />
-          <span className="size-2 rounded-full bg-status-caution" aria-hidden="true" />
-          <span className="size-2 rounded-full bg-status-ok" aria-hidden="true" />
-          <span className="ml-2 truncate font-mono text-[11px] uppercase tracking-[0.1em] text-structural">
+        <div className="flex h-9 items-center border-b border-navy/10 bg-paper px-3">
+          <span className="truncate font-mono text-[11px] uppercase tracking-[0.1em] text-structural">
             {label}
           </span>
         </div>
-        <ProductScreenImage
-          src={src}
-          alt={alt}
-          sizes={sizes}
-          priority={priority}
-          className="aspect-[1440/1040] w-full object-cover object-top"
-        />
+        <div className="bg-paper">
+          <ProductScreenImage
+            src={src}
+            alt={alt}
+            sizes={sizes}
+            priority={priority}
+            className="aspect-[1440/1040] w-full object-contain object-top"
+          />
+        </div>
       </figure>
     </div>
   );

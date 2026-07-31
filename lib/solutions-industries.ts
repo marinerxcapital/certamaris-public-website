@@ -31,13 +31,13 @@ export const solutions: SolutionEntry[] = [
     headline: "Build the readiness package continuously, not the week before survey.",
     body: [
       "Audit readiness usually becomes a scramble: pulling evidence from wherever it was last saved, reconstructing what a finding's status actually is, and hoping the plan version a surveyor sees matches the one that was actually implemented.",
-      "CertaMaris keeps a continuously current readiness package — assessment basis, findings, corrective actions, and plan crosswalks — so the state a surveyor reviews is the same state your team has been working from all along.",
+      "CertaMaris compiles a readiness package from the live record — assessment basis, findings, corrective actions, and plan crosswalks — so the package a reviewer inspects is assembled from work already in the system, not from a last-minute document scramble.",
     ],
     capabilities: [
-      "Readiness package compiled from live evidence, findings, and plan status, not a manual reassembly",
-      "Gap flagging against completeness, citation, and evidence-sufficiency checks before survey",
+      "Readiness package compiled from current evidence, findings, and plan status",
+      "Gap flagging against completeness, citation, and evidence-sufficiency checks before review",
       "Version-controlled Cybersecurity Plan content with clear release state",
-      "A record of exactly what was reviewed, by whom, and when",
+      "A record of what was reviewed, by whom, and when",
     ],
   },
   {
@@ -63,13 +63,13 @@ export const solutions: SolutionEntry[] = [
     headline: "Know what changed, and what it touches, before it becomes a finding.",
     body: [
       "IMO guidance, IACS unified requirements, and flag-state circulars change on their own schedules. Most operators find out about a change when a surveyor mentions it, or when someone happens to read the right bulletin.",
-      "CertaMaris tracks the requirements your fleet is mapped against and surfaces which control mappings, evidence, and plan sections are affected when the underlying text changes — turning a regulatory update into a scoped task list instead of an open-ended review.",
+      "When a mapped requirement version changes, CertaMaris can show which control mappings, evidence, and plan sections are linked to that requirement so owners can review impact and assign follow-up work — without replacing human applicability judgment.",
     ],
     capabilities: [
       "Source text, clause versions, and mappings kept distinct and versioned",
-      "Impact view showing which controls, evidence, and plan sections a requirement change touches",
-      "Generated implementation tasks routed to accountable owners for approval",
-      "A historical record of what changed, when, and what your fleet did about it",
+      "Impact view of controls, evidence, and plan sections linked to a changed requirement",
+      "Follow-up work recorded against accountable owners for review and approval",
+      "A historical record of what changed, when, and what the fleet recorded in response",
     ],
   },
   {

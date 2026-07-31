@@ -60,7 +60,8 @@ body {
   height: 100%;
   min-height: 100vh;
   min-height: 100dvh;
-  opacity: 0.78;
+  /* Atmosphere only — product and copy sit on solid surfaces above */
+  opacity: 0.4;
   overflow: hidden;
   pointer-events: none;
 }
@@ -76,23 +77,22 @@ body {
   display: none !important;
 }
 
-/* Section shells stay transparent so the shared Pixel Grid reads through header→footer.
-   Readability comes from translucent cards / header chrome, not full-bleed washes. */
+/* Product-first surfaces: solid reading/proof bands; grid peeks in hero breathing room */
 .section-surface {
   position: relative;
-  background: transparent;
 }
 
 .section-surface--page,
-.section-surface--paper,
 .page-hero-section {
-  background: transparent;
+  background: rgba(255, 255, 255, 0.94);
+}
+
+.section-surface--paper {
+  background: var(--surface-paper);
 }
 
 .section-surface--navy {
-  /* Translucent brand band — white CTA copy needs a surface, grid still peeks through */
-  background: rgba(11, 42, 74, 0.88);
-  backdrop-filter: blur(10px);
+  background: var(--surface-navy);
 }
 
 .premium-card {
@@ -100,25 +100,8 @@ body {
   overflow: hidden;
   border: 1px solid rgba(11, 42, 74, 0.12);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.76);
-  box-shadow: 0 14px 42px rgba(11, 42, 74, 0.06);
-  backdrop-filter: blur(10px);
-}
-
-.premium-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background:
-    linear-gradient(135deg, rgba(20, 120, 184, 0.08), transparent 38%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.44));
-  pointer-events: none;
-}
-
-.jump-nav {
-  background: rgba(255, 255, 255, 0.78);
-  backdrop-filter: blur(12px);
+  background: #ffffff;
+  box-shadow: 0 1px 0 var(--hairline), 0 12px 32px rgba(11, 42, 74, 0.06);
 }
 
 .jump-nav a {
@@ -148,37 +131,24 @@ body {
   overflow: hidden;
   border: 1px solid rgba(11, 42, 74, 0.12);
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.68);
-  box-shadow: 0 22px 70px rgba(11, 42, 74, 0.1);
+  background: #ffffff;
+  box-shadow: 0 1px 0 var(--hairline), 0 16px 40px rgba(11, 42, 74, 0.08);
   padding: 18px;
-  backdrop-filter: blur(12px);
-}
-
-.page-hero-signal::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background-image:
-    linear-gradient(rgba(18, 111, 170, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(18, 111, 170, 0.08) 1px, transparent 1px);
-  background-size: 36px 36px;
-  pointer-events: none;
 }
 
 .product-screen-frame {
-  box-shadow: 0 18px 55px rgba(11, 42, 74, 0.13);
+  box-shadow: 0 18px 48px rgba(11, 42, 74, 0.1);
 }
 
 .product-screen-tile .product-screen-frame {
-  box-shadow: 0 14px 40px rgba(11, 42, 74, 0.1);
+  box-shadow: 0 12px 32px rgba(11, 42, 74, 0.08);
 }
 
 .process-step-card {
   min-height: 100%;
   border: 1px solid rgba(11, 42, 74, 0.1);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.68);
+  background: #ffffff;
   padding: 18px;
   box-shadow: 0 12px 34px rgba(11, 42, 74, 0.05);
 }
@@ -261,23 +231,9 @@ img, video, svg {
   max-width: 100%;
 }
 
-@keyframes certamaris-icon-rotate {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
+/* Logo mark stays static — continuous spin reads as consumer/AI template, not enterprise software */
 .certamaris-logo-mark {
-  animation: certamaris-icon-rotate 1.15s linear infinite;
   transform-origin: 50% 50%;
-  will-change: transform;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .certamaris-logo-mark {
-    animation: none;
-    will-change: auto;
-  }
 }
 
 button, input, select, textarea {
@@ -390,6 +346,7 @@ textarea:focus-visible,
   display: flex;
   align-items: center;
   overflow: visible;
+  /* Hero stays open to the atmospheric grid; content uses solid panels */
   background: transparent;
 }
 
@@ -405,81 +362,44 @@ textarea:focus-visible,
   color: #1a5f9e;
 }
 
-.hero-product-proof {
-  position: relative;
-  isolation: isolate;
-  border: 1px solid rgba(11, 42, 74, 0.16);
-  border-radius: 10px;
-  background: rgba(245, 248, 250, 0.9);
-  box-shadow: 0 24px 70px rgba(11, 42, 74, 0.18);
-  padding: clamp(16px, 2vw, 24px);
-  backdrop-filter: blur(18px);
-}
-
-.hero-product-proof figure {
-  box-shadow: 0 18px 50px rgba(11, 42, 74, 0.18);
-}
-
+.hero-product-proof,
 .hero-signal-panel {
   position: relative;
   overflow: hidden;
   border: 1px solid rgba(11, 42, 74, 0.14);
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.72);
-  box-shadow: 0 28px 90px rgba(11, 42, 74, 0.17);
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 0 24px 64px rgba(11, 42, 74, 0.12);
   padding: clamp(16px, 2vw, 24px);
-  backdrop-filter: blur(14px);
 }
 
-.hero-chain {
-  display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 8px;
-}
-
-.hero-chain-node {
-  min-height: 62px;
-  border: 1px solid rgba(18, 111, 170, 0.2);
-  border-radius: 7px;
-  background: rgba(255, 255, 255, 0.72);
-  padding: 10px;
+.hero-trace-line {
+  font-family: var(--font-mono), Consolas, monospace;
   font-size: 12px;
-  font-weight: 600;
-  line-height: 1.2;
-  color: var(--ink-primary);
-}
-
-.assurance-trace {
-  display: grid;
-  gap: 12px;
-}
-
-.assurance-trace-card {
-  position: relative;
-  border: 1px solid rgba(11, 42, 74, 0.12);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.76);
-  padding: 18px;
-  box-shadow: 0 14px 42px rgba(11, 42, 74, 0.07);
+  letter-spacing: 0.04em;
+  color: var(--ink-secondary);
 }
 
 .product-showcase-frame figure {
-  box-shadow: 0 22px 70px rgba(11, 42, 74, 0.16);
+  box-shadow: 0 22px 64px rgba(11, 42, 74, 0.14);
 }
 
-.capability-strip,
+.product-screen-frame {
+  box-shadow: 0 18px 48px rgba(11, 42, 74, 0.1);
+}
+
+.outcome-row,
 .audience-note,
 .trust-note {
   border: 1px solid rgba(11, 42, 74, 0.12);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.72);
-  box-shadow: 0 14px 42px rgba(11, 42, 74, 0.06);
+  background: #ffffff;
+  box-shadow: 0 1px 0 var(--hairline), 0 10px 28px rgba(11, 42, 74, 0.05);
 }
 
-.capability-strip {
+.outcome-row {
   display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 18px;
+  gap: 8px;
   padding: 22px;
 }
 
@@ -495,10 +415,6 @@ textarea:focus-visible,
 }
 
 @media (min-width: 1024px) {
-  .assurance-trace {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-  }
-
   .final-cta-grid {
     grid-template-columns: minmax(0, 1fr) auto;
   }
@@ -506,39 +422,21 @@ textarea:focus-visible,
 
 @media (max-width: 767px) {
   .pixel-grid-background {
-    opacity: 0.62;
+    opacity: 0.28;
   }
 
   .hero-section {
     min-height: auto;
   }
 
-  .hero-product-proof {
-    border-radius: 8px;
-    padding: 14px;
-    box-shadow: 0 16px 42px rgba(11, 42, 74, 0.14);
-  }
-
+  .hero-product-proof,
   .hero-signal-panel {
     border-radius: 8px;
     padding: 14px;
-    box-shadow: 0 16px 42px rgba(11, 42, 74, 0.12);
+    box-shadow: 0 14px 36px rgba(11, 42, 74, 0.1);
   }
 
-  .hero-chain {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .hero-chain-node {
-    min-height: 52px;
-  }
-
-  .capability-strip {
-    grid-template-columns: 1fr;
-    gap: 10px;
-    padding: 18px;
-  }
-
+  .outcome-row,
   .audience-note,
   .trust-note {
     padding: 18px;

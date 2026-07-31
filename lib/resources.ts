@@ -29,7 +29,7 @@ const baseArticles: Omit<Article, "publishedDate" | "publishedLabel">[] = [
     topic: "Regulatory intelligence",
     readTime: "6 min read",
     excerpt:
-      "MSC.428(98) doesn't create a standalone cyber code — it folds cyber risk into the ISM Code Safety Management System. Here's what that integration means in practice.",
+      "MSC.428(98) does not create a standalone cyber code. It treats cyber risk as a category of risk the SMS must address under the ISM Code.",
     body: [
       "IMO Resolution MSC.428(98), adopted in 2017, encourages administrations to ensure cyber risks are appropriately addressed in existing safety management systems. It does not introduce a new, separate certification regime. Instead, it treats cyber risk as a category of operational risk that an SMS is already required to manage under the ISM Code.",
       "In practice, this means cyber risk management needs to show up in the same places your SMS already documents risk: hazard identification, risk assessment, procedures, training, and internal audit. An operator without a distinct 'cyber plan' isn't automatically non-compliant — but an SMS that never mentions cyber risk at all is difficult to defend during an audit.",
@@ -43,7 +43,7 @@ const baseArticles: Omit<Article, "publishedDate" | "publishedLabel">[] = [
     topic: "Regulatory intelligence",
     readTime: "7 min read",
     excerpt:
-      "UR E26 addresses cyber resilience of the ship as a whole; UR E27 addresses the systems and equipment on board. Here's how the two requirements relate.",
+      "UR E26 addresses cyber resilience of the ship as a whole; UR E27 addresses systems and equipment on board. The split changes who owns which controls and evidence.",
     body: [
       "IACS Unified Requirements E26 (Cyber Resilience of Ships) and E27 (Cyber Resilience of On-board Systems and Equipment) apply from new construction contracts signed after their effective date, targeting cyber resilience at the design and build stage rather than retrofitting it onto an operating vessel.",
       "UR E26 sets requirements at the ship level: computer-based system identification, network segmentation, access control, and the overall cyber resilience of the vessel as an integrated system. UR E27 sets requirements at the equipment level — the resilience properties individual on-board computer-based systems and equipment need to meet before they're integrated into that ship-level architecture.",
@@ -71,7 +71,7 @@ const baseArticles: Omit<Article, "publishedDate" | "publishedLabel">[] = [
     topic: "Evidence & findings",
     readTime: "4 min read",
     excerpt:
-      "A corrective action closed by the same person who owns it isn't independently verified. Here's why that distinction matters more than it seems.",
+      "A corrective action closed only by the action owner is not independently verified. Reviewers need a separate verification decision and supporting evidence.",
     body: [
       "It's common, and understandable, for a corrective action to get marked closed the moment the responsible party says the fix is in place. It's also one of the more common weak points an auditor will pull on, because self-attested closure isn't independent verification.",
       "Independent verification means someone other than the action owner reviews evidence that the fix was actually implemented and actually addresses the finding — not just that work happened, but that the work closes the specific gap that was identified.",
@@ -85,7 +85,7 @@ const baseArticles: Omit<Article, "publishedDate" | "publishedLabel">[] = [
     topic: "Fleet operations",
     readTime: "6 min read",
     excerpt:
-      "The processes that work for three vessels usually break somewhere between ten and thirty. Here's what typically breaks first.",
+      "Processes that work for three vessels often break between ten and thirty: ownership, evidence freshness, and review packages diverge by vessel and manager.",
     body: [
       "A shared drive and a diligent DPA can genuinely work for a small fleet. The friction shows up as the fleet grows: a requirement change now means checking dozens of vessel folders instead of three, and 'who has the current version of this procedure' stops having an obvious answer.",
       "The first thing that typically breaks is version control — not because anyone is careless, but because there's no single source of truth once a document has been emailed, downloaded, and edited independently on more than a handful of vessels.",

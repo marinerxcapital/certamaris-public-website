@@ -51,18 +51,40 @@ export async function POST(request: Request) {
    */
   if (CONTACT_FORWARD_ENDPOINT) {
     try {
-      await fetch(CONTACT_FORWARD_ENDPOINT, {
+      const forwarded = await fetch(CONTACT_FORWARD_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, company, fleetSize, primaryNeed, timing, message, source: "certamaris-website" }),
+        body: JSON.stringify({
+          name,
+          email,
+          company,
+          fleetSize,
+          primaryNeed,
+          timing,
+          message,
+          source: "certamaris-website",
+        }),
       });
+      if (!forwarded.ok) {
+        console.error("Contact forwarding returned non-OK status.", forwarded.status);
+        return NextResponse.json(
+          { error: "Delivery failed. Please use the direct email fallback." },
+          { status: 502 }
+        );
+      }
     } catch {
       console.error("Contact forwarding failed.");
-      return NextResponse.json({ error: "Delivery failed. Please use the direct email fallback." }, { status: 502 });
+      return NextResponse.json(
+        { error: "Delivery failed. Please use the direct email fallback." },
+        { status: 502 }
+      );
     }
   } else {
     console.warn("CONTACT_FORWARD_ENDPOINT is not configured; validated contact submission was not delivered.");
-    return NextResponse.json({ error: "Contact delivery is not configured. Please email sales directly." }, { status: 503 });
+    return NextResponse.json(
+      { error: "Contact delivery is not configured. Please email sales directly." },
+      { status: 503 }
+    );
   }
 
   return NextResponse.json({ ok: true });

@@ -39,7 +39,8 @@ export const CONTACT_FORWARD_ENDPOINT = process.env.CONTACT_FORWARD_ENDPOINT ?? 
  * of the local API route.
  */
 export const NEXT_PUBLIC_CONTACT_ENDPOINT = process.env.NEXT_PUBLIC_CONTACT_ENDPOINT ?? "";
-export const PRIMARY_CTA_LABEL = "Book a readiness call";
+/** Contact is a request form, not a calendar booking, unless APP_SCHEDULING_URL is set. */
+export const PRIMARY_CTA_LABEL = "Request a readiness call";
 export const SECONDARY_CTA_LABEL = "Explore the platform";
 
 export const REGULATORY_BOUNDARY =
