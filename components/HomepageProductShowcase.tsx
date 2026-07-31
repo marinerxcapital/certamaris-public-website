@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { LiquidGlass } from "@/components/LiquidGlass";
 import { ProductScreenFrame } from "@/components/ProductScreens";
 import type { ProductProofScreen } from "@/lib/product-screens";
 
@@ -28,7 +29,6 @@ export function HomepageProductShowcase({ steps }: { steps: ShowcaseStep[] }) {
 
   return (
     <>
-      {/* Mobile: one active stage at a time (not a full multi-screen stack) */}
       <div className="grid gap-4 lg:hidden">
         <div
           className="flex gap-2 overflow-x-auto pb-1"
@@ -44,10 +44,8 @@ export function HomepageProductShowcase({ steps }: { steps: ShowcaseStep[] }) {
                 role="tab"
                 aria-selected={isActive}
                 onClick={() => setActiveId(step.id)}
-                className={`shrink-0 rounded-md border px-3 py-2 text-left text-[13px] font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-ocean ${
-                  isActive
-                    ? "border-ocean/45 bg-white text-navy shadow-sm"
-                    : "border-navy/10 bg-white text-structural hover:border-ocean/25"
+                className={`liquid-glass lg-pad-sm shrink-0 text-left text-[13px] font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-ocean ${
+                  isActive ? "liquid-glass--strong" : "liquid-glass--interactive"
                 }`}
               >
                 <span className="font-mono text-[10px] font-medium text-ocean">
@@ -60,56 +58,64 @@ export function HomepageProductShowcase({ steps }: { steps: ShowcaseStep[] }) {
         </div>
 
         <article className="grid gap-4">
-          <div className="rounded-md border border-navy/10 bg-white p-5">
+          <LiquidGlass variant="strong" padding="md">
             <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-structural">{activeStep.kicker}</p>
             <h3 className="mt-2 text-[20px] font-semibold leading-snug text-navy">{activeStep.title}</h3>
             <p className="mt-2 text-[14.5px] leading-relaxed text-structural">{activeStep.body}</p>
-          </div>
-          <ProductScreenFrame
-            src={activeScreen.src}
-            alt={activeScreen.alt}
-            label={activeScreen.label}
-            annotations={activeScreen.annotations}
-            interactive={false}
-            priority
-            sizes="100vw"
-            className="product-showcase-frame"
-          />
-          <div className="grid gap-3 rounded-md border border-navy/10 bg-white p-4 text-[13.5px] leading-relaxed text-structural sm:grid-cols-2">
-            <p>
-              <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-ocean">Owner</span>
-              <span className="mt-1 block text-navy">{activeStep.owner}</span>
-            </p>
-            <p>
-              <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-ocean">Captured decision</span>
-              <span className="mt-1 block text-navy">{activeStep.decision}</span>
-            </p>
-          </div>
+          </LiquidGlass>
+          <LiquidGlass variant="default" padding="sm">
+            <ProductScreenFrame
+              src={activeScreen.src}
+              alt={activeScreen.alt}
+              label={activeScreen.label}
+              annotations={activeScreen.annotations}
+              interactive={false}
+              priority
+              sizes="100vw"
+              className="product-showcase-frame"
+            />
+          </LiquidGlass>
+          <LiquidGlass variant="subtle" padding="md">
+            <div className="grid gap-3 text-[13.5px] leading-relaxed text-structural sm:grid-cols-2">
+              <p>
+                <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-ocean">Owner</span>
+                <span className="mt-1 block text-navy">{activeStep.owner}</span>
+              </p>
+              <p>
+                <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-ocean">Captured decision</span>
+                <span className="mt-1 block text-navy">{activeStep.decision}</span>
+              </p>
+            </div>
+          </LiquidGlass>
         </article>
       </div>
 
       <div className="hidden gap-8 lg:grid lg:grid-cols-[1.08fr_0.92fr] lg:items-start">
         <div className="lg:sticky lg:top-28">
-          <ProductScreenFrame
-            src={activeScreen.src}
-            alt={activeScreen.alt}
-            label={activeScreen.label}
-            annotations={activeScreen.annotations}
-            interactive={false}
-            priority
-            sizes="(min-width: 1280px) 52vw, (min-width: 768px) 86vw, 100vw"
-            className="product-showcase-frame"
-          />
-          <div className="mt-4 grid gap-3 rounded-md border border-navy/10 bg-white p-4 text-[13.5px] leading-relaxed text-structural sm:grid-cols-2">
-            <p>
-              <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-ocean">Owner</span>
-              <span className="mt-1 block text-navy">{activeStep.owner}</span>
-            </p>
-            <p>
-              <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-ocean">Captured decision</span>
-              <span className="mt-1 block text-navy">{activeStep.decision}</span>
-            </p>
-          </div>
+          <LiquidGlass variant="strong" padding="sm">
+            <ProductScreenFrame
+              src={activeScreen.src}
+              alt={activeScreen.alt}
+              label={activeScreen.label}
+              annotations={activeScreen.annotations}
+              interactive={false}
+              priority
+              sizes="(min-width: 1280px) 52vw, (min-width: 768px) 86vw, 100vw"
+              className="product-showcase-frame"
+            />
+          </LiquidGlass>
+          <LiquidGlass variant="subtle" padding="md" className="mt-4">
+            <div className="grid gap-3 text-[13.5px] leading-relaxed text-structural sm:grid-cols-2">
+              <p>
+                <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-ocean">Owner</span>
+                <span className="mt-1 block text-navy">{activeStep.owner}</span>
+              </p>
+              <p>
+                <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-ocean">Captured decision</span>
+                <span className="mt-1 block text-navy">{activeStep.decision}</span>
+              </p>
+            </div>
+          </LiquidGlass>
         </div>
 
         <div className="grid gap-3" aria-label="Product workflow stages">
@@ -121,10 +127,8 @@ export function HomepageProductShowcase({ steps }: { steps: ShowcaseStep[] }) {
                 type="button"
                 aria-pressed={isActive}
                 onClick={() => setActiveId(step.id)}
-                className={`rounded-md border p-5 text-left transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-ocean ${
-                  isActive
-                    ? "border-ocean/45 bg-white shadow-card"
-                    : "border-navy/10 bg-white hover:border-ocean/25"
+                className={`liquid-glass lg-pad-md text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-ocean ${
+                  isActive ? "liquid-glass--strong" : "liquid-glass--interactive"
                 }`}
               >
                 <span className="mb-2 block font-mono text-[11px] uppercase tracking-[0.14em] text-structural">

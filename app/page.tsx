@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/Button";
 import { HomepageProductShowcase } from "@/components/HomepageProductShowcase";
+import { LiquidGlass } from "@/components/LiquidGlass";
 import { ProductScreenFrame } from "@/components/ProductScreens";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
@@ -130,22 +131,24 @@ export default function HomePage() {
               </p>
             </Reveal>
 
-            <Reveal delay={0.06} className="hero-signal-panel">
-              <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-                <div>
-                  <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-structural">Product proof</p>
-                  <p className="mt-1 text-[15px] font-semibold text-navy">Requirement and control mapping</p>
+            <Reveal delay={0.06}>
+              <LiquidGlass variant="strong" padding="lg" className="hero-signal-panel">
+                <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+                  <div>
+                    <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-structural">Product proof</p>
+                    <p className="mt-1 text-[15px] font-semibold text-navy">Requirement and control mapping</p>
+                  </div>
+                  <Link href="/platform" className="text-[13.5px] font-semibold text-ocean hover:underline">
+                    Inspect the platform
+                  </Link>
                 </div>
-                <Link href="/platform" className="text-[13.5px] font-semibold text-ocean hover:underline">
-                  Inspect the platform
-                </Link>
-              </div>
-              <ProductScreenFrame
-                {...productProofScreens.requirementMapping}
-                interactive={false}
-                priority
-                sizes="(min-width: 1280px) 48vw, (min-width: 768px) 82vw, 100vw"
-              />
+                <ProductScreenFrame
+                  {...productProofScreens.requirementMapping}
+                  interactive={false}
+                  priority
+                  sizes="(min-width: 1280px) 48vw, (min-width: 768px) 82vw, 100vw"
+                />
+              </LiquidGlass>
             </Reveal>
           </div>
         </div>
@@ -162,17 +165,17 @@ export default function HomePage() {
             requirement changes that never reached every vessel.
           </p>
         </Reveal>
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-3">
           {problemItems.map((item) => (
-            <article key={item.title} className="border-l-2 border-ocean/40 py-1 pl-5">
-              <h3 className="mb-2 text-[18px] font-semibold leading-snug">{item.title}</h3>
-              <p className="text-[14.5px] leading-relaxed text-structural">{item.body}</p>
-            </article>
+            <LiquidGlass key={item.title} as="article" variant="subtle" padding="md">
+              <h3 className="mb-2 border-l-2 border-ocean/45 pl-3 text-[18px] font-semibold leading-snug">{item.title}</h3>
+              <p className="pl-3 text-[14.5px] leading-relaxed text-structural">{item.body}</p>
+            </LiquidGlass>
           ))}
         </div>
       </Section>
 
-      <Section id="product-dashboard" surface="paper">
+      <Section id="product-dashboard">
         <Reveal className="mb-12 max-w-3xl">
           <Eyebrow>Product in action</Eyebrow>
           <h2 className="text-[30px] leading-[1.12] sm:text-[38px]">
@@ -195,18 +198,18 @@ export default function HomePage() {
         </Reveal>
         <div className="grid gap-4 md:grid-cols-3">
           {outcomes.map((item) => (
-            <article key={item.title} className="outcome-row">
+            <LiquidGlass key={item.title} as="article" variant="default" padding="md" className="outcome-row">
               <h3 className="text-[18px] font-semibold">{item.title}</h3>
               <p className="text-[14.5px] leading-relaxed text-structural">{item.body}</p>
-              <Link href={item.href} className="mt-2 text-[14px] font-semibold text-ocean hover:underline">
+              <Link href={item.href} className="mt-1 text-[14px] font-semibold text-ocean hover:underline">
                 {item.linkLabel}
               </Link>
-            </article>
+            </LiquidGlass>
           ))}
         </div>
       </Section>
 
-      <Section surface="paper">
+      <Section>
         <div className="grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
           <Reveal>
             <Eyebrow>Who it serves</Eyebrow>
@@ -218,39 +221,43 @@ export default function HomePage() {
               operator grants access — without CertaMaris replacing class, flag, or counsel.
             </p>
           </Reveal>
-          <div className="grid gap-4 sm:grid-cols-1">
+          <div className="grid gap-4">
             {audiences.map((item) => (
-              <article key={item.title} className="audience-note">
+              <LiquidGlass key={item.title} as="article" variant="subtle" padding="md" className="audience-note">
                 <h3 className="mb-2 text-[17px] font-semibold">{item.title}</h3>
                 <p className="text-[14.5px] leading-relaxed text-structural">{item.body}</p>
-              </article>
+              </LiquidGlass>
             ))}
           </div>
         </div>
       </Section>
 
       <Section spacing="compact">
-        <Reveal className="trust-note mx-auto max-w-4xl">
-          <p className="mb-2 font-mono text-[11px] uppercase tracking-[0.14em] text-ocean">Regulatory boundary</p>
-          <p className="text-[15px] leading-relaxed text-navy/78">{REGULATORY_BOUNDARY}</p>
+        <Reveal className="mx-auto max-w-4xl">
+          <LiquidGlass variant="strong" padding="lg" className="trust-note">
+            <p className="mb-2 font-mono text-[11px] uppercase tracking-[0.14em] text-ocean">Regulatory boundary</p>
+            <p className="text-[15px] leading-relaxed text-navy/78">{REGULATORY_BOUNDARY}</p>
+          </LiquidGlass>
         </Reveal>
       </Section>
 
       <Section surface="navy">
         <div className="final-cta-grid">
           <Reveal className="max-w-2xl">
-            <p className="mb-3 font-mono text-[12px] uppercase tracking-[0.14em] text-ocean-light">Readiness discussion</p>
-            <h2 className="mb-4 text-[30px] leading-[1.08] text-white sm:text-[40px]">
-              Request a focused conversation on readiness across your fleet.
-            </h2>
-            <p className="max-w-xl text-[15.5px] leading-relaxed text-white/72">
-              Tell us about fleet scope, evidence condition, and open findings. This is a request form — not a
-              calendar booking — so we can prepare a useful readiness discussion.
-            </p>
+            <LiquidGlass variant="dark" padding="lg">
+              <p className="mb-3 font-mono text-[12px] uppercase tracking-[0.14em] text-ocean-light">Readiness discussion</p>
+              <h2 className="mb-4 text-[30px] leading-[1.08] text-white sm:text-[40px]">
+                Request a focused conversation on readiness across your fleet.
+              </h2>
+              <p className="max-w-xl text-[15.5px] leading-relaxed text-white/72">
+                Tell us about fleet scope, evidence condition, and open findings. This is a request form — not a
+                calendar booking — so we can prepare a useful readiness discussion.
+              </p>
+            </LiquidGlass>
           </Reveal>
-          <Reveal delay={0.06} className="flex flex-col gap-3 sm:flex-row lg:justify-end">
+          <Reveal delay={0.06} className="flex flex-col gap-3 sm:flex-row lg:justify-end lg:self-center">
             <Button href="/contact">{PRIMARY_CTA_LABEL}</Button>
-            <Button href="/platform" variant="secondary" className="border-white/35 bg-transparent text-white hover:bg-white/10">
+            <Button href="/platform" variant="secondary" className="border-white/35 bg-white/10 text-white hover:bg-white/16">
               {SECONDARY_CTA_LABEL}
             </Button>
           </Reveal>

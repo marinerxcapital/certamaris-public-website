@@ -77,18 +77,17 @@ export function Nav() {
   const mobileLinks = [...primaryLinks, ...companyLinks, ["Contact", "/contact"] as [string, string]];
 
   return (
-    <header
-      className={`sticky top-0 z-50 border-b transition-[background-color,box-shadow,border-color] duration-200 ${
-        scrolled
-          ? "bg-white/95 border-navy/10 shadow-[0_1px_0_rgba(11,42,74,0.04)]"
-          : "bg-white border-navy/8"
-      }`}
-    >
+    <header className="sticky top-0 z-50 px-0 pt-0 sm:px-3 sm:pt-3">
       <a href="#main-content" className="skip-link">
         Skip to main content
       </a>
       <div className="shell">
-        <div className="relative mx-auto flex items-center justify-between gap-2 px-0 py-2.5 sm:py-3">
+        <div
+          className={`liquid-glass liquid-glass--strong liquid-glass--unclipped lg-pad-sm relative z-50 mx-auto flex items-center justify-between gap-2 transition-shadow duration-200 ${
+            scrolled ? "shadow-[0_12px_36px_rgba(1,43,109,0.12)]" : ""
+          }`}
+          style={{ borderRadius: 9999, paddingTop: "0.55rem", paddingBottom: "0.55rem" }}
+        >
           <Link href="/" className="flex items-center" aria-label="CertaMaris home">
             <BrandLogo />
           </Link>
@@ -121,7 +120,7 @@ export function Nav() {
             {menuOpen && (
               <div
                 id="mega-menu"
-                className="absolute right-0 top-full mt-2 w-[min(320px,calc(100vw-2rem))] rounded-md border border-navy/10 bg-white shadow-card"
+                className="liquid-glass liquid-glass--strong lg-pad-none absolute right-0 top-full z-[60] mt-2 w-[min(320px,calc(100vw-2rem))]"
               >
                 <div className="p-5">
                   <p className="font-mono text-[11px] uppercase tracking-[0.1em] text-structural mb-3">Company</p>
@@ -175,7 +174,7 @@ export function Nav() {
             <nav
               id="mobile-drawer"
               aria-label="Mobile"
-              className="lg:hidden absolute left-0 right-0 top-full mt-0 border border-navy/10 border-t-0 bg-white shadow-card"
+              className="liquid-glass liquid-glass--strong lg-pad-none lg:hidden absolute left-0 right-0 top-full z-[60] mt-2"
             >
               <div className="py-5 px-4 flex flex-col gap-0.5">
                 {mobileLinks.map(([label, href]) => (
