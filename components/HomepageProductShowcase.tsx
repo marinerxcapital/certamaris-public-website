@@ -29,9 +29,9 @@ export function HomepageProductShowcase({ steps }: { steps: ShowcaseStep[] }) {
 
   return (
     <>
-      <div className="grid gap-4 lg:hidden">
+      <div className="grid min-w-0 gap-4 lg:hidden">
         <div
-          className="flex gap-2 overflow-x-auto pb-1"
+          className="flex w-full min-w-0 max-w-full gap-2 overflow-x-auto overscroll-x-contain pb-1"
           role="tablist"
           aria-label="Product workflow stages"
         >
