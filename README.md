@@ -181,9 +181,11 @@ listed in the brief is implemented with final copy, not placeholder text.
 
 ---
 
-## 7. Background system
+## 7. Background system and professional readability bar
 
-The site uses **one** global AI Designer Pixel Grid background.
+The site uses **one** global AI Designer Pixel Grid background. Content stays
+readable through translucent professional panels — not by stacking extra
+background systems.
 
 | Item | Value |
 |---|---|
@@ -196,12 +198,16 @@ The site uses **one** global AI Designer Pixel Grid background.
 | scale / drift-angle | `1.15` / `24` |
 | glint / contrast | `0.14` / `1.45` |
 
-Section page/paper shells stay **transparent** so the grid reads across the
-page. Readability comes from translucent cards, the sticky nav chrome, and
-(where needed) a translucent navy CTA band. Footer remains solid navy for
-link contrast. See `docs/2026-07-30-pixel-grid-params-visibility-deployment.md`.
+**Readability bar (professional panels):** section shells stay transparent so
+the grid shows through. Dense copy sits on translucent surfaces —
+`legal-panel` / `article-panel` for long-form reading, `boundary-panel` for
+regulatory standing, premium cards for indexes, sticky frosted nav, and a
+solid navy footer for link contrast. FAQ, compliance-adjacent pages, and
+resource articles keep an explicit regulatory boundary (`BoundaryPanel`).
 
-The previous decorative background systems were removed from the live source:
+See `docs/2026-07-30-pixel-grid-params-visibility-deployment.md`.
+
+Previous decorative background systems were removed from the live source:
 hero video, WebP atmospheric assets, Silk/WebGL, Three.js, and motion-field
 overlays. Reduced-motion users get a stable non-animated page background
 (`display: none` on the Pixel Grid host).

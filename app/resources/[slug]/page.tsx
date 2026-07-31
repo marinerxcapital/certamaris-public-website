@@ -54,42 +54,51 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
-      <section className="page-hero-section page-hero-polished relative isolate overflow-hidden border-b" style={{ borderColor: "var(--hairline)" }}>
-        <div className="shell py-16">
-          <Link href="/resources" className="text-[13.5px] font-medium text-ocean hover:underline mb-6 inline-block">
-            ← All resources
-          </Link>
-          <Eyebrow>{article.topic}</Eyebrow>
-          <h1 className="text-[32px] sm:text-[42px] leading-[1.1] max-w-3xl mb-4">{article.title}</h1>
-          <ReferenceLabel className="text-[11.5px] text-structural">
-            {article.publishedLabel} · {article.readTime}
-          </ReferenceLabel>
+      <section
+        className="page-hero-section page-hero-polished relative isolate overflow-hidden border-b"
+        style={{ borderColor: "var(--hairline)" }}
+      >
+        <div className="shell py-16 sm:py-20">
+          <div className="max-w-2xl">
+            <Link href="/resources" className="text-[13.5px] font-medium text-ocean hover:underline mb-6 inline-block">
+              ← All resources
+            </Link>
+            <Eyebrow>{article.topic}</Eyebrow>
+            <h1 className="text-[32px] sm:text-[42px] leading-[1.1] mb-4">{article.title}</h1>
+            <ReferenceLabel className="text-[11.5px] text-structural">
+              {article.publishedLabel} · {article.readTime}
+            </ReferenceLabel>
+          </div>
         </div>
       </section>
       <Section>
-        <div className="article-panel max-w-3xl space-y-8">
-          {sections.map((section) => (
-            <section key={section.heading} className="space-y-3">
-              <h2 className="text-[22px] sm:text-[25px] leading-tight">{section.heading}</h2>
-              <p className="text-[16px] text-navy/85 leading-relaxed">{section.paragraph}</p>
-            </section>
-          ))}
-        </div>
-        <div className="max-w-2xl mt-12">
-          <ReferenceLabel className="mb-4 text-[11px] tracking-[0.08em]">Related reading</ReferenceLabel>
-          <div className="grid gap-3">
-            {relatedLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="premium-card block p-4 text-[14.5px] font-medium text-navy transition-colors hover:border-ocean/50 hover:text-ocean"
-              >
-                {link.title}
-              </Link>
+        <div className="max-w-2xl space-y-10">
+          <article className="article-panel space-y-8">
+            {sections.map((section) => (
+              <section key={section.heading} className="space-y-3">
+                <h2 className="text-[22px] sm:text-[25px] leading-tight">{section.heading}</h2>
+                <p className="text-[16px] text-navy/85 leading-relaxed">{section.paragraph}</p>
+              </section>
             ))}
+          </article>
+
+          <div>
+            <ReferenceLabel className="mb-4 text-[11px] tracking-[0.08em]">Related reading</ReferenceLabel>
+            <div className="grid gap-3">
+              {relatedLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="premium-card block p-4 text-[14.5px] font-medium text-navy transition-colors hover:border-ocean/50 hover:text-ocean"
+                >
+                  {link.title}
+                </Link>
+              ))}
+            </div>
           </div>
+
+          <BoundaryPanel />
         </div>
-        <BoundaryPanel className="max-w-2xl mt-12" />
       </Section>
     </>
   );

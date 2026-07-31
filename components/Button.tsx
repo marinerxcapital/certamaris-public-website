@@ -10,11 +10,11 @@ type ButtonProps = {
 };
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-md px-6 py-3 text-[15px] font-semibold shadow-[0_8px_20px_rgba(11,42,74,0.06)] transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-ocean";
+  "inline-flex items-center justify-center gap-2 rounded-md px-6 py-3 text-[15px] font-semibold transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ocean";
 
 const variants: Record<NonNullable<ButtonProps["variant"]>, string> = {
-  primary: "bg-[#1478B8] text-white hover:bg-[#0f639a]",
-  secondary: "border border-navy/25 bg-white text-navy hover:border-navy hover:bg-paper",
+  primary: "bg-navy text-white hover:bg-[#0e3a68]",
+  secondary: "border border-navy/25 bg-white text-navy hover:border-navy/40 hover:bg-white",
   ghost: "text-navy hover:text-ocean",
 };
 

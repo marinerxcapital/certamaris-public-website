@@ -19,7 +19,7 @@ export default function ResourcesPage() {
       <PageHero
         eyebrow="Resources"
         title="Plain-language explainers on maritime cyber compliance."
-        intro="Short, practical reads on the regulatory landscape and the operational discipline behind demonstrating compliance — not marketing copy dressed up as insight."
+        intro="Operator-focused explainers on IMO cyber-risk management, IACS UR E26/E27, evidence sufficiency, corrective-action verification, and fleet-scale cyber governance."
       />
 
       <Section>

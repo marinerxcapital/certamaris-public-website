@@ -13,6 +13,30 @@ export const metadata = pageMetadata(
   "/compliance"
 );
 
+const resourceLinks = [
+  {
+    href: "/resources/imo-msc-428-98-explained",
+    title: "IMO Resolution MSC.428(98) explained",
+    body: "What the resolution actually requires inside an SMS — and what it does not create.",
+  },
+  {
+    href: "/resources/iacs-ur-e26-e27-overview",
+    title: "IACS UR E26 & E27 overview",
+    body: "Ship-level versus equipment-level cyber resilience, and who typically owns which evidence.",
+  },
+  {
+    href: "/resources/evidence-sufficiency-cyber-compliance",
+    title: "Evidence sufficiency",
+    body: "Why a submitted file is not automatically evidence of compliance.",
+  },
+] as const;
+
+const supportingProof = [
+  productProofScreens.evidenceCoverage,
+  productProofScreens.findingsRegister,
+  productProofScreens.auditReadiness,
+];
+
 export default function CompliancePage() {
   return (
     <>
@@ -23,35 +47,6 @@ export default function CompliancePage() {
         intro="This page gives an operational overview of the requirements CertaMaris helps structure work around. It is not legal or regulatory advice — read it alongside the official source text."
       />
 
-      <Section spacing="compact">
-        <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-14 items-center">
-          <Reveal>
-            <Eyebrow>In the product</Eyebrow>
-            <h2 className="text-[28px] sm:text-[34px] leading-[1.14] mb-5">
-              Compliance language becomes mapped work, not static guidance.
-            </h2>
-            <p className="text-[15.5px] text-structural leading-relaxed mb-4">
-              CertaMaris connects source requirements to control objectives, implementation notes, evidence tabs,
-              exceptions, validation history, and coverage status so teams can see exactly what a clause touches.
-            </p>
-            <Link href="/platform#trace-chain" className="inline-block text-[14.5px] font-medium text-ocean hover:underline">
-              See the trace chain on Platform →
-            </Link>
-          </Reveal>
-          <Reveal delay={0.08}>
-            <ProductScreenFrame
-              src={productProofScreens.requirementMapping.src}
-              alt={productProofScreens.requirementMapping.alt}
-              label="Control detail and evidence mapping"
-              lightboxTitle={productProofScreens.requirementMapping.title}
-              lightboxBody={productProofScreens.requirementMapping.body}
-              priority
-              galleryOrder={productProofScreens.requirementMapping.galleryOrder}
-            />
-          </Reveal>
-        </div>
-      </Section>
-
       <Section>
         <div className="grid lg:grid-cols-[280px_1fr] gap-14">
           <Reveal>
@@ -61,7 +56,7 @@ export default function CompliancePage() {
           <Reveal delay={0.06} className="max-w-2xl space-y-4">
             <p className="text-[15.5px] text-structural leading-relaxed">
               IMO Resolution MSC.428(98) encourages administrations to ensure cyber risks are appropriately addressed
-              in existing safety management systems, no later than the first annual verification of the company's
+              in existing safety management systems, no later than the first annual verification of the company&apos;s
               Document of Compliance after 1 January 2021. It does not create a standalone certification scheme —
               it treats cyber risk as a category of risk an SMS is already required to manage under the ISM Code.
             </p>
@@ -115,8 +110,9 @@ export default function CompliancePage() {
               and evidence are affected — rather than requiring a manual review of every document on file.
             </p>
             <p className="text-[15.5px] text-structural leading-relaxed">
-              CertaMaris keeps IT and OT control mappings distinct while linking both back to the same requirement
-              layer, reflecting how shipboard and shoreside teams are typically organized and measured.
+              In practice, shipboard OT and shoreside IT are often organized and measured differently. Keeping those
+              mappings distinct while linking both back to the same requirement layer reflects how those teams
+              actually work — without collapsing two system boundaries into one false framework.
             </p>
           </Reveal>
         </div>
@@ -131,42 +127,86 @@ export default function CompliancePage() {
           <Reveal delay={0.06} className="max-w-2xl space-y-4">
             <p className="text-[15.5px] text-structural leading-relaxed">
               IMO guidance, IACS unified requirements, and flag-state circulars change on independent schedules.
-              When a mapped requirement version changes, CertaMaris can show which control mappings, evidence, and
+              When a mapped requirement version changes, operators need to know which control mappings, evidence, and
               plan sections are linked to that requirement so the team can review impact without reconstructing
               scope from scattered files.
             </p>
             <p className="text-[15.5px] text-structural leading-relaxed">
               That turns a regulatory update into scoped follow-up work rather than an open-ended review — while
-              leaving interpretation and applicability judgment to qualified reviewers.
+              leaving interpretation and applicability judgment to qualified reviewers. Official source texts always
+              control.
             </p>
           </Reveal>
         </div>
       </Section>
 
-      <Section surface="paper" spacing="compact">
-        <Reveal className="max-w-2xl mb-12">
-          <Eyebrow>Operational proof</Eyebrow>
+      <Section spacing="compact">
+        <Reveal className="max-w-2xl mb-10">
+          <Eyebrow>Further reading</Eyebrow>
           <h2 className="text-[28px] sm:text-[34px] leading-[1.14]">
-            The requirement story continues into evidence and reporting.
+            Source explainers and operational notes.
           </h2>
+          <p className="text-[15.5px] text-structural leading-relaxed mt-4">
+            Deeper articles live under Resources. They are operational overviews, not legal advice.
+          </p>
         </Reveal>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-          <ProductScreenTile
-            {...productProofScreens.evidenceCoverage}
-          />
-          <ProductScreenTile
-            {...productProofScreens.findingsRegister}
-          />
-          <ProductScreenTile
-            {...productProofScreens.correctiveActions}
-          />
-          <ProductScreenTile
-            {...productProofScreens.auditReadiness}
-          />
-          <ProductScreenTile
-            {...productProofScreens.executiveReporting}
-          />
+        <div className="grid md:grid-cols-3 gap-5">
+          {resourceLinks.map((item) => (
+            <Reveal key={item.href}>
+              <Link
+                href={item.href}
+                className="premium-card block h-full p-5 transition-colors hover:border-ocean/30"
+              >
+                <h3 className="text-[15px] font-semibold text-navy mb-2">{item.title}</h3>
+                <p className="text-[13.5px] text-structural leading-relaxed mb-3">{item.body}</p>
+                <span className="text-[13.5px] font-medium text-ocean">Read →</span>
+              </Link>
+            </Reveal>
+          ))}
         </div>
+      </Section>
+
+      <Section surface="paper" spacing="compact">
+        <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-14 items-center mb-10">
+          <Reveal>
+            <Eyebrow>How the product supports the work</Eyebrow>
+            <h2 className="text-[28px] sm:text-[34px] leading-[1.14] mb-5">
+              Mapped requirements become structured work — not a product claim of compliance.
+            </h2>
+            <p className="text-[15.5px] text-structural leading-relaxed mb-4">
+              Where teams use CertaMaris, source requirements connect to control objectives, implementation notes,
+              evidence, exceptions, validation history, and coverage status so reviewers can see what a clause
+              touches. The platform organizes that trail; it does not determine applicability or outcomes.
+            </p>
+            <Link href="/platform#trace-chain" className="inline-block text-[14.5px] font-medium text-ocean hover:underline">
+              See the trace chain on Platform →
+            </Link>
+          </Reveal>
+          <Reveal delay={0.08}>
+            <ProductScreenFrame
+              src={productProofScreens.requirementMapping.src}
+              alt={productProofScreens.requirementMapping.alt}
+              label="Control detail and evidence mapping"
+              lightboxTitle={productProofScreens.requirementMapping.title}
+              lightboxBody={productProofScreens.requirementMapping.body}
+              galleryOrder={productProofScreens.requirementMapping.galleryOrder}
+            />
+          </Reveal>
+        </div>
+        <Reveal delay={0.1} className="grid gap-5 sm:grid-cols-3">
+          {supportingProof.map((screen) => (
+            <ProductScreenTile
+              key={screen.src}
+              src={screen.src}
+              alt={screen.alt}
+              label={screen.label}
+              title={screen.title}
+              body={screen.body}
+              galleryOrder={screen.galleryOrder}
+              sizes="(min-width: 768px) 28vw, 100vw"
+            />
+          ))}
+        </Reveal>
       </Section>
 
       <Section spacing="tight">

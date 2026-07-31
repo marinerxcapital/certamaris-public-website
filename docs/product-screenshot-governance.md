@@ -13,6 +13,24 @@ This standard controls public CertaMaris product screenshots used on the marketi
 - Crop: show product chrome, sidebar context, title, and the primary working area. Do not crop away the workflow context that explains the screen.
 - Safe margins: keep critical text and controls at least `24px` from the screenshot edge.
 
+## Frame and Presentation
+
+- Screens render as **static inline proof frames** (dossier chrome: label bar + screenshot). No Mac traffic-light chrome.
+- Use `object-contain` so the full product UI remains visible without crop distortion.
+- Featured / showcase frames may use a stronger shadow than tile frames; that difference is intentional.
+- **Lightbox is removed.** Do not reintroduce click-to-expand galleries, portals, or "Expand" controls on product screenshots. Optional `lightboxTitle` / `lightboxBody` props on `ProductScreenFrame` are accepted as no-ops for legacy call sites only.
+
+## Annotations (optional callouts)
+
+- Defined on `ProductProofScreen.annotations?: { id, label, x, y }[]` in `lib/product-screens.ts`.
+- `x` / `y` are percentages (`0`–`100`) of the **screenshot image area** (not including the dossier label bar).
+- `ProductScreenFrame` renders **at most 3** annotations.
+- **Desktop (`md+`):** absolute hairline callout chips over the image. Static only — no pulse, bounce, or attention animation.
+- **Mobile:** numbered caption list under the frame instead of overlaid pins (pins are hard to read and collide on small viewports).
+- Labels must stay **claim-safe**: describe visible workflow structure (mapping, coverage, ownership, verification, package sections) — never audit pass, certification, regulator acceptance, dollar exposure, or guaranteed outcomes.
+- Prefer annotations on primary proof screens used in the homepage showcase: requirement mapping, evidence coverage, corrective actions, and audit readiness.
+- Do not use annotations to invent UI that is not visible in the screenshot.
+
 ## Data Rules
 
 - Use sanitized product-like data only.
@@ -73,9 +91,10 @@ Each screenshot may support only the claims below:
 ## Accessibility Expectations
 
 - Every public screenshot reference must include alt text that describes the screen and the relevant workflow.
-- Lightbox titles and captions must state what the screenshot proves without overstating claims.
-- Text inside screenshots should remain legible in the lightbox at desktop, tablet, and mobile viewport widths.
+- Frame labels and optional annotation captions must state what the screenshot proves without overstating claims.
+- Text inside screenshots should remain legible at desktop, tablet, and mobile viewport widths when shown inline with `object-contain`.
 - Thumbnail crops must not obscure the main workflow signal.
+- Desktop annotation pins are decorative (`aria-hidden`); mobile uses a readable numbered caption list.
 
 ## Review Checklist
 
@@ -86,7 +105,7 @@ Before deployment, verify:
 - File names match the registry in `lib/product-screens.ts`.
 - No customer claims, customer logos, personal data, fake certifications, unsupported financial metrics, or pass/fail claims appear.
 - No empty states, loading states, preview toggles, debug UI, local environment labels, or obvious mock/demo controls appear.
-- The screenshot is clickable in every route where it renders.
-- Lightbox order follows the approved proof sequence.
+- Screens render as static frames (no lightbox / expand interaction).
+- Annotations (if any) are claim-safe, max 3, positioned in % of the image area, static (no pulse), and mobile falls back to a caption list.
 - The screenshot supports the exact claim assigned in this document.
 - `npm.cmd run typecheck` and `npm.cmd run build:static` pass before deployment.

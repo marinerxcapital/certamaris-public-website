@@ -5,7 +5,7 @@ export function PageHero({
   eyebrow,
   title,
   intro,
-  aside,
+  aside = null,
   emphasis = "standard",
 }: {
   eyebrow: string;
@@ -23,9 +23,12 @@ export function PageHero({
 }) {
   const elevated = emphasis === "elevated";
   return (
-    <section className="page-hero-section page-hero-polished relative overflow-visible border-b" style={{ borderColor: "var(--hairline)" }}>
+    <section
+      className="page-hero-section page-hero-polished relative overflow-visible border-b bg-white"
+      style={{ borderColor: "var(--hairline)" }}
+    >
       <div className={`shell relative z-10 ${elevated ? "py-20 sm:py-24" : "py-16 sm:py-20"}`}>
-        <div className="grid lg:grid-cols-[1fr_auto] gap-10 items-end">
+        <div className={aside ? "grid lg:grid-cols-[1fr_auto] gap-10 items-end" : undefined}>
           <div className="max-w-2xl">
             <Eyebrow>{eyebrow}</Eyebrow>
             <h1
@@ -39,24 +42,7 @@ export function PageHero({
             </h1>
             {intro && <p className="text-[16px] text-structural leading-relaxed max-w-xl">{intro}</p>}
           </div>
-          {aside ? (
-            <div>{aside}</div>
-          ) : (
-            <div className="page-hero-signal hidden w-[min(360px,32vw)] lg:block" aria-hidden="true">
-              <div className="flex items-center justify-between gap-3 border-b border-navy/10 pb-3">
-                <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-structural">Assurance record</span>
-                <span className="h-2 w-2 rounded-full bg-ocean" />
-              </div>
-              <div className="mt-4 grid gap-2">
-                {["Requirement", "Control", "Evidence", "Decision"].map((item, index) => (
-                  <div key={item} className="flex items-center justify-between rounded-sm border border-navy/10 bg-white/72 px-3 py-2">
-                    <span className="text-[13px] font-semibold text-navy">{item}</span>
-                    <span className="font-mono text-[11px] text-ocean">{String(index + 1).padStart(2, "0")}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+          {aside ? <div className="hidden lg:block">{aside}</div> : null}
         </div>
       </div>
     </section>

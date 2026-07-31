@@ -1,3 +1,4 @@
+import { BoundaryPanel } from "@/components/BoundaryPanel";
 import { FaqAccordion } from "@/components/FaqAccordion";
 import { PageHero } from "@/components/PageHero";
 import { Section } from "@/components/Section";
@@ -29,8 +30,13 @@ export default function FaqPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
-      <PageHero eyebrow="FAQ" title="Common questions, answered directly." />
+      <PageHero
+        eyebrow="FAQ"
+        title="Common questions, answered directly."
+        intro="Practical answers about the product, workflows, and commercial path — not legal or regulatory advice."
+      />
       <Section>
+        <BoundaryPanel className="max-w-2xl mb-10" />
         <div className="max-w-2xl">
           <FaqAccordion items={faqItems} />
         </div>

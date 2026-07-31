@@ -1,3 +1,13 @@
+export type ProductScreenAnnotation = {
+  id: string;
+  /** Short claim-safe callout label */
+  label: string;
+  /** Horizontal pin position as 0–100% of the screenshot image area */
+  x: number;
+  /** Vertical pin position as 0–100% of the screenshot image area */
+  y: number;
+};
+
 export type ProductProofScreen = {
   src: string;
   alt: string;
@@ -5,6 +15,8 @@ export type ProductProofScreen = {
   title: string;
   body: string;
   galleryOrder: number;
+  /** Optional desktop callouts (max 3 rendered). x/y are % of the image area. */
+  annotations?: ProductScreenAnnotation[];
 };
 
 export const productProofScreens = {
@@ -15,6 +27,11 @@ export const productProofScreens = {
     title: "Requirement mapping with evidence context",
     body: "A control record keeps regulatory mappings, implementation context, evidence, exceptions, and validation history together for review.",
     galleryOrder: 1,
+    annotations: [
+      { id: "rm-control", label: "Control + implementation context", x: 48, y: 30 },
+      { id: "rm-exception", label: "Known exception on record", x: 48, y: 46 },
+      { id: "rm-mappings", label: "Requirement mappings validated", x: 48, y: 68 },
+    ],
   },
   evidenceCoverage: {
     src: "/product/clean/evidence-coverage.png",
@@ -23,6 +40,11 @@ export const productProofScreens = {
     title: "Evidence coverage and freshness",
     body: "Coverage, freshness, and missing support are visible at the control level before a review turns into a document chase.",
     galleryOrder: 2,
+    annotations: [
+      { id: "ec-gaps", label: "Coverage gaps before chase", x: 58, y: 16 },
+      { id: "ec-freshness", label: "Freshness status per control", x: 72, y: 48 },
+      { id: "ec-request", label: "Request missing evidence", x: 82, y: 40 },
+    ],
   },
   findingsRegister: {
     src: "/product/clean/findings-register.png",
@@ -39,6 +61,11 @@ export const productProofScreens = {
     title: "Remediation that can be verified",
     body: "Corrective actions stay owned, time-bound, and visible through verification instead of ending as an untracked finding.",
     galleryOrder: 4,
+    annotations: [
+      { id: "ca-verify", label: "In verification before closure", x: 70, y: 16 },
+      { id: "ca-owner", label: "Owned, time-bound actions", x: 58, y: 48 },
+      { id: "ca-status", label: "Status through verification", x: 72, y: 52 },
+    ],
   },
   auditReadiness: {
     src: "/product/clean/audit-readiness.png",
@@ -47,6 +74,11 @@ export const productProofScreens = {
     title: "Readiness package preparation",
     body: "A readiness package keeps scope, evidence, findings, corrective actions, exceptions, and reviewer notes structured for inspection without claiming an audit outcome.",
     galleryOrder: 5,
+    annotations: [
+      { id: "ar-sections", label: "Package sections with owners", x: 40, y: 48 },
+      { id: "ar-progress", label: "Preparation progress tracked", x: 78, y: 46 },
+      { id: "ar-notes", label: "Reviewer notes, claim boundary", x: 42, y: 82 },
+    ],
   },
   executiveReporting: {
     src: "/product/clean/governance-reporting.png",

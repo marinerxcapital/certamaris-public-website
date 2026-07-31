@@ -24,6 +24,8 @@ export function HomepageProductShowcase({ steps }: { steps: ShowcaseStep[] }) {
 
   if (!activeStep) return null;
 
+  const activeScreen = activeStep.screen;
+
   return (
     <>
       {/* Mobile: one active stage at a time (not a full multi-screen stack) */}
@@ -64,7 +66,10 @@ export function HomepageProductShowcase({ steps }: { steps: ShowcaseStep[] }) {
             <p className="mt-2 text-[14.5px] leading-relaxed text-structural">{activeStep.body}</p>
           </div>
           <ProductScreenFrame
-            {...activeStep.screen}
+            src={activeScreen.src}
+            alt={activeScreen.alt}
+            label={activeScreen.label}
+            annotations={activeScreen.annotations}
             interactive={false}
             priority
             sizes="100vw"
@@ -86,7 +91,10 @@ export function HomepageProductShowcase({ steps }: { steps: ShowcaseStep[] }) {
       <div className="hidden gap-8 lg:grid lg:grid-cols-[1.08fr_0.92fr] lg:items-start">
         <div className="lg:sticky lg:top-28">
           <ProductScreenFrame
-            {...activeStep.screen}
+            src={activeScreen.src}
+            alt={activeScreen.alt}
+            label={activeScreen.label}
+            annotations={activeScreen.annotations}
             interactive={false}
             priority
             sizes="(min-width: 1280px) 52vw, (min-width: 768px) 86vw, 100vw"

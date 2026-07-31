@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Mono, Inter, Space_Grotesk } from "next/font/google";
-import Script from "next/script";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { PixelGridBackground } from "@/components/PixelGridBackground";
@@ -45,8 +44,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
       <body>
-        <Script src="https://cdn.aidesigner.ai/effects/runtime/v1.js" strategy="afterInteractive" />
         <div className="site-root relative min-h-screen overflow-x-clip">
+          {/* PixelGridBackground client-gates aidesigner runtime + host (no load under prefers-reduced-motion) */}
           <PixelGridBackground className="fixed inset-0 z-0 pointer-events-none" />
           {/* eslint-disable-next-line @next/next/no-sync-scripts */}
           <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />

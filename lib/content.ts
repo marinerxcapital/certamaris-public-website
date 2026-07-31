@@ -159,4 +159,24 @@ export const faqItems: { question: string; answer: string }[] = [
     answer:
       "Yes. Existing evidence, findings, and plan content can be ingested into the controlled structure. Reviewers still determine whether prior work is current, reliable, and sufficient for ongoing use.",
   },
+  {
+    question: "Does CertaMaris replace our Safety Management System (SMS) software?",
+    answer:
+      "No. CertaMaris organizes cyber-related control mappings, evidence, findings, and corrective actions so they can be demonstrated in an ISM-aligned way. It does not replace the company’s SMS, SMS software, or the Document of Compliance process. Cyber risk remains a category of risk managed under the SMS; CertaMaris structures the cyber assurance work that supports that system.",
+  },
+  {
+    question: "Does the platform decide which requirements apply to our vessels?",
+    answer:
+      "No. Applicability of IMO instruments, IACS unified requirements, flag-state rules, and class requirements is a human determination for your company, fleet, and contracts. CertaMaris helps structure mapped work and evidence once scope is set by qualified personnel; it does not issue applicability rulings.",
+  },
+  {
+    question: "Where is customer data hosted?",
+    answer:
+      "CertaMaris is delivered as cloud-hosted software. Hosting and related infrastructure are configured per the production environment for each engagement. Confirm current residency, subprocessors, and isolation details with CertaMaris for your tenant; do not rely on this FAQ as a regional hosting commitment.",
+  },
+  {
+    question: "Is CertaMaris a substitute for class survey or flag inspection?",
+    answer:
+      "No. Classification societies, flag administrations, and appointed auditors retain survey and inspection authority. The platform supports preparation of structured evidence and readiness packages; it does not perform or replace class or flag verification.",
+  },
 ];

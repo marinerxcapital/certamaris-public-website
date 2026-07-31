@@ -96,7 +96,14 @@ export type IndustryEntry = {
   eyebrow: string;
   headline: string;
   body: string[];
-  priorities: string[];
+  /** Job-to-be-done for this seat in the compliance chain. */
+  jtbd: string;
+  /** Three concrete artifacts this role typically needs from the controlled record. */
+  artifacts: [string, string, string];
+  /** How work moves to or from adjacent roles. */
+  handoff: string;
+  /** Explicit boundary: what CertaMaris does not replace for this role. */
+  doesNotReplace: string;
 };
 
 export const industries: IndustryEntry[] = [
@@ -109,7 +116,16 @@ export const industries: IndustryEntry[] = [
       "Owners and operators carry the operational consequence of a cyber-compliance gap — survey preparation, insurer conversations, and charterer scrutiny — without always having direct visibility into vessel-level detail.",
       "CertaMaris gives owners and operators a fleet-wide view of readiness, open findings, and review decisions, with the ability to drill into any vessel's underlying detail when it matters.",
     ],
-    priorities: ["Fleet-wide readiness visibility", "Open findings and review decisions by vessel", "Insurer and charterer-ready reporting"],
+    jtbd: "See fleet cyber-compliance readiness, open risk decisions, and review status in one place — without reconstructing it from vessel-by-vessel updates.",
+    artifacts: [
+      "Fleet readiness summary with vessel drill-down",
+      "Open findings and outstanding treatment decisions",
+      "Governance-ready posture roll-up for board or insurer conversations",
+    ],
+    handoff:
+      "Assigns vessel-level work to technical managers and DPAs; receives rolled-up status, open findings, and decision queues without replacing those owners' operational authority.",
+    doesNotReplace:
+      "Owner and operator accountability under the ISM Code, charterer or insurer underwriting judgment, or classification and flag determinations.",
   },
   {
     id: "technical-managers",
@@ -120,7 +136,16 @@ export const industries: IndustryEntry[] = [
       "Technical managers and Designated Persons Ashore carry the operational weight of cyber-risk management under the ISM Code — coordinating across vessels, surveyors, and IT/OT teams, usually through a patchwork of tools that don't talk to each other.",
       "CertaMaris centralizes the evidence, findings, and plan work DPAs are accountable for, structured around the workflows they already run rather than a new process layered on top.",
     ],
-    priorities: ["Centralized evidence and finding management", "Clear accountability across vessels and technical staff", "Continuous readiness instead of pre-audit scrambles"],
+    jtbd: "Keep SMS cyber-risk evidence, findings, and corrective actions continuous so survey readiness is built from live work, not a pre-audit scramble.",
+    artifacts: [
+      "Evidence ledger with custodian, version, and review state",
+      "Findings and corrective-action register with owners and due dates",
+      "Readiness package compiled from current scope, evidence, and plan status",
+    ],
+    handoff:
+      "Pulls technical evidence and control notes from IT/OT teams; packages readiness materials for surveyors and class when access is granted; reports fleet status upward to owners and operators.",
+    doesNotReplace:
+      "DPA or technical-manager accountability, SMS procedure ownership, applicability judgment, or the decision to accept residual risk.",
   },
   {
     id: "cyber-it-ot",
@@ -131,7 +156,16 @@ export const industries: IndustryEntry[] = [
       "Shipboard OT and shoreside IT security teams are usually measured against different standards, tools, and change-management practices, but both feed the same compliance obligation.",
       "CertaMaris keeps IT and OT control mappings distinct while linking both to the same requirement and evidence structure, so a cybersecurity team can demonstrate coverage without forcing OT into an IT framework or vice versa.",
     ],
-    priorities: ["Separate IT and OT control mapping with a shared requirement layer", "Evidence sufficiency tracked per system boundary", "Clear handoff between security teams and compliance reviewers"],
+    jtbd: "Map IT and OT controls to shared requirements while keeping system boundaries, evidence, and ownership distinct.",
+    artifacts: [
+      "Separate IT and OT control mappings against the same requirement layer",
+      "Evidence sufficiency and freshness by system boundary",
+      "Known exceptions and validation history attached to the control record",
+    ],
+    handoff:
+      "Supplies implementation context and technical evidence to compliance reviewers and DPAs; receives clarified requirement scope and review decisions without absorbing SMS ownership.",
+    doesNotReplace:
+      "Security engineering design choices, OT operational control, change-management authority, or independent security assessment conclusions.",
   },
   {
     id: "class-surveyors",
@@ -142,7 +176,16 @@ export const industries: IndustryEntry[] = [
       "Surveyors work against a defined set of requirements and need evidence that is sufficient, current, and traceable — not a folder of documents in no particular order.",
       "Where an operator grants access, CertaMaris presents evidence and control mappings structured around the requirements a survey is verifying, reducing the reconstruction work on both sides.",
     ],
-    priorities: ["Requirement-structured evidence presentation", "Clear provenance and version history", "Controlled, expiring access grants rather than open file shares"],
+    jtbd: "Inspect operator evidence and control mappings structured around the requirements under verification — with provenance, not a loose document dump.",
+    artifacts: [
+      "Requirement-structured evidence presentation",
+      "Version and provenance trail for submitted artifacts",
+      "Controlled, expiring access to readiness materials granted by the operator",
+    ],
+    handoff:
+      "Receives operator-authorized readiness packages and requirement-mapped evidence; returns observations and findings into the operator's corrective-action workflow rather than becoming the system of record.",
+    doesNotReplace:
+      "Surveyor professional judgment, class rule interpretation, flag-state authority, or any certification or survey outcome.",
   },
   {
     id: "pi-insurers",
@@ -153,6 +196,15 @@ export const industries: IndustryEntry[] = [
       "Cyber-risk posture is increasingly part of the underwriting conversation, but most insurers currently rely on self-reported questionnaires with little supporting structure.",
       "Where a member operator chooses to share it, CertaMaris can present a structured summary of control coverage and readiness state to inform — not replace — an insurer's own underwriting judgment.",
     ],
-    priorities: ["Structured, member-authorized visibility into control coverage", "Consistent reporting format across a fleet or portfolio", "No substitute for the insurer's own risk assessment process"],
+    jtbd: "Inform underwriting and risk conversations with a member-authorized, structured view of control coverage and readiness — not another free-text questionnaire alone.",
+    artifacts: [
+      "Member-authorized control-coverage summary",
+      "Consistent readiness-state reporting across a fleet or portfolio",
+      "Exportable posture views for underwriting discussions",
+    ],
+    handoff:
+      "Receives only what a member operator authorizes for sharing; does not write back into the operator's controlled record or become a substitute claims or underwriting system.",
+    doesNotReplace:
+      "Underwriting judgment, actuarial assessment, policy terms, or the insurer's own risk-evaluation process.",
   },
 ];

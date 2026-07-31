@@ -1,3 +1,4 @@
+import { BoundaryPanel } from "@/components/BoundaryPanel";
 import { Button } from "@/components/Button";
 import { PageHero } from "@/components/PageHero";
 import { Reveal } from "@/components/Reveal";
@@ -18,8 +19,8 @@ export default function IndustriesPage() {
       <PageHero
         emphasis="elevated"
         eyebrow="Industries"
-        title="Built for every seat in the maritime compliance chain."
-        intro="Different roles need different views of the same underlying record. Here is how each stakeholder actually uses CertaMaris."
+        title="Different roles, one controlled record."
+        intro="Owners, DPAs, IT/OT teams, surveyors, and insurers each need a different cut of the same underlying work. Here is what each seat uses the record for — and what it deliberately does not replace."
       />
 
       <nav aria-label="Jump to industry" className="jump-nav border-b" style={{ borderColor: "var(--hairline)" }}>
@@ -34,35 +35,55 @@ export default function IndustriesPage() {
 
       {industries.map((item, index) => (
         <Section key={item.id} id={item.id} surface={index % 2 ? "paper" : "page"} spacing="compact">
-          <div className="grid lg:grid-cols-[1fr_1.1fr] gap-14">
+          <div className="grid lg:grid-cols-[1fr_1.15fr] gap-14">
             <Reveal>
               <Eyebrow>{item.eyebrow}</Eyebrow>
               <h2 className="text-[27px] sm:text-[32px] leading-[1.15] mb-4">{item.headline}</h2>
-              <Button href="/contact" variant="secondary" className="mt-2">
-                {PRIMARY_CTA_LABEL}
-              </Button>
-            </Reveal>
-            <Reveal delay={0.06}>
               {item.body.map((paragraph) => (
                 <p key={paragraph.slice(0, 24)} className="text-[15.5px] text-structural leading-relaxed mb-4">
                   {paragraph}
                 </p>
               ))}
-              <p className="font-mono text-[11px] uppercase tracking-[0.1em] text-structural mt-6 mb-2">Priorities</p>
-              <ul className="space-y-2.5">
-                {item.priorities.map((priority) => (
-                  <li key={priority} className="flex gap-2.5 text-[14.5px] text-navy/85">
-                    <span aria-hidden="true" className="text-ocean">
-                      —
-                    </span>
-                    {priority}
-                  </li>
-                ))}
-              </ul>
+            </Reveal>
+            <Reveal delay={0.06} className="space-y-6">
+              <div>
+                <p className="font-mono text-[11px] uppercase tracking-[0.1em] text-structural mb-2">Job to be done</p>
+                <p className="text-[15px] text-navy/90 leading-relaxed">{item.jtbd}</p>
+              </div>
+              <div>
+                <p className="font-mono text-[11px] uppercase tracking-[0.1em] text-structural mb-2">Artifacts</p>
+                <ul className="space-y-2.5">
+                  {item.artifacts.map((artifact) => (
+                    <li key={artifact} className="flex gap-2.5 text-[14.5px] text-navy/85">
+                      <span aria-hidden="true" className="text-ocean">
+                        —
+                      </span>
+                      {artifact}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <p className="font-mono text-[11px] uppercase tracking-[0.1em] text-structural mb-2">Handoff</p>
+                <p className="text-[14.5px] text-structural leading-relaxed">{item.handoff}</p>
+              </div>
+              <div className="rounded-sm border border-navy/10 bg-white/60 px-4 py-3">
+                <p className="font-mono text-[11px] uppercase tracking-[0.1em] text-structural mb-1.5">Does not replace</p>
+                <p className="text-[14px] text-navy/80 leading-relaxed">{item.doesNotReplace}</p>
+              </div>
             </Reveal>
           </div>
         </Section>
       ))}
+
+      <Section spacing="tight">
+        <Reveal>
+          <BoundaryPanel className="max-w-3xl mb-8" />
+        </Reveal>
+        <Reveal delay={0.06}>
+          <Button href="/contact">{PRIMARY_CTA_LABEL}</Button>
+        </Reveal>
+      </Section>
     </>
   );
 }
