@@ -121,6 +121,13 @@ The GitHub Actions workflow in `.github/workflows/ci-deploy.yml` validates
 pull requests and deploys pushes to `main` after the Cloudflare repository
 secrets are present.
 
+**If Validate fails in ~3–12s with empty steps**, that is org **Actions billing /
+spending limit**, not site code. See `docs/ci-billing.md`. Local parity:
+
+```bash
+npm run ci:validate   # audit + typecheck + build:static
+```
+
 ### Alternate static hosts
 
 The site can also ship as a fully static export for non-production preview or
@@ -340,6 +347,16 @@ GitHub Actions workflow:
 ```text
 .github/workflows/ci-deploy.yml
 ```
+
+Local CI parity (mirrors the validate job):
+
+```bash
+npm run ci:validate
+```
+
+If hosted jobs never start (empty steps, ~3–12s), fix org billing first:
+https://github.com/organizations/marinerxcapital/settings/billing — details in
+`docs/ci-billing.md`. Production can still ship with the local Wrangler path above.
 
 Required repository secrets:
 

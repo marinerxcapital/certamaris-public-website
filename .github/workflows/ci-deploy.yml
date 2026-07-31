@@ -1,5 +1,7 @@
 name: CI and Production Deploy
 
+# Private org repos need working Actions billing (payment method + spending limit).
+# If jobs fail in ~3s with empty steps, see docs/ci-billing.md — that is not a code failure.
 on:
   pull_request:
   push:
@@ -10,10 +12,15 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: marketing-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   validate:
     name: Validate marketing site
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -39,6 +46,7 @@ jobs:
   deploy:
     name: Deploy production Worker
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     needs: validate
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     environment: production
