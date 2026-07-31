@@ -6,7 +6,7 @@ export function ArticleCard({ article }: { article: Article }) {
   return (
     <Link
       href={`/resources/${article.slug}`}
-      className="premium-card group block h-full p-6 transition-all duration-200 hover:border-ocean/45 hover:shadow-card"
+      className="premium-card group block h-full p-6"
     >
       <ReferenceLabel className="mb-3 text-[11px] tracking-[0.08em]">{article.topic}</ReferenceLabel>
       <h3 className="text-[17px] font-semibold leading-snug mb-2">{article.title}</h3>

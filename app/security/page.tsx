@@ -63,7 +63,7 @@ export default function SecurityPage() {
               return (
                 <div
                   key={item.status}
-                  className="flex items-start gap-2.5 rounded-sm border border-navy/10 bg-white/60 px-3 py-2.5 max-w-xs"
+                  className="liquid-glass liquid-glass--subtle lg-pad-sm flex max-w-xs items-start gap-2.5"
                 >
                   <StatusBadge status={badge.badgeStatus} label={badge.label} />
                   <p className="text-[13px] text-structural leading-snug pt-0.5">{item.description}</p>

@@ -67,7 +67,7 @@ export default function IndustriesPage() {
                 <p className="font-mono text-[11px] uppercase tracking-[0.1em] text-structural mb-2">Handoff</p>
                 <p className="text-[14.5px] text-structural leading-relaxed">{item.handoff}</p>
               </div>
-              <div className="rounded-sm border border-navy/10 bg-white/60 px-4 py-3">
+              <div className="liquid-glass liquid-glass--subtle lg-pad-sm">
                 <p className="font-mono text-[11px] uppercase tracking-[0.1em] text-structural mb-1.5">Does not replace</p>
                 <p className="text-[14px] text-navy/80 leading-relaxed">{item.doesNotReplace}</p>
               </div>

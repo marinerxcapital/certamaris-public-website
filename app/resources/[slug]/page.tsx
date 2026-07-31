@@ -58,13 +58,13 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         className="page-hero-section page-hero-polished relative isolate overflow-hidden border-b"
         style={{ borderColor: "var(--hairline)" }}
       >
-        <div className="shell py-16 sm:py-20">
-          <div className="max-w-2xl">
-            <Link href="/resources" className="text-[13.5px] font-medium text-ocean hover:underline mb-6 inline-block">
+        <div className="shell relative z-10 py-16 sm:py-20">
+          <div className="liquid-glass liquid-glass--strong lg-pad-lg max-w-2xl">
+            <Link href="/resources" className="mb-6 inline-block text-[13.5px] font-medium text-ocean hover:underline">
               ← All resources
             </Link>
             <Eyebrow>{article.topic}</Eyebrow>
-            <h1 className="text-[32px] sm:text-[42px] leading-[1.1] mb-4">{article.title}</h1>
+            <h1 className="mb-4 text-[32px] leading-[1.1] sm:text-[42px]">{article.title}</h1>
             <ReferenceLabel className="text-[11.5px] text-structural">
               {article.publishedLabel} · {article.readTime}
             </ReferenceLabel>
@@ -89,7 +89,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="premium-card block p-4 text-[14.5px] font-medium text-navy transition-colors hover:border-ocean/50 hover:text-ocean"
+                  className="premium-card block p-4 text-[14.5px] font-medium text-navy hover:text-ocean"
                 >
                   {link.title}
                 </Link>

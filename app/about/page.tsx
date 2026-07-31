@@ -221,23 +221,28 @@ export default function AboutPage() {
       </Section>
 
       <Section surface="navy">
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
           <Reveal className="max-w-xl">
-            <h2 className="text-[28px] sm:text-[34px] leading-[1.14] text-white mb-3">
-              Let&apos;s talk about your fleet.
-            </h2>
-            <p className="text-[15px] text-white/70 leading-relaxed mb-3">
-              We&apos;re happy to walk through how CertaMaris would map onto your current compliance state.
-            </p>
-            <p className="text-[14px] text-white/60 leading-relaxed">
-              Or email{" "}
-              <a href={`mailto:${APP_SALES_EMAIL}`} className="text-white/90 underline underline-offset-2 hover:text-white">
-                {APP_SALES_EMAIL}
-              </a>
-              .
-            </p>
+            <div className="liquid-glass liquid-glass--dark lg-pad-lg">
+              <h2 className="mb-3 text-[28px] leading-[1.14] text-white sm:text-[34px]">
+                Let&apos;s talk about your fleet.
+              </h2>
+              <p className="mb-3 text-[15px] leading-relaxed text-white/78">
+                We&apos;re happy to walk through how CertaMaris would map onto your current compliance state.
+              </p>
+              <p className="text-[14px] leading-relaxed text-white/72">
+                Or email{" "}
+                <a
+                  href={`mailto:${APP_SALES_EMAIL}`}
+                  className="text-white underline underline-offset-2 hover:text-white"
+                >
+                  {APP_SALES_EMAIL}
+                </a>
+                .
+              </p>
+            </div>
           </Reveal>
-          <Reveal delay={0.06}>
+          <Reveal delay={0.06} className="lg:self-center">
             <Button href="/contact">{PRIMARY_CTA_LABEL}</Button>
           </Reveal>
         </div>

@@ -155,7 +155,7 @@ export default function CompliancePage() {
             <Reveal key={item.href}>
               <Link
                 href={item.href}
-                className="premium-card block h-full p-5 transition-colors hover:border-ocean/30"
+                className="premium-card block h-full p-5"
               >
                 <h3 className="text-[15px] font-semibold text-navy mb-2">{item.title}</h3>
                 <p className="text-[13.5px] text-structural leading-relaxed mb-3">{item.body}</p>

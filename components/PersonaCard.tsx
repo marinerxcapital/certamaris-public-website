@@ -5,7 +5,7 @@ export function PersonaCard({ item }: { item: Persona }) {
   return (
     <Link
       href={`/industries#${item.id}`}
-      className="premium-card group block p-6 transition-all duration-200 hover:border-ocean/45 hover:shadow-card"
+      className="premium-card group block p-6"
     >
       <h3 className="text-[16.5px] font-semibold mb-2">{item.title}</h3>
       <p className="text-[14px] text-structural leading-relaxed">{item.detail}</p>

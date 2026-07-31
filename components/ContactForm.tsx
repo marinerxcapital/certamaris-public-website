@@ -105,7 +105,7 @@ export function ContactForm() {
       : null;
 
     return (
-      <div role="status" className="border border-hairline-strong rounded-sm p-8 bg-paper" style={{ borderColor: "var(--hairline-strong)" }}>
+      <div role="status" className="liquid-glass liquid-glass--strong lg-pad-lg" tabIndex={-1}>
         <p className="font-mono text-[12px] uppercase tracking-[0.1em] text-ocean mb-2">Request received</p>
         <h3 className="text-[20px] font-semibold mb-2">Thanks. Your request has been sent.</h3>
         {displayTime && (

@@ -105,30 +105,32 @@ export default function HomePage() {
         <div className="shell relative z-10 py-16 sm:py-20 lg:py-24">
           <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:gap-14">
             <Reveal className="hero-copy-block max-w-2xl">
-              <Eyebrow>Maritime cyber compliance and assurance</Eyebrow>
-              <h1
-                id="hero-title"
-                className="mb-6 text-[40px] leading-[1.02] tracking-[-0.02em] sm:text-[56px] lg:text-[64px]"
-              >
-                Keep the cyber assurance record connected across the fleet.
-              </h1>
-              <p className="mb-4 max-w-[39rem] text-[17px] font-medium leading-[1.55] tracking-[-0.01em] text-navy/78 sm:text-[19px]">
-                CertaMaris links requirements, controls, evidence, findings, corrective actions, and reviewer
-                decisions in one system of record — so readiness work is inspectable before survey week.
-              </p>
-              <p className="hero-trace-line mb-8">
-                Requirement → Control → Evidence → Finding → Action → Readiness package
-              </p>
-              <div className="flex flex-wrap gap-4">
-                <Button href="/contact">{PRIMARY_CTA_LABEL}</Button>
-                <Button href="/platform" variant="secondary">
-                  {SECONDARY_CTA_LABEL}
-                </Button>
-              </div>
-              <p className="mt-6 max-w-xl text-[13.5px] leading-relaxed text-structural">
-                Workflow scope includes work aligned to IMO MSC.428(98) and IACS UR E26/E27. Official texts control;
-                CertaMaris does not certify compliance or guarantee survey outcomes.
-              </p>
+              <LiquidGlass variant="strong" padding="lg">
+                <Eyebrow>Maritime cyber compliance and assurance</Eyebrow>
+                <h1
+                  id="hero-title"
+                  className="mb-6 text-[40px] leading-[1.02] tracking-[-0.02em] sm:text-[56px] lg:text-[64px]"
+                >
+                  Keep the cyber assurance record connected across the fleet.
+                </h1>
+                <p className="mb-4 max-w-[39rem] text-[17px] font-medium leading-[1.55] tracking-[-0.01em] text-navy/82 sm:text-[19px]">
+                  CertaMaris links requirements, controls, evidence, findings, corrective actions, and reviewer
+                  decisions in one system of record — so readiness work is inspectable before survey week.
+                </p>
+                <p className="hero-trace-line mb-8">
+                  Requirement → Control → Evidence → Finding → Action → Readiness package
+                </p>
+                <div className="flex flex-wrap gap-4">
+                  <Button href="/contact">{PRIMARY_CTA_LABEL}</Button>
+                  <Button href="/platform" variant="secondary">
+                    {SECONDARY_CTA_LABEL}
+                  </Button>
+                </div>
+                <p className="mt-6 max-w-xl text-[13.5px] leading-relaxed text-navy/75">
+                  Workflow scope includes work aligned to IMO MSC.428(98) and IACS UR E26/E27. Official texts control;
+                  CertaMaris does not certify compliance or guarantee survey outcomes.
+                </p>
+              </LiquidGlass>
             </Reveal>
 
             <Reveal delay={0.06}>
