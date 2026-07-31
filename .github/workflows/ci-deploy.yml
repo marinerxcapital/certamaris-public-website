@@ -1,7 +1,8 @@
 name: CI and Production Deploy
 
-# Private org repos need working Actions billing (payment method + spending limit).
-# If jobs fail in ~3s with empty steps, see docs/ci-billing.md — that is not a code failure.
+# Hosted ubuntu-latest is blocked when account payment fails or Actions spend limit is $0
+# (private repos). See docs/ci-billing.md.
+# Self-hosted runner label marketing-ci is free of hosted-minute billing and keeps full checks.
 on:
   pull_request:
   push:
@@ -19,8 +20,8 @@ concurrency:
 jobs:
   validate:
     name: Validate marketing site
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
+    runs-on: [self-hosted, Windows, X64, marketing-ci]
+    timeout-minutes: 30
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -32,21 +33,25 @@ jobs:
           cache: npm
 
       - name: Install dependencies
+        shell: pwsh
         run: npm ci
 
       - name: Audit production dependencies
+        shell: pwsh
         run: npm audit --omit=dev --audit-level=high
 
       - name: Typecheck
+        shell: pwsh
         run: npm run typecheck
 
       - name: Build static export
+        shell: pwsh
         run: npm run build:static
 
   deploy:
     name: Deploy production Worker
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
+    runs-on: [self-hosted, Windows, X64, marketing-ci]
+    timeout-minutes: 30
     needs: validate
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     environment: production
@@ -61,12 +66,15 @@ jobs:
           cache: npm
 
       - name: Install dependencies
+        shell: pwsh
         run: npm ci
 
       - name: Build static export
+        shell: pwsh
         run: npm run build:static
 
       - name: Deploy to Cloudflare Workers
+        shell: pwsh
         run: npx wrangler deploy --config wrangler.jsonc --keep-vars
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

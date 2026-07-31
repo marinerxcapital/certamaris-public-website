@@ -2,56 +2,51 @@
 
 ## Symptom
 
-`CI and Production Deploy` → **Validate marketing site** fails in **~3–12 seconds** with **zero steps executed**.  
+`CI and Production Deploy` → **Validate marketing site** fails in **~3–12 seconds** with **zero steps executed** on **GitHub-hosted** `ubuntu-latest`.  
 **Deploy production Worker** is then **skipped** (`needs: validate`).
 
 ## Root cause (verified 2026-07-31)
 
-GitHub annotation on failed runs (e.g. `30608555786`, `30608252428`, `30601744427`, `30601691550`):
+GitHub annotation on failed hosted runs (e.g. `30608555786`, `30611151879`):
 
 > The job was not started because recent account payments have failed or your spending limit needs to be increased. Please check the 'Billing & plans' section in your settings
 
-Evidence:
-
 | Signal | Observation |
 |---|---|
-| Job duration | 3–12s |
-| Steps array | empty (`[]`) |
-| Runner | not assigned (`runner_id: 0` / null) |
-| Last green validate | ~1m30–1m40s with real npm/typecheck/build steps |
-| Repo | **private** under org `marinerxcapital` |
+| Owner | **User** `marinerxcapital` (not an Organization) |
+| Repo | **private** (hosted minutes billable) |
+| Job duration (hosted) | 3–12s |
+| Steps | empty; `runner_id: 0` |
+| Last green hosted validate | ~1m30–1m40s |
 
-This is **not** caused by typecheck, `npm audit`, Next build, or Wrangler. Hosted runners never start.
+This is **not** typecheck, audit, Next, or Wrangler. Hosted runners never start.
 
-## Permanent fix (owner / org admin — required)
+## Permanent paths
 
-1. Open **GitHub org billing**: https://github.com/organizations/marinerxcapital/settings/billing  
-2. Fix **failed payment method** and/or raise **Actions spending limit**.  
-3. Confirm Actions is enabled for private repos.  
-4. Re-run a failed workflow:  
-   `gh run rerun 30608555786 --failed`  
-   or push a docs-only commit / `workflow_dispatch`.
+### A. Account billing (restores hosted `ubuntu-latest`)
 
-Until billing is restored, GitHub-hosted CI **cannot** deploy. Use local production path:
+1. **User billing** (correct URL): https://github.com/settings/billing  
+2. Fix failed payment and/or raise **Actions spending limit / budget** above $0  
+3. Budgets: https://github.com/settings/billing/budgets  
 
-```bash
-npm ci
-npm run typecheck
-npm audit --omit=dev --audit-level=high
-npm run build:static
-npx wrangler deploy --config wrangler.jsonc --keep-vars
+### B. Self-hosted runner (current workflow default)
+
+Workflow jobs use labels: `self-hosted`, `Windows`, `X64`, `marketing-ci`.  
+Self-hosted usage does **not** consume hosted private minutes. Full checks retained (audit, typecheck, build, deploy).
+
+Runner machine (owner PC):
+
+```text
+C:\actions-runner-certamaris-marketing\
+  config already registered as certamaris-marketing-win
+  start: run.cmd   (or install as Windows service for durability)
 ```
 
-## Not a permanent code workaround
+Keep the runner **online** for CI to execute.
 
-- Editing `ci-deploy.yml` steps cannot start runners when billing blocks the job.  
-- Making the repo public would use free public minutes (product decision; not done without owner).  
-- Self-hosted runners are an alternative if org policy forbids paid hosted minutes.
-
-## Local parity
+### Local parity
 
 ```bash
 npm run ci:validate
+npx wrangler deploy --config wrangler.jsonc --keep-vars
 ```
-
-Mirrors the validate job steps.
