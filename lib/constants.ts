@@ -28,6 +28,7 @@ export const APP_SIGN_IN_URL = process.env.NEXT_PUBLIC_APP_SIGN_IN_URL ?? "https
 export const APP_GET_STARTED_URL = process.env.NEXT_PUBLIC_APP_GET_STARTED_URL ?? "/contact";
 export const APP_SCHEDULING_URL = process.env.NEXT_PUBLIC_APP_SCHEDULING_URL ?? "";
 export const APP_SALES_EMAIL = process.env.NEXT_PUBLIC_APP_SALES_EMAIL ?? "sales@certamaris.com";
+export const SECURITY_EMAIL = process.env.NEXT_PUBLIC_SECURITY_EMAIL ?? "security@certamaris.com";
 export const CONTACT_FORWARD_ENDPOINT = process.env.CONTACT_FORWARD_ENDPOINT ?? "";
 
 /**

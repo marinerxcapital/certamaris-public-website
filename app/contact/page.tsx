@@ -1,9 +1,10 @@
+import { Button } from "@/components/Button";
 import { ContactForm } from "@/components/ContactForm";
 import { PageHero } from "@/components/PageHero";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
 import { pageMetadata } from "@/lib/metadata";
-import { APP_SALES_EMAIL } from "@/lib/constants";
+import { APP_SALES_EMAIL, APP_SCHEDULING_URL } from "@/lib/constants";
 
 export const metadata = pageMetadata(
   "Contact & Readiness Call",
@@ -15,10 +16,12 @@ const expectations = [
   { title: "No calendar assumption", body: "The form starts a routed request. It does not create a calendar event or imply a scheduling integration is already in place." },
   { title: "What the intake captures", body: "Fleet scope, current evidence condition, readiness pressure, accountable roles, and the IACS UR E26/E27 or IMO cyber-risk workflows most relevant to you." },
   { title: "What to prepare", body: "A rough sense of vessel count, current SMS cyber-risk coverage, and any upcoming survey or review pressure helps. Nothing needs to be polished before you write in." },
-  { title: "What happens next", body: "If the request is deliverable through the configured channel, CertaMaris uses the context to route a focused conversation. If delivery is unavailable, use the direct email fallback shown below." },
+  { title: "What happens next", body: "If the request is deliverable through the configured channel, CertaMaris uses the context to route a focused conversation. If delivery is unavailable, use the direct email fallback shown below. We will follow up using the email you provide, as soon as practical — this is not a timed SLA." },
 ];
 
 export default function ContactPage() {
+  const hasScheduling = Boolean(APP_SCHEDULING_URL.trim());
+
   return (
     <>
       <PageHero
@@ -39,12 +42,25 @@ export default function ContactPage() {
                 </div>
               ))}
             </div>
-            <div className="mt-8 pt-6 border-t" style={{ borderColor: "var(--hairline)" }}>
-              <p className="text-[13px] text-structural mb-1">Prefer email?</p>
-              {/* INTEGRATION POINT — Contact Sales mailto fallback; replace with a routed sales inbox once confirmed. */}
-              <a href={`mailto:${APP_SALES_EMAIL}`} className="text-[15px] font-medium text-ocean hover:underline" data-integration-point="contact-sales">
-                {APP_SALES_EMAIL}
-              </a>
+            <div className="mt-8 pt-6 border-t space-y-4" style={{ borderColor: "var(--hairline)" }}>
+              <div>
+                <p className="text-[13px] text-structural mb-1">Prefer email?</p>
+                {/* INTEGRATION POINT — Contact Sales mailto fallback; replace with a routed sales inbox once confirmed. */}
+                <a href={`mailto:${APP_SALES_EMAIL}`} className="text-[15px] font-medium text-ocean hover:underline" data-integration-point="contact-sales">
+                  {APP_SALES_EMAIL}
+                </a>
+              </div>
+              {hasScheduling && (
+                <div>
+                  <p className="text-[13px] text-structural mb-2">
+                    Prefer to pick a time yourself? Scheduling is optional and separate from the request form above.
+                  </p>
+                  {/* INTEGRATION POINT — optional external scheduler when APP_SCHEDULING_URL is set */}
+                  <Button href={APP_SCHEDULING_URL} variant="secondary" external>
+                    Book a time
+                  </Button>
+                </div>
+              )}
             </div>
           </Reveal>
           <Reveal delay={0.08}>

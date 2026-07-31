@@ -6,6 +6,10 @@ type ContactPayload = {
   primaryNeed?: string;
   timing?: string;
   message?: string;
+  /** Optional routing field — not required for submit. */
+  role?: string;
+  /** Optional: boolean or string; truthy means security package / NDA request. */
+  securityPackageIntent?: boolean | string;
 };
 
 type Env = {
@@ -103,6 +107,15 @@ function isStableAsset(pathname: string): boolean {
   );
 }
 
+function parseSecurityPackageIntent(value: boolean | string | undefined): boolean | undefined {
+  if (value === undefined || value === "") return undefined;
+  if (typeof value === "boolean") return value;
+  const normalized = String(value).trim().toLowerCase();
+  if (normalized === "true" || normalized === "1" || normalized === "yes" || normalized === "on") return true;
+  if (normalized === "false" || normalized === "0" || normalized === "no" || normalized === "off") return false;
+  return Boolean(normalized);
+}
+
 async function handleContact(request: Request, env: Env): Promise<Response> {
   let body: ContactPayload;
   try {
@@ -118,7 +131,10 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
   const primaryNeed = (body.primaryNeed ?? "").trim();
   const timing = (body.timing ?? "").trim();
   const message = (body.message ?? "").trim();
+  const role = (body.role ?? "").trim();
+  const securityPackageIntent = parseSecurityPackageIntent(body.securityPackageIntent);
 
+  // Required fields unchanged for backward compatibility; role + securityPackageIntent stay optional.
   if (!name || !email || !company || !fleetSize || !primaryNeed || !timing || !message) {
     return json({ error: "All fields are required." }, 400);
   }
@@ -130,10 +146,23 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
   }
 
   if (env.CONTACT_FORWARD_ENDPOINT) {
+    const forwardBody: Record<string, string | boolean> = {
+      name,
+      email,
+      company,
+      fleetSize,
+      primaryNeed,
+      timing,
+      message,
+      source: "certamaris-website",
+    };
+    if (role) forwardBody.role = role;
+    if (securityPackageIntent !== undefined) forwardBody.securityPackageIntent = securityPackageIntent;
+
     const forwarded = await fetch(env.CONTACT_FORWARD_ENDPOINT, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email, company, fleetSize, primaryNeed, timing, message, source: "certamaris-website" }),
+      body: JSON.stringify(forwardBody),
     });
 
     if (!forwarded.ok) {

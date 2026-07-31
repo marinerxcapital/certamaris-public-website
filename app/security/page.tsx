@@ -1,11 +1,19 @@
+import Link from "next/link";
 import { BoundaryPanel } from "@/components/BoundaryPanel";
 import { PageHero } from "@/components/PageHero";
 import { ProductScreenFrame, ProductScreenTile } from "@/components/ProductScreens";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
 import { StatusBadge } from "@/components/StatusBadge";
+import { SECURITY_EMAIL } from "@/lib/constants";
 import { pageMetadata } from "@/lib/metadata";
 import { productProofScreens } from "@/lib/product-screens";
+import {
+  SECURITY_TRUST_LAST_REVIEWED,
+  TRUST_STATUS_BADGE,
+  securityTrustControls,
+  type TrustControlStatus,
+} from "@/lib/security-trust";
 
 export const metadata = pageMetadata(
   "Security & Trust",
@@ -13,23 +21,26 @@ export const metadata = pageMetadata(
   "/security"
 );
 
-type ControlItem = { title: string; body: string; status: "ok" | "caution" | "pending" };
+function formatReviewDate(isoDate: string): string {
+  const [year, month, day] = isoDate.split("-").map(Number);
+  if (!year || !month || !day) return isoDate;
+  return new Date(Date.UTC(year, month - 1, day)).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone: "UTC",
+  });
+}
 
-const controls: ControlItem[] = [
-  { title: "Tenant isolation", body: "Each customer's data is logically isolated at the database and access-control layer, scoped by organization and fleet.", status: "ok" },
-  { title: "Role-based access control", body: "Access is scoped by role and object — vessel, fleet, or organization — so a technical manager sees their fleet, not another operator's.", status: "ok" },
-  { title: "Encryption in transit", body: "All traffic between clients and the application is encrypted using industry-standard TLS.", status: "ok" },
-  { title: "Encryption at rest", body: "Stored data is encrypted at rest using the hosting provider's managed encryption capabilities.", status: "ok" },
-  { title: "Audit history", body: "Evidence, findings, and plan changes retain a version and reviewer history rather than overwriting prior state.", status: "ok" },
-  { title: "Environment separation", body: "Development, staging, and production environments are kept separate, with production data excluded from lower environments.", status: "ok" },
-  { title: "Formal third-party certification (e.g., SOC 2, ISO 27001)", body: "Formal third-party certification is not claimed on this website. If certification is completed, the certificate scope and dates will be published with the same specificity as other controls.", status: "pending" },
-  { title: "Single sign-on (SSO) and SCIM provisioning", body: "Configurable for enterprise customers as part of onboarding; availability depends on plan and identity provider.", status: "caution" },
-  { title: "Incident response process", body: "A documented internal incident response process exists for the application; customer-facing incident notification terms are defined per contract.", status: "ok" },
-  { title: "Subprocessor transparency", body: "A current subprocessor list is maintained and available on request for active procurement and customer review.", status: "caution" },
-  { title: "Data retention configuration", body: "Retention periods for evidence, logs, and account data are defined by customer agreement and implementation scope.", status: "caution" },
+const LEGEND: { status: TrustControlStatus; description: string }[] = [
+  { status: "current", description: "Implemented for the production platform as described." },
+  { status: "configurable", description: "Available by plan, contract, or customer configuration." },
+  { status: "not_claimed", description: "Not asserted on this website." },
 ];
 
 export default function SecurityPage() {
+  const reviewedLabel = formatReviewDate(SECURITY_TRUST_LAST_REVIEWED);
+
   return (
     <>
       <PageHero
@@ -39,28 +50,190 @@ export default function SecurityPage() {
         intro="Security pages lose credibility when they round up. This page separates implemented platform controls from configurable customer terms and controls not claimed on this website."
       />
 
-      <Section>
-        <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-14 items-center">
+      {/* Last reviewed + legend */}
+      <Section spacing="compact">
+        <Reveal className="max-w-3xl">
+          <p className="text-[13px] font-mono text-structural mb-6">
+            Last reviewed: {reviewedLabel}
+          </p>
+          <Eyebrow>Status legend</Eyebrow>
+          <div className="flex flex-wrap gap-3 mt-3">
+            {LEGEND.map((item) => {
+              const badge = TRUST_STATUS_BADGE[item.status];
+              return (
+                <div
+                  key={item.status}
+                  className="flex items-start gap-2.5 rounded-sm border border-navy/10 bg-white/60 px-3 py-2.5 max-w-xs"
+                >
+                  <StatusBadge status={badge.badgeStatus} label={badge.label} />
+                  <p className="text-[13px] text-structural leading-snug pt-0.5">{item.description}</p>
+                </div>
+              );
+            })}
+          </div>
+        </Reveal>
+      </Section>
+
+      {/* 1. Vendor security commitments */}
+      <Section surface="paper" spacing="compact">
+        <Reveal className="max-w-2xl mb-10">
+          <Eyebrow>Vendor security commitments</Eyebrow>
+          <h2 className="text-[28px] sm:text-[34px] leading-[1.14] mb-4">
+            Platform controls stated with status, not marketing filler.
+          </h2>
+          <p className="text-[15px] text-structural leading-relaxed">
+            The list below describes how CertaMaris operates the multi-tenant application. It is not a
+            certification package, pen-test report, or substitute for contractual security exhibits.
+          </p>
+        </Reveal>
+        <div className="space-y-4 max-w-3xl">
+          {securityTrustControls.map((item) => {
+            const badge = TRUST_STATUS_BADGE[item.status];
+            return (
+              <Reveal key={item.id}>
+                <div className="premium-card flex items-start justify-between gap-6 p-5">
+                  <div>
+                    <p className="text-[11px] font-mono uppercase tracking-[0.12em] text-ocean mb-1.5">
+                      {item.category}
+                    </p>
+                    <h3 className="text-[15.5px] font-semibold mb-1.5">{item.title}</h3>
+                    <p className="text-[14px] text-structural leading-relaxed">{item.summary}</p>
+                  </div>
+                  <StatusBadge status={badge.badgeStatus} label={badge.label} />
+                </div>
+              </Reveal>
+            );
+          })}
+        </div>
+      </Section>
+
+      {/* 2. Data & subprocessors */}
+      <Section spacing="compact">
+        <Reveal className="max-w-2xl">
+          <Eyebrow>Data &amp; subprocessors</Eyebrow>
+          <h2 className="text-[26px] leading-[1.16] mb-4">What we process, and who else is involved.</h2>
+          <p className="text-[15px] text-structural leading-relaxed mb-3">
+            The platform stores customer-provided compliance and assurance records (for example vessel and
+            fleet scope, control mappings, evidence metadata, findings, and user account information needed
+            to operate the service). Data is retained according to the customer agreement and configuration.
+          </p>
+          <p className="text-[15px] text-structural leading-relaxed">
+            Subprocessor details are available on request for active procurement. This page does not publish
+            a public list of vendors.
+          </p>
+        </Reveal>
+      </Section>
+
+      {/* 3. Hosting */}
+      <Section surface="paper" spacing="compact">
+        <Reveal className="max-w-2xl">
+          <Eyebrow>Hosting</Eyebrow>
+          <h2 className="text-[26px] leading-[1.16] mb-4">Where the service runs.</h2>
+          <p className="text-[15px] text-structural leading-relaxed">
+            Application and data are hosted on commercial cloud infrastructure (Cloudflare edge delivery;
+            application/API hosting and managed PostgreSQL as configured for production).
+          </p>
+        </Reveal>
+      </Section>
+
+      {/* 4. Enterprise identity */}
+      <Section spacing="compact">
+        <Reveal className="max-w-2xl">
+          <Eyebrow>Enterprise identity</Eyebrow>
+          <h2 className="text-[26px] leading-[1.16] mb-4">SSO and SCIM where your IdP requires them.</h2>
+          <p className="text-[15px] text-structural leading-relaxed mb-3">
+            Single sign-on (SSO) and SCIM provisioning are configurable for enterprise customers as part of
+            onboarding. Availability depends on plan and identity provider.
+          </p>
+          <StatusBadge status="caution" label="Configurable" />
+        </Reveal>
+      </Section>
+
+      {/* 5. Shared responsibility */}
+      <Section surface="paper" spacing="compact">
+        <Reveal className="max-w-2xl">
+          <Eyebrow>Shared responsibility</Eyebrow>
+          <h2 className="text-[26px] leading-[1.16] mb-4">Security is shared, not outsourced.</h2>
+          <p className="text-[15px] text-structural leading-relaxed mb-3">
+            Account-level access management (who on your team holds which role), the accuracy of evidence
+            submitted into the platform, and your organization&apos;s own vessel and shoreside cybersecurity
+            controls remain your responsibility. CertaMaris secures the platform; it does not secure your
+            vessels&apos; OT environment.
+          </p>
+          <p className="text-[15px] text-structural leading-relaxed">
+            Specific contractual security commitments, data processing terms, and incident notification
+            timelines are defined in your customer agreement, not on this page.
+          </p>
+        </Reveal>
+      </Section>
+
+      {/* 6. How to request security package */}
+      <Section spacing="compact">
+        <Reveal className="max-w-2xl">
+          <Eyebrow>Security package</Eyebrow>
+          <h2 className="text-[26px] leading-[1.16] mb-4">How to request materials for procurement.</h2>
+          <p className="text-[15px] text-structural leading-relaxed mb-4">
+            For questionnaires, subprocessor details, or other security documentation needed during active
+            procurement, contact the security team or use the contact form and note that the request is for
+            procurement review.
+          </p>
+          <ul className="space-y-2 text-[15px]">
+            <li>
+              <a
+                href={`mailto:${SECURITY_EMAIL}?subject=Security%20package%20request`}
+                className="font-medium text-ocean hover:underline"
+              >
+                {SECURITY_EMAIL}
+              </a>
+              <span className="text-structural"> — security package and questionnaire requests</span>
+            </li>
+            <li>
+              <Link href="/contact" className="font-medium text-ocean hover:underline">
+                Contact form
+              </Link>
+              <span className="text-structural">
+                {" "}
+                — note procurement or security review in your message
+              </span>
+            </li>
+          </ul>
+        </Reveal>
+      </Section>
+
+      {/* 7. Product assurance workflows (secondary — product UI, not vendor certs) */}
+      <Section surface="paper" spacing="compact">
+        <Reveal className="max-w-2xl mb-10">
+          <Eyebrow>Product UI (not a certification)</Eyebrow>
+          <h2 className="text-[28px] sm:text-[34px] leading-[1.14] mb-4">
+            Product assurance workflows (not a certification)
+          </h2>
+          <p className="text-[15px] text-structural leading-relaxed">
+            The screens below show how control mapping, evidence, and findings appear in the product for
+            customer workflows. They illustrate application capability. They are not vendor security
+            certifications, audit reports, or proof of third-party attestation.
+          </p>
+        </Reveal>
+        <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-14 items-center mb-12">
           <Reveal>
-            <Eyebrow>Security in the workflow</Eyebrow>
-            <h2 className="text-[28px] sm:text-[34px] leading-[1.14] mb-5">
-              Security controls are reviewable records, not just policy statements.
-            </h2>
-            <p className="text-[15.5px] text-structural leading-relaxed mb-4">
-              The product shows control ownership, criticality, status, implementation context, known exceptions,
-              mapped requirements, and validation dates so access control and evidence decisions can be reviewed.
+            <h3 className="text-[20px] leading-[1.2] mb-4">
+              Controls and requirements stay linked for review.
+            </h3>
+            <p className="text-[15px] text-structural leading-relaxed mb-4">
+              The product shows control ownership, criticality, status, implementation context, known
+              exceptions, mapped requirements, and validation dates so access and evidence decisions can be
+              reviewed in one place.
             </p>
             <div className="flex flex-wrap gap-2">
-              <StatusBadge status="ok" label="Implemented control" />
-              <StatusBadge status="caution" label="Known exception tracked" />
-              <StatusBadge status="pending" label="Not claimed" />
+              <StatusBadge status="ok" label="Mapped control" />
+              <StatusBadge status="caution" label="Exception tracked" />
+              <StatusBadge status="pending" label="Needs evidence" />
             </div>
           </Reveal>
           <Reveal delay={0.08}>
             <ProductScreenFrame
               src={productProofScreens.requirementMapping.src}
               alt={productProofScreens.requirementMapping.alt}
-              label="Access control record"
+              label={productProofScreens.requirementMapping.label}
               lightboxTitle={productProofScreens.requirementMapping.title}
               lightboxBody={productProofScreens.requirementMapping.body}
               priority
@@ -68,70 +241,19 @@ export default function SecurityPage() {
             />
           </Reveal>
         </div>
-      </Section>
-
-      <Section surface="paper" spacing="compact">
-        <Reveal className="max-w-2xl mb-12">
-          <Eyebrow>Trust evidence</Eyebrow>
-          <h2 className="text-[28px] sm:text-[34px] leading-[1.14]">
-            Security posture is only useful when evidence stays current.
-          </h2>
-        </Reveal>
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 gap-6 max-w-4xl">
           <ProductScreenTile
             {...productProofScreens.evidenceCoverage}
-            title="Freshness and sufficiency"
+            title={productProofScreens.evidenceCoverage.title}
           />
           <ProductScreenTile
             {...productProofScreens.findingsRegister}
-            title="Security findings"
-          />
-          <ProductScreenTile
-            {...productProofScreens.correctiveActions}
-            title="Verified remediation"
+            title={productProofScreens.findingsRegister.title}
           />
         </div>
       </Section>
 
-      <Section spacing="compact">
-        <Reveal className="max-w-2xl mb-10">
-          <Eyebrow>Control status</Eyebrow>
-          <h2 className="text-[28px] sm:text-[34px] leading-[1.14]">Platform security commitments.</h2>
-        </Reveal>
-        <div className="space-y-4 max-w-3xl">
-          {controls.map((item) => (
-            <Reveal key={item.title}>
-              <div className="premium-card flex items-start justify-between gap-6 p-5">
-                <div>
-                  <h3 className="text-[15.5px] font-semibold mb-1.5">{item.title}</h3>
-                  <p className="text-[14px] text-structural leading-relaxed">{item.body}</p>
-                </div>
-                <StatusBadge
-                  status={item.status}
-                  label={item.status === "ok" ? "Current" : item.status === "caution" ? "Configurable" : "Not claimed"}
-                />
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </Section>
-
-      <Section surface="paper" spacing="compact">
-        <Reveal className="max-w-2xl">
-          <Eyebrow>Customer responsibilities</Eyebrow>
-          <h2 className="text-[26px] leading-[1.16] mb-4">Security is shared, not outsourced.</h2>
-          <p className="text-[15px] text-structural leading-relaxed mb-3">
-            Account-level access management (who on your team holds which role), the accuracy of evidence submitted
-            into the platform, and your organization's own vessel and shoreside cybersecurity controls remain your
-            responsibility. CertaMaris secures the platform; it does not secure your vessels' OT environment.
-          </p>
-          <p className="text-[15px] text-structural leading-relaxed">
-            Specific contractual security commitments, data processing terms, and incident notification timelines
-            are defined in your customer agreement, not on this page.
-          </p>
-        </Reveal>
-      </Section>
-
+      {/* 8. Regulatory boundary */}
       <Section spacing="tight">
         <Reveal>
           <BoundaryPanel className="max-w-3xl" />
