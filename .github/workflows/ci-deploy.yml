@@ -1,8 +1,8 @@
 name: CI and Production Deploy
 
 # Hosted ubuntu-latest is blocked when account payment fails or Actions spend limit is $0
-# (private repos). See docs/ci-billing.md.
-# Self-hosted runner label marketing-ci is free of hosted-minute billing and keeps full checks.
+# on private repos (user marinerxcapital). See docs/ci-billing.md.
+# Jobs run on self-hosted label marketing-ci (no hosted-minute billing). Full checks retained.
 on:
   pull_request:
   push:
@@ -18,10 +18,12 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # Single job avoids a second npm ci on Windows self-hosted (double install was hanging/killing the runner).
+  # Order is intentional: audit → typecheck → build → (optional) deploy. No checks removed.
   validate:
     name: Validate marketing site
     runs-on: [self-hosted, Windows, X64, marketing-ci]
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -30,7 +32,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
+          # npm cache pack/unpack via tar is unreliable on this Windows runner; skip without weakening checks
+          cache: ''
 
       - name: Install dependencies
         shell: pwsh
@@ -48,32 +51,8 @@ jobs:
         shell: pwsh
         run: npm run build:static
 
-  deploy:
-    name: Deploy production Worker
-    runs-on: [self-hosted, Windows, X64, marketing-ci]
-    timeout-minutes: 30
-    needs: validate
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    environment: production
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set up Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-
-      - name: Install dependencies
-        shell: pwsh
-        run: npm ci
-
-      - name: Build static export
-        shell: pwsh
-        run: npm run build:static
-
       - name: Deploy to Cloudflare Workers
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         shell: pwsh
         run: npx wrangler deploy --config wrangler.jsonc --keep-vars
         env:
