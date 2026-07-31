@@ -10,9 +10,10 @@ Scope: Public marketing homepage + shared chrome only
 |---|---|
 | Baseline commit | `788b5d93c10ab2e7b8d37c25bea4184b38764f6b` |
 | Branch | `main` |
-| Final commit | **`20ee269`** |
-| Worker version | **`5f96962b-2a72-4d89-a128-322f2c6ef95a`** |
+| Final commit | **`c5dfb22`** (implementation `20ee269` + mobile tablist hotfix) |
+| Worker version | **`c6b24e0e-d933-47f1-a3f9-9e168950a041`** |
 | Production URL | https://certamaris.com/ |
+| Production verification | 2026-07-30 8-agent suite PASS after hotfix redeploy |
 
 ## Liquid Glass primitive
 
