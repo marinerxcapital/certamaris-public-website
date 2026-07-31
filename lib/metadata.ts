@@ -12,6 +12,8 @@ export function pageMetadata(title: string, description: string, path: string): 
       title: brandedTitle,
       description,
       url,
+      siteName: SITE_NAME,
+      type: "website",
       images: [{ url: "/og/certamaris-og.jpg", width: 1200, height: 630 }],
     },
     twitter: {

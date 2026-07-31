@@ -1,3 +1,4 @@
+import { BoundaryPanel } from "@/components/BoundaryPanel";
 import { Button } from "@/components/Button";
 import { PageHero } from "@/components/PageHero";
 import { Reveal } from "@/components/Reveal";
@@ -250,6 +251,12 @@ export default function PricingPage() {
               </Button>
             </div>
           </div>
+        </Reveal>
+      </Section>
+
+      <Section spacing="tight">
+        <Reveal>
+          <BoundaryPanel className="max-w-3xl" />
         </Reveal>
       </Section>
     </>

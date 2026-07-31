@@ -1,4 +1,5 @@
 import { ArticleCard } from "@/components/ArticleCard";
+import { BoundaryPanel } from "@/components/BoundaryPanel";
 import { PageHero } from "@/components/PageHero";
 import { ProductScreenFrame, ProductScreenTile } from "@/components/ProductScreens";
 import { Reveal, RevealGroup } from "@/components/Reveal";
@@ -95,6 +96,12 @@ export default function ResourcesPage() {
             <ArticleCard key={article.slug} article={article} />
           ))}
         </RevealGroup>
+      </Section>
+
+      <Section spacing="tight">
+        <Reveal>
+          <BoundaryPanel className="max-w-3xl" />
+        </Reveal>
       </Section>
     </>
   );

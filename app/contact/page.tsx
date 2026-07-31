@@ -1,3 +1,4 @@
+import { BoundaryPanel } from "@/components/BoundaryPanel";
 import { Button } from "@/components/Button";
 import { ContactForm } from "@/components/ContactForm";
 import { PageHero } from "@/components/PageHero";
@@ -69,6 +70,12 @@ export default function ContactPage() {
             </div>
           </Reveal>
         </div>
+      </Section>
+
+      <Section spacing="tight">
+        <Reveal>
+          <BoundaryPanel className="max-w-3xl" />
+        </Reveal>
       </Section>
     </>
   );

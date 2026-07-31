@@ -107,8 +107,7 @@ export function Nav() {
               type="button"
               className={`flex items-center gap-1 ${navLinkClass(menuOpen || companyLinks.some(([, href]) => path === href))}`}
               aria-expanded={menuOpen}
-              aria-haspopup="true"
-              aria-controls="mega-menu"
+              aria-controls={menuOpen ? "mega-menu" : undefined}
               onClick={() => setMenuOpen((v) => !v)}
             >
               Company

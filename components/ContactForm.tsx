@@ -56,7 +56,16 @@ export function ContactForm() {
     else if (message.length > 4000) nextErrors.message = "Keep the note under 4,000 characters.";
 
     setErrors(nextErrors);
-    if (Object.keys(nextErrors).length > 0) return;
+    if (Object.keys(nextErrors).length > 0) {
+      const order = ["name", "email", "company", "fleetSize", "primaryNeed", "timing", "message"] as const;
+      const first = order.find((key) => nextErrors[key]);
+      if (first) {
+        window.requestAnimationFrame(() => {
+          document.getElementById(first)?.focus();
+        });
+      }
+      return;
+    }
 
     setStatus("submitting");
     try {

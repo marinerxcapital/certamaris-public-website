@@ -1,10 +1,18 @@
+import type { Metadata } from "next";
 import { Button } from "@/components/Button";
 import { Eyebrow, Section } from "@/components/Section";
+import { SITE_NAME } from "@/lib/constants";
+
+export const metadata: Metadata = {
+  title: "Page not found",
+  description: `The requested page was not found on ${SITE_NAME}.`,
+  robots: { index: false, follow: false },
+};
 
 export default function NotFound() {
   return (
     <Section className="min-h-[62vh] flex items-center" spacing="standard">
-      <div className="max-w-xl">
+      <div className="liquid-glass liquid-glass--strong lg-pad-lg max-w-xl">
         <Eyebrow>404 · Off chart</Eyebrow>
         <h1 className="text-[32px] sm:text-[40px] leading-[1.08] tracking-[-0.01em] mb-4">
           This page isn&apos;t on the chart.

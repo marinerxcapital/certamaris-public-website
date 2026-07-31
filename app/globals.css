@@ -288,9 +288,12 @@ body {
   -webkit-backdrop-filter: blur(var(--lg-blur)) saturate(125%);
 }
 
-/* Jump nav: solid reading strip over the grid */
+/* Jump nav: glass strip so Pixel Grid remains visible */
 .jump-nav {
-  background: #ffffff;
+  background-color: var(--lg-bg-strong);
+  backdrop-filter: blur(var(--lg-blur)) saturate(125%);
+  -webkit-backdrop-filter: blur(var(--lg-blur)) saturate(125%);
+  border-bottom: 1px solid var(--lg-border);
 }
 
 .jump-nav a {
@@ -334,12 +337,8 @@ body {
 }
 
 .process-step-card {
+  /* Prefer liquid-glass classes on ProcessStepList; keep as alias */
   min-height: 100%;
-  border: 1px solid var(--hairline);
-  border-radius: var(--radius-card);
-  background: #ffffff;
-  padding: 18px;
-  box-shadow: var(--shadow-card);
 }
 
 .boundary-panel {

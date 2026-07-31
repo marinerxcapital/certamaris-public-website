@@ -51,7 +51,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
           <div className="relative z-10">
             <Nav />
-            <main id="main-content">{children}</main>
+            <main id="main-content" tabIndex={-1}>
+              {children}
+            </main>
             <Footer />
           </div>
         </div>
