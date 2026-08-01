@@ -1,3 +1,13 @@
+# DEPLOYMENT RECORD (FINAL)
+
+| Field | Value |
+|---|---|
+| Commit | `439e86a` |
+| Worker version | `281dd8e0-31ad-4562-9922-cc91d1150e90` |
+| Deployed | 2026-07-31 via wrangler deploy --keep-vars |
+| Smoke | 40/40 primary routes OK |
+
+---
 # CertaMaris.com — Full Website Remediation Deployment Runbook
 
 **Date:** 2026-07-31  
@@ -278,3 +288,4 @@ Rollback baseline Worker:  TBD
 ```
 
 **Signed:** SuperGrok SUBAGENT 8 (Docs) — deploy **not** executed by this agent.
+
