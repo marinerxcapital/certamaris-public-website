@@ -4,6 +4,7 @@ import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { PixelGridBackground } from "@/components/PixelGridBackground";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/constants";
+import { organizationSchema, softwareApplicationSchema, websiteSchema } from "@/lib/seo-schema";
 import "./globals.css";
 
 const display = Space_Grotesk({ subsets: ["latin"], weight: ["500", "700"], variable: "--font-display" });
@@ -32,14 +33,7 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: SITE_NAME,
-    url: SITE_URL,
-    description: SITE_DESCRIPTION,
-    logo: `${SITE_URL}/brand/certamaris-full.png`,
-  };
+  const siteSchemas = [organizationSchema(), websiteSchema(), softwareApplicationSchema()];
 
   return (
     <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
@@ -47,8 +41,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div className="site-root relative min-h-screen overflow-x-clip">
           {/* PixelGridBackground client-gates aidesigner runtime + host (no load under prefers-reduced-motion) */}
           <PixelGridBackground className="fixed inset-0 z-0 pointer-events-none" />
-          {/* eslint-disable-next-line @next/next/no-sync-scripts */}
-          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+          {siteSchemas.map((schema, index) => (
+            <script
+              // eslint-disable-next-line react/no-danger
+              key={`root-jsonld-${index}`}
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+            />
+          ))}
           <div className="relative z-10">
             <Nav />
             <main id="main-content" tabIndex={-1}>

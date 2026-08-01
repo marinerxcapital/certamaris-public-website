@@ -1,48 +1,23 @@
 import { BoundaryPanel } from "@/components/BoundaryPanel";
 import { Button } from "@/components/Button";
+import { PackageRecommender } from "@/components/PackageRecommender";
 import { PageHero } from "@/components/PageHero";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
 import { PRIMARY_CTA_LABEL } from "@/lib/constants";
+import {
+  packageTiers,
+  pricingComparisonRows,
+  PRICING_BASIS_NOTE,
+  type ComparisonValue,
+} from "@/lib/faq-pricing";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata(
   "Pricing",
-  "CertaMaris pricing depends on fleet size, vessel count, evidence condition, and workflow scope.",
+  "CertaMaris packages — Fleet Core, Fleet Assurance, and Enterprise — are engagement-scoped. Compare capability depth and request a quote. No public list prices.",
   "/pricing"
 );
-
-const packages = [
-  {
-    name: "Fleet Core",
-    audience: "Software-led for smaller fleets",
-    features: [
-      "Platform access for the in-scope fleet",
-      "Core workflows: requirements, controls, evidence, findings, and readiness",
-      "Standard role-based access control",
-    ],
-  },
-  {
-    name: "Fleet Assurance",
-    audience: "Multi-manager fleets",
-    features: [
-      "Everything in Fleet Core",
-      "Deeper onboarding support during setup",
-      "Greater mapping depth across vessels and managers",
-      "Governance reporting for operational leadership",
-    ],
-  },
-  {
-    name: "Enterprise",
-    audience: "Multi-org and procurement-led buyers",
-    features: [
-      "Everything in Fleet Assurance",
-      "SSO and SCIM when configured for your environment",
-      "Security review support for buyer diligence",
-      "Custom contractual terms as agreed",
-    ],
-  },
-];
 
 const commercialModel = [
   {
@@ -57,10 +32,22 @@ const commercialModel = [
 
 const factors = [
   { title: "Fleet size", body: "The number of vessels and facilities brought into scope." },
-  { title: "Operational complexity", body: "Vessel types, flag states, and the number of technical managers or DPAs involved." },
-  { title: "Evidence condition", body: "Whether existing assessment and plan work can be ingested, or needs to be built from scratch." },
-  { title: "Required fieldwork", body: "Whether onboarding includes on-site or remote assessment support." },
-  { title: "Review depth", body: "The level of ongoing regulatory intelligence and audit-readiness support required." },
+  {
+    title: "Operational complexity",
+    body: "Vessel types, flag states, and the number of technical managers or DPAs involved.",
+  },
+  {
+    title: "Evidence condition",
+    body: "Whether existing assessment and plan work can be ingested, or needs to be built from scratch.",
+  },
+  {
+    title: "Required fieldwork",
+    body: "Whether onboarding includes on-site or remote assessment support.",
+  },
+  {
+    title: "Review depth",
+    body: "The level of ongoing regulatory intelligence and audit-readiness support required.",
+  },
 ];
 
 const engagementSignals = [
@@ -86,6 +73,23 @@ const engagementPath = [
   },
 ];
 
+function formatComparisonValue(value: ComparisonValue): string {
+  switch (value) {
+    case "included":
+      return "Included";
+    case "limited":
+      return "Limited";
+    case "add-on":
+      return "Add-on / scoped";
+    case "scoped":
+      return "Scoped";
+    case "not-included":
+      return "—";
+    default:
+      return value;
+  }
+}
+
 export default function PricingPage() {
   return (
     <>
@@ -102,17 +106,15 @@ export default function PricingPage() {
           <h2 className="text-[27px] sm:text-[32px] leading-[1.16] mb-4">
             Three ways to structure the commercial engagement.
           </h2>
-          <p className="text-[15px] text-structural leading-relaxed">
-            Packages describe capability and support depth — not public list prices. Final scope still follows vessel
-            count, evidence condition, and services depth.
-          </p>
+          <p className="text-[15px] text-structural leading-relaxed">{PRICING_BASIS_NOTE}</p>
         </Reveal>
         <div className="grid md:grid-cols-3 gap-5">
-          {packages.map((pkg, index) => (
+          {packageTiers.map((pkg, index) => (
             <Reveal key={pkg.name} delay={index * 0.05}>
               <article className="premium-card flex h-full flex-col p-6">
                 <p className="font-mono text-[11px] uppercase tracking-[0.1em] text-ocean mb-2">{pkg.audience}</p>
-                <h3 className="text-[19px] font-semibold mb-4">{pkg.name}</h3>
+                <h3 className="text-[19px] font-semibold mb-2">{pkg.name}</h3>
+                <p className="text-[13.5px] text-structural leading-relaxed mb-4">{pkg.summary}</p>
                 <ul className="space-y-2.5 flex-1">
                   {pkg.features.map((feature) => (
                     <li key={feature} className="flex gap-2.5 text-[14px] leading-relaxed text-structural">
@@ -121,15 +123,105 @@ export default function PricingPage() {
                     </li>
                   ))}
                 </ul>
+                <div className="mt-5">
+                  <Button href={`/contact?intent=sales`} variant="secondary" className="w-full">
+                    Request quote
+                  </Button>
+                </div>
               </article>
             </Reveal>
           ))}
         </div>
         <Reveal className="mt-6">
           <p className="text-[13.5px] text-structural leading-relaxed max-w-3xl">
-            Pricing is scoped to vessel count, evidence condition, and services depth. Request a proposal.
+            Pricing is scoped to vessel count, evidence condition, and services depth. No fake dollar figures — request
+            a proposal.
           </p>
         </Reveal>
+      </Section>
+
+      <Section id="package-comparison" surface="paper">
+        <Reveal className="max-w-2xl mb-8">
+          <Eyebrow>Comparison</Eyebrow>
+          <h2 className="text-[27px] sm:text-[32px] leading-[1.16] mb-4">Capability matrix by package.</h2>
+          <p className="text-[15px] text-structural leading-relaxed">
+            Compare vessel scope, users, entities, portals, assessments, evidence, plans, reports, continuous
+            assurance, integrations, API, SSO, SCIM, support, onboarding, retention, audit history, and professional
+            services. Values describe depth — not list prices.
+          </p>
+        </Reveal>
+        <Reveal>
+          <div className="overflow-x-auto rounded-md border border-navy/10 bg-white">
+            <table className="w-full min-w-[720px] border-collapse text-left text-[13.5px]">
+              <caption className="sr-only">
+                Feature comparison across Fleet Core, Fleet Assurance, and Enterprise packages
+              </caption>
+              <thead>
+                <tr className="border-b border-navy/10 bg-paper">
+                  <th scope="col" className="px-4 py-3 font-semibold text-navy">
+                    Feature
+                  </th>
+                  <th scope="col" className="px-4 py-3 font-semibold text-navy">
+                    Fleet Core
+                  </th>
+                  <th scope="col" className="px-4 py-3 font-semibold text-navy">
+                    Fleet Assurance
+                  </th>
+                  <th scope="col" className="px-4 py-3 font-semibold text-navy">
+                    Enterprise
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {pricingComparisonRows.map((row) => (
+                  <tr key={row.key} className="border-b border-navy/8 last:border-0">
+                    <th scope="row" className="px-4 py-3 font-medium text-navy align-top">
+                      {row.feature}
+                    </th>
+                    <td className="px-4 py-3 text-structural align-top">
+                      {formatComparisonValue(row.fleetCore)}
+                    </td>
+                    <td className="px-4 py-3 text-structural align-top">
+                      {formatComparisonValue(row.fleetAssurance)}
+                    </td>
+                    <td className="px-4 py-3 text-structural align-top">
+                      {formatComparisonValue(row.enterprise)}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-4 text-[12.5px] text-structural leading-relaxed max-w-3xl">{PRICING_BASIS_NOTE}</p>
+        </Reveal>
+      </Section>
+
+      <Section>
+        <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-10 items-start">
+          <Reveal>
+            <PackageRecommender />
+          </Reveal>
+          <Reveal delay={0.06}>
+            <div className="premium-card p-8">
+              <p className="font-mono text-[12px] uppercase tracking-[0.1em] text-ocean mb-3">Scope a proposal</p>
+              <h3 className="text-[22px] font-semibold mb-3">Tell us about your fleet.</h3>
+              <p className="text-[14.5px] text-structural leading-relaxed mb-6">
+                A readiness request gives CertaMaris the minimum context needed to discuss whether the platform fits
+                your fleet and what scope would need to be priced. There is no free perpetual trial; access is arranged
+                through a sales-assisted conversation.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Button href="/contact?intent=demo">{PRIMARY_CTA_LABEL}</Button>
+                <Button href="/demo" variant="secondary">
+                  Product demo tour
+                </Button>
+                <Button href="/security" variant="ghost">
+                  Security &amp; trust
+                </Button>
+              </div>
+            </div>
+          </Reveal>
+        </div>
       </Section>
 
       <Section surface="paper" spacing="compact">
@@ -172,38 +264,6 @@ export default function PricingPage() {
             </div>
           </Reveal>
           <Reveal delay={0.08}>
-            <div className="premium-card p-8">
-              <p className="font-mono text-[12px] uppercase tracking-[0.1em] text-ocean mb-3">Scope a proposal</p>
-              <h3 className="text-[22px] font-semibold mb-3">Tell us about your fleet.</h3>
-              <p className="text-[14.5px] text-structural leading-relaxed mb-6">
-                A readiness request gives CertaMaris the minimum context needed to discuss whether the platform fits
-                your fleet and what scope would need to be priced. There is no free perpetual trial; access is arranged
-                through a sales-assisted conversation.
-              </p>
-              <div className="flex flex-wrap gap-3">
-                <Button href="/contact">{PRIMARY_CTA_LABEL}</Button>
-                <Button href="/security" variant="secondary">
-                  Security &amp; trust
-                </Button>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </Section>
-
-      <Section surface="paper" spacing="compact">
-        <div className="grid lg:grid-cols-[0.86fr_1.14fr] gap-14 items-start">
-          <Reveal>
-            <Eyebrow>When to engage</Eyebrow>
-            <h2 className="text-[27px] sm:text-[32px] leading-[1.16] mb-5">
-              Pricing makes sense once the operating problem is specific.
-            </h2>
-            <p className="text-[15px] text-structural leading-relaxed">
-              CertaMaris is not priced like a self-serve document tool. The commercial model depends on the controlled
-              workflows, evidence condition, and fleet scope that need to become part of the assurance record.
-            </p>
-          </Reveal>
-          <Reveal delay={0.06}>
             <ul className="space-y-3">
               {engagementSignals.map((signal) => (
                 <li key={signal} className="premium-card flex gap-3 p-4 text-[14.5px] leading-relaxed text-navy/85">
@@ -216,7 +276,7 @@ export default function PricingPage() {
         </div>
       </Section>
 
-      <Section spacing="compact">
+      <Section surface="paper" spacing="compact">
         <Reveal className="max-w-2xl mb-10">
           <Eyebrow>Engagement path</Eyebrow>
           <h2 className="text-[27px] sm:text-[32px] leading-[1.16]">From inquiry to priced scope.</h2>
@@ -233,7 +293,7 @@ export default function PricingPage() {
         </div>
       </Section>
 
-      <Section surface="paper" spacing="compact">
+      <Section spacing="compact">
         <Reveal>
           <div className="premium-card flex flex-col gap-6 p-8 md:flex-row md:items-center md:justify-between">
             <div className="max-w-xl">
@@ -245,9 +305,9 @@ export default function PricingPage() {
               </p>
             </div>
             <div className="flex flex-wrap gap-3 shrink-0">
-              <Button href="/contact">{PRIMARY_CTA_LABEL}</Button>
-              <Button href="/security" variant="secondary">
-                Security &amp; trust
+              <Button href="/contact?intent=demo">{PRIMARY_CTA_LABEL}</Button>
+              <Button href="/contact?intent=procurement" variant="secondary">
+                Procurement path
               </Button>
             </div>
           </div>

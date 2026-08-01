@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { BoundaryPanel } from "@/components/BoundaryPanel";
 import { Button } from "@/components/Button";
 import { ContactForm } from "@/components/ContactForm";
@@ -6,18 +7,31 @@ import { Reveal } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
 import { pageMetadata } from "@/lib/metadata";
 import { APP_SALES_EMAIL, APP_SCHEDULING_URL } from "@/lib/constants";
+import { CONTACT_INTENTS } from "@/lib/faq-pricing";
 
 export const metadata = pageMetadata(
-  "Contact & Readiness Call",
-  "Send CertaMaris a readiness-call request, or contact the team directly about your fleet's cyber compliance program.",
+  "Contact",
+  "Contact CertaMaris for a product demo, readiness conversation, procurement or security diligence, support, partnership, press, or careers.",
   "/contact"
 );
 
 const expectations = [
-  { title: "No calendar assumption", body: "The form starts a routed request. It does not create a calendar event or imply a scheduling integration is already in place." },
-  { title: "What the intake captures", body: "Fleet scope, current evidence condition, readiness pressure, accountable roles, and the IACS UR E26/E27 or IMO cyber-risk workflows most relevant to you." },
-  { title: "What to prepare", body: "A rough sense of vessel count, current SMS cyber-risk coverage, and any upcoming survey or review pressure helps. Nothing needs to be polished before you write in." },
-  { title: "What happens next", body: "If the request is deliverable through the configured channel, CertaMaris uses the context to route a focused conversation. If delivery is unavailable, use the direct email fallback shown below. We will follow up using the email you provide, as soon as practical — this is not a timed SLA." },
+  {
+    title: "Submit details — we arrange the time",
+    body: "Submit your details and we will contact you to arrange a suitable time. The form does not create a calendar event by itself.",
+  },
+  {
+    title: "Intent-based routing",
+    body: "Choose demo, readiness, procurement, security, privacy, support, partnership, press, careers, or disclosure. Each path is tagged for internal email routing via the existing contact forward endpoint.",
+  },
+  {
+    title: "What to prepare",
+    body: "For sales and readiness: vessel count, role, objective, timeline, and current process help. Nothing needs to be polished before you write in.",
+  },
+  {
+    title: "What happens next",
+    body: "If delivery is configured, CertaMaris receives a tagged payload and follows up on the email you provide. If delivery is unavailable, use the direct email fallback. This is not a timed SLA.",
+  },
 ];
 
 export default function ContactPage() {
@@ -27,9 +41,31 @@ export default function ContactPage() {
     <>
       <PageHero
         eyebrow="Contact"
-        title="Request a readiness call with enough context to make it useful."
-        intro="Tell us what is happening across your fleet, what evidence or review pressure exists, and which workflow needs structure. The form routes a request; it is not a calendar booking."
+        title="Tell us what you need — we will route it and follow up."
+        intro="Use the multi-intent form for demos, readiness calls, procurement, security diligence, and other paths. Submit your details and we will contact you to arrange a suitable time."
       />
+
+      <Section spacing="compact" surface="paper">
+        <Reveal className="max-w-3xl mb-6">
+          <Eyebrow>Intent paths</Eyebrow>
+          <h2 className="text-[22px] sm:text-[26px] leading-[1.16] mb-3">Pick a path or use the form selector.</h2>
+          <p className="text-[14px] text-structural leading-relaxed mb-5">
+            Links set <span className="font-mono text-[13px]">?intent=</span> so the form opens on the right path.
+            You can also switch intents inside the form.
+          </p>
+        </Reveal>
+        <div className="flex flex-wrap gap-2">
+          {CONTACT_INTENTS.map((intent) => (
+            <a
+              key={intent.id}
+              href={`/contact?intent=${intent.id}`}
+              className="rounded-full border border-navy/15 bg-white px-3.5 py-1.5 text-[13px] font-medium text-navy hover:border-ocean/40 hover:text-ocean"
+            >
+              {intent.label}
+            </a>
+          ))}
+        </div>
+      </Section>
 
       <Section>
         <div className="grid lg:grid-cols-[1fr_1.2fr] gap-14">
@@ -46,27 +82,45 @@ export default function ContactPage() {
             <div className="mt-8 pt-6 border-t space-y-4" style={{ borderColor: "var(--hairline)" }}>
               <div>
                 <p className="text-[13px] text-structural mb-1">Prefer email?</p>
-                {/* INTEGRATION POINT — Contact Sales mailto fallback; replace with a routed sales inbox once confirmed. */}
-                <a href={`mailto:${APP_SALES_EMAIL}`} className="text-[15px] font-medium text-ocean hover:underline" data-integration-point="contact-sales">
+                <a
+                  href={`mailto:${APP_SALES_EMAIL}`}
+                  className="text-[15px] font-medium text-ocean hover:underline"
+                  data-integration-point="contact-sales"
+                >
                   {APP_SALES_EMAIL}
                 </a>
               </div>
               {hasScheduling && (
                 <div>
                   <p className="text-[13px] text-structural mb-2">
-                    Prefer to pick a time yourself? Scheduling is optional and separate from the request form above.
+                    Prefer to pick a time yourself? Scheduling is optional and separate from the request form.
                   </p>
-                  {/* INTEGRATION POINT — optional external scheduler when APP_SCHEDULING_URL is set */}
                   <Button href={APP_SCHEDULING_URL} variant="secondary" external>
                     Book a time
                   </Button>
                 </div>
               )}
+              <div className="flex flex-wrap gap-3 pt-2">
+                <Button href="/demo" variant="secondary">
+                  Product demo tour
+                </Button>
+                <Button href="/pricing" variant="ghost">
+                  Pricing packages
+                </Button>
+              </div>
             </div>
           </Reveal>
           <Reveal delay={0.08}>
             <div className="premium-card p-7 sm:p-9">
-              <ContactForm />
+              <Suspense
+                fallback={
+                  <p className="text-[14px] text-structural" role="status">
+                    Loading contact form…
+                  </p>
+                }
+              >
+                <ContactForm defaultIntent="demo" />
+              </Suspense>
             </div>
           </Reveal>
         </div>

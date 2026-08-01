@@ -1,15 +1,18 @@
 import Link from "next/link";
 import { BoundaryPanel } from "@/components/BoundaryPanel";
+import { JsonLd } from "@/components/JsonLd";
 import { PageHero } from "@/components/PageHero";
 import { ProductScreenFrame, ProductScreenTile } from "@/components/ProductScreens";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
 import { pageMetadata } from "@/lib/metadata";
 import { productProofScreens } from "@/lib/product-screens";
+import { complianceNavLinks, frameworks } from "@/lib/regulatory";
+import { breadcrumbListSchema, webPageSchema } from "@/lib/seo-schema";
 
 export const metadata = pageMetadata(
   "Compliance",
-  "A plain-language overview of IMO cyber-risk management (MSC.428(98)) and IACS UR E26/E27, and how CertaMaris structures the resulting workflows.",
+  "Maritime cyber compliance authority: IMO MSC.428(98), IACS UR E26/E27, standards context, official sources, and honest mapping methodology.",
   "/compliance"
 );
 
@@ -40,14 +43,46 @@ const supportingProof = [
 export default function CompliancePage() {
   return (
     <>
+      <JsonLd
+        data={[
+          webPageSchema({
+            title: "Compliance",
+            description:
+              "Maritime cyber compliance authority: IMO, IACS, standards, official sources, and mapping methodology.",
+            path: "/compliance",
+          }),
+          breadcrumbListSchema([
+            { name: "Home", path: "/" },
+            { name: "Compliance", path: "/compliance" },
+          ]),
+        ]}
+      />
       <PageHero
         emphasis="elevated"
         eyebrow="Compliance"
         title="The regulatory landscape, explained plainly."
-        intro="This page gives an operational overview of the requirements CertaMaris helps structure work around. It is not legal or regulatory advice — read it alongside the official source text."
+        intro="Authority pages, official sources, and honest product mapping status. Not legal or regulatory advice — official texts control."
       />
 
       <Section>
+        <Reveal className="max-w-2xl mb-10">
+          <Eyebrow>Authority nest</Eyebrow>
+          <h2 className="text-[28px] sm:text-[34px] leading-[1.14]">Explore by instrument family.</h2>
+        </Reveal>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {complianceNavLinks.map((item) => (
+            <Reveal key={item.href}>
+              <Link href={item.href} className="premium-card block h-full p-5">
+                <h3 className="text-[15px] font-semibold text-navy mb-2">{item.title}</h3>
+                <p className="text-[13.5px] text-structural leading-relaxed mb-3">{item.description}</p>
+                <span className="text-[13.5px] font-medium text-ocean">Open →</span>
+              </Link>
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
+      <Section surface="paper">
         <div className="grid lg:grid-cols-[280px_1fr] gap-14">
           <Reveal>
             <Eyebrow>01</Eyebrow>
@@ -60,19 +95,14 @@ export default function CompliancePage() {
               Document of Compliance after 1 January 2021. It does not create a standalone certification scheme —
               it treats cyber risk as a category of risk an SMS is already required to manage under the ISM Code.
             </p>
-            <p className="text-[15.5px] text-structural leading-relaxed">
-              In practice, this means cyber-risk identification, assessment, and mitigation need to be evidenced
-              within the same SMS structure that already governs safety and environmental risk — hazard
-              identification, procedures, training, and internal audit.
-            </p>
-            <Link href="/resources/imo-msc-428-98-explained" className="inline-block text-[14.5px] font-medium text-ocean hover:underline">
-              Read the full explainer →
+            <Link href="/compliance/imo" className="inline-block text-[14.5px] font-medium text-ocean hover:underline">
+              IMO authority pages →
             </Link>
           </Reveal>
         </div>
       </Section>
 
-      <Section surface="paper" spacing="compact">
+      <Section spacing="compact">
         <div className="grid lg:grid-cols-[280px_1fr] gap-14">
           <Reveal>
             <Eyebrow>02</Eyebrow>
@@ -80,40 +110,14 @@ export default function CompliancePage() {
           </Reveal>
           <Reveal delay={0.06} className="max-w-2xl space-y-4">
             <p className="text-[15.5px] text-structural leading-relaxed">
-              IACS Unified Requirement E26 (Cyber Resilience of Ships) sets ship-level requirements — computer-based
-              system identification, network segmentation, access control, and overall cyber resilience — applying
-              from new construction contracts signed on or after 1 July 2024.
+              IACS Unified Requirements E26 and E27 target cyber resilience at design and construction for new
+              construction contracts signed on or after 1 July 2024. Ship-level (E26) and systems/equipment-level
+              (E27) evidence differ from operational SMS cyber risk management — mixed fleets need both stories kept
+              distinct.
             </p>
-            <p className="text-[15.5px] text-structural leading-relaxed">
-              IACS Unified Requirement E27 (Cyber Resilience of On-board Systems and Equipment) sets equipment-level
-              requirements for the individual computer-based systems integrated into that ship-level architecture.
-              The two requirements work together: E27 defines resilient equipment; E26 defines a resilient vessel
-              built from it.
-            </p>
-            <Link href="/resources/iacs-ur-e26-e27-overview" className="inline-block text-[14.5px] font-medium text-ocean hover:underline">
-              Read the full explainer →
+            <Link href="/compliance/iacs" className="inline-block text-[14.5px] font-medium text-ocean hover:underline">
+              IACS authority pages →
             </Link>
-          </Reveal>
-        </div>
-      </Section>
-
-      <Section spacing="compact">
-        <div className="grid lg:grid-cols-[280px_1fr] gap-14">
-          <Reveal>
-            <Eyebrow>03</Eyebrow>
-            <h2 className="text-[24px] leading-[1.2]">Control mapping</h2>
-          </Reveal>
-          <Reveal delay={0.06} className="max-w-2xl space-y-4">
-            <p className="text-[15.5px] text-structural leading-relaxed">
-              Control mapping connects a regulatory requirement to the specific systems, procedures, and evidence
-              that demonstrate it. Done well, a single requirement change shows exactly which controls, vessels,
-              and evidence are affected — rather than requiring a manual review of every document on file.
-            </p>
-            <p className="text-[15.5px] text-structural leading-relaxed">
-              In practice, shipboard OT and shoreside IT are often organized and measured differently. Keeping those
-              mappings distinct while linking both back to the same requirement layer reflects how those teams
-              actually work — without collapsing two system boundaries into one false framework.
-            </p>
           </Reveal>
         </div>
       </Section>
@@ -121,21 +125,29 @@ export default function CompliancePage() {
       <Section surface="paper" spacing="compact">
         <div className="grid lg:grid-cols-[280px_1fr] gap-14">
           <Reveal>
-            <Eyebrow>04</Eyebrow>
-            <h2 className="text-[24px] leading-[1.2]">Regulatory intelligence</h2>
+            <Eyebrow>03</Eyebrow>
+            <h2 className="text-[24px] leading-[1.2]">Frameworks tracked here</h2>
           </Reveal>
-          <Reveal delay={0.06} className="max-w-2xl space-y-4">
-            <p className="text-[15.5px] text-structural leading-relaxed">
-              IMO guidance, IACS unified requirements, and flag-state circulars change on independent schedules.
-              When a mapped requirement version changes, operators need to know which control mappings, evidence, and
-              plan sections are linked to that requirement so the team can review impact without reconstructing
-              scope from scattered files.
-            </p>
-            <p className="text-[15.5px] text-structural leading-relaxed">
-              That turns a regulatory update into scoped follow-up work rather than an open-ended review — while
-              leaving interpretation and applicability judgment to qualified reviewers. Official source texts always
-              control.
-            </p>
+          <Reveal delay={0.06} className="max-w-2xl">
+            <ul className="grid sm:grid-cols-2 gap-2 text-[14px] text-structural">
+              {frameworks.map((f) => (
+                <li key={f.id} className="flex items-start gap-2">
+                  <span className="text-ocean mt-1" aria-hidden>
+                    ·
+                  </span>
+                  <span>
+                    <span className="font-medium text-navy">{f.shortName}</span>
+                    <span className="text-structural/80"> — {f.issuingAuthority.split("—")[0].trim()}</span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <Link
+              href="/compliance/official-sources"
+              className="inline-block mt-5 text-[14.5px] font-medium text-ocean hover:underline"
+            >
+              Official sources directory →
+            </Link>
           </Reveal>
         </div>
       </Section>
@@ -143,20 +155,12 @@ export default function CompliancePage() {
       <Section spacing="compact">
         <Reveal className="max-w-2xl mb-10">
           <Eyebrow>Further reading</Eyebrow>
-          <h2 className="text-[28px] sm:text-[34px] leading-[1.14]">
-            Source explainers and operational notes.
-          </h2>
-          <p className="text-[15.5px] text-structural leading-relaxed mt-4">
-            Deeper articles live under Resources. They are operational overviews, not legal advice.
-          </p>
+          <h2 className="text-[28px] sm:text-[34px] leading-[1.14]">Source explainers and operational notes.</h2>
         </Reveal>
         <div className="grid md:grid-cols-3 gap-5">
           {resourceLinks.map((item) => (
             <Reveal key={item.href}>
-              <Link
-                href={item.href}
-                className="premium-card block h-full p-5"
-              >
+              <Link href={item.href} className="premium-card block h-full p-5">
                 <h3 className="text-[15px] font-semibold text-navy mb-2">{item.title}</h3>
                 <p className="text-[13.5px] text-structural leading-relaxed mb-3">{item.body}</p>
                 <span className="text-[13.5px] font-medium text-ocean">Read →</span>
@@ -178,8 +182,8 @@ export default function CompliancePage() {
               evidence, exceptions, validation history, and coverage status so reviewers can see what a clause
               touches. The platform organizes that trail; it does not determine applicability or outcomes.
             </p>
-            <Link href="/platform#trace-chain" className="inline-block text-[14.5px] font-medium text-ocean hover:underline">
-              See the trace chain on Platform →
+            <Link href="/compliance/mapping-methodology" className="inline-block text-[14.5px] font-medium text-ocean hover:underline">
+              Mapping methodology →
             </Link>
           </Reveal>
           <Reveal delay={0.08}>

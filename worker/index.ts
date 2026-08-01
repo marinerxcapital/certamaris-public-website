@@ -3,13 +3,23 @@ type ContactPayload = {
   email?: string;
   company?: string;
   fleetSize?: string;
+  vesselCount?: string;
   primaryNeed?: string;
+  objective?: string;
   timing?: string;
+  timeline?: string;
   message?: string;
-  /** Optional routing field — not required for submit. */
   role?: string;
+  currentProcess?: string;
+  intent?: string;
+  subjectTag?: string;
+  documentRequestType?: string;
   /** Optional: boolean or string; truthy means security package / NDA request. */
   securityPackageIntent?: boolean | string;
+  /** Honeypot — if filled, treat as bot success no-op. */
+  company_website?: string;
+  /** Client form open timestamp (ms) for min time-to-submit. */
+  formStartedAt?: number | string;
 };
 
 type Env = {
@@ -24,6 +34,24 @@ const SITE_HOST = "certamaris.com";
 const ONE_WEEK_CACHE = "public, max-age=604800, stale-while-revalidate=86400";
 const IMMUTABLE_CACHE = "public, max-age=31536000, immutable";
 const HTML_CACHE = "public, max-age=0, must-revalidate";
+const MIN_SUBMIT_MS = 2000;
+const MAX_MESSAGE = 4000;
+
+const SALES_INTENTS = new Set(["demo", "sales", "readiness", "procurement"]);
+const VALID_INTENTS = new Set([
+  "demo",
+  "sales",
+  "readiness",
+  "procurement",
+  "security",
+  "privacy",
+  "support",
+  "partnership",
+  "press",
+  "careers",
+  "disclosure",
+]);
+
 const SECURITY_HEADERS: Record<string, string> = {
   "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload",
   "X-Content-Type-Options": "nosniff",
@@ -40,6 +68,12 @@ export default {
 
     if (url.hostname === `www.${SITE_HOST}`) {
       url.hostname = SITE_HOST;
+      return withHeaders(Response.redirect(url.toString(), 301), request);
+    }
+
+    // Permanent redirect: legacy sample-platform → product demo hub
+    if (url.pathname === "/sample-platform" || url.pathname === "/sample-platform/") {
+      url.pathname = "/demo";
       return withHeaders(Response.redirect(url.toString(), 301), request);
     }
 
@@ -116,6 +150,17 @@ function parseSecurityPackageIntent(value: boolean | string | undefined): boolea
   return Boolean(normalized);
 }
 
+function normalizeIntent(raw: string | undefined): string {
+  const key = (raw ?? "demo").trim().toLowerCase();
+  if (VALID_INTENTS.has(key)) return key;
+  return "demo";
+}
+
+function intentSubjectTag(intent: string, provided?: string): string {
+  if (provided && provided.trim()) return provided.trim();
+  return `[${intent}]`;
+}
+
 async function handleContact(request: Request, env: Env): Promise<Response> {
   let body: ContactPayload;
   try {
@@ -124,39 +169,82 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
     return json({ error: "Invalid request body." }, 400);
   }
 
+  // Honeypot: pretend success so bots do not retry with corrected fields.
+  if (body.company_website && String(body.company_website).trim()) {
+    return json({ ok: true });
+  }
+
+  // Min time-to-submit (when client sends formStartedAt).
+  if (body.formStartedAt !== undefined && body.formStartedAt !== "") {
+    const started = Number(body.formStartedAt);
+    if (Number.isFinite(started)) {
+      const elapsed = Date.now() - started;
+      // Allow clock skew; reject only clearly instant bot submits.
+      if (elapsed >= 0 && elapsed < MIN_SUBMIT_MS) {
+        return json({ error: "Please take a moment to complete the form before submitting." }, 400);
+      }
+    }
+  }
+
+  const intent = normalizeIntent(body.intent);
   const name = (body.name ?? "").trim();
   const email = (body.email ?? "").trim();
   const company = (body.company ?? "").trim();
   const fleetSize = (body.fleetSize ?? "").trim();
-  const primaryNeed = (body.primaryNeed ?? "").trim();
-  const timing = (body.timing ?? "").trim();
+  const vesselCount = (body.vesselCount ?? "").trim();
+  const objective = (body.objective ?? body.primaryNeed ?? "").trim();
+  const timeline = (body.timeline ?? body.timing ?? "").trim();
   const message = (body.message ?? "").trim();
   const role = (body.role ?? "").trim();
+  const currentProcess = (body.currentProcess ?? "").trim();
+  const documentRequestType = (body.documentRequestType ?? "").trim();
+  const subjectTag = intentSubjectTag(intent, body.subjectTag);
   const securityPackageIntent = parseSecurityPackageIntent(body.securityPackageIntent);
+  const salesShaped = SALES_INTENTS.has(intent);
 
-  // Required fields unchanged for backward compatibility; role + securityPackageIntent stay optional.
-  if (!name || !email || !company || !fleetSize || !primaryNeed || !timing || !message) {
-    return json({ error: "All fields are required." }, 400);
+  if (!name || !email || !message) {
+    return json({ error: "Name, email, and message are required." }, 400);
   }
   if (!EMAIL_RE.test(email)) {
     return json({ error: "Invalid email address." }, 400);
   }
-  if (message.length > 4000) {
+  if (message.length > MAX_MESSAGE) {
     return json({ error: "Message is too long." }, 400);
+  }
+
+  // Sales-shaped intents keep the richer required set (with legacy primaryNeed/timing aliases).
+  if (salesShaped) {
+    if (!company || !fleetSize || !objective || !timeline) {
+      return json(
+        {
+          error:
+            "For sales and readiness requests, company, fleet size, objective, and timeline are required.",
+        },
+        400
+      );
+    }
   }
 
   if (env.CONTACT_FORWARD_ENDPOINT) {
     const forwardBody: Record<string, string | boolean> = {
       name,
       email,
-      company,
-      fleetSize,
-      primaryNeed,
-      timing,
+      company: company || "Not provided",
       message,
+      intent,
+      subjectTag,
       source: "certamaris-website",
+      // Legacy-compatible fields for existing forward consumers
+      fleetSize: fleetSize || "Not specified",
+      primaryNeed: objective || intent,
+      timing: timeline || "Not specified",
     };
     if (role) forwardBody.role = role;
+    if (vesselCount) forwardBody.vesselCount = vesselCount;
+    if (objective) forwardBody.objective = objective;
+    if (timeline) forwardBody.timeline = timeline;
+    if (currentProcess) forwardBody.currentProcess = currentProcess;
+    if (documentRequestType) forwardBody.documentRequestType = documentRequestType;
     if (securityPackageIntent !== undefined) forwardBody.securityPackageIntent = securityPackageIntent;
 
     const forwarded = await fetch(env.CONTACT_FORWARD_ENDPOINT, {

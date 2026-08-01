@@ -5,50 +5,106 @@ import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { BrandLogo } from "@/components/BrandLogo";
-import { APP_SIGN_IN_URL, APP_GET_STARTED_URL, PRIMARY_CTA_LABEL, SECONDARY_CTA_LABEL } from "@/lib/constants";
-
-const primaryLinks: [string, string][] = [
-  ["Platform", "/platform"],
-  ["Solutions", "/solutions"],
-  ["Industries", "/industries"],
-  ["Compliance", "/compliance"],
-  ["Resources", "/resources"],
-];
-
-const companyLinks: [string, string][] = [
-  ["About", "/about"],
-  ["Security & Trust", "/security"],
-  ["Pricing", "/pricing"],
-  ["FAQ", "/faq"],
-];
+import {
+  APP_GET_STARTED_URL,
+  APP_SIGN_IN_URL,
+  NAV_PRIMARY,
+  PRIMARY_CTA_LABEL,
+  SIGN_IN_LABEL,
+  hrefPathname,
+  isNavGroupActive,
+  isNavLinkActive,
+  type NavMenuGroup,
+  type SiteLink,
+} from "@/lib/constants";
 
 const FOCUSABLE =
   'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
 
+function megaColumns(groupId: string): string {
+  if (groupId === "product" || groupId === "solutions") return "sm:grid-cols-2 lg:grid-cols-3";
+  if (groupId === "company") return "sm:grid-cols-2";
+  return "sm:grid-cols-2";
+}
+
+function MegaPanel({
+  group,
+  path,
+  onNavigate,
+}: {
+  group: NavMenuGroup;
+  path: string;
+  onNavigate?: () => void;
+}) {
+  return (
+    <div className="p-5 sm:p-6">
+      <div className="mb-4 flex flex-wrap items-baseline justify-between gap-2">
+        <p className="font-mono text-[11px] uppercase tracking-[0.1em] text-structural">{group.label}</p>
+        {group.href ? (
+          <Link
+            href={group.href}
+            className="text-[13px] font-semibold text-ocean transition-colors hover:text-navy"
+            onClick={onNavigate}
+          >
+            View all
+            <span aria-hidden="true"> →</span>
+          </Link>
+        ) : null}
+      </div>
+      <ul className={`grid gap-0.5 ${megaColumns(group.id)}`}>
+        {group.children.map((item) => {
+          const active = isNavLinkActive(path, item.href);
+          return (
+            <li key={`${group.id}-${item.href}-${item.label}`}>
+              <Link
+                href={item.href}
+                className={`block rounded-md px-3 py-2 text-[14px] leading-snug transition-colors ${
+                  active
+                    ? "bg-ocean-wash font-semibold text-navy"
+                    : "text-navy hover:bg-ocean-wash hover:text-navy"
+                }`}
+                aria-current={active ? "page" : undefined}
+                onClick={onNavigate}
+              >
+                {item.label}
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
+
 export function Nav() {
   const path = usePathname();
   const drawerId = useId();
-  const [menuOpen, setMenuOpen] = useState(false);
+  const menuBaseId = useId();
+  const [openMenuId, setOpenMenuId] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const [mounted, setMounted] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
-  const companyButtonRef = useRef<HTMLButtonElement>(null);
+  const menuButtonRefs = useRef<Record<string, HTMLButtonElement | null>>({});
   const mobileButtonRef = useRef<HTMLButtonElement>(null);
   const sheetRef = useRef<HTMLElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => setMounted(true), []);
 
+  const closeDesktopMenu = useCallback(() => setOpenMenuId(null), []);
+
   const closeMobile = useCallback(() => {
     setMobileOpen(false);
-    // Restore focus after unmount
+    setMobileExpanded(null);
     requestAnimationFrame(() => mobileButtonRef.current?.focus());
   }, []);
 
   useEffect(() => {
-    setMenuOpen(false);
+    setOpenMenuId(null);
     setMobileOpen(false);
+    setMobileExpanded(null);
   }, [path]);
 
   useEffect(() => {
@@ -60,15 +116,18 @@ export function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Close desktop mega on outside click
   useEffect(() => {
     function close(event: MouseEvent) {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) setMenuOpen(false);
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setOpenMenuId(null);
+      }
     }
     document.addEventListener("mousedown", close);
     return () => document.removeEventListener("mousedown", close);
   }, []);
 
-  // Body scroll lock
+  // Body scroll lock for mobile sheet
   useEffect(() => {
     if (!mobileOpen) return;
     const html = document.documentElement;
@@ -99,11 +158,7 @@ export function Nav() {
     if (!mobileOpen) return;
 
     const sheet = sheetRef.current;
-    const focusInitial = () => {
-      closeButtonRef.current?.focus();
-    };
-    // Defer until portal paints
-    const t = window.setTimeout(focusInitial, 0);
+    const t = window.setTimeout(() => closeButtonRef.current?.focus(), 0);
 
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
@@ -137,24 +192,43 @@ export function Nav() {
     };
   }, [mobileOpen, closeMobile]);
 
-  // Desktop company menu Escape
+  // Desktop mega Escape + left/right between menu buttons
   useEffect(() => {
-    if (!menuOpen) return;
+    if (!openMenuId) return;
     function onKeyDown(event: KeyboardEvent) {
-      if (event.key !== "Escape") return;
-      setMenuOpen(false);
-      companyButtonRef.current?.focus();
+      if (event.key === "Escape") {
+        event.preventDefault();
+        const id = openMenuId;
+        setOpenMenuId(null);
+        if (id) menuButtonRefs.current[id]?.focus();
+        return;
+      }
+      if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+      const ids = NAV_PRIMARY.map((g) => g.id);
+      const idx = ids.indexOf(openMenuId!);
+      if (idx < 0) return;
+      event.preventDefault();
+      const next =
+        event.key === "ArrowRight"
+          ? ids[(idx + 1) % ids.length]
+          : ids[(idx - 1 + ids.length) % ids.length];
+      setOpenMenuId(next);
+      menuButtonRefs.current[next]?.focus();
     }
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
-  }, [menuOpen]);
+  }, [openMenuId]);
 
   const navLinkClass = (active: boolean) =>
-    `px-3 py-2 rounded-md text-[15px] font-medium transition-colors ${
+    `px-2.5 py-2 rounded-md text-[14px] font-medium transition-colors xl:px-3 xl:text-[15px] ${
       active ? "bg-ocean-wash text-navy" : "text-navy hover:text-ocean"
     }`;
 
-  const mobileLinks = [...primaryLinks, ...companyLinks, ["Contact", "/contact"] as [string, string]];
+  const openGroup = NAV_PRIMARY.find((g) => g.id === openMenuId) ?? null;
+
+  const toggleMobileSection = (id: string) => {
+    setMobileExpanded((prev) => (prev === id ? null : id));
+  };
 
   const mobileSheet =
     mounted &&
@@ -194,17 +268,52 @@ export function Nav() {
 
           <div className="nav-mobile-sheet-body">
             <ul className="nav-mobile-link-list">
-              {mobileLinks.map(([label, href]) => {
-                const active = href === "/resources" ? path.startsWith("/resources") : path === href;
+              {NAV_PRIMARY.map((group) => {
+                const groupActive = isNavGroupActive(path, group);
+                const expanded = mobileExpanded === group.id;
+                const panelId = `${drawerId}-${group.id}-panel`;
                 return (
-                  <li key={href}>
-                    <Link
-                      href={href}
-                      className={`nav-mobile-link ${active ? "nav-mobile-link--active" : ""}`}
-                      onClick={closeMobile}
+                  <li key={group.id}>
+                    <button
+                      type="button"
+                      className={`nav-mobile-link flex w-full items-center justify-between text-left ${
+                        groupActive ? "nav-mobile-link--active" : ""
+                      }`}
+                      aria-expanded={expanded}
+                      aria-controls={panelId}
+                      onClick={() => toggleMobileSection(group.id)}
                     >
-                      {label}
-                    </Link>
+                      <span>{group.label}</span>
+                      <span
+                        aria-hidden="true"
+                        className={`ml-2 text-[12px] transition-transform ${expanded ? "rotate-180" : ""}`}
+                      >
+                        ⌄
+                      </span>
+                    </button>
+                    {expanded ? (
+                      <ul id={panelId} className="border-b border-[rgba(11,42,74,0.08)] bg-[rgba(231,243,251,0.35)] pb-2">
+                        {group.children.map((item: SiteLink) => {
+                          const active = isNavLinkActive(path, item.href);
+                          const isHub =
+                            group.href != null && hrefPathname(item.href) === hrefPathname(group.href);
+                          return (
+                            <li key={`m-${group.id}-${item.href}-${item.label}`}>
+                              <Link
+                                href={item.href}
+                                className={`block px-5 py-2.5 text-[15px] ${
+                                  isHub || active ? "font-semibold " : ""
+                                }${active ? "text-ocean" : "text-navy/85"}`}
+                                aria-current={active ? "page" : undefined}
+                                onClick={closeMobile}
+                              >
+                                {item.label}
+                              </Link>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    ) : null}
                   </li>
                 );
               })}
@@ -217,18 +326,15 @@ export function Nav() {
                 data-integration-point="sign-in"
                 onClick={closeMobile}
               >
-                Sign in
+                {SIGN_IN_LABEL}
               </a>
-              <a
+              <Link
                 href={APP_GET_STARTED_URL}
                 className="nav-mobile-action nav-mobile-action--primary"
                 data-integration-point="get-started"
                 onClick={closeMobile}
               >
                 {PRIMARY_CTA_LABEL}
-              </a>
-              <Link href="/platform" className="nav-mobile-action nav-mobile-action--ghost" onClick={closeMobile}>
-                {SECONDARY_CTA_LABEL}
               </Link>
             </div>
           </div>
@@ -244,7 +350,7 @@ export function Nav() {
       </a>
       <div className="shell relative">
         <div
-          className={`nav-bar liquid-glass liquid-glass--strong relative z-50 flex items-center justify-between gap-3 px-3 py-2.5 sm:px-4 ${
+          className={`nav-bar liquid-glass liquid-glass--strong liquid-glass--unclipped relative z-50 flex items-center justify-between gap-2 px-3 py-2.5 sm:gap-3 sm:px-4 ${
             scrolled ? "shadow-[0_12px_36px_rgba(1,43,109,0.12)]" : ""
           }`}
         >
@@ -252,66 +358,62 @@ export function Nav() {
             <BrandLogo />
           </Link>
 
-          <nav aria-label="Primary" className="hidden items-center gap-0.5 lg:flex" ref={menuRef}>
-            {primaryLinks.map(([label, href]) => (
-              <Link
-                key={href}
-                href={href}
-                className={navLinkClass(href === "/resources" ? path.startsWith("/resources") : path === href)}
-              >
-                {label}
-              </Link>
-            ))}
-            <button
-              ref={companyButtonRef}
-              type="button"
-              className={`flex items-center gap-1 ${navLinkClass(menuOpen || companyLinks.some(([, href]) => path === href))}`}
-              aria-expanded={menuOpen}
-              aria-controls={menuOpen ? "mega-menu" : undefined}
-              onClick={() => setMenuOpen((v) => !v)}
-            >
-              Company
-              <span aria-hidden="true" className={`transition-transform ${menuOpen ? "rotate-180" : ""}`}>
-                ⌄
-              </span>
-            </button>
+          <nav aria-label="Primary" className="hidden items-center gap-0 lg:flex" ref={menuRef}>
+            {NAV_PRIMARY.map((group) => {
+              const active = isNavGroupActive(path, group) || openMenuId === group.id;
+              const panelId = `${menuBaseId}-${group.id}`;
+              const isOpen = openMenuId === group.id;
+              return (
+                <button
+                  key={group.id}
+                  ref={(el) => {
+                    menuButtonRefs.current[group.id] = el;
+                  }}
+                  type="button"
+                  className={`flex items-center gap-1 ${navLinkClass(active)}`}
+                  aria-expanded={isOpen}
+                  aria-haspopup="true"
+                  aria-controls={isOpen ? panelId : undefined}
+                  onClick={() => setOpenMenuId((prev) => (prev === group.id ? null : group.id))}
+                >
+                  {group.label}
+                  <span
+                    aria-hidden="true"
+                    className={`text-[11px] transition-transform ${isOpen ? "rotate-180" : ""}`}
+                  >
+                    ⌄
+                  </span>
+                </button>
+              );
+            })}
 
-            {menuOpen && (
-              <div id="mega-menu" className="nav-dropdown absolute right-0 top-full z-[60] mt-2 w-[min(320px,calc(100vw-2rem))]">
-                <div className="p-5">
-                  <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.1em] text-structural">Company</p>
-                  <ul className="grid gap-1">
-                    {companyLinks.map(([label, href]) => (
-                      <li key={href}>
-                        <Link
-                          href={href}
-                          className="block rounded-md px-3 py-2 text-[15px] text-navy transition-colors hover:bg-ocean-wash hover:text-navy"
-                        >
-                          {label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+            {openGroup ? (
+              <div
+                id={`${menuBaseId}-${openGroup.id}`}
+                role="region"
+                aria-label={`${openGroup.label} menu`}
+                className="nav-dropdown absolute left-0 right-0 top-full z-[60] mt-2 w-full max-h-[min(70vh,560px)] overflow-y-auto"
+              >
+                <MegaPanel group={openGroup} path={path} onNavigate={closeDesktopMenu} />
               </div>
-            )}
+            ) : null}
           </nav>
 
           <div className="hidden items-center gap-1 lg:flex">
             <a
               href={APP_SIGN_IN_URL}
-              className="rounded-md px-3 py-2 text-[15px] font-medium text-navy transition-colors hover:text-ocean"
+              className="rounded-md px-3 py-2 text-[14px] font-medium text-navy transition-colors hover:text-ocean xl:text-[15px]"
               data-integration-point="sign-in"
             >
-              Sign in
+              {SIGN_IN_LABEL}
             </a>
-            <a
+            <Link
               href={APP_GET_STARTED_URL}
-              className="inline-flex items-center rounded-md bg-navy px-5 py-2.5 text-[15px] font-semibold text-white transition-colors hover:bg-[#0e3a68]"
+              className="inline-flex items-center rounded-md bg-navy px-4 py-2.5 text-[14px] font-semibold text-white transition-colors hover:bg-[#0e3a68] xl:px-5 xl:text-[15px]"
               data-integration-point="get-started"
             >
               {PRIMARY_CTA_LABEL}
-            </a>
+            </Link>
           </div>
 
           <button

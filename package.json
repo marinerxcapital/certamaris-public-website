@@ -8,7 +8,13 @@
     "build:static": "cross-env STATIC_EXPORT=true next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "ci:validate": "npm audit --omit=dev --audit-level=high && npm run typecheck && npm run build:static"
+    "ci:validate": "npm audit --omit=dev --audit-level=high && npm run typecheck && npm run build:static",
+    "qa": "node scripts/qa/run-all.mjs",
+    "qa:content": "node scripts/qa/content-qa.mjs",
+    "qa:routes": "node scripts/qa/check-routes.mjs --out --include-planned",
+    "qa:seo": "node scripts/qa/check-seo.mjs",
+    "qa:links": "node scripts/qa/check-links.mjs",
+    "qa:routes:http": "node scripts/qa/check-routes.mjs --base http://127.0.0.1:4173 --include-planned"
   },
   "dependencies": {
     "framer-motion": "12.42.2",

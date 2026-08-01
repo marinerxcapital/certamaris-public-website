@@ -5,8 +5,10 @@ import { LiquidGlass } from "@/components/LiquidGlass";
 import { ProductScreenFrame } from "@/components/ProductScreens";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
-import { PRIMARY_CTA_LABEL, REGULATORY_BOUNDARY, SECONDARY_CTA_LABEL } from "@/lib/constants";
+import { APP_SIGN_IN_URL, REGULATORY_BOUNDARY } from "@/lib/constants";
+import { PLATFORM_HIERARCHY, TRACEABILITY_CHAIN } from "@/lib/product-hierarchy";
 import { productProofScreens } from "@/lib/product-screens";
+import { differentiationModels, implementationSteps } from "@/lib/solutions-audience";
 
 const problemItems = [
   {
@@ -64,39 +66,79 @@ const showcaseSteps = [
 
 const outcomes = [
   {
-    title: "Fleet assurance visibility",
-    body: "See vessels, open findings, evidence freshness, and readiness gaps without asking each operating unit for a separate status view.",
-    href: "/industries",
-    linkLabel: "Fleet roles and industries",
+    title: "Faster evidence retrieval",
+    body: "Find what supports a control without reconstructing folders and inboxes under survey pressure.",
+    href: "/platform/evidence",
+    linkLabel: "Evidence management",
   },
   {
-    title: "Controlled evidence trail",
-    body: "Keep requirement, control, evidence, finding, and corrective action linked so reviewers do not rebuild the story from inboxes.",
-    href: "/solutions",
-    linkLabel: "Evidence and findings workflows",
+    title: "Fewer overdue actions lost in email",
+    body: "Corrective actions stay owned, aged, and tied to verification evidence before closure.",
+    href: "/platform/findings-corrective-actions",
+    linkLabel: "Findings and CAPA",
   },
   {
-    title: "Inspectable readiness packages",
-    body: "Assemble review packages from the live record — scope, exceptions, and owner decisions — without inventing outcomes.",
-    href: "/platform",
-    linkLabel: "Platform and work products",
+    title: "Consistent vessel records",
+    body: "Company, fleet, and vessel portals keep hierarchy intact with individual auditable identities.",
+    href: "/platform/vessel-portal",
+    linkLabel: "Vessel portal",
+  },
+  {
+    title: "Clearer fleet posture",
+    body: "Roll readiness, findings, and deadlines without inventing scores or fake metrics.",
+    href: "/platform/fleet-management",
+    linkLabel: "Fleet management",
+  },
+  {
+    title: "Easier survey preparation",
+    body: "Assemble readiness packages from approved live work — not a last-week document scramble.",
+    href: "/solutions/audit-survey-readiness",
+    linkLabel: "Audit & survey readiness",
+  },
+  {
+    title: "Controlled change history",
+    body: "Requirement versions, evidence decisions, and package releases retain audit history.",
+    href: "/platform/regulatory-intelligence",
+    linkLabel: "Regulatory intelligence",
   },
 ];
 
 const audiences = [
   {
-    title: "Ship owners and operators",
-    body: "A controlled view of readiness across the fleet, including open decisions that need leadership attention.",
+    title: "Ship owners",
+    body: "Fleet-wide readiness and open leadership decisions without chasing every vessel.",
+    href: "/who-we-serve/ship-owners",
   },
   {
-    title: "Technical managers and DPAs",
-    body: "A practical system for mapping SMS cyber procedures, vessel scope, evidence, and findings to the review record.",
+    title: "Operators",
+    body: "Tenant-isolated company workspace for users, fleets, engagements, and released deliverables.",
+    href: "/who-we-serve/operators",
   },
   {
-    title: "Maritime cybersecurity and IT/OT teams",
-    body: "A way to connect shipboard systems, technical safeguards, and remediation work to the compliance questions they support.",
+    title: "Technical managers & DPAs",
+    body: "SMS cyber evidence, findings, CAPA verification, and readiness packages in one record.",
+    href: "/who-we-serve/technical-managers-dpas",
+  },
+  {
+    title: "Maritime IT/OT teams",
+    body: "Control mapping that respects IT/OT boundaries, with optional SBOM context.",
+    href: "/who-we-serve/maritime-it-ot",
+  },
+  {
+    title: "Vessel masters & officers",
+    body: "Vessel-scoped work with named users — not a shared vessel password.",
+    href: "/who-we-serve/vessel-masters-officers",
   },
 ];
+
+const trustLinks: [string, string][] = [
+  ["/security", "Security"],
+  ["/privacy", "Privacy"],
+  ["/accessibility", "Accessibility"],
+  ["/compliance", "Compliance"],
+];
+
+const homepageDifferentiation = differentiationModels.slice(0, 6);
 
 export default function HomePage() {
   return (
@@ -106,24 +148,29 @@ export default function HomePage() {
           <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:gap-14">
             <Reveal className="hero-copy-block max-w-2xl">
               <LiquidGlass variant="strong" padding="lg">
-                <Eyebrow>Maritime cyber compliance and assurance</Eyebrow>
+                <Eyebrow>Maritime cyber compliance and continuous assurance</Eyebrow>
                 <h1
                   id="hero-title"
                   className="mb-6 text-[40px] leading-[1.02] tracking-[-0.02em] sm:text-[56px] lg:text-[64px]"
                 >
-                  Keep the cyber assurance record connected across the fleet.
+                  Continuous assurance across every company, fleet, vessel, control, evidence record, finding, and
+                  released report.
                 </h1>
                 <p className="mb-4 max-w-[39rem] text-[17px] font-medium leading-[1.55] tracking-[-0.01em] text-navy/82 sm:text-[19px]">
-                  CertaMaris links requirements, controls, evidence, findings, corrective actions, and reviewer
-                  decisions in one system of record — so readiness work is inspectable before survey week.
+                  CertaMaris is evidence-first maritime cyber compliance software for ship owners, operators, DPAs,
+                  technical managers, IT/OT teams, and vessel users — so readiness work is inspectable before survey
+                  week.
                 </p>
                 <p className="hero-trace-line mb-8">
-                  Requirement → Control → Evidence → Finding → Action → Readiness package
+                  {TRACEABILITY_CHAIN.map((s) => s.title).join(" → ")}
                 </p>
                 <div className="flex flex-wrap gap-4">
-                  <Button href="/contact">{PRIMARY_CTA_LABEL}</Button>
+                  <Button href="/contact?intent=demo">Request a demo</Button>
                   <Button href="/platform" variant="secondary">
-                    {SECONDARY_CTA_LABEL}
+                    View platform
+                  </Button>
+                  <Button href={APP_SIGN_IN_URL} variant="ghost" external>
+                    Sign in
                   </Button>
                 </div>
                 <p className="mt-6 max-w-xl text-[13.5px] leading-relaxed text-navy/75">
@@ -177,6 +224,33 @@ export default function HomePage() {
         </div>
       </Section>
 
+      <Section id="hierarchy">
+        <Reveal className="mb-10 max-w-3xl">
+          <Eyebrow>Platform hierarchy</Eyebrow>
+          <h2 className="text-[30px] leading-[1.12] sm:text-[38px]">
+            Corporate administration → client company & fleet → vessel portals → controlled work objects.
+          </h2>
+          <p className="mt-4 text-[15.5px] leading-relaxed text-structural">
+            Individual auditable identities at every level. Not a shared vessel password model.
+          </p>
+        </Reveal>
+        <div className="grid gap-3 md:grid-cols-2">
+          {PLATFORM_HIERARCHY.map((level, index) => (
+            <LiquidGlass key={level.id} as="article" variant="default" padding="md">
+              <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-ocean mb-1">
+                {String(index + 1).padStart(2, "0")}
+              </p>
+              <h3 className="text-[17px] font-semibold mb-2">
+                <Link href={level.href} className="hover:text-ocean">
+                  {level.title}
+                </Link>
+              </h3>
+              <p className="text-[14px] leading-relaxed text-structural">{level.summary}</p>
+            </LiquidGlass>
+          ))}
+        </div>
+      </Section>
+
       <Section id="product-dashboard">
         <Reveal className="mb-12 max-w-3xl">
           <Eyebrow>Product in action</Eyebrow>
@@ -193,12 +267,12 @@ export default function HomePage() {
 
       <Section spacing="compact">
         <Reveal className="mb-10 max-w-2xl">
-          <Eyebrow>What operators get</Eyebrow>
+          <Eyebrow>Business value</Eyebrow>
           <h2 className="text-[30px] leading-[1.12] sm:text-[38px]">
-            Outcomes that map to how fleets actually work.
+            Operational outcomes — without fabricated metrics.
           </h2>
         </Reveal>
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {outcomes.map((item) => (
             <LiquidGlass key={item.title} as="article" variant="default" padding="md" className="outcome-row">
               <h3 className="text-[18px] font-semibold">{item.title}</h3>
@@ -214,7 +288,7 @@ export default function HomePage() {
       <Section>
         <div className="grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
           <Reveal>
-            <Eyebrow>Who it serves</Eyebrow>
+            <Eyebrow>Who we serve</Eyebrow>
             <h2 className="text-[30px] leading-[1.12] sm:text-[38px]">
               Built for the roles that carry the review record.
             </h2>
@@ -222,11 +296,18 @@ export default function HomePage() {
               Classification, assurance, and review stakeholders can work from a structured evidence trail when the
               operator grants access — without CertaMaris replacing class, flag, or counsel.
             </p>
+            <Link href="/who-we-serve" className="mt-5 inline-block text-[14px] font-semibold text-ocean hover:underline">
+              All roles
+            </Link>
           </Reveal>
           <div className="grid gap-4">
             {audiences.map((item) => (
               <LiquidGlass key={item.title} as="article" variant="subtle" padding="md" className="audience-note">
-                <h3 className="mb-2 text-[17px] font-semibold">{item.title}</h3>
+                <h3 className="mb-2 text-[17px] font-semibold">
+                  <Link href={item.href} className="hover:text-ocean">
+                    {item.title}
+                  </Link>
+                </h3>
                 <p className="text-[14.5px] leading-relaxed text-structural">{item.body}</p>
               </LiquidGlass>
             ))}
@@ -234,11 +315,96 @@ export default function HomePage() {
         </div>
       </Section>
 
+      <Section surface="paper" spacing="compact">
+        <Reveal className="mb-8 max-w-2xl">
+          <Eyebrow>Differentiation</Eyebrow>
+          <h2 className="text-[30px] leading-[1.12] sm:text-[38px]">
+            Maritime-native — not another spreadsheet or generic GRC shell.
+          </h2>
+        </Reveal>
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {homepageDifferentiation.map((model) => (
+            <LiquidGlass key={model.id} as="article" variant="subtle" padding="md">
+              <h3 className="text-[15.5px] font-semibold mb-2">{model.title}</h3>
+              <p className="text-[13.5px] text-structural leading-relaxed mb-2">{model.weakness}</p>
+              <p className="text-[13.5px] text-navy/85 leading-relaxed">
+                <span className="font-semibold text-ocean">CertaMaris: </span>
+                {model.certamaris}
+              </p>
+            </LiquidGlass>
+          ))}
+        </div>
+        <div className="mt-6">
+          <Link href="/why-certamaris" className="text-[14px] font-semibold text-ocean hover:underline">
+            Why CertaMaris — full comparison
+          </Link>
+        </div>
+      </Section>
+
+      <Section spacing="compact">
+        <Reveal className="mb-8 max-w-2xl">
+          <Eyebrow>Compliance</Eyebrow>
+          <h2 className="text-[28px] leading-[1.12] sm:text-[34px]">
+            Framework-aligned workflows. Official texts control.
+          </h2>
+          <p className="mt-4 text-[15px] leading-relaxed text-structural">
+            Explore IMO MSC.428(98), IACS UR E26/E27, and related compliance context — without automatic compliance
+            claims.
+          </p>
+          <div className="mt-5 flex flex-wrap gap-4">
+            <Link href="/compliance" className="text-[14px] font-semibold text-ocean hover:underline">
+              Compliance overview
+            </Link>
+            <Link href="/solutions/imo-msc-428-98" className="text-[14px] font-semibold text-ocean hover:underline">
+              IMO MSC.428(98)
+            </Link>
+            <Link href="/solutions/iacs-ur-e26" className="text-[14px] font-semibold text-ocean hover:underline">
+              IACS UR E26
+            </Link>
+            <Link href="/solutions/iacs-ur-e27" className="text-[14px] font-semibold text-ocean hover:underline">
+              IACS UR E27
+            </Link>
+          </div>
+        </Reveal>
+      </Section>
+
+      <Section>
+        <Reveal className="mb-8 max-w-2xl">
+          <Eyebrow>Implementation</Eyebrow>
+          <h2 className="text-[28px] leading-[1.12] sm:text-[34px]">
+            Discovery through continuous assurance.
+          </h2>
+        </Reveal>
+        <ol className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {implementationSteps.slice(0, 4).map((step) => (
+            <li key={step.number}>
+              <LiquidGlass variant="subtle" padding="md">
+                <span className="font-mono text-ocean text-[12px]">{step.number}</span>
+                <h3 className="text-[15px] font-semibold mt-2 mb-1">{step.title}</h3>
+                <p className="text-[13px] text-structural leading-relaxed">{step.detail}</p>
+              </LiquidGlass>
+            </li>
+          ))}
+        </ol>
+        <div className="mt-6">
+          <Link href="/implementation" className="text-[14px] font-semibold text-ocean hover:underline">
+            Full implementation path
+          </Link>
+        </div>
+      </Section>
+
       <Section spacing="compact">
         <Reveal className="mx-auto max-w-4xl">
           <LiquidGlass variant="strong" padding="lg" className="trust-note">
-            <p className="mb-2 font-mono text-[11px] uppercase tracking-[0.14em] text-ocean">Regulatory boundary</p>
-            <p className="text-[15px] leading-relaxed text-navy/78">{REGULATORY_BOUNDARY}</p>
+            <p className="mb-2 font-mono text-[11px] uppercase tracking-[0.14em] text-ocean">Trust & regulatory boundary</p>
+            <p className="text-[15px] leading-relaxed text-navy/78 mb-4">{REGULATORY_BOUNDARY}</p>
+            <div className="flex flex-wrap gap-4">
+              {trustLinks.map(([href, label]) => (
+                <Link key={href} href={href} className="text-[14px] font-semibold text-ocean hover:underline">
+                  {label}
+                </Link>
+              ))}
+            </div>
           </LiquidGlass>
         </Reveal>
       </Section>
@@ -247,20 +413,32 @@ export default function HomePage() {
         <div className="final-cta-grid">
           <Reveal className="max-w-2xl">
             <LiquidGlass variant="dark" padding="lg">
-              <p className="mb-3 font-mono text-[12px] uppercase tracking-[0.14em] text-ocean-light">Readiness discussion</p>
+              <p className="mb-3 font-mono text-[12px] uppercase tracking-[0.14em] text-ocean-light">Request a demo</p>
               <h2 className="mb-4 text-[30px] leading-[1.08] text-white sm:text-[40px]">
                 Request a focused conversation on readiness across your fleet.
               </h2>
               <p className="max-w-xl text-[15.5px] leading-relaxed text-white/72">
                 Tell us about fleet scope, evidence condition, and open findings. This is a request form — not a
-                calendar booking — so we can prepare a useful readiness discussion.
+                calendar booking — so we can prepare a useful demo and readiness discussion.
               </p>
             </LiquidGlass>
           </Reveal>
           <Reveal delay={0.06} className="flex flex-col gap-3 sm:flex-row lg:justify-end lg:self-center">
-            <Button href="/contact">{PRIMARY_CTA_LABEL}</Button>
-            <Button href="/platform" variant="secondary" className="border-white/35 bg-white/10 text-white hover:bg-white/16">
-              {SECONDARY_CTA_LABEL}
+            <Button href="/contact?intent=demo">Request a demo</Button>
+            <Button
+              href="/platform"
+              variant="secondary"
+              className="border-white/35 bg-white/10 text-white hover:bg-white/16"
+            >
+              View platform
+            </Button>
+            <Button
+              href={APP_SIGN_IN_URL}
+              variant="ghost"
+              external
+              className="text-white hover:text-ocean-light"
+            >
+              Sign in
             </Button>
           </Reveal>
         </div>

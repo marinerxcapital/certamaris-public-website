@@ -20,7 +20,7 @@ const variants: Record<NonNullable<ButtonProps["variant"]>, string> = {
 };
 
 export function Button({ href, children, variant = "primary", className = "", external = false }: ButtonProps) {
-  const classes = `${base} ${variants[variant]} ${className}`;
+  const classes = `${base} ${variants[variant]} ${className}`.trim();
   if (external) {
     return (
       <a href={href} className={classes} target="_blank" rel="noopener noreferrer">
