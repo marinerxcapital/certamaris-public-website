@@ -180,7 +180,7 @@ export const solutionsPages: SolutionPage[] = [
     eyebrow: "Solutions · 03",
     headline: "Structure cyber risk management work under the SMS — without inventing applicability.",
     intro:
-      "MSC.428(98) places cyber risk in the Safety Management System. CertaMaris structures supporting evidence, findings, and plan work without replacing the SMS or DOC process.",
+      "MSC.428(98) places cyber risk in the Safety Management System. CertaMaris structures evidence and findings without replacing the SMS or DOC process.",
     buyer: "DPAs, company security and compliance officers, technical managers, and operators",
     problem:
       "Cyber risk work is often detached from SMS procedures, so internal audits and DOC verifications cannot show a continuous trail.",
@@ -241,7 +241,7 @@ export const solutionsPages: SolutionPage[] = [
     eyebrow: "Solutions · 04",
     headline: "Ship-level cyber resilience evidence structured for design and survey conversations.",
     intro:
-      "IACS UR E26 addresses ship-level cyber resilience, including systems identification, segmentation, and access control. CertaMaris structures evidence without replacing class interpretation.",
+      "IACS UR E26 addresses ship-level resilience, systems identification, segmentation, and access control. CertaMaris structures evidence without replacing class interpretation.",
     buyer: "Technical managers, newbuild project teams, cybersecurity leads, and owners with E26-applicable vessels",
     problem:
       "E26-related evidence is scattered across shipyard packages, OEM documentation, and operational records.",
@@ -302,7 +302,7 @@ export const solutionsPages: SolutionPage[] = [
     eyebrow: "Solutions · 05",
     headline: "Equipment- and system-level cyber resilience evidence with clear ownership.",
     intro:
-      "IACS UR E27 addresses cyber resilience of onboard systems and equipment. CertaMaris keeps system-level mappings and supplier evidence distinct from ship-level E26 work.",
+      "IACS UR E27 addresses cyber resilience of onboard systems. CertaMaris keeps supplier evidence distinct from ship-level E26 work.",
     buyer: "IT/OT teams, technical managers, OEM coordinators, and project cyber leads",
     problem:
       "System-level evidence from OEMs and integrators does not stay linked to the controls and findings the operator must defend.",
@@ -424,7 +424,7 @@ export const solutionsPages: SolutionPage[] = [
     eyebrow: "Solutions · 07",
     headline: "Evidence with provenance. Findings with a defensible trail.",
     intro:
-      "Evidence stays reviewable with a custodian, version, and decision. Findings separate condition, criterion, evidence, and consequence for defensible follow-up.",
+      "Evidence stays reviewable with a custodian, version, and decision. Findings separate condition, criterion, evidence, and consequence.",
     buyer: "Evidence custodians, reviewers, DPAs, and technical managers",
     problem:
       "Files age in drives; findings live in email; neither can answer 'what supports this control today?'",
@@ -546,7 +546,7 @@ export const solutionsPages: SolutionPage[] = [
     eyebrow: "Solutions · 09",
     headline: "Plan versions that match implemented work.",
     intro:
-      "Cybersecurity Plan Management keeps templates, collaboration, review, versioning, and release control so the plan presented for review is assembled from approved facts.",
+      "Cybersecurity Plan Management keeps templates, review, versioning, and release control so plans are assembled from approved facts.",
     buyer: "DPAs, cybersecurity leads, technical managers, and company officers",
     problem:
       "Plan documents drift from evidence and findings; multiple versions circulate by email.",
@@ -606,7 +606,7 @@ export const solutionsPages: SolutionPage[] = [
     eyebrow: "Solutions · 10",
     headline: "SBOM and vulnerability context where private tooling is configured.",
     intro:
-      "SBOM and Vulnerability Assurance links software bills of materials and vulnerability review to vessel and system context when private tooling is configured.",
+      "SBOM and Vulnerability Assurance links software bills of materials and vulnerability review to vessel context when private tooling is configured.",
     buyer: "Maritime IT/OT teams, cybersecurity leads, and technical managers",
     problem:
       "Software composition risk sits outside the compliance evidence trail, so findings never connect.",
@@ -792,7 +792,7 @@ export const audiencePages: AudiencePage[] = [
     eyebrow: "Who we serve · Owners",
     headline: "Fleet-wide cyber assurance visibility without chasing every vessel.",
     intro:
-      "CertaMaris gives ship owners a controlled fleet view of readiness, open findings, and decisions needing leadership attention without replacing class or flag judgment.",
+      "CertaMaris gives ship owners a controlled fleet view of readiness, findings, and decisions needing leadership attention.",
     responsibilities: [
       "Oversight of fleet cyber-risk posture",
       "Support for board, insurer, and charterer conversations",
@@ -904,7 +904,7 @@ export const audiencePages: AudiencePage[] = [
     eyebrow: "Who we serve · Technical · DPA",
     headline: "One system of record for the SMS cyber work you already own.",
     intro:
-      "CertaMaris centralizes the evidence, findings, plans, and readiness work technical managers and DPAs own under the SMS without replacing their accountability.",
+      "CertaMaris centralizes evidence, findings, plans, and readiness work for technical managers and DPAs under the SMS.",
     responsibilities: [
       "SMS cyber-risk procedures and oversight",
       "Coordination across vessels, surveyors, and IT/OT",
@@ -1072,7 +1072,7 @@ export const audiencePages: AudiencePage[] = [
     eyebrow: "Who we serve · Class · Survey",
     headline: "A reviewable trail structured around what a survey verifies.",
     intro:
-      "When an operator grants access, survey stakeholders can inspect requirement-mapped evidence with provenance rather than a document dump. Class judgment remains independent.",
+      "With operator authorization, survey stakeholders can inspect requirement-mapped evidence with provenance rather than a document dump.",
     responsibilities: [
       "Verify requirements under the applicable survey scope",
       "Review evidence sufficiency and currency",

@@ -66,7 +66,7 @@ const baseArticles: Omit<Article, "publishedDate" | "publishedLabel" | "author">
     kind: "explainer",
     tags: ["IACS", "UR E26", "UR E27", "class", "newbuild"],
     excerpt:
-      "UR E26 addresses ship-level resilience and E27 covers onboard systems and equipment. Both apply from new construction contracts signed on or after 1 July 2024.",
+      "UR E26 covers ship-level resilience and E27 covers onboard systems. Both apply from new construction contracts signed on or after 1 July 2024.",
     body: [
       "IACS Unified Requirements E26 (Cyber Resilience of Ships) and E27 (Cyber Resilience of On-board Systems and Equipment) target cyber resilience at design and construction rather than as a retrofit checklist bolted onto an already operating vessel. As stated for the unified requirements’ effective application, they apply from new construction contracts signed on or after 1 July 2024. That contract-date scope is central: E26/E27 are not a blanket mandate for every existing ship in the world fleet on a single calendar day.",
       "UR E26 sets requirements at the ship level. It addresses the vessel as an integrated system: identification of computer-based systems, network architecture and segmentation, access control, and the overall cyber resilience properties expected of the ship. The shipyard, owner specification, and classification society survey scope all interact at this level because E26 is about how the delivered ship is designed and verified as a whole.",

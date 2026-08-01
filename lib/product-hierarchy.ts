@@ -292,7 +292,7 @@ export const productModules: ProductModule[] = [
     eyebrow: "Platform · Corporate",
     headline: "Internal administration across clients, vessels, and support access.",
     intro:
-      "The Corporate Control Plane supports portfolio visibility, client and vessel provisioning, assurance delivery, and audited support sessions; it is not a customer self-service console.",
+      "The Corporate Control Plane supports portfolio visibility, client and vessel provisioning, assurance delivery, and audited support sessions.",
     maturity: "current",
     buyer: "CertaMaris internal operators, delivery leads, and platform administrators",
     problem:
@@ -375,7 +375,7 @@ export const productModules: ProductModule[] = [
     eyebrow: "Platform · Company",
     headline: "A tenant-isolated workspace for the company that owns the fleet.",
     intro:
-      "The Client Company Portal is an operator workspace for company administration, fleets, users, engagements, assessments, evidence, findings, plans, and released deliverables.",
+      "The Client Company Portal is an operator workspace for administration, fleets, users, engagements, assessments, evidence, findings, plans, and deliverables.",
     maturity: "current",
     buyer: "Ship owners, operators, company admins, technical managers, and DPAs",
     problem:
@@ -540,7 +540,7 @@ export const productModules: ProductModule[] = [
     eyebrow: "Platform · Vessel",
     headline: "Vessel-scoped assurance work with individual auditable identities.",
     intro:
-      "Each vessel portal holds systems, assessments, evidence, findings, risks, actions, plans, and reports. Human users receive individual accounts, not a shared vessel password.",
+      "Each vessel portal holds systems, assessments, evidence, findings, risks, actions, plans, and reports with individual user accounts.",
     maturity: "current",
     buyer: "Vessel masters and officers, vessel IT/OT contacts, technical managers, and DPAs",
     problem:
@@ -1128,7 +1128,7 @@ export const productModules: ProductModule[] = [
     eyebrow: "Platform · Integrations",
     headline: "Identity, storage, APIs, imports, SBOM, and export — labeled honestly.",
     intro:
-      "The integrations catalogue labels Available, Configurable, Custom, Planned, and Not Supported categories; unverified SIEM and ERP connectors are not claimed.",
+      "The integrations catalogue labels Available, Configurable, Custom, Planned, and Not Supported categories; unverified connectors are not claimed.",
     maturity: "current",
     buyer: "IT/OT leads, procurement, security, and implementation sponsors",
     problem:
