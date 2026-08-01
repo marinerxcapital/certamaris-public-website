@@ -5,6 +5,10 @@
  * Fail on placeholder / unfinished copy patterns in source and built HTML.
  * Patterns include: TODO, TBD, lorem, drafting note, provider-enabled-later hedges, etc.
  *
+ * Intentionally NOT banned (founder / leadership copy must pass):
+ *   - "Founder", "Skyler", "Skyler Brown", maritime credential phrases
+ * Use scripts/qa/check-founder.mjs for positive presence checks of those terms.
+ *
  * Usage:
  *   node scripts/qa/content-qa.mjs
  *   node scripts/qa/content-qa.mjs --out

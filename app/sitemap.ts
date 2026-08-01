@@ -38,7 +38,8 @@ const coreRoutes: Entry[] = [
   { path: "/why-certamaris", priority: 0.8, changeFrequency: "monthly" },
   { path: "/implementation", priority: 0.8, changeFrequency: "monthly" },
   { path: "/about", priority: 0.7, changeFrequency: "monthly" },
-  { path: "/about/leadership", priority: 0.55, changeFrequency: "monthly" },
+  /** Founder Person page (Skyler Brown) — keep discoverable for leadership SEO. */
+  { path: "/about/leadership", priority: 0.7, changeFrequency: "monthly" },
   { path: "/about/corporate-information", priority: 0.55, changeFrequency: "monthly" },
   { path: "/about/partners", priority: 0.55, changeFrequency: "monthly" },
   { path: "/about/careers", priority: 0.55, changeFrequency: "monthly" },

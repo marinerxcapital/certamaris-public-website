@@ -7,8 +7,8 @@
  * // OWNER_VERIFY: Company registration / EIN / company number
  * // OWNER_VERIFY: Registered office / principal business address
  * // OWNER_VERIFY: Governing law and venue for public website terms (counsel)
- * // OWNER_VERIFY: Leadership names, titles, bios, and credentials for public publication
- * // OWNER_VERIFY: Founder / operator biography details beyond high-level product-direction statement
+ * // APPROVED (2026-07-31 directive): Skyler Brown, Founder — public biography + credentials published on /about/leadership and /about
+ * // OWNER_VERIFY: Additional leadership names/titles beyond founder (none published; single-founder layout)
  * // OWNER_VERIFY: Customer names, logos, case studies, and references for public use
  * // OWNER_VERIFY: Partner / channel / alliance list for public publication
  * // OWNER_VERIFY: Open roles, locations, and hiring process details
@@ -225,15 +225,44 @@ export const procurementContent = {
   ],
 } as const;
 
+/**
+ * About page narrative content. Founder biography SoT is `lib/founder.ts`.
+ * Short company description aligns with brandIdentity.productSummary — no fake customers/certs.
+ */
 export const aboutContent = {
   eyebrow: "About",
-  title: "Maritime cyber compliance and assurance software for fleet-scale operators.",
+  title: "Maritime cyber compliance and continuous assurance for companies, fleets, and vessels.",
+  /** SHORT company description for hero intro. */
   intro:
-    "CertaMaris exists because cyber-risk compliance in the maritime sector was being managed with tools built for neither ships nor software — general-purpose document storage stretched past its limits.",
+    "CertaMaris is maritime cyber compliance and continuous-assurance software for fleet-scale operators — connecting requirements, vessel systems, assessments, evidence, findings, corrective actions, plans, quality review, and readiness reporting in one controlled record.",
+  /** STANDARD company description (mission framing). */
   mission:
-    "Help fleet operators maintain a controlled, inspectable record of maritime cyber compliance and assurance work — requirements, evidence, findings, corrective actions, and readiness packages — without replacing human judgment or official regulatory sources.",
-  problem:
-    "IMO cyber-risk management expectations and IACS UR E26/E27 introduced real operational requirements, but many operators still assemble proof across shared drives, spreadsheets, and disconnected systems. That approach breaks first at fleet scale: ownership blurs, evidence ages out, and readiness packages become a last-minute scramble.",
+    "Help maritime companies maintain a controlled, inspectable record of cyber compliance and assurance work across company, fleet, and vessel levels — without replacing human judgment or official regulatory sources.",
+  whyExists: {
+    eyebrow: "Why CertaMaris exists",
+    title: "Compliance work was scattered. The record was not.",
+    body: "Cybersecurity and compliance information in maritime operations is often distributed across spreadsheets, shared drives, email, consulting reports, vessel records, and disconnected technical systems. At fleet scale, ownership blurs, evidence ages out, and readiness packages become a last-minute scramble. CertaMaris was founded to put that work into one traceable operating environment.",
+  },
+  operatingModel: {
+    eyebrow: "Operating model",
+    title: "Company, fleet, and vessel — one assurance hierarchy.",
+    intro:
+      "CertaMaris is structured the way maritime operators already work: corporate and company administration, fleet posture, vessel-scoped work, and the controlled objects that make a review inspectable.",
+    levels: [
+      {
+        title: "Company",
+        body: "Tenant-isolated company workspace for users and roles, fleets, engagements, assessments, and released deliverables.",
+      },
+      {
+        title: "Fleet",
+        body: "Fleet inventory and readiness roll-up so posture, findings, and deadlines can be reviewed without rebuilding a deck from inboxes.",
+      },
+      {
+        title: "Vessel",
+        body: "Vessel-scoped systems, controls, evidence, findings, actions, and plans — with individual auditable user identities, not a shared vessel password.",
+      },
+    ],
+  },
   philosophy: [
     {
       title: "Official sources control",
@@ -252,10 +281,31 @@ export const aboutContent = {
       body: "Design decisions are tested against what changes when a fleet is many vessels rather than one — because that is where informal processes usually break first.",
     },
   ],
-  maturity:
-    "CertaMaris operates a production hybrid platform: an authenticated application for customers and a separate public marketing website. Commercial onboarding is sales-assisted. This website does not invent customer counts, certification badges, or regulator approvals.",
-  operatingCredibility:
-    "Product direction is informed by hands-on U.S. merchant-marine deck operations and formal marine transportation training, not a purely software-first read of maritime regulation. Public personal biographies and corporate registration particulars stay limited until they can be stated with the same precision as the platform’s regulatory boundaries.",
+  doesNotReplace: {
+    eyebrow: "Boundaries",
+    title: "What CertaMaris does not replace.",
+    intro:
+      "CertaMaris structures maritime cyber-compliance work so it is easier to inspect and maintain. It is not designed to blur who makes the regulated decision or who controls the official requirement.",
+    items: [
+      {
+        title: "Not legal or regulatory advice",
+        body: "Official IMO, IACS, flag-state, and classification-society texts control. Public explanations stay subordinate to those sources.",
+      },
+      {
+        title: "Not a substitute for human judgment",
+        body: "Applicability, evidence sufficiency, risk acceptance, and release decisions remain with qualified, accountable people.",
+      },
+      {
+        title: "Not class, flag, or counsel",
+        body: "CertaMaris does not replace classification societies, flag states, auditors, legal counsel, or accountable maritime personnel.",
+      },
+      {
+        title: "Not an SMS or DOC system",
+        body: "The platform structures cyber assurance work that supports SMS-aligned practice; it does not replace the SMS, SMS software, or Document of Compliance process.",
+      },
+    ],
+  },
+  /** Retained for residual consumers; prefer doesNotReplace on the About page. */
   boundaries: [
     {
       title: "What CertaMaris does",
@@ -270,32 +320,12 @@ export const aboutContent = {
       body: "The public website avoids unsupported customer, certification, pricing, audit-pass, or regulator-approval claims. Product proof is tied to inspectable workflow screens.",
     },
   ],
-  proofStandards: [
-    "Sanitized product screenshots must support a specific workflow claim.",
-    "Operational labels are preferred over fake names, fake customers, or fake metrics.",
-    "Evidence, findings, corrective actions, and governance views remain connected to regulatory boundaries.",
-    "Public explanations stay subordinate to official IMO, IACS, flag-state, and classification-society text.",
-  ],
-  companyFacts: [
-    {
-      title: "What we are",
-      body: "Maritime cyber compliance and continuous assurance software for fleet-scale operators.",
-    },
-    {
-      title: "How we operate",
-      body: "A product company with sales-assisted onboarding. Not a classification society. Not legal counsel.",
-    },
-    {
-      title: "Who we serve",
-      body: "Ship owners, DPAs and technical managers, and maritime cyber IT/OT teams working the same underlying assurance record from different seats.",
-    },
-    {
-      title: "Product status",
-      body: "The live application is at app.certamaris.com (sign-in for customers). This public site is for education, trust information, and readiness intake.",
-    },
-  ],
   relatedLinks: [
-    { href: "/about/leadership", title: "Leadership", description: "How leadership information is handled publicly." },
+    {
+      href: "/about/leadership",
+      title: "Leadership",
+      description: "Skyler Brown, Founder — maritime and product background.",
+    },
     {
       href: "/about/corporate-information",
       title: "Corporate information",
@@ -308,15 +338,23 @@ export const aboutContent = {
   ],
 } as const;
 
+/**
+ * Public leadership page content — single-founder editorial profile.
+ * Founder biography, credentials, and portrait import from @/lib/founder (approved directive).
+ * No fake team, silhouettes, advisory board, or placeholder team cards.
+ */
 export const leadershipContent = {
   eyebrow: "About",
-  title: "Leadership",
+  title: "Skyler Brown, Founder",
   intro:
-    "CertaMaris publishes leadership biographies only when names, titles, and credentials have been verified for public release.",
-  body: "Individual leadership profiles are not listed on this public page at this time. Leadership participation, background relevant to maritime operations, and commercial ownership details are available during qualified procurement and sales conversations when appropriate.",
-  procurementNote:
-    "If your evaluation requires named leadership contacts or biographies under NDA, include that request in a procurement or readiness inquiry.",
-  contactHref: "/contact?intent=procurement",
+    "CertaMaris is founder-led. Public leadership is limited to verified facts about Skyler Brown — no invented executives, advisory boards, or placeholder team cards.",
+  /** Why CertaMaris exists — from approved full biography (fragmented compliance records). */
+  whyFounded:
+    "Skyler founded CertaMaris to address a recurring operational problem: cybersecurity and compliance information is often distributed across spreadsheets, shared drives, email, consulting reports, vessel records, and disconnected technical systems. The work focuses on connecting company, fleet, and vessel-level requirements, systems, controls, assessments, evidence, findings, risks, corrective actions, plans, quality review, and controlled reporting in one traceable operating environment.",
+  aboutHref: "/about",
+  demoHref: "/contact?intent=demo",
+  demoLabel: "Request a demo",
+  contactEmail: "skyler@certamaris.com",
 } as const;
 
 export const corporateInformationContent = {

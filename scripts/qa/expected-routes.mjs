@@ -69,6 +69,7 @@ export const CURRENT_STATIC_ROUTES = [
   "/topics/vessel-cyber-risk-register",
   "/topics/survey-readiness",
   "/topics/maritime-cyber-regulations",
+  // About + Leadership are required (founder headshot / bio live on leadership)
   "/about",
   "/about/leadership",
   "/about/corporate-information",
