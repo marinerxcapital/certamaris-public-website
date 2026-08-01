@@ -241,7 +241,7 @@ export const solutionsPages: SolutionPage[] = [
     eyebrow: "Solutions · 04",
     headline: "Ship-level cyber resilience evidence structured for design and survey conversations.",
     intro:
-      "IACS UR E26 addresses ship-level resilience, systems identification, segmentation, and access control. CertaMaris structures evidence without replacing class interpretation.",
+      "IACS UR E26 addresses ship-level resilience, systems identification, segmentation, and access control. CertaMaris structures evidence for review.",
     buyer: "Technical managers, newbuild project teams, cybersecurity leads, and owners with E26-applicable vessels",
     problem:
       "E26-related evidence is scattered across shipyard packages, OEM documentation, and operational records.",

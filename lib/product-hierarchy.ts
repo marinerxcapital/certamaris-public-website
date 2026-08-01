@@ -375,7 +375,7 @@ export const productModules: ProductModule[] = [
     eyebrow: "Platform · Company",
     headline: "A tenant-isolated workspace for the company that owns the fleet.",
     intro:
-      "The Client Company Portal is an operator workspace for administration, fleets, users, engagements, assessments, evidence, findings, plans, and deliverables.",
+      "The Client Company Portal is an operator workspace for fleets, users, engagements, assessments, evidence, findings, plans, and deliverables.",
     maturity: "current",
     buyer: "Ship owners, operators, company admins, technical managers, and DPAs",
     problem:
