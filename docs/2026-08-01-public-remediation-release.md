@@ -3,12 +3,14 @@
 ## Release state
 
 - Repository: `marinerxcapital/certamaris-public-website`
-- Source tip: `dee919b681a8c455c45687596f5bb942aaa57a5a`
+- Implementation tip: `dee919b681a8c455c45687596f5bb942aaa57a5a`
 - Worker: `certamaris-site`
-- Active version: `5069d85c-068a-4fff-83ce-7605e02115cc`
-- Deployed: `2026-08-01T18:16:24.206Z`
+- Initial implementation version: `5069d85c-068a-4fff-83ce-7605e02115cc`
+- Initial implementation deploy: `2026-08-01T18:16:24.206Z`
 - Domain: `https://certamaris.com`
 - Classification: **partially completed / contact delivery blocked**
+
+The final active Worker ID is recorded outside this automatically deployed repository in the program hub handoff. Committing this release note itself creates a documentation-only Worker version, so an in-repository `active version` field would immediately become stale.
 
 ## Source commits
 
