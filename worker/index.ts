@@ -33,7 +33,9 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const SITE_HOST = "certamaris.com";
 const ONE_WEEK_CACHE = "public, max-age=604800, stale-while-revalidate=86400";
 const IMMUTABLE_CACHE = "public, max-age=31536000, immutable";
-const HTML_CACHE = "public, max-age=0, must-revalidate";
+// Let Cloudflare cache the static HTML at the edge while browsers revalidate.
+// This keeps warm-cache TTFB consistent across the route groups, including solutions.
+const HTML_CACHE = "public, max-age=0, s-maxage=300, stale-while-revalidate=86400";
 const MIN_SUBMIT_MS = 2000;
 const MAX_MESSAGE = 4000;
 
