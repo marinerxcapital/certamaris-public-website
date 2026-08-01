@@ -1031,7 +1031,7 @@ export const productModules: ProductModule[] = [
       "Freshness and aging views",
       "Exception and drift signals for review",
       "Inputs to recurring assessment schedules",
-      "Governance-facing posture trends without fake metrics",
+      "Governance-facing posture trends from traceable records",
     ],
     limitations: [
       "Does not claim 24/7 autonomous compliance",
@@ -1167,8 +1167,8 @@ export const productModules: ProductModule[] = [
       "Report export channels",
     ],
     limitations: [
-      "No fabricated live SIEM connector claim",
-      "No fabricated live maritime ERP connector claim",
+      "Live SIEM connector not currently claimed",
+      "Live maritime ERP connector not currently claimed",
       "Custom work is engagement-scoped, not a free universal adapter",
       "CertaMaris does not replace SMS/QHSE systems",
     ],

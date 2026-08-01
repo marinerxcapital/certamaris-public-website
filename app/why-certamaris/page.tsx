@@ -33,7 +33,7 @@ export default function WhyCertaMarisPage() {
         emphasis="elevated"
         eyebrow="Why CertaMaris"
         title="Maritime-native assurance — not another spreadsheet or generic GRC shell."
-        intro="CertaMaris is built for company, fleet, and vessel cyber compliance work: evidence-first, role-scoped, and honest about what software can and cannot decide. No competitor names. No fabricated customer proof."
+        intro="CertaMaris is built for company, fleet, and vessel cyber compliance work: evidence-first, role-scoped, and explicit about what software can and cannot decide."
       />
 
       <Section>

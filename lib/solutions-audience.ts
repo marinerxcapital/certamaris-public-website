@@ -682,7 +682,7 @@ export const solutionsPages: SolutionPage[] = [
     ],
     capabilities: [
       "Fleet-wide readiness summary with drill-down",
-      "Trend views across assessment cycles without fake KPIs",
+      "Trend views across assessment cycles using recorded measures",
       "Outstanding decision queues",
       "Export-ready governance views",
     ],
@@ -712,7 +712,7 @@ export const solutionsPages: SolutionPage[] = [
       {
         question: "Do you publish sample ROI numbers?",
         answer:
-          "No fabricated ROI or vessel-count metrics. Value is described operationally: retrieval, ownership, consistency, and readiness preparation.",
+          "Value is described operationally through retrieval, ownership, consistency, and readiness preparation rather than unverified ROI claims.",
       },
     ],
     related: [

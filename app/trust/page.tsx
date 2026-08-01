@@ -75,7 +75,7 @@ export default function TrustCenterPage() {
           </Reveal>
           <Reveal delay={0.05}>
             <Eyebrow>Business continuity</Eyebrow>
-            <h2 className="text-[24px] leading-[1.16] mb-3">Backups without invented RTO/RPO</h2>
+            <h2 className="text-[24px] leading-[1.16] mb-3">Backup and recovery boundaries</h2>
             <p className="text-[15px] text-structural leading-relaxed">{trustCenterOverview.continuitySummary}</p>
           </Reveal>
         </div>

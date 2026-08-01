@@ -114,6 +114,10 @@ export const topics: TopicPage[] = [
         heading: "Evidence operators still care about",
         body: "Architecture and inventory currency after delivery, change control for networks and remote access, and clear separation of class/design packages from SMS operational evidence.",
       },
+      {
+        heading: "A practical E26 evidence trail",
+        body: "Record the vessel, class basis, shipbuilding contract date, applicable revision, approved design references, network and system boundaries, test or review artifacts, responsible parties, and later changes. Keep class acceptance records distinct from operator-created assurance notes so a reviewer can see the source and authority of each claim.",
+      },
     ],
     relatedResources: [{ title: "E26 and E27 overview", href: "/resources/iacs-ur-e26-e27-overview" }],
     relatedCompliance: [{ title: "IACS pages", href: "/compliance/iacs" }],
@@ -140,6 +144,10 @@ export const topics: TopicPage[] = [
         heading: "Operator habits",
         body: "Store supplier test evidence, baselines, and interface descriptions against system identity. Track post-delivery substitutions that invalidate prior claims.",
       },
+      {
+        heading: "Supplier evidence and change control",
+        body: "For each in-scope system, preserve the OEM and model identity, software or firmware baseline, declared interfaces, security functions, test evidence, limitations, and the class or yard review context. A replacement component, version change, or new remote path should trigger reassessment rather than inheriting an earlier acceptance automatically.",
+      },
     ],
     relatedResources: [{ title: "E26 and E27 overview", href: "/resources/iacs-ur-e26-e27-overview" }],
     relatedCompliance: [{ title: "IACS pages", href: "/compliance/iacs" }],
@@ -165,6 +173,10 @@ export const topics: TopicPage[] = [
       {
         heading: "From assessment to register and actions",
         body: "Material risks should appear in a register with decisions and flow into corrective work with verification. CertaMaris structures that trail; risk acceptance remains a human authority decision.",
+      },
+      {
+        heading: "Assessment evidence a reviewer can follow",
+        body: "Define the vessel and system boundary, credible operational scenarios, existing safeguards, consequence and likelihood rationale, treatment decisions, residual risk authority, and review triggers. Link each treatment to an owner and evidence of completion so the assessment remains connected to current operations instead of becoming a dated standalone report.",
       },
     ],
     relatedResources: [
@@ -194,6 +206,10 @@ export const topics: TopicPage[] = [
         heading: "Version control at fleet scale",
         body: "Sister vessels and managers diverge quickly if plans live only in email. A controlled record with ownership and review dates is the practical requirement for multi-vessel operators.",
       },
+      {
+        heading: "What to review after operational change",
+        body: "Revisit the plan after system replacement, network redesign, remote-access changes, a cyber event, audit findings, or a material regulatory update. Record who approved the revision, which vessels received it, what training or acknowledgement followed, and which evidence demonstrates that the written procedure still matches onboard and shoreside practice.",
+      },
     ],
     relatedResources: [
       { title: "MSC.428(98) explained", href: "/resources/imo-msc-428-98-explained" },
@@ -221,6 +237,10 @@ export const topics: TopicPage[] = [
       {
         heading: "Ownership and review cadence",
         body: "Findings and register entries need named owners and due dates. Fleet governance is the habit of closing loops with verification, not only collecting PDFs.",
+      },
+      {
+        heading: "Fleet roll-up without hiding vessel context",
+        body: "A useful roll-up distinguishes overdue actions, stale evidence, open high-consequence risks, upcoming reviews, and applicability gaps while retaining a route back to the vessel record. Managers should be able to explain why two vessels differ instead of forcing every hull into one composite score or masking missing data as satisfactory status.",
       },
     ],
     relatedResources: [
@@ -251,6 +271,10 @@ export const topics: TopicPage[] = [
         heading: "Freshness and re-validation",
         body: "Assessments and configs go stale. Build expiry or re-validation into the record so accepted evidence ages out when the system state changes.",
       },
+      {
+        heading: "A defensible evidence record",
+        body: "Capture the artifact type, vessel or system scope, source, custodian, collection date, version, linked requirement or control, reviewer, decision, rationale, and next review. Superseded artifacts should remain traceable without appearing current, and rejected evidence should retain the reason so the correction path is clear.",
+      },
     ],
     relatedResources: [
       { title: "Evidence sufficiency", href: "/resources/evidence-sufficiency-cyber-compliance" },
@@ -279,6 +303,10 @@ export const topics: TopicPage[] = [
         heading: "What CertaMaris structures",
         body: "Findings with criterion and condition, actions with owners and due dates, verification separate from the owner, and package inclusion without email archaeology.",
       },
+      {
+        heading: "Closure requires more than completion",
+        body: "The action owner should record what changed and attach supporting evidence. A separate reviewer then evaluates whether the evidence addresses the original criterion and whether residual work remains. Rejection should reopen the action with a reason; acceptance should preserve the reviewer, date, evidence, and decision for later audit or survey sampling.",
+      },
     ],
     relatedResources: [
       { title: "Corrective action verification", href: "/resources/corrective-action-verification" },
@@ -306,6 +334,10 @@ export const topics: TopicPage[] = [
       {
         heading: "Honest product boundary",
         body: "CertaMaris supports structured assurance workflows including inventory and evidence linkage. SBOM ingestion and vulnerability programs depend on your implementation scope — do not assume universal automatic mapping of every SBOM to every regulation.",
+      },
+      {
+        heading: "From component list to managed decision",
+        body: "Identify the product and version an SBOM describes, link it to the deployed vessel or shoreside system, record its supplier and generation date, and track whether later releases supersede it. Vulnerability findings still require applicability analysis, operational risk review, treatment ownership, compensating controls where needed, and evidence that the chosen response was completed.",
       },
     ],
     relatedResources: [
@@ -336,6 +368,10 @@ export const topics: TopicPage[] = [
         heading: "Do not collapse IT and OT frameworks",
         body: "Mapping both to the same requirement layer is useful; forcing OT into pure IT control language without operational context is not. Keep boundaries visible in the record.",
       },
+      {
+        heading: "Operational evidence to keep current",
+        body: "Maintain system and interface inventories, zone or segmentation records, authorized remote-access paths, vendor maintenance procedures, backup and restoration evidence, change approvals, removable-media controls, incident contacts, and drill or training records. Review these against vessel operating constraints and safe-state requirements rather than treating them as ordinary office IT controls.",
+      },
     ],
     relatedResources: [
       { title: "Risk assessment checklist", href: "/resources/maritime-cyber-risk-assessment-checklist" },
@@ -365,6 +401,10 @@ export const topics: TopicPage[] = [
         heading: "Division of labor",
         body: "Technical managers and IT/OT owners hold system evidence; the DPA needs discoverability and integrity of the SMS story. Software should make that collaboration explicit.",
       },
+      {
+        heading: "Questions a DPA should be able to answer",
+        body: "The DPA should be able to locate the current cyber-risk procedure, identify accountable technical owners, trace material findings into corrective action, see whether evidence and reviews are current, and explain how cyber events enter company reporting and learning processes. Technical conclusions remain with qualified owners, but the management-system trail must be coherent.",
+      },
     ],
     relatedResources: [
       { title: "MSC.428(98) explained", href: "/resources/imo-msc-428-98-explained" },
@@ -393,6 +433,10 @@ export const topics: TopicPage[] = [
         heading: "Avoid the static list",
         body: "Registers go stale when never revisited. Cadence and change triggers (retrofit, incident, requirement update) keep residual risk honest.",
       },
+      {
+        heading: "Decision records make the register useful",
+        body: "Each treatment should state whether the risk is reduced, avoided, transferred, or accepted, who holds the authority, and what evidence supports the decision. Link controls and corrective actions to the entry, retain the rationale for residual risk, and set a review date or event trigger so a changed vessel state does not silently preserve an obsolete rating.",
+      },
     ],
     relatedResources: [
       { title: "Reading a cyber risk register", href: "/resources/reading-a-cyber-risk-register" },
@@ -420,6 +464,10 @@ export const topics: TopicPage[] = [
       {
         heading: "Gap pass before the event",
         body: "Expired evidence, missing owners, unverified closures, and inventory drift are fixable before the reviewer names them. CertaMaris structures readiness views from the live record.",
+      },
+      {
+        heading: "Assemble a reviewable package",
+        body: "Start with a cover record that states the vessel or company scope, review purpose, controlling instrument, period, and accountable owner. Include a clear index, current evidence, open exceptions, approved risk decisions, and corrective-action status. Run an independent sufficiency check and record release approval before sharing the package externally.",
       },
     ],
     relatedResources: [
@@ -451,7 +499,7 @@ export const topics: TopicPage[] = [
       },
       {
         heading: "How to use this site",
-        body: "Start at Compliance for authority pages, Resources for operational explainers, Glossary for terms, and Topics for task-oriented landings. CertaMaris maps workflows honestly — no invented automatic full coverage claims.",
+        body: "Start at Compliance for authority pages, Resources for operational explainers, Glossary for terms, and Topics for task-oriented guidance. CertaMaris uses explicit mapping and review states rather than implying automatic full coverage.",
       },
     ],
     relatedResources: [

@@ -195,7 +195,7 @@ export default function DemoPage() {
           <Eyebrow>More screens</Eyebrow>
           <h2 className="text-[24px] sm:text-[28px] leading-[1.16] mb-3">Additional sanitized product views.</h2>
           <p className="text-[14.5px] text-structural leading-relaxed">
-            Requirement mapping, findings, readiness packages, and fleet inventory — claim-safe orientation only.
+            Requirement mapping, findings, readiness packages, and fleet inventory — an orientation to current product workflows.
           </p>
         </Reveal>
         <div className="grid sm:grid-cols-2 gap-6">

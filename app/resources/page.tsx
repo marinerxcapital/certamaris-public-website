@@ -38,7 +38,7 @@ export default function ResourcesPage() {
       <PageHero
         eyebrow="Resources"
         title="Plain-language explainers on maritime cyber compliance."
-        intro="Operator-focused explainers, guides, and checklists. Authored by CertaMaris Editorial — no fabricated individual bylines. Not legal advice."
+        intro="Operator-focused explainers, guides, and checklists authored by CertaMaris Editorial. Not legal advice."
       />
 
       <Section>

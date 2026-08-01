@@ -8,7 +8,7 @@ import { partnersContent } from "@/lib/trust-corporate";
 
 export const metadata = pageMetadata(
   "Partners",
-  "Partner and collaboration inquiries for CertaMaris. No invented partner directory is published on this page.",
+  "Partner and collaboration inquiries for CertaMaris, including technology, advisory, referral, and channel relationships.",
   "/about/partners"
 );
 

@@ -10,7 +10,7 @@ import { breadcrumbListSchema, webPageSchema } from "@/lib/seo-schema";
 
 export const metadata = pageMetadata(
   "Control Mapping Methodology",
-  "How CertaMaris structures requirement-to-control mapping for maritime cyber work — honest status labels, no invented automatic full coverage.",
+  "How CertaMaris structures requirement-to-control mapping for maritime cyber work with explicit status, review, and source authority.",
   "/compliance/mapping-methodology"
 );
 

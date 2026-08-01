@@ -51,7 +51,7 @@ export default function SecurityPage() {
         emphasis="elevated"
         eyebrow="Security"
         title="What's implemented, what's planned, and what's not claimed."
-        intro="Security pages lose credibility when they round up. This page separates implemented platform controls from configurable terms, planned capabilities, NDA materials, and controls not claimed on this website."
+        intro="This page separates implemented platform controls from configurable terms, planned capabilities, NDA materials, and controls not currently claimed on this website."
       />
 
       <Section spacing="compact">

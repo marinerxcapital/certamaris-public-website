@@ -8,7 +8,7 @@ import { corporateInformationContent } from "@/lib/trust-corporate";
 
 export const metadata = pageMetadata(
   "Corporate Information",
-  "Verified public corporate facts and contact channels for CertaMaris. Unpublished registration details are omitted rather than invented.",
+  "Verified public corporate information and official contact channels for CertaMaris, with procurement access to additional records.",
   "/about/corporate-information"
 );
 
