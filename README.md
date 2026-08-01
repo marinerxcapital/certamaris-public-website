@@ -7,19 +7,27 @@ built to stand on its own and to later link out to the authenticated
 CertaMaris application (being built separately in Lovable) through four
 clearly labeled integration points.
 
-## Monorepo notice (2026-07-29)
+## Production source of truth (2026-08-01)
 
-Canonical product monorepo: **https://github.com/marinerxcapital/certamaris**  
-Draft consolidation PR: **https://github.com/marinerxcapital/certamaris/pull/14**  
-Import SHA for this marketing tree: **`dc0fee34`** on **`main`**.  
-Monorepo path (post-import): **`apps/marketing`**.
+| Item | Value |
+|---|---|
+| **This repo** | **Live SoT** for https://certamaris.com |
+| **Branch** | **`main`** only for production |
+| **Local path** | `C:\certamaris-startup-site-pnpm\certamaris-startup-site` |
+| **Worker** | Cloudflare `certamaris-site` (`wrangler.jsonc`) |
+| **App** | Separate: https://app.certamaris.com |
+| **Codex handoff** | [`docs/CODEX_MARKETING_TAKEOVER.md`](docs/CODEX_MARKETING_TAKEOVER.md) |
 
-This single-repo tree remains the **live marketing deploy source** for `certamaris.com` until the owner explicitly cuts over deploys to the monorepo. **Do not stop production marketing work here** until that cutover is authorized. Prefer the monorepo for consolidated multi-app development after cutover.
+### Not live (do not deploy marketing from these)
 
-Hub handoff: `C:\Users\Skyler B. Brown\Desktop\certamaris master\02_HANDOFF\2026-07-29-SUPERGROK-MONOREPO-CONSOLIDATION.md`  
-Superseded register: `...\02_HANDOFF\SUPERSEDED_REPOS_REGISTER_2026-07-29.md`
+| Path | Status |
+|---|---|
+| Hub `01_product/marketing` | **STALE** |
+| Monorepo `apps/marketing` | Import/snapshot only until **owner cutover** |
 
-**Signed:** SuperGrok Heavy · **Date:** 2026-07-29
+Canonical product monorepo (SPA/API, not live marketing): https://github.com/marinerxcapital/certamaris  
+
+**Signed:** SuperGrok · **Date:** 2026-08-01
 
 ---
 
