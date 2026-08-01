@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState, type FormEvent } from "react";
 import { useSearchParams } from "next/navigation";
 import { APP_SALES_EMAIL, APP_SCHEDULING_URL, NEXT_PUBLIC_CONTACT_ENDPOINT } from "@/lib/constants";
+import { CONTACT_FIELD_LIMITS } from "@/lib/contact-request";
 import {
   DOCUMENT_REQUEST_OPTIONS,
   FLEET_SIZE_OPTIONS,
@@ -34,7 +35,8 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
   const [status, setStatus] = useState<Status>("idle");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submittedAt, setSubmittedAt] = useState<string | null>(null);
-  const [formStartedAt] = useState(() => Date.now());
+  const [formStartedAt, setFormStartedAt] = useState(0);
+  const [idempotencyKey, setIdempotencyKey] = useState("");
   const hasScheduling = Boolean(APP_SCHEDULING_URL.trim());
 
   useEffect(() => {
@@ -42,6 +44,11 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
     const next = getContactIntent(urlIntent ?? defaultIntent).id;
     setIntentId(next);
   }, [urlIntent, defaultIntent, lockIntent]);
+
+  useEffect(() => {
+    setFormStartedAt(Date.now());
+    setIdempotencyKey(crypto.randomUUID());
+  }, []);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -123,6 +130,7 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
         intent: intent.id,
         subjectTag: intent.subjectTag,
         formStartedAt,
+        idempotencyKey,
         // Legacy-compatible mirrors for older forward endpoints
         primaryNeed: objective || intent.label,
         timing: timeline || "Not specified",
@@ -142,7 +150,10 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
 
       const response = await fetch(endpoint, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "Idempotency-Key": idempotencyKey,
+        },
         body: JSON.stringify(payload),
       });
       let body: { error?: string; ok?: boolean } = {};
@@ -164,6 +175,7 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
       }
       setSubmittedAt(new Date().toISOString());
       setStatus("success");
+      setIdempotencyKey(crypto.randomUUID());
       form.reset();
     } catch {
       setErrors({
@@ -217,6 +229,9 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
 
   return (
     <form
+      method="post"
+      action="/api/contact"
+      encType="application/x-www-form-urlencoded"
       onSubmit={handleSubmit}
       noValidate
       className={`space-y-6 ${className}`}
@@ -279,6 +294,8 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
         <input type="text" id="company_website" name="company_website" tabIndex={-1} autoComplete="off" />
       </div>
       <input type="hidden" name="formStartedAt" value={String(formStartedAt)} />
+      <input type="hidden" name="idempotencyKey" value={idempotencyKey} />
+      <input type="hidden" name="intent" value={intent.id} />
 
       <div className="grid sm:grid-cols-2 gap-5">
         <Field
@@ -286,6 +303,7 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
           name="name"
           error={errors.name}
           autoComplete="name"
+          maxLength={CONTACT_FIELD_LIMITS.name}
           helper="Who should be contacted."
           required
         />
@@ -295,6 +313,8 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
           type="email"
           error={errors.email}
           autoComplete="email"
+          inputMode="email"
+          maxLength={CONTACT_FIELD_LIMITS.email}
           helper="Use the address you want the follow-up routed to."
           required
         />
@@ -306,6 +326,7 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
           name="company"
           error={errors.company}
           autoComplete="organization"
+          maxLength={CONTACT_FIELD_LIMITS.company}
           helper="Operator, manager, yard, insurer, advisory, or media organization."
           required={intent.salesFields}
         />
@@ -376,6 +397,7 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
               className="w-full border rounded-sm px-3.5 py-2.5 text-[15px] bg-white"
               style={{ borderColor: "var(--hairline-strong)" }}
               aria-describedby="currentProcess-helper"
+              maxLength={CONTACT_FIELD_LIMITS.currentProcess}
             />
           </div>
 
@@ -446,6 +468,7 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
           style={{ borderColor: errors.message ? "var(--status-critical)" : "var(--hairline-strong)" }}
           aria-invalid={Boolean(errors.message)}
           aria-describedby={errors.message ? "message-helper message-error" : "message-helper"}
+          maxLength={CONTACT_FIELD_LIMITS.message}
         />
         {errors.message && (
           <p id="message-error" className="text-[13px] mt-1.5" style={{ color: "var(--status-critical)" }}>
@@ -487,7 +510,7 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
       <button
         type="submit"
         disabled={status === "submitting"}
-        className="inline-flex w-full items-center justify-center rounded-md bg-[#1878b5] px-7 py-3 text-[15px] font-semibold text-white transition-colors hover:bg-[#0f639a] disabled:opacity-60 sm:w-auto"
+        className="inline-flex w-full items-center justify-center rounded-md bg-[#116fa8] px-7 py-3 text-[15px] font-semibold text-white transition-colors hover:bg-[#0f639a] disabled:opacity-60 sm:w-auto"
       >
         {status === "submitting" ? "Sending..." : intent.submitLabel}
       </button>
@@ -568,6 +591,8 @@ function Field({
   type = "text",
   error,
   autoComplete,
+  inputMode,
+  maxLength,
   helper,
   required = false,
 }: {
@@ -576,6 +601,8 @@ function Field({
   type?: string;
   error?: string;
   autoComplete?: string;
+  inputMode?: "email" | "text" | "search" | "tel" | "url" | "numeric" | "decimal" | "none";
+  maxLength?: number;
   helper: string;
   required?: boolean;
 }) {
@@ -602,6 +629,8 @@ function Field({
         name={name}
         type={type}
         autoComplete={autoComplete}
+        inputMode={inputMode}
+        maxLength={maxLength}
         required={required}
         aria-required={required ? true : undefined}
         className="w-full border rounded-sm bg-white px-3.5 py-2.5 text-[15px]"

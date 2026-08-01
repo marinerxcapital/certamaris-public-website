@@ -1,25 +1,28 @@
-type ContactPayload = {
-  name?: string;
-  email?: string;
-  company?: string;
-  fleetSize?: string;
-  vesselCount?: string;
-  primaryNeed?: string;
-  objective?: string;
-  timing?: string;
-  timeline?: string;
-  message?: string;
-  role?: string;
-  currentProcess?: string;
-  intent?: string;
-  subjectTag?: string;
-  documentRequestType?: string;
-  /** Optional: boolean or string; truthy means security package / NDA request. */
-  securityPackageIntent?: boolean | string;
-  /** Honeypot — if filled, treat as bot success no-op. */
-  company_website?: string;
-  /** Client form open timestamp (ms) for min time-to-submit. */
-  formStartedAt?: number | string;
+import {
+  contactDeliveryPayload,
+  readContactRequest,
+  validateContactInput,
+  type NormalizedContact,
+} from "../lib/contact-request";
+
+type RateLimitBinding = {
+  limit(options: { key: string }): Promise<{ success: boolean }>;
+};
+
+type KvBinding = {
+  get(key: string): Promise<string | null>;
+  put(key: string, value: string, options?: { expirationTtl?: number }): Promise<void>;
+  delete(key: string): Promise<void>;
+};
+
+type SendEmailBinding = {
+  send(message: {
+    to: string;
+    from: string;
+    replyTo?: string;
+    subject: string;
+    text: string;
+  }): Promise<{ messageId: string }>;
 };
 
 type Env = {
@@ -27,33 +30,21 @@ type Env = {
     fetch(request: Request): Promise<Response>;
   };
   CONTACT_FORWARD_ENDPOINT?: string;
+  CONTACT_FORWARD_SECRET?: string;
+  CONTACT_EMAIL?: SendEmailBinding;
+  CONTACT_EMAIL_FROM?: string;
+  CONTACT_EMAIL_TO?: string;
+  CONTACT_IDEMPOTENCY?: KvBinding;
+  CONTACT_RATE_LIMITER?: RateLimitBinding;
+  CONTACT_GLOBAL_RATE_LIMITER?: RateLimitBinding;
 };
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const SITE_HOST = "certamaris.com";
 const ONE_WEEK_CACHE = "public, max-age=604800, stale-while-revalidate=86400";
 const IMMUTABLE_CACHE = "public, max-age=31536000, immutable";
 // Let Cloudflare cache the static HTML at the edge while browsers revalidate.
 // This keeps warm-cache TTFB consistent across the route groups, including solutions.
 const HTML_CACHE = "public, max-age=0, s-maxage=300, stale-while-revalidate=86400";
-const MIN_SUBMIT_MS = 2000;
-const MAX_MESSAGE = 4000;
-
-const SALES_INTENTS = new Set(["demo", "sales", "readiness", "procurement"]);
-const VALID_INTENTS = new Set([
-  "demo",
-  "sales",
-  "readiness",
-  "procurement",
-  "security",
-  "privacy",
-  "support",
-  "partnership",
-  "press",
-  "careers",
-  "disclosure",
-]);
-
 const SECURITY_HEADERS: Record<string, string> = {
   "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload",
   "X-Content-Type-Options": "nosniff",
@@ -87,7 +78,9 @@ export default {
 
     if (url.pathname === "/api/contact") {
       if (request.method !== "POST") {
-        return withHeaders(json({ error: "Method not allowed." }, 405), request);
+        const response = json({ error: "Method not allowed." }, 405);
+        response.headers.set("Allow", "POST");
+        return withHeaders(response, request);
       }
       return withHeaders(await handleContact(request, env), request);
     }
@@ -149,150 +142,227 @@ function isStableAsset(pathname: string): boolean {
   );
 }
 
-function parseSecurityPackageIntent(value: boolean | string | undefined): boolean | undefined {
-  if (value === undefined || value === "") return undefined;
-  if (typeof value === "boolean") return value;
-  const normalized = String(value).trim().toLowerCase();
-  if (normalized === "true" || normalized === "1" || normalized === "yes" || normalized === "on") return true;
-  if (normalized === "false" || normalized === "0" || normalized === "no" || normalized === "off") return false;
-  return Boolean(normalized);
-}
-
-function normalizeIntent(raw: string | undefined): string {
-  const key = (raw ?? "demo").trim().toLowerCase();
-  if (VALID_INTENTS.has(key)) return key;
-  return "demo";
-}
-
-function intentSubjectTag(intent: string, provided?: string): string {
-  if (provided && provided.trim()) return provided.trim();
-  return `[${intent}]`;
-}
-
 async function handleContact(request: Request, env: Env): Promise<Response> {
-  let body: ContactPayload;
+  const requestId = crypto.randomUUID();
+  const startedAt = Date.now();
+  const sourceKey = request.headers.get("cf-connecting-ip") || "unknown-source";
+
   try {
-    body = (await request.json()) as ContactPayload;
+    if (!env.CONTACT_RATE_LIMITER || !env.CONTACT_GLOBAL_RATE_LIMITER) {
+      return contactResponse(request, false, 503, requestId, "Contact protection is temporarily unavailable.");
+    }
+    const [sourceLimit, globalLimit] = await Promise.all([
+      env.CONTACT_RATE_LIMITER.limit({ key: sourceKey }),
+      env.CONTACT_GLOBAL_RATE_LIMITER.limit({ key: "contact-global" }),
+    ]);
+    if (!sourceLimit.success || !globalLimit.success) {
+      const response = contactResponse(
+        request,
+        false,
+        429,
+        requestId,
+        "Too many requests. Please wait before trying again.",
+      );
+      response.headers.set("Retry-After", "60");
+      logContact(requestId, "unknown", "rate_limited", startedAt);
+      return response;
+    }
   } catch {
-    return json({ error: "Invalid request body." }, 400);
+    logContact(requestId, "unknown", "rate_limit_error", startedAt, "rate_limit_unavailable");
+    return contactResponse(request, false, 503, requestId, "Contact protection is temporarily unavailable.");
   }
 
-  // Honeypot: pretend success so bots do not retry with corrected fields.
-  if (body.company_website && String(body.company_website).trim()) {
-    return json({ ok: true });
+  const parsed = await readContactRequest(request);
+  if (!parsed.ok) return contactResponse(request, parsed.nativeForm, parsed.status, requestId, parsed.error);
+
+  const validated = validateContactInput(parsed.input);
+  if (!validated.ok) return contactResponse(request, parsed.nativeForm, 400, requestId, validated.error);
+  if (validated.honeypot) return contactResponse(request, parsed.nativeForm, 200, requestId);
+
+  const contact = validated.contact;
+  const idempotencyKey = contact.idempotencyKey || (await derivedIdempotencyKey(contact));
+  const storageKey = `contact:${idempotencyKey}`;
+
+  if (!env.CONTACT_IDEMPOTENCY) {
+    logContact(requestId, contact.intent, "idempotency_error", startedAt, "kv_binding_unavailable");
+    return contactResponse(request, parsed.nativeForm, 503, requestId, "Contact delivery is temporarily unavailable.");
   }
 
-  // Min time-to-submit (when client sends formStartedAt).
-  if (body.formStartedAt !== undefined && body.formStartedAt !== "") {
-    const started = Number(body.formStartedAt);
-    if (Number.isFinite(started)) {
-      const elapsed = Date.now() - started;
-      // Allow clock skew; reject only clearly instant bot submits.
-      if (elapsed >= 0 && elapsed < MIN_SUBMIT_MS) {
-        return json({ error: "Please take a moment to complete the form before submitting." }, 400);
-      }
-    }
+  let existing: string | null;
+  try {
+    existing = await env.CONTACT_IDEMPOTENCY.get(storageKey);
+  } catch {
+    logContact(requestId, contact.intent, "idempotency_error", startedAt, "kv_read_failed");
+    return contactResponse(request, parsed.nativeForm, 503, requestId, "Contact delivery is temporarily unavailable.");
+  }
+  if (existing?.startsWith("delivered:")) {
+    logContact(requestId, contact.intent, "duplicate", startedAt);
+    return contactResponse(request, parsed.nativeForm, 200, requestId, undefined, true);
+  }
+  if (existing?.startsWith("pending:")) {
+    const response = contactResponse(
+      request,
+      parsed.nativeForm,
+      409,
+      requestId,
+      "This request is already being delivered. Please wait before retrying.",
+    );
+    response.headers.set("Retry-After", "15");
+    return response;
   }
 
-  const intent = normalizeIntent(body.intent);
-  const name = (body.name ?? "").trim();
-  const email = (body.email ?? "").trim();
-  const company = (body.company ?? "").trim();
-  const fleetSize = (body.fleetSize ?? "").trim();
-  const vesselCount = (body.vesselCount ?? "").trim();
-  const objective = (body.objective ?? body.primaryNeed ?? "").trim();
-  const timeline = (body.timeline ?? body.timing ?? "").trim();
-  const message = (body.message ?? "").trim();
-  const role = (body.role ?? "").trim();
-  const currentProcess = (body.currentProcess ?? "").trim();
-  const documentRequestType = (body.documentRequestType ?? "").trim();
-  const subjectTag = intentSubjectTag(intent, body.subjectTag);
-  const securityPackageIntent = parseSecurityPackageIntent(body.securityPackageIntent);
-  const salesShaped = SALES_INTENTS.has(intent);
-
-  if (!name || !email || !message) {
-    return json({ error: "Name, email, and message are required." }, 400);
+  try {
+    // A full-day pending marker prevents duplicate native-email delivery if the
+    // provider accepts the message but the final KV write is interrupted.
+    await env.CONTACT_IDEMPOTENCY.put(storageKey, `pending:${Date.now()}`, {
+      expirationTtl: 86_400,
+    });
+  } catch {
+    logContact(requestId, contact.intent, "idempotency_error", startedAt, "kv_write_failed");
+    return contactResponse(request, parsed.nativeForm, 503, requestId, "Contact delivery is temporarily unavailable.");
   }
-  if (!EMAIL_RE.test(email)) {
-    return json({ error: "Invalid email address." }, 400);
-  }
-  if (message.length > MAX_MESSAGE) {
-    return json({ error: "Message is too long." }, 400);
-  }
-
-  // Sales-shaped intents keep the richer required set (with legacy primaryNeed/timing aliases).
-  if (salesShaped) {
-    if (!company || !fleetSize || !objective || !timeline) {
-      return json(
-        {
-          error:
-            "For sales and readiness requests, company, fleet size, objective, and timeline are required.",
-        },
-        400
-      );
-    }
-  }
-
-  if (env.CONTACT_FORWARD_ENDPOINT) {
+  try {
+    const providerReceipt = await deliverContact(contact, idempotencyKey, requestId, env);
     try {
-      const forwardBody: Record<string, string | boolean> = {
-        name,
-        email,
-        company: company || "Not provided",
-        message,
-        intent,
-        subjectTag,
-        source: "certamaris-website",
-        // Legacy-compatible fields for existing forward consumers
-        fleetSize: fleetSize || "Not specified",
-        primaryNeed: objective || intent,
-        timing: timeline || "Not specified",
-      };
-      if (role) forwardBody.role = role;
-      if (vesselCount) forwardBody.vesselCount = vesselCount;
-      if (objective) forwardBody.objective = objective;
-      if (timeline) forwardBody.timeline = timeline;
-      if (currentProcess) forwardBody.currentProcess = currentProcess;
-      if (documentRequestType) forwardBody.documentRequestType = documentRequestType;
-      if (securityPackageIntent !== undefined) forwardBody.securityPackageIntent = securityPackageIntent;
-
-      const forwarded = await fetch(env.CONTACT_FORWARD_ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(forwardBody),
+      await env.CONTACT_IDEMPOTENCY.put(storageKey, `delivered:${providerReceipt}`, {
+        expirationTtl: 86_400,
       });
-
-      if (!forwarded.ok) {
-        return json(
-          {
-            error:
-              "Delivery failed. Please email skyler@certamaris.com or sales@certamaris.com with the same details.",
-          },
-          502
-        );
-      }
     } catch {
-      // Match app/api/contact/route.ts — network/DNS failures must not become unhandled Worker throws.
-      return json(
-        {
-          error:
-            "Delivery failed. Please email skyler@certamaris.com or sales@certamaris.com with the same details.",
-        },
-        502
-      );
+      // Delivery was accepted. The existing pending marker remains in place to
+      // suppress retries and the failure is observable without exposing PII.
+      logContact(requestId, contact.intent, "delivered_kv_finalize_failed", startedAt, "kv_write_failed");
     }
-  } else {
-    console.warn("CONTACT_FORWARD_ENDPOINT is not configured; validated contact submission was not delivered.");
-    return json(
-      {
-        error:
-          "Contact delivery is not configured yet. Please email skyler@certamaris.com or sales@certamaris.com with the same details.",
-      },
-      503
+    logContact(requestId, contact.intent, "delivered", startedAt);
+    return contactResponse(request, parsed.nativeForm, 200, requestId);
+  } catch (error) {
+    try {
+      await env.CONTACT_IDEMPOTENCY.delete(storageKey);
+    } catch {
+      // Preserve the delivery error; a stale pending marker is safer than a
+      // duplicate message and expires automatically.
+    }
+    const errorClass = error instanceof Error ? error.name : "delivery_error";
+    logContact(requestId, contact.intent, "delivery_failed", startedAt, errorClass);
+    return contactResponse(
+      request,
+      parsed.nativeForm,
+      error instanceof DeliveryUnavailableError ? 503 : 502,
+      requestId,
+      "Delivery failed. Please email skyler@certamaris.com or sales@certamaris.com with the same details.",
     );
   }
+}
 
-  return json({ ok: true });
+class DeliveryUnavailableError extends Error {}
+
+async function deliverContact(
+  contact: NormalizedContact,
+  idempotencyKey: string,
+  requestId: string,
+  env: Env,
+): Promise<string> {
+  const payload = contactDeliveryPayload(contact);
+
+  if (env.CONTACT_EMAIL && env.CONTACT_EMAIL_FROM && env.CONTACT_EMAIL_TO) {
+    const result = await env.CONTACT_EMAIL.send({
+      to: env.CONTACT_EMAIL_TO,
+      from: env.CONTACT_EMAIL_FROM,
+      replyTo: contact.email,
+      subject: `${contact.subjectTag} CertaMaris website request`,
+      text: Object.entries(payload)
+        .map(([key, value]) => `${key}: ${String(value)}`)
+        .join("\n"),
+    });
+    return result.messageId;
+  }
+
+  if (!env.CONTACT_FORWARD_ENDPOINT || !env.CONTACT_FORWARD_SECRET) {
+    throw new DeliveryUnavailableError("No approved delivery provider is configured.");
+  }
+
+  const body = JSON.stringify(payload);
+  const timestamp = String(Date.now());
+  const signature = await hmacHex(env.CONTACT_FORWARD_SECRET, `${timestamp}.${body}`);
+  const forwarded = await fetch(env.CONTACT_FORWARD_ENDPOINT, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Idempotency-Key": idempotencyKey,
+      "X-CertaMaris-Request-ID": requestId,
+      "X-CertaMaris-Timestamp": timestamp,
+      "X-CertaMaris-Signature": `sha256=${signature}`,
+    },
+    body,
+  });
+  if (!forwarded.ok) throw new Error(`Forwarder rejected request with ${forwarded.status}.`);
+  return forwarded.headers.get("x-request-id") || requestId;
+}
+
+async function hmacHex(secret: string, value: string): Promise<string> {
+  const key = await crypto.subtle.importKey(
+    "raw",
+    new TextEncoder().encode(secret),
+    { name: "HMAC", hash: "SHA-256" },
+    false,
+    ["sign"],
+  );
+  const signature = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(value));
+  return Array.from(new Uint8Array(signature), (byte) => byte.toString(16).padStart(2, "0")).join("");
+}
+
+async function derivedIdempotencyKey(contact: NormalizedContact): Promise<string> {
+  const stable = JSON.stringify([
+    contact.email,
+    contact.intent,
+    contact.message,
+    contact.company,
+    contact.objective,
+  ]);
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(stable));
+  return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, "0")).join("");
+}
+
+function contactResponse(
+  request: Request,
+  nativeForm: boolean,
+  status: number,
+  requestId: string,
+  error?: string,
+  duplicate = false,
+): Response {
+  if (nativeForm) {
+    const target = new URL(status >= 200 && status < 300 ? "/contact/submitted" : "/contact/delivery-failed", request.url);
+    if (status === 429) target.searchParams.set("reason", "rate-limited");
+    if (status === 413) target.searchParams.set("reason", "too-large");
+    const response = Response.redirect(target.toString(), 303);
+    response.headers.set("X-Request-ID", requestId);
+    return response;
+  }
+  const response = json(
+    status >= 200 && status < 300 ? { ok: true, requestId, duplicate } : { error, requestId },
+    status,
+  );
+  response.headers.set("X-Request-ID", requestId);
+  return response;
+}
+
+function logContact(
+  requestId: string,
+  intent: string,
+  status: string,
+  startedAt: number,
+  errorClass?: string,
+) {
+  console.info(
+    JSON.stringify({
+      event: "contact_delivery",
+      requestId,
+      intent,
+      status,
+      latencyMs: Math.max(0, Date.now() - startedAt),
+      ...(errorClass ? { errorClass } : {}),
+    }),
+  );
 }
 
 function json(payload: unknown, status = 200): Response {

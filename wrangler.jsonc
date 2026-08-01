@@ -10,5 +10,29 @@
     "binding": "ASSETS",
     "not_found_handling": "404-page",
     "run_worker_first": true
-  }
+  },
+  "kv_namespaces": [
+    {
+      "binding": "CONTACT_IDEMPOTENCY",
+      "id": "e00eb9f15d7c4da497ccb1dfcb42b912"
+    }
+  ],
+  "ratelimits": [
+    {
+      "name": "CONTACT_RATE_LIMITER",
+      "namespace_id": "6208101",
+      "simple": {
+        "limit": 5,
+        "period": 60
+      }
+    },
+    {
+      "name": "CONTACT_GLOBAL_RATE_LIMITER",
+      "namespace_id": "6208102",
+      "simple": {
+        "limit": 100,
+        "period": 60
+      }
+    }
+  ]
 }

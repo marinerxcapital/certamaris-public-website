@@ -15,6 +15,7 @@
     "qa:seo": "node scripts/qa/check-seo.mjs",
     "qa:links": "node scripts/qa/check-links.mjs",
     "qa:founder": "node scripts/qa/check-founder.mjs",
+    "test:contact": "node --experimental-strip-types --test lib/contact-request.test.ts",
     "qa:routes:http": "node scripts/qa/check-routes.mjs --base http://127.0.0.1:4173 --include-planned"
   },
   "dependencies": {
