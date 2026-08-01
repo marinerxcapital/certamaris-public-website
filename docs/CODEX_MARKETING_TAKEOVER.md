@@ -15,7 +15,7 @@
 | **Canonical local path** | `C:\certamaris-startup-site-pnpm\certamaris-startup-site` |
 | **GitHub** | https://github.com/marinerxcapital/certamaris-public-website |
 | **Branch** | **`main` only** for production |
-| **Tip (this handoff)** | **`67e1e55`** |
+| **Tip (this handoff)** | **`eff8045`** |
 | **Worker name** | `certamaris-site` |
 | **Worker config** | `wrangler.jsonc` · assets `./out` · entry `worker/index.ts` |
 | **Stack** | Next.js 16 App Router · static export · Cloudflare Worker |
@@ -44,7 +44,7 @@
 ### Recent production commits (newest first)
 
 ```
-67e1e55  fix(marketing): improve sitewide text contrast over Pixel Grid
+eff8045  fix(marketing): improve sitewide text contrast over Pixel Grid
 ddbfbea  fix(marketing): surface contact delivery errors with verified mailto fallbacks
 dcd20f0  fix(marketing): harden Worker contact forward errors for closeout
 daf016e  docs: record founder headshot Worker version 2148b66e
@@ -176,10 +176,11 @@ Register: hub `02_HANDOFF/2026-07-31-OWNER-VERIFY-REGISTER.md`
 - Trust center, pricing, multi-intent contact, demo tour  
 - SEO topics, sitemap, schema  
 - QA suite  
-- Text contrast / Pixel Grid dim (67e1e55)  
+- Text contrast / Pixel Grid dim (eff8045)  
 - Contact error UX for 503  
 - Branch cleanup on this repo  
 
 **Preserve valid work. Do not redesign from zero.**
 
 **Signed:** SuperGrok · 2026-08-01
+
