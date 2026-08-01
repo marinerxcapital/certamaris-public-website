@@ -145,11 +145,31 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      if (!response.ok) throw new Error("Request failed");
+      let body: { error?: string; ok?: boolean } = {};
+      try {
+        body = (await response.json()) as { error?: string; ok?: boolean };
+      } catch {
+        body = {};
+      }
+      if (!response.ok) {
+        // Surface server error (e.g. 503 delivery not configured) instead of a silent generic failure.
+        setErrors({
+          form:
+            typeof body.error === "string" && body.error.trim()
+              ? body.error
+              : "The website could not deliver this request. Please email skyler@certamaris.com or sales@certamaris.com with the same details.",
+        });
+        setStatus("error");
+        return;
+      }
       setSubmittedAt(new Date().toISOString());
       setStatus("success");
       form.reset();
     } catch {
+      setErrors({
+        form:
+          "The website could not deliver this request. Please email skyler@certamaris.com or sales@certamaris.com with the same details.",
+      });
       setStatus("error");
     }
   }
@@ -451,6 +471,10 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
           {errors.form ?? (
             <>
               The website could not deliver this request. Please email{" "}
+              <a href="mailto:skyler@certamaris.com" className="underline">
+                skyler@certamaris.com
+              </a>{" "}
+              or{" "}
               <a href={`mailto:${APP_SALES_EMAIL}`} className="underline">
                 {APP_SALES_EMAIL}
               </a>{" "}

@@ -167,21 +167,30 @@ export async function POST(request: Request) {
       if (!forwarded.ok) {
         console.error("Contact forwarding returned non-OK status.", forwarded.status);
         return NextResponse.json(
-          { error: "Delivery failed. Please use the direct email fallback." },
+          {
+            error:
+              "Delivery failed. Please email skyler@certamaris.com or sales@certamaris.com with the same details.",
+          },
           { status: 502 }
         );
       }
     } catch {
       console.error("Contact forwarding failed.");
       return NextResponse.json(
-        { error: "Delivery failed. Please use the direct email fallback." },
+        {
+          error:
+            "Delivery failed. Please email skyler@certamaris.com or sales@certamaris.com with the same details.",
+        },
         { status: 502 }
       );
     }
   } else {
     console.warn("CONTACT_FORWARD_ENDPOINT is not configured; validated contact submission was not delivered.");
     return NextResponse.json(
-      { error: "Contact delivery is not configured. Please email sales directly." },
+      {
+        error:
+          "Contact delivery is not configured yet. Please email skyler@certamaris.com or sales@certamaris.com with the same details.",
+      },
       { status: 503 }
     );
   }

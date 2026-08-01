@@ -255,15 +255,33 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
       });
 
       if (!forwarded.ok) {
-        return json({ error: "Delivery failed. Please use the direct email fallback." }, 502);
+        return json(
+          {
+            error:
+              "Delivery failed. Please email skyler@certamaris.com or sales@certamaris.com with the same details.",
+          },
+          502
+        );
       }
     } catch {
       // Match app/api/contact/route.ts — network/DNS failures must not become unhandled Worker throws.
-      return json({ error: "Delivery failed. Please use the direct email fallback." }, 502);
+      return json(
+        {
+          error:
+            "Delivery failed. Please email skyler@certamaris.com or sales@certamaris.com with the same details.",
+        },
+        502
+      );
     }
   } else {
     console.warn("CONTACT_FORWARD_ENDPOINT is not configured; validated contact submission was not delivered.");
-    return json({ error: "Contact delivery is not configured. Please email sales directly." }, 503);
+    return json(
+      {
+        error:
+          "Contact delivery is not configured yet. Please email skyler@certamaris.com or sales@certamaris.com with the same details.",
+      },
+      503
+    );
   }
 
   return json({ ok: true });
