@@ -15,7 +15,7 @@
 | **Canonical local path** | `C:\certamaris-startup-site-pnpm\certamaris-startup-site` |
 | **GitHub** | https://github.com/marinerxcapital/certamaris-public-website |
 | **Branch** | **`main` only** for production |
-| **Tip (this handoff)** | **`eff8045`** |
+| **Tip (this handoff)** | **`9f95313`** |
 | **Worker name** | `certamaris-site` |
 | **Worker config** | `wrangler.jsonc` · assets `./out` · entry `worker/index.ts` |
 | **Stack** | Next.js 16 App Router · static export · Cloudflare Worker |
@@ -183,4 +183,5 @@ Register: hub `02_HANDOFF/2026-07-31-OWNER-VERIFY-REGISTER.md`
 **Preserve valid work. Do not redesign from zero.**
 
 **Signed:** SuperGrok · 2026-08-01
+
 
