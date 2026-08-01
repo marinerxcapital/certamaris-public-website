@@ -1,3 +1,13 @@
+# DEPLOYMENT RECORD (FINAL)
+
+| Field | Value |
+|---|---|
+| Commit | `06e3a1f` |
+| Worker version | `2148b66e-4cb3-4a9f-81cb-d9b2256df8c4` |
+| Deployed | 2026-07-31 via wrangler deploy --keep-vars |
+| Smoke | /about · /about/leadership · image 200 |
+
+---
 # CertaMaris.com — Founder Headshot Deployment Runbook
 
 **Date:** 2026-07-31  
@@ -305,3 +315,4 @@ If only the portrait is wrong but the rest of remediation is good: revert the he
 ---
 
 **End of runbook.** Orchestrator: fill §0 after ship; tick §7 smoke rows; release any deploy locks.
+
