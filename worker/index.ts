@@ -226,34 +226,39 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
   }
 
   if (env.CONTACT_FORWARD_ENDPOINT) {
-    const forwardBody: Record<string, string | boolean> = {
-      name,
-      email,
-      company: company || "Not provided",
-      message,
-      intent,
-      subjectTag,
-      source: "certamaris-website",
-      // Legacy-compatible fields for existing forward consumers
-      fleetSize: fleetSize || "Not specified",
-      primaryNeed: objective || intent,
-      timing: timeline || "Not specified",
-    };
-    if (role) forwardBody.role = role;
-    if (vesselCount) forwardBody.vesselCount = vesselCount;
-    if (objective) forwardBody.objective = objective;
-    if (timeline) forwardBody.timeline = timeline;
-    if (currentProcess) forwardBody.currentProcess = currentProcess;
-    if (documentRequestType) forwardBody.documentRequestType = documentRequestType;
-    if (securityPackageIntent !== undefined) forwardBody.securityPackageIntent = securityPackageIntent;
+    try {
+      const forwardBody: Record<string, string | boolean> = {
+        name,
+        email,
+        company: company || "Not provided",
+        message,
+        intent,
+        subjectTag,
+        source: "certamaris-website",
+        // Legacy-compatible fields for existing forward consumers
+        fleetSize: fleetSize || "Not specified",
+        primaryNeed: objective || intent,
+        timing: timeline || "Not specified",
+      };
+      if (role) forwardBody.role = role;
+      if (vesselCount) forwardBody.vesselCount = vesselCount;
+      if (objective) forwardBody.objective = objective;
+      if (timeline) forwardBody.timeline = timeline;
+      if (currentProcess) forwardBody.currentProcess = currentProcess;
+      if (documentRequestType) forwardBody.documentRequestType = documentRequestType;
+      if (securityPackageIntent !== undefined) forwardBody.securityPackageIntent = securityPackageIntent;
 
-    const forwarded = await fetch(env.CONTACT_FORWARD_ENDPOINT, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(forwardBody),
-    });
+      const forwarded = await fetch(env.CONTACT_FORWARD_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(forwardBody),
+      });
 
-    if (!forwarded.ok) {
+      if (!forwarded.ok) {
+        return json({ error: "Delivery failed. Please use the direct email fallback." }, 502);
+      }
+    } catch {
+      // Match app/api/contact/route.ts — network/DNS failures must not become unhandled Worker throws.
       return json({ error: "Delivery failed. Please use the direct email fallback." }, 502);
     }
   } else {
