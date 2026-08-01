@@ -264,7 +264,7 @@ export const TRUST_CENTER_LINKS: { href: string; title: string; description: str
   {
     href: "/trust/status",
     title: "Service status",
-    description: "How operational status is communicated today, without a fabricated public uptime board.",
+    description: "Current operational status for the website, application, and API, with support escalation paths.",
   },
   {
     href: "/trust/procurement",

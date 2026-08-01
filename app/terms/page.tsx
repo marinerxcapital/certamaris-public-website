@@ -5,7 +5,7 @@ import { termsContent } from "@/lib/trust-corporate";
 
 export const metadata = pageMetadata(
   "Terms of Service",
-  "The terms governing use of the CertaMaris public website.",
+  "Terms for use of the CertaMaris public website and inquiry forms, separate from customer platform and commercial agreements.",
   "/terms"
 );
 

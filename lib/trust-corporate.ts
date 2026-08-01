@@ -141,12 +141,10 @@ export const responsibleDisclosureContent = {
 export const serviceStatusContent = {
   eyebrow: "Trust",
   title: "Service status",
-  intro:
-    "CertaMaris does not currently operate a public status page with historical uptime charts on this website.",
+  intro: "Current component health for the CertaMaris website, application, and API, supported by live endpoint probes.",
   currentPractice:
     "Operational status for customers is communicated through support and account channels when incidents or maintenance affect service. Contractual notification terms, where they exist, are defined in the customer agreement.",
-  planned:
-    "A public status page is planned. Until it is available, do not rely on this website for real-time incident boards or fabricated uptime history.",
+  planned: "Current service checks appear above. Contractual notification terms, where applicable, remain defined in the customer agreement.",
   contactHref: "/contact",
   contactLabel: "Contact support / account team",
 } as const;
@@ -203,7 +201,7 @@ export const procurementContent = {
     },
     {
       title: "Insurance certificates",
-      body: "Insurance evidence is shared when available for qualified procurement. Coverage is not invented or summarized as a public guarantee on this page.",
+      body: "Insurance evidence is shared when available for qualified procurement. This page does not state a public coverage guarantee.",
       status: "available_under_nda" as const,
     },
     {
@@ -331,7 +329,7 @@ export const aboutContent = {
       title: "Corporate information",
       description: "Verified contact channels and published corporate facts only.",
     },
-    { href: "/about/partners", title: "Partners", description: "Partner inquiries without invented alliance lists." },
+    { href: "/about/partners", title: "Partners", description: "Partner and collaboration inquiries." },
     { href: "/about/careers", title: "Careers", description: "Hiring status and how to inquire." },
     { href: "/about/press", title: "Press", description: "Media and press contact path." },
     { href: "/trust", title: "Trust Center", description: "Security, procurement, and disclosure." },
@@ -347,7 +345,7 @@ export const leadershipContent = {
   eyebrow: "About",
   title: "Skyler Brown, Founder",
   intro:
-    "CertaMaris is founder-led. Public leadership is limited to verified facts about Skyler Brown — no invented executives, advisory boards, or placeholder team cards.",
+    "CertaMaris is founder-led. This page presents the verified public profile of founder Skyler Brown.",
   /** Why CertaMaris exists — from approved full biography (fragmented compliance records). */
   whyFounded:
     "Skyler founded CertaMaris to address a recurring operational problem: cybersecurity and compliance information is often distributed across spreadsheets, shared drives, email, consulting reports, vessel records, and disconnected technical systems. The work focuses on connecting company, fleet, and vessel-level requirements, systems, controls, assessments, evidence, findings, risks, corrective actions, plans, quality review, and controlled reporting in one traceable operating environment.",
@@ -370,7 +368,7 @@ export const corporateInformationContent = {
     { label: "Security", value: SECURITY_EMAIL },
   ],
   omittedNote:
-    "Registered legal entity name, registration numbers, registered office address, and jurisdiction details appear in signed commercial documents where applicable. They are not invented or placeholder-filled on this public page.",
+    "Registered legal entity, registration, office, and jurisdiction details are not approved for publication on this page. Qualified procurement teams may request the applicable corporate record.",
   related: [
     { href: "/privacy", label: "Privacy Policy" },
     { href: "/terms", label: "Terms of Service" },
@@ -383,8 +381,8 @@ export const partnersContent = {
   eyebrow: "About",
   title: "Partners",
   intro:
-    "CertaMaris works with operators, advisors, and technology collaborators through sales-assisted engagements. This page does not publish an invented partner directory or unauthorized logos.",
-  body: "No public partner listings are published at this time. If you are exploring a referral, technology, advisory, or channel relationship, contact the team with your organization, proposed model, and geography.",
+    "CertaMaris works with operators, advisors, and technology collaborators through sales-assisted engagements. Public partner listings are published only with authorization.",
+  body: "No public partner listings are published at this time. For a referral, technology, advisory, or channel relationship, contact the team with your organization, proposed model, and geography.",
   contactHref: "/contact",
   salesEmail: APP_SALES_EMAIL,
 } as const;
@@ -451,7 +449,7 @@ export const termsContent = {
   intro:
     "These terms govern use of the public CertaMaris website. Platform access is covered by a separate customer agreement when one exists.",
   scope:
-    "Scope: informational website use and inquiry forms only. Registered legal entity, address, governing law, and venue — when required — appear in a signed customer or commercial agreement, not as invented public-site terms here.",
+    "Scope: informational website use and inquiry forms only. Customer platform use is governed by the applicable signed customer or commercial agreement.",
   sections: [
     {
       title: "1. Scope of this website",
@@ -500,7 +498,10 @@ export const accessibilityContent = {
     "Contrast-minded brand colors and status cues that are not color-only where product UI is shown.",
   ],
   limitations:
-    "Gaps can still exist — including edge cases across assistive technologies, browser combinations, or third-party embeds if any are added later. Known limitations are remediated as they are identified; this page does not invent an audit score.",
+    "Automated and manual testing cannot cover every assistive-technology and browser combination. Reported barriers are tracked and prioritized; no formal WCAG conformance claim is made on this page.",
+  lastReviewed: "2026-08-01",
+  auditScope:
+    "The latest review covered all canonical public routes at desktop and mobile sizes using automated accessibility checks, keyboard navigation, zoom, reduced-motion, and interactive-state testing.",
   remediation:
     "When an accessibility barrier is reported, we assess severity, reproduce where possible, and prioritize a fix. Response timing is as soon as practical and is not stated as a formal SLA on this page.",
   contact:

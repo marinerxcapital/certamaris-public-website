@@ -4,7 +4,7 @@ import { PageHero } from "@/components/PageHero";
 import { Section } from "@/components/Section";
 
 export const metadata: Metadata = {
-  title: "Request received — CertaMaris",
+  title: "Request received",
   robots: { index: false, follow: false },
 };
 

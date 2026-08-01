@@ -24,6 +24,13 @@ export default function AccessibilityPage() {
             {accessibilityContent.target}
           </p>
           <div>
+            <h2 className="text-[19px] font-semibold mb-2">Review scope</h2>
+            <p>{accessibilityContent.auditScope}</p>
+            <p className="mt-2 text-[13px] text-structural">
+              Last reviewed: <time dateTime={accessibilityContent.lastReviewed}>August 1, 2026</time>
+            </p>
+          </div>
+          <div>
             <h2 className="text-[19px] font-semibold mb-2">Methods on this public site</h2>
             <ul className="list-disc pl-5 space-y-2">
               {accessibilityContent.methods.map((item) => (
@@ -47,11 +54,11 @@ export default function AccessibilityPage() {
             <h2 className="text-[19px] font-semibold mb-2">VPAT / accessibility documentation</h2>
             <p className="mb-3">{accessibilityContent.vpat}</p>
             <p>
-              <Link href={accessibilityContent.procurementHref} className="font-medium text-ocean hover:underline">
+              <Link href={accessibilityContent.procurementHref} className="font-medium text-ocean underline underline-offset-2">
                 Procurement package
               </Link>
               {" · "}
-              <Link href={accessibilityContent.contactHref} className="font-medium text-ocean hover:underline">
+              <Link href={accessibilityContent.contactHref} className="font-medium text-ocean underline underline-offset-2">
                 Contact with procurement intent
               </Link>
             </p>

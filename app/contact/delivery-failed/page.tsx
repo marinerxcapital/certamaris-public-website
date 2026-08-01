@@ -5,7 +5,7 @@ import { Section } from "@/components/Section";
 import { APP_SALES_EMAIL } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Contact delivery unavailable — CertaMaris",
+  title: "Contact delivery unavailable",
   robots: { index: false, follow: false },
 };
 

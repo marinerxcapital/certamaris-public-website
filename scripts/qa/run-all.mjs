@@ -16,6 +16,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const args = parseArgs();
 
 const steps = [
+  { name: "contact and Worker tests", file: "check-worker.mjs", argv: [] },
   { name: "content-qa", file: "content-qa.mjs", argv: [] },
   {
     name: "check-routes (out)",

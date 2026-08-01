@@ -3,7 +3,8 @@ import {
   readContactRequest,
   validateContactInput,
   type NormalizedContact,
-} from "../lib/contact-request";
+// @ts-expect-error Wrangler and Node 22 type-stripping resolve the explicit TypeScript source extension.
+} from "../lib/contact-request.ts";
 
 type RateLimitBinding = {
   limit(options: { key: string }): Promise<{ success: boolean }>;
@@ -37,6 +38,8 @@ type Env = {
   CONTACT_IDEMPOTENCY?: KvBinding;
   CONTACT_RATE_LIMITER?: RateLimitBinding;
   CONTACT_GLOBAL_RATE_LIMITER?: RateLimitBinding;
+  STATUS_APP_URL?: string;
+  STATUS_API_URL?: string;
 };
 
 const SITE_HOST = "certamaris.com";
@@ -50,9 +53,7 @@ const SECURITY_HEADERS: Record<string, string> = {
   "X-Content-Type-Options": "nosniff",
   "Referrer-Policy": "strict-origin-when-cross-origin",
   "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
-  "X-Frame-Options": "SAMEORIGIN",
-  "Content-Security-Policy":
-    "default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self'; font-src 'self' data:; connect-src 'self' https://app.certamaris.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self';",
+  "X-Frame-Options": "DENY",
 };
 
 export default {
@@ -85,6 +86,15 @@ export default {
       return withHeaders(await handleContact(request, env), request);
     }
 
+    if (url.pathname === "/api/status") {
+      if (request.method !== "GET" && request.method !== "HEAD") {
+        const response = json({ error: "Method not allowed." }, 405);
+        response.headers.set("Allow", "GET, HEAD");
+        return withHeaders(response, request);
+      }
+      return withHeaders(await handleStatus(env), request);
+    }
+
     const assetRequest = rewriteRscRequest(request);
     const response = await env.ASSETS.fetch(assetRequest);
     return withHeaders(response, request);
@@ -106,13 +116,14 @@ function rewriteRscRequest(request: Request): Request {
   return request;
 }
 
-function withHeaders(response: Response, request: Request): Response {
+async function withHeaders(response: Response, request: Request): Promise<Response> {
   const url = new URL(request.url);
   const headers = new Headers(response.headers);
 
   for (const [key, value] of Object.entries(SECURITY_HEADERS)) {
     headers.set(key, value);
   }
+  headers.set("Content-Security-Policy", await contentSecurityPolicy(response));
 
   if (url.pathname.startsWith("/_next/static/")) {
     headers.set("Cache-Control", IMMUTABLE_CACHE);
@@ -120,6 +131,8 @@ function withHeaders(response: Response, request: Request): Response {
     headers.set("Cache-Control", ONE_WEEK_CACHE);
   } else if (url.pathname === "/api/contact") {
     headers.set("Cache-Control", "no-store");
+  } else if (url.pathname === "/api/status") {
+    headers.set("Cache-Control", "public, max-age=0, s-maxage=60, stale-while-revalidate=120");
   } else if (headers.get("content-type")?.includes("text/html")) {
     headers.set("Cache-Control", HTML_CACHE);
   }
@@ -253,6 +266,76 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
   }
 }
 
+async function handleStatus(env: Env): Promise<Response> {
+  const checkedAt = new Date().toISOString();
+  const [app, api] = await Promise.all([
+    probeService(env.STATUS_APP_URL ?? "https://app.certamaris.com/auth/login", (status) => status === 200),
+    probeService(env.STATUS_API_URL ?? "https://api.certamaris.com/api/health", (status) => status >= 200 && status < 300),
+  ]);
+
+  return json({
+    checkedAt,
+    components: [
+      { id: "website", name: "Public website", status: "operational" },
+      { id: "application", name: "CertaMaris application", status: app },
+      { id: "api", name: "CertaMaris API", status: api },
+    ],
+  });
+}
+
+async function probeService(url: string, accepts: (status: number) => boolean): Promise<"operational" | "degraded"> {
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      redirect: "follow",
+      signal: AbortSignal.timeout(5_000),
+      headers: { "User-Agent": "CertaMaris-Status-Monitor/1.0" },
+    });
+    return accepts(response.status) ? "operational" : "degraded";
+  } catch {
+    return "degraded";
+  }
+}
+
+async function contentSecurityPolicy(response: Response): Promise<string> {
+  const contentType = response.headers.get("content-type") ?? "";
+  const scriptHashes: string[] = [];
+  const styleHashes: string[] = [];
+
+  if (contentType.includes("text/html")) {
+    const html = await response.clone().text();
+    for (const match of html.matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/gi)) {
+      if (match[1]) scriptHashes.push(`'sha256-${await sha256Base64(match[1])}'`);
+    }
+    for (const match of html.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/gi)) {
+      if (match[1]) styleHashes.push(`'sha256-${await sha256Base64(match[1])}'`);
+    }
+  }
+
+  return [
+    "default-src 'self'",
+    `script-src 'self' https://static.cloudflareinsights.com${scriptHashes.length ? ` ${[...new Set(scriptHashes)].join(" ")}` : ""}`,
+    `style-src 'self'${styleHashes.length ? ` ${[...new Set(styleHashes)].join(" ")}` : ""}`,
+    "style-src-attr 'unsafe-inline'",
+    "img-src 'self' data:",
+    "media-src 'self'",
+    "font-src 'self' data:",
+    "connect-src 'self' https://app.certamaris.com",
+    "object-src 'none'",
+    "frame-ancestors 'none'",
+    "base-uri 'self'",
+    "form-action 'self'",
+    "upgrade-insecure-requests",
+  ].join("; ") + ";";
+}
+
+async function sha256Base64(value: string): Promise<string> {
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(value));
+  let binary = "";
+  for (const byte of new Uint8Array(digest)) binary += String.fromCharCode(byte);
+  return btoa(binary);
+}
+
 class DeliveryUnavailableError extends Error {}
 
 async function deliverContact(
@@ -334,9 +417,10 @@ function contactResponse(
     const target = new URL(status >= 200 && status < 300 ? "/contact/submitted" : "/contact/delivery-failed", request.url);
     if (status === 429) target.searchParams.set("reason", "rate-limited");
     if (status === 413) target.searchParams.set("reason", "too-large");
-    const response = Response.redirect(target.toString(), 303);
-    response.headers.set("X-Request-ID", requestId);
-    return response;
+    return new Response(null, {
+      status: 303,
+      headers: { Location: target.toString(), "X-Request-ID": requestId },
+    });
   }
   const response = json(
     status >= 200 && status < 300 ? { ok: true, requestId, duplicate } : { error, requestId },

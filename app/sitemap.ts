@@ -70,22 +70,24 @@ function toSitemapEntry(
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date("2026-07-31T00:00:00.000Z");
+  // Deterministic: the global accessibility, security, navigation, and brand-asset
+  // remediation materially changed every generated marketing page on this date.
+  const remediationDate = new Date("2026-08-01T00:00:00.000Z");
 
   const platformRoutes = productModules.map((mod) =>
-    toSitemapEntry({ path: `/platform/${mod.slug}`, priority: 0.8, changeFrequency: "monthly" }, now)
+    toSitemapEntry({ path: `/platform/${mod.slug}`, priority: 0.8, changeFrequency: "monthly" }, remediationDate)
   );
 
   const solutionRoutes = solutionsPages.map((page) =>
-    toSitemapEntry({ path: `/solutions/${page.slug}`, priority: 0.8, changeFrequency: "monthly" }, now)
+    toSitemapEntry({ path: `/solutions/${page.slug}`, priority: 0.8, changeFrequency: "monthly" }, remediationDate)
   );
 
   const audienceRoutes = audiencePages.map((page) =>
-    toSitemapEntry({ path: `/who-we-serve/${page.slug}`, priority: 0.75, changeFrequency: "monthly" }, now)
+    toSitemapEntry({ path: `/who-we-serve/${page.slug}`, priority: 0.75, changeFrequency: "monthly" }, remediationDate)
   );
 
   const topicRoutes = topicSlugs.map((slug) =>
-    toSitemapEntry({ path: `/topics/${slug}`, priority: 0.75, changeFrequency: "monthly" }, now)
+    toSitemapEntry({ path: `/topics/${slug}`, priority: 0.75, changeFrequency: "monthly" }, remediationDate)
   );
 
   const articleRoutes = articles.map((article) =>
@@ -96,7 +98,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   );
 
   return [
-    ...coreRoutes.map((r) => toSitemapEntry(r, now)),
+    ...coreRoutes.map((r) => toSitemapEntry(r, remediationDate)),
     ...platformRoutes,
     ...solutionRoutes,
     ...audienceRoutes,
