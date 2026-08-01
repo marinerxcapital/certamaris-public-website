@@ -10,6 +10,8 @@ export type ProductScreenAnnotation = {
 
 export type ProductProofScreen = {
   src: string;
+  /** Original-resolution source requested only after opening the gallery. */
+  fullSrc: string;
   width: number;
   height: number;
   alt: string;
@@ -24,6 +26,7 @@ export type ProductProofScreen = {
 export const productProofScreens = {
   requirementMapping: {
     src: "/product/updated/requirement-mapping.png",
+    fullSrc: "/product/updated/requirement-mapping.png",
     width: 1440,
     height: 2194,
     alt: "CertaMaris requirement mapping workspace showing source requirements, target controls, and current mapping status.",
@@ -34,6 +37,7 @@ export const productProofScreens = {
   },
   evidenceCoverage: {
     src: "/product/updated/evidence-coverage.png",
+    fullSrc: "/product/updated/evidence-coverage.png",
     width: 1440,
     height: 2194,
     alt: "CertaMaris evidence coverage workspace showing control coverage, freshness, expiring evidence, and evidence requests.",
@@ -44,6 +48,7 @@ export const productProofScreens = {
   },
   findingsRegister: {
     src: "/product/updated/findings-register.png",
+    fullSrc: "/product/updated/findings-register.png",
     width: 1440,
     height: 2194,
     alt: "CertaMaris finding detail workspace showing narrative, impact assessment, affected controls, and linked actions.",
@@ -54,6 +59,7 @@ export const productProofScreens = {
   },
   correctiveActions: {
     src: "/product/updated/corrective-actions.png",
+    fullSrc: "/product/updated/corrective-actions.png",
     width: 1440,
     height: 2194,
     alt: "CertaMaris corrective actions workspace showing owned remediation work, status, priority, and due dates.",
@@ -64,6 +70,7 @@ export const productProofScreens = {
   },
   auditReadiness: {
     src: "/product/updated/audit-readiness.png",
+    fullSrc: "/product/updated/audit-readiness.png",
     width: 1440,
     height: 2194,
     alt: "CertaMaris deliverables workspace showing readiness outputs, approval state, retention, and controlled release records.",
@@ -74,6 +81,7 @@ export const productProofScreens = {
   },
   executiveReporting: {
     src: "/product/updated/executive-readiness.png",
+    fullSrc: "/product/updated/executive-readiness.png",
     width: 1440,
     height: 1100,
     alt: "CertaMaris executive readiness dashboard showing composite readiness, incident trend, regulator readiness, and governance milestones.",
@@ -84,6 +92,7 @@ export const productProofScreens = {
   },
   fleetInventory: {
     src: "/product/updated/fleet-inventory.png",
+    fullSrc: "/product/updated/fleet-inventory.png",
     width: 1440,
     height: 2194,
     alt: "CertaMaris fleet and facilities workspace showing vessels, facilities, scope, regions, status, criticality, and review cadence.",
@@ -94,6 +103,7 @@ export const productProofScreens = {
   },
   cybersecurityPlans: {
     src: "/product/updated/cybersecurity-plans.png",
+    fullSrc: "/product/updated/cybersecurity-plans.png",
     width: 1440,
     height: 2194,
     alt: "CertaMaris cybersecurity plan workspace showing plan sections, owners, coverage, approval workflow, and linked authorities.",

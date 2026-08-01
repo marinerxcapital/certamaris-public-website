@@ -85,7 +85,7 @@ const outcomes = [
   },
   {
     title: "Clearer fleet posture",
-    body: "Roll readiness, findings, and deadlines without inventing scores or fake metrics.",
+    body: "Review readiness, findings, and deadlines using traceable operational records.",
     href: "/platform/fleet-management",
     linkLabel: "Fleet management",
   },
@@ -269,7 +269,7 @@ export default function HomePage() {
         <Reveal className="mb-10 max-w-2xl">
           <Eyebrow>Business value</Eyebrow>
           <h2 className="text-[30px] leading-[1.12] sm:text-[38px]">
-            Operational outcomes — without fabricated metrics.
+            Operational outcomes grounded in traceable records.
           </h2>
         </Reveal>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -427,8 +427,7 @@ export default function HomePage() {
             <Button href="/contact?intent=demo">Request a demo</Button>
             <Button
               href="/platform"
-              variant="secondary"
-              className="border-navy/80 bg-navy text-white hover:bg-[#0e3a68]"
+              variant="inverse"
             >
               View platform
             </Button>

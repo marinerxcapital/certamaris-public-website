@@ -1,12 +1,13 @@
 "use client";
 
 import { createPortal } from "react-dom";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import type { ProductProofScreen, ProductScreenAnnotation } from "@/lib/product-screens";
 import { productProofSequence } from "@/lib/product-screens";
 
 type ProductScreenFrameProps = {
   src: string;
+  fullSrc?: string;
   alt: string;
   label: string;
   width?: number;
@@ -89,6 +90,7 @@ function ProductGalleryLightbox({
 }) {
   const [mounted, setMounted] = useState(false);
   const [activeOrder, setActiveOrder] = useState(screen.galleryOrder);
+  const [zoom, setZoom] = useState<"fit" | 100 | 150 | 200>("fit");
   const dialogRef = useRef<HTMLDivElement>(null);
 
   const activeIndex = Math.max(
@@ -106,6 +108,8 @@ function ProductGalleryLightbox({
     );
     setActiveOrder(productProofSequence[nextIndex].galleryOrder);
   };
+
+  useEffect(() => setZoom("fit"), [activeOrder]);
 
   useEffect(() => setMounted(true), []);
 
@@ -211,15 +215,56 @@ function ProductGalleryLightbox({
 
           <div className="grid gap-5 p-3 sm:p-5 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start">
             <div className="relative min-w-0 rounded-md border border-navy/15 bg-white p-2 shadow-card sm:p-3">
-              <ProductScreenImage
-                src={activeScreen.src}
-                alt={activeScreen.alt}
-                width={activeScreen.width}
-                height={activeScreen.height}
-                sizes="(min-width: 1024px) 72vw, 100vw"
-                priority
-                className="mx-auto h-auto max-h-[72vh] w-auto max-w-full object-contain"
-              />
+              <div className="mb-3 flex flex-wrap items-center gap-2 border-b border-navy/10 pb-3">
+                <span className="mr-auto font-mono text-[10px] uppercase tracking-[0.12em] text-structural">
+                  Image scale
+                </span>
+                {(["fit", 100, 150, 200] as const).map((value) => (
+                  <button
+                    key={value}
+                    type="button"
+                    onClick={() => setZoom(value)}
+                    aria-pressed={zoom === value}
+                    aria-label={value === "fit" ? "Fit screenshot to viewport" : `Zoom screenshot to ${value} percent`}
+                    className="min-h-9 rounded border border-navy/20 bg-white px-2.5 text-[11px] font-semibold text-navy transition hover:border-ocean/50 hover:text-ocean focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ocean focus-visible:ring-offset-2 aria-pressed:border-ocean aria-pressed:bg-ocean/10"
+                  >
+                    {value === "fit" ? "Fit" : `${value}%`}
+                  </button>
+                ))}
+                <a
+                  href={activeScreen.fullSrc}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex min-h-9 items-center rounded border border-navy/20 bg-white px-2.5 text-[11px] font-semibold text-navy transition hover:border-ocean/50 hover:text-ocean focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ocean focus-visible:ring-offset-2"
+                >
+                  Open original
+                </a>
+              </div>
+              <div
+                className="max-h-[68vh] overflow-auto rounded border border-navy/10 bg-paper/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ocean focus-visible:ring-inset"
+                tabIndex={0}
+                role="region"
+                aria-label={`${activeScreen.title} zoomable screenshot`}
+                aria-describedby={descriptionId}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={activeScreen.fullSrc}
+                  alt={activeScreen.alt}
+                  width={activeScreen.width}
+                  height={activeScreen.height}
+                  loading="eager"
+                  decoding="async"
+                  className={
+                    zoom === "fit"
+                      ? "mx-auto h-auto max-h-[64vh] w-auto max-w-full object-contain"
+                      : "h-auto max-w-none object-contain object-top"
+                  }
+                  style={
+                    zoom === "fit" ? undefined : { width: `${Math.round((activeScreen.width * zoom) / 100)}px` }
+                  }
+                />
+              </div>
               <div className="mt-3 flex items-center justify-between gap-2 border-t border-navy/10 pt-3">
                 <button
                   type="button"
@@ -310,17 +355,20 @@ function ProductScreenFrameInner({
   sizes = "(min-width: 1024px) 50vw, (min-width: 640px) 80vw, 100vw",
   lightboxTitle,
   lightboxBody,
+  fullSrc,
   annotations,
   ...screen
 }: ProductScreenFrameProps) {
   const [isOpen, setIsOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
+  const triggerDescriptionId = useId();
   const visibleAnnotations = clampAnnotations(annotations);
   const registeredScreen = productProofSequence.find((candidate) => candidate.src === src);
   const galleryScreen = useMemo<ProductProofScreen>(
     () => ({
       ...registeredScreen,
       src,
+      fullSrc: fullSrc ?? registeredScreen?.fullSrc ?? src,
       alt,
       label,
       width: screen.width ?? registeredScreen?.width ?? 1440,
@@ -330,7 +378,7 @@ function ProductScreenFrameInner({
       galleryOrder: screen.galleryOrder ?? registeredScreen?.galleryOrder ?? 1,
       annotations,
     }),
-    [alt, annotations, body, label, lightboxBody, lightboxTitle, registeredScreen, screen.galleryOrder, screen.height, screen.width, src, title],
+    [alt, annotations, body, fullSrc, label, lightboxBody, lightboxTitle, registeredScreen, screen.galleryOrder, screen.height, screen.width, src, title],
   );
 
   return (
@@ -340,17 +388,21 @@ function ProductScreenFrameInner({
         type="button"
         className={`group relative block w-full rounded-md text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ocean focus-visible:ring-offset-4 ${className}`}
         onClick={() => setIsOpen(true)}
-        aria-label={`Open ${galleryScreen.title} screenshot in product gallery`}
+        aria-label={`${label} Expand — open screenshot in product gallery`}
+        aria-describedby={triggerDescriptionId}
       >
+        <span id={triggerDescriptionId} className="sr-only">
+          {alt}
+        </span>
         <span className="product-screen-frame block overflow-hidden rounded-md border border-navy/15 bg-white shadow-card transition duration-200 group-hover:-translate-y-0.5 group-hover:border-ocean/35 group-hover:shadow-lg">
           <span className="flex h-9 items-center justify-between gap-2 border-b border-navy/10 bg-paper px-3">
             <span className="truncate font-mono text-[11px] uppercase tracking-[0.1em] text-structural">{label}</span>
-            <span className="shrink-0 font-mono text-[10px] uppercase tracking-[0.08em] text-ocean opacity-80">Expand</span>
+            <span className="shrink-0 font-mono text-[10px] uppercase tracking-[0.08em] text-[#0b6597]">Expand</span>
           </span>
           <span className="relative block bg-paper">
             <ProductScreenImage
               src={src}
-              alt={alt}
+              alt=""
               width={galleryScreen.width}
               height={galleryScreen.height}
               sizes={sizes}

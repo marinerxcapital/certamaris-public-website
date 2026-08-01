@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 type ButtonProps = {
   href: string;
   children: ReactNode;
-  variant?: "primary" | "secondary" | "ghost";
+  variant?: "primary" | "secondary" | "ghost" | "inverse";
   className?: string;
   external?: boolean;
 };
@@ -17,6 +17,7 @@ const variants: Record<NonNullable<ButtonProps["variant"]>, string> = {
   secondary:
     "border border-navy/20 bg-white/80 text-navy backdrop-blur-sm hover:border-navy/40 hover:bg-white/90",
   ghost: "text-navy hover:text-ocean",
+  inverse: "border border-white/35 bg-white text-navy hover:border-white hover:bg-[#e8f2f8]",
 };
 
 export function Button({ href, children, variant = "primary", className = "", external = false }: ButtonProps) {

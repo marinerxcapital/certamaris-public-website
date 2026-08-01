@@ -38,6 +38,7 @@ export default function SolutionsPage() {
             <Link
               key={item.slug}
               href={`/solutions/${item.slug}`}
+              prefetch={false}
               className="text-[13.5px] font-medium text-navy hover:text-ocean transition-colors"
             >
               {item.title}
@@ -107,6 +108,7 @@ export default function SolutionsPage() {
             <Link
               key={item.slug}
               href={`/solutions/${item.slug}`}
+              prefetch={false}
               className="liquid-glass liquid-glass--subtle lg-pad-md block group h-full"
             >
               <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-ocean mb-2">

@@ -63,6 +63,7 @@ export default function PlatformPage() {
             <Link
               key={item.href}
               href={item.href}
+              prefetch={false}
               className="text-[13.5px] font-medium text-navy hover:text-ocean transition-colors"
             >
               {item.title}
@@ -97,7 +98,7 @@ export default function PlatformPage() {
                       </Link>
                     </h3>
                   </div>
-                  <Link href={level.href} className="text-[13.5px] font-semibold text-ocean hover:underline">
+                  <Link prefetch={false} href={level.href} className="text-[13.5px] font-semibold text-ocean hover:underline">
                     Open module
                   </Link>
                 </div>
@@ -201,6 +202,7 @@ export default function PlatformPage() {
               <Link
                 key={item.href}
                 href={item.href}
+                prefetch={false}
                 className="liquid-glass liquid-glass--subtle lg-pad-md block group h-full"
               >
                 <div className="mb-2 flex flex-wrap items-center gap-2">

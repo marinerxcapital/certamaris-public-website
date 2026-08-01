@@ -29,6 +29,16 @@ export const metadata: Metadata = {
     description: SITE_DESCRIPTION,
     images: ["/og/certamaris-og.jpg"],
   },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "32x32" },
+      { url: "/favicon-16.png", type: "image/png", sizes: "16x16" },
+      { url: "/favicon-32.png", type: "image/png", sizes: "32x32" },
+      { url: "/favicon-48.png", type: "image/png", sizes: "48x48" },
+    ],
+    apple: [{ url: "/apple-icon.png", type: "image/png", sizes: "180x180" }],
+    other: [{ rel: "icon", url: "/brand/icon-192.png", type: "image/png", sizes: "192x192" }],
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

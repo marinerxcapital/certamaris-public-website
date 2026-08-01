@@ -134,7 +134,7 @@ export default function PricingPage() {
         </div>
         <Reveal className="mt-6">
           <p className="text-[13.5px] text-structural leading-relaxed max-w-3xl">
-            Pricing is scoped to vessel count, evidence condition, and services depth. No fake dollar figures — request
+            Pricing is scoped to vessel count, evidence condition, and services depth. Request
             a proposal.
           </p>
         </Reveal>
@@ -151,7 +151,17 @@ export default function PricingPage() {
           </p>
         </Reveal>
         <Reveal>
-          <div className="overflow-x-auto rounded-md border border-navy/10 bg-white">
+          <p id="package-comparison-instructions" className="sr-only">
+            This comparison scrolls horizontally on smaller screens. Focus the table region and use the arrow keys to
+            review every package column.
+          </p>
+          <div
+            className="overflow-x-auto rounded-md border border-navy/10 bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ocean"
+            tabIndex={0}
+            role="region"
+            aria-label="Package capability comparison"
+            aria-describedby="package-comparison-instructions"
+          >
             <table className="w-full min-w-[720px] border-collapse text-left text-[13.5px]">
               <caption className="sr-only">
                 Feature comparison across Fleet Core, Fleet Assurance, and Enterprise packages

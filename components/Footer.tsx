@@ -15,14 +15,22 @@ export function Footer() {
       <div className="shell py-16 sm:py-20">
         <div className="mb-12 flex flex-col gap-6 border-b border-white/15 pb-10 md:flex-row md:items-end md:justify-between">
           <div className="max-w-md">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/brand/certamaris-footer-transparent.png"
-              alt="CertaMaris"
-              width={2048}
-              height={357}
-              className="footer-logo mb-4 h-auto w-[188px] sm:w-[212px]"
-            />
+            <picture>
+              <source
+                type="image/webp"
+                srcSet="/brand/optimized/certamaris-footer-212.webp 1x, /brand/optimized/certamaris-footer-424.webp 2x"
+              />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/brand/optimized/certamaris-footer-212.webp"
+                alt="CertaMaris"
+                width={212}
+                height={39}
+                loading="lazy"
+                decoding="async"
+                className="footer-logo mb-4 h-auto w-[188px] sm:w-[212px]"
+              />
+            </picture>
             <p className="text-[14px] leading-relaxed text-white/70">{SITE_TAGLINE}</p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
