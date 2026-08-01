@@ -40,8 +40,8 @@ export function PixelGridBackground({
         data-aifx-levels="8"
         data-aifx-scale="1.15"
         data-aifx-drift-angle="24"
-        data-aifx-glint="0.14"
-        data-aifx-contrast="1.45"
+        data-aifx-glint="0.08"
+        data-aifx-contrast="1.15"
         className={`pixel-grid-background ${className}`}
         aria-hidden="true"
       />

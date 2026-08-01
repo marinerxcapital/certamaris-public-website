@@ -8,9 +8,9 @@ const config: Config = {
       current: "currentColor",
       white: "#FFFFFF",
       navy: {
-        DEFAULT: "#0B2A4A",
-        ink: "#0B2A4A",
-        deep: "#071D33",
+        DEFAULT: "#061E36",
+        ink: "#061E36",
+        deep: "#041526",
       },
       ocean: {
         DEFAULT: "#126FAA",
@@ -22,9 +22,10 @@ const config: Config = {
         raised: "#EEF3F6",
       },
       structural: {
-        DEFAULT: "#5C6D7E",
-        hairline: "rgba(11,42,74,0.12)",
-        hairlineStrong: "rgba(11,42,74,0.22)",
+        /* Darker body copy for contrast over Pixel Grid (was #5C6D7E) */
+        DEFAULT: "#243748",
+        hairline: "rgba(6,30,54,0.14)",
+        hairlineStrong: "rgba(6,30,54,0.26)",
       },
       status: {
         ok: "#147A4C",

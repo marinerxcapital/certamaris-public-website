@@ -7,9 +7,9 @@
   --surface-paper: #f5f8fa;
   --surface-raised: #eef3f6;
   --surface-navy: #0b2a4a;
-  --ink-primary: #0b2a4a;
-  --ink-secondary: #45596c;
-  --ink-tertiary: #5c6d7e;
+  --ink-primary: #061e36;
+  --ink-secondary: #1f3348;
+  --ink-tertiary: #2c4054;
   --ink-inverse: #f5f8fa;
   --accent-ocean: #126faa;
   --accent-ocean-cta: #1478b8;
@@ -33,10 +33,10 @@
   --shadow-card: 0 1px 0 var(--hairline), 0 8px 24px rgba(11, 42, 74, 0.05);
   --shadow-raised: 0 1px 0 var(--hairline), 0 12px 32px rgba(11, 42, 74, 0.07);
   /* Liquid Glass material tokens (homepage over Pixel Grid) */
-  --lg-bg: rgba(248, 251, 255, 0.68);
-  /* Subtle was 0.48 — too thin over bright Pixel Grid for structural (#5C6D7E) body copy */
-  --lg-bg-subtle: rgba(248, 251, 255, 0.58);
-  --lg-bg-strong: rgba(248, 251, 255, 0.82);
+  /* Stronger frosted panels so body copy stays legible over the animated grid */
+  --lg-bg: rgba(248, 251, 255, 0.82);
+  --lg-bg-subtle: rgba(248, 251, 255, 0.74);
+  --lg-bg-strong: rgba(250, 252, 255, 0.92);
   --lg-border: rgba(1, 43, 109, 0.14);
   --lg-border-hover: rgba(18, 111, 170, 0.35);
   --lg-blur: 18px;
@@ -69,6 +69,19 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* Global body-copy contrast helpers (used heavily as text-structural / muted navy) */
+.text-structural {
+  color: #243748 !important;
+}
+/* Soften Tailwind navy/opacity utilities that looked washed over the grid */
+.text-navy\/75,
+.text-navy\/80,
+.text-navy\/82,
+.text-navy\/85,
+.text-navy\/90 {
+  color: #0a2744 !important;
+}
+
 .site-root {
   position: relative;
   overflow-x: clip;
@@ -80,8 +93,8 @@ body {
   height: 100%;
   min-height: 100vh;
   min-height: 100dvh;
-  /* Visible through Liquid Glass — sole page-wide animated background */
-  opacity: 0.52;
+  /* Dimmed so page copy stays readable across all surfaces (was 0.52) */
+  opacity: 0.34;
   overflow: hidden;
   pointer-events: none;
 }
@@ -842,7 +855,7 @@ textarea:focus-visible,
 
 @media (max-width: 767px) {
   .pixel-grid-background {
-    opacity: 0.38;
+    opacity: 0.26;
   }
 
   .hero-section {
