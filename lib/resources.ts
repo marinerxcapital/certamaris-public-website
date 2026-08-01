@@ -34,13 +34,13 @@ export const RESOURCE_UPDATED_LABEL = "July 31, 2026";
 const baseArticles: Omit<Article, "publishedDate" | "publishedLabel" | "author">[] = [
   {
     slug: "imo-msc-428-98-explained",
-    title: "IMO Resolution MSC.428(98): what it actually requires",
+    title: "IMO MSC.428(98) explained",
     topic: "Regulatory intelligence",
     readTime: "10 min read",
     kind: "explainer",
     tags: ["IMO", "MSC.428(98)", "ISM", "SMS", "regulatory"],
     excerpt:
-      "MSC.428(98) does not create a standalone cyber code. It treats cyber risk as a category of risk the SMS must address under the ISM Code, with a DOC-linked timeline after 1 January 2021.",
+      "MSC.428(98) places cyber risk in the SMS under the ISM Code, with a DOC-linked timeline after 1 January 2021; it is not a standalone cyber code.",
     body: [
       "IMO Resolution MSC.428(98), adopted in 2017, encourages administrations to ensure cyber risks are appropriately addressed in existing safety management systems. The resolution sets an operational timeline: no later than the first annual verification of the company's Document of Compliance after 1 January 2021. It does not introduce a separate cyber certification scheme. Cyber risk is treated as a category of operational risk the Safety Management System (SMS) already must manage under the ISM Code.",
       "That framing matters for how operators organize work. The resolution does not replace the ISM Code, flag-state instructions, or class rules. It directs attention to whether cyber risk identification, assessment, procedures, training, and internal audit appear inside the same SMS structure that already governs safety and environmental protection. Administrations remain the primary audience of the encouragement; companies remain accountable for how the SMS actually operates on board and ashore.",
@@ -60,13 +60,13 @@ const baseArticles: Omit<Article, "publishedDate" | "publishedLabel" | "author">
   },
   {
     slug: "iacs-ur-e26-e27-overview",
-    title: "IACS UR E26 and E27: the design-stage cyber resilience requirements",
+    title: "IACS UR E26 & E27 overview",
     topic: "Regulatory intelligence",
     readTime: "10 min read",
     kind: "explainer",
     tags: ["IACS", "UR E26", "UR E27", "class", "newbuild"],
     excerpt:
-      "UR E26 addresses cyber resilience of the ship as a whole; UR E27 addresses systems and equipment on board. Both apply from new construction contracts signed on or after 1 July 2024.",
+      "UR E26 addresses ship-level resilience and E27 covers onboard systems and equipment. Both apply from new construction contracts signed on or after 1 July 2024.",
     body: [
       "IACS Unified Requirements E26 (Cyber Resilience of Ships) and E27 (Cyber Resilience of On-board Systems and Equipment) target cyber resilience at design and construction rather than as a retrofit checklist bolted onto an already operating vessel. As stated for the unified requirements’ effective application, they apply from new construction contracts signed on or after 1 July 2024. That contract-date scope is central: E26/E27 are not a blanket mandate for every existing ship in the world fleet on a single calendar day.",
       "UR E26 sets requirements at the ship level. It addresses the vessel as an integrated system: identification of computer-based systems, network architecture and segmentation, access control, and the overall cyber resilience properties expected of the ship. The shipyard, owner specification, and classification society survey scope all interact at this level because E26 is about how the delivered ship is designed and verified as a whole.",
@@ -86,7 +86,7 @@ const baseArticles: Omit<Article, "publishedDate" | "publishedLabel" | "author">
   },
   {
     slug: "evidence-sufficiency-cyber-compliance",
-    title: "What makes cyber-compliance evidence 'sufficient'?",
+    title: "Cyber-compliance evidence sufficiency",
     topic: "Evidence & findings",
     readTime: "5 min read",
     kind: "explainer",
@@ -102,7 +102,7 @@ const baseArticles: Omit<Article, "publishedDate" | "publishedLabel" | "author">
   },
   {
     slug: "corrective-action-verification",
-    title: "Why 'closed' shouldn't mean 'the owner said so'",
+    title: "Corrective-action verification",
     topic: "Evidence & findings",
     readTime: "4 min read",
     kind: "explainer",
@@ -118,7 +118,7 @@ const baseArticles: Omit<Article, "publishedDate" | "publishedLabel" | "author">
   },
   {
     slug: "fleet-scale-cyber-governance",
-    title: "Cyber governance at fleet scale: what changes past the first few vessels",
+    title: "Fleet-scale cyber governance",
     topic: "Fleet operations",
     readTime: "6 min read",
     kind: "explainer",
@@ -134,7 +134,7 @@ const baseArticles: Omit<Article, "publishedDate" | "publishedLabel" | "author">
   },
   {
     slug: "reading-a-cyber-risk-register",
-    title: "How to read a cyber risk register (and what's usually missing from one)",
+    title: "Reading a cyber risk register",
     topic: "Risk & governance",
     readTime: "5 min read",
     kind: "explainer",
@@ -150,7 +150,7 @@ const baseArticles: Omit<Article, "publishedDate" | "publishedLabel" | "author">
   },
   {
     slug: "maritime-cyber-risk-assessment-checklist",
-    title: "Maritime cyber risk assessment checklist for SMS-aligned fleets",
+    title: "Maritime cyber risk assessment checklist",
     topic: "Risk & governance",
     readTime: "8 min read",
     kind: "checklist",
@@ -173,7 +173,7 @@ const baseArticles: Omit<Article, "publishedDate" | "publishedLabel" | "author">
   },
   {
     slug: "survey-readiness-package-guide",
-    title: "Survey readiness package: what to assemble before cyber questions land",
+    title: "Survey readiness package guide",
     topic: "Audit readiness",
     readTime: "7 min read",
     kind: "guide",

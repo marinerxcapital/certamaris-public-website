@@ -51,7 +51,7 @@ export const solutionsPages: SolutionPage[] = [
     eyebrow: "Solutions · 01",
     headline: "One compliance record per fleet — vessel detail preserved underneath.",
     intro:
-      "Fleet Cyber Compliance keeps applicability, scope, control mappings, evidence, findings, and readiness status connected across vessels so a requirement change does not become a shared-drive search.",
+      "Fleet Cyber Compliance connects applicability, controls, evidence, findings, and readiness across vessels so requirement changes become accountable work.",
     buyer: "Ship owners, operators, fleet managers, technical managers, and DPAs",
     problem:
       "Multi-vessel operators run compliance through disconnected vessel binders, email threads, and personal trackers.",
@@ -116,7 +116,7 @@ export const solutionsPages: SolutionPage[] = [
     eyebrow: "Solutions · 02",
     headline: "Build the readiness package continuously — not the week before survey.",
     intro:
-      "Audit and survey readiness compiles scope, assessment basis, findings, corrective actions, exceptions, and plan crosswalks from the live record so preparation is inspectable before external review.",
+      "Audit and survey readiness compiles scope, evidence, findings, actions, exceptions, and plan crosswalks from the live record before review.",
     buyer: "DPAs, technical managers, compliance leads, and owner representatives",
     problem:
       "Survey week becomes a scramble to reconstruct evidence and status from drives and inboxes.",
@@ -180,7 +180,7 @@ export const solutionsPages: SolutionPage[] = [
     eyebrow: "Solutions · 03",
     headline: "Structure cyber risk management work under the SMS — without inventing applicability.",
     intro:
-      "MSC.428(98) encourages administrations to ensure cyber risks are appropriately addressed in existing Safety Management Systems. CertaMaris structures the evidence, findings, and plan work that supports SMS cyber risk management; it does not replace the SMS or DOC process.",
+      "MSC.428(98) places cyber risk in the Safety Management System. CertaMaris structures supporting evidence, findings, and plan work without replacing the SMS or DOC process.",
     buyer: "DPAs, company security and compliance officers, technical managers, and operators",
     problem:
       "Cyber risk work is often detached from SMS procedures, so internal audits and DOC verifications cannot show a continuous trail.",
@@ -241,7 +241,7 @@ export const solutionsPages: SolutionPage[] = [
     eyebrow: "Solutions · 04",
     headline: "Ship-level cyber resilience evidence structured for design and survey conversations.",
     intro:
-      "IACS UR E26 addresses cyber resilience of ships (ship-level), including topics such as computer-based systems identification, network segmentation, and access control. CertaMaris helps structure mapped controls, evidence, and findings — it does not replace class rule interpretation.",
+      "IACS UR E26 addresses ship-level cyber resilience, including systems identification, segmentation, and access control. CertaMaris structures evidence without replacing class interpretation.",
     buyer: "Technical managers, newbuild project teams, cybersecurity leads, and owners with E26-applicable vessels",
     problem:
       "E26-related evidence is scattered across shipyard packages, OEM documentation, and operational records.",
@@ -302,7 +302,7 @@ export const solutionsPages: SolutionPage[] = [
     eyebrow: "Solutions · 05",
     headline: "Equipment- and system-level cyber resilience evidence with clear ownership.",
     intro:
-      "IACS UR E27 addresses cyber resilience of on-board systems and equipment. Together with E26, it separates resilient equipment from the resilient ship built from those systems. CertaMaris keeps system-level mappings and evidence distinct.",
+      "IACS UR E27 addresses cyber resilience of onboard systems and equipment. CertaMaris keeps system-level mappings and supplier evidence distinct from ship-level E26 work.",
     buyer: "IT/OT teams, technical managers, OEM coordinators, and project cyber leads",
     problem:
       "System-level evidence from OEMs and integrators does not stay linked to the controls and findings the operator must defend.",
@@ -363,7 +363,7 @@ export const solutionsPages: SolutionPage[] = [
     eyebrow: "Solutions · 06",
     headline: "Vessel-scoped risk, evidence, and actions with named accountable users.",
     intro:
-      "Vessel Cyber-Risk Management brings systems, assessments, evidence, findings, residual risk, and corrective actions into a vessel portal with individual identities — not a shared password model.",
+      "Vessel Cyber-Risk Management brings systems, assessments, evidence, findings, risk, and actions into a vessel portal with individual identities.",
     buyer: "Vessel masters and officers, vessel IT contacts, technical managers, and DPAs",
     problem:
       "Vessel cyber work is local, informal, and hard to defend when shore asks for status.",
@@ -424,7 +424,7 @@ export const solutionsPages: SolutionPage[] = [
     eyebrow: "Solutions · 07",
     headline: "Evidence with provenance. Findings with a defensible trail.",
     intro:
-      "An evidence artifact without custodian, version, and review decision is just a file. Findings separate condition, criterion, evidence, and consequence so follow-up work can be defended.",
+      "Evidence stays reviewable with a custodian, version, and decision. Findings separate condition, criterion, evidence, and consequence for defensible follow-up.",
     buyer: "Evidence custodians, reviewers, DPAs, and technical managers",
     problem:
       "Files age in drives; findings live in email; neither can answer 'what supports this control today?'",
@@ -606,7 +606,7 @@ export const solutionsPages: SolutionPage[] = [
     eyebrow: "Solutions · 10",
     headline: "SBOM and vulnerability context where private tooling is configured.",
     intro:
-      "SBOM and Vulnerability Assurance connects software bills of materials and vulnerability review to vessel/system context when private Dependency-Track and related workflows are enabled. This is configurable — not a claim of universal live SIEM or public multi-tenant DT.",
+      "SBOM and Vulnerability Assurance links software bills of materials and vulnerability review to vessel and system context when private tooling is configured.",
     buyer: "Maritime IT/OT teams, cybersecurity leads, and technical managers",
     problem:
       "Software composition risk sits outside the compliance evidence trail, so findings never connect.",
@@ -667,7 +667,7 @@ export const solutionsPages: SolutionPage[] = [
     eyebrow: "Solutions · 11",
     headline: "Governance-grade posture from the same record operators use.",
     intro:
-      "Executive and board reporting draws from live assurance data — readiness, freshness, open decisions, and action aging — without rebuilding a slide deck from inconsistent exports or inventing metrics.",
+      "Executive and board reporting draws on readiness, evidence freshness, open decisions, and action aging without rebuilding inconsistent slide decks.",
     buyer: "Owners, operators, executives, and board-facing compliance sponsors",
     problem:
       "Leadership gets a different number than the fleet team because sources disagree.",
@@ -728,7 +728,7 @@ export const solutionsPages: SolutionPage[] = [
     eyebrow: "Solutions · 12",
     headline: "Know what changed and what it touches — then assign human review.",
     intro:
-      "Regulatory Change Management keeps source versions, mappings, impact views, and follow-up ownership connected so requirement changes create accountable work rather than silent drift.",
+      "Regulatory Change Management connects source versions, mappings, impact views, and follow-up ownership so changes create accountable work.",
     buyer: "Compliance leads, DPAs, technical managers, and cybersecurity leads",
     problem:
       "Circulars and unified requirements change; fleets discover impact during survey.",
@@ -792,7 +792,7 @@ export const audiencePages: AudiencePage[] = [
     eyebrow: "Who we serve · Owners",
     headline: "Fleet-wide cyber assurance visibility without chasing every vessel.",
     intro:
-      "Ship owners carry operational and commercial consequences of cyber-compliance gaps. CertaMaris provides a controlled fleet view of readiness, open findings, and decisions that need leadership attention — without replacing class, flag, or counsel.",
+      "CertaMaris gives ship owners a controlled fleet view of readiness, open findings, and decisions needing leadership attention without replacing class or flag judgment.",
     responsibilities: [
       "Oversight of fleet cyber-risk posture",
       "Support for board, insurer, and charterer conversations",
@@ -904,7 +904,7 @@ export const audiencePages: AudiencePage[] = [
     eyebrow: "Who we serve · Technical · DPA",
     headline: "One system of record for the SMS cyber work you already own.",
     intro:
-      "Technical managers and Designated Persons Ashore carry operational weight for cyber risk under the SMS. CertaMaris centralizes evidence, findings, plans, and readiness preparation without replacing DPA accountability.",
+      "CertaMaris centralizes the evidence, findings, plans, and readiness work technical managers and DPAs own under the SMS without replacing their accountability.",
     responsibilities: [
       "SMS cyber-risk procedures and oversight",
       "Coordination across vessels, surveyors, and IT/OT",
@@ -960,7 +960,7 @@ export const audiencePages: AudiencePage[] = [
     eyebrow: "Who we serve · IT/OT",
     headline: "Control mapping that respects the IT/OT boundary.",
     intro:
-      "Shipboard OT and shoreside IT security teams feed the same compliance obligation from different tools and change practices. CertaMaris keeps IT and OT mappings distinct while linking both to shared requirements and evidence.",
+      "CertaMaris keeps shipboard OT and shoreside IT mappings distinct while linking both to shared requirements and evidence.",
     responsibilities: [
       "Technical control implementation",
       "System inventory and change context",
@@ -1016,7 +1016,7 @@ export const audiencePages: AudiencePage[] = [
     eyebrow: "Who we serve · Vessel",
     headline: "Vessel work with named users — not a shared password.",
     intro:
-      "Masters and officers need a practical vessel portal for systems context, evidence submission, findings awareness, and action ownership without becoming the entire shoreside compliance system.",
+      "Masters and officers get a practical vessel portal for systems context, evidence submission, findings, and action ownership.",
     responsibilities: [
       "Onboard cyber hygiene and procedure execution",
       "Evidence submission for vessel systems",
@@ -1072,7 +1072,7 @@ export const audiencePages: AudiencePage[] = [
     eyebrow: "Who we serve · Class · Survey",
     headline: "A reviewable trail structured around what a survey verifies.",
     intro:
-      "Where an operator grants access, survey stakeholders can inspect requirement-mapped evidence with provenance rather than a loose document dump. CertaMaris does not replace class judgment or endorse outcomes.",
+      "When an operator grants access, survey stakeholders can inspect requirement-mapped evidence with provenance rather than a document dump. Class judgment remains independent.",
     responsibilities: [
       "Verify requirements under the applicable survey scope",
       "Review evidence sufficiency and currency",
@@ -1124,7 +1124,7 @@ export const audiencePages: AudiencePage[] = [
     eyebrow: "Who we serve · Insurance · P&I",
     headline: "Structured visibility when a member chooses to share it.",
     intro:
-      "Cyber-risk posture increasingly appears in underwriting conversations. Where a member operator authorizes sharing, CertaMaris can present structured control coverage and readiness summaries — not a replacement for underwriting judgment.",
+      "When a member operator authorizes sharing, CertaMaris can present structured control coverage and readiness summaries for underwriting conversations.",
     responsibilities: [
       "Inform underwriting and risk conversations",
       "Evaluate member-provided cyber posture information",
@@ -1174,7 +1174,7 @@ export const audiencePages: AudiencePage[] = [
     eyebrow: "Who we serve · Service providers",
     headline: "Support delivery without becoming the operator's system of record.",
     intro:
-      "Consultancies, technical managers-as-a-service, and cyber service providers often help operators collect evidence and remediate findings. CertaMaris keeps the operator's controlled record intact while allowing structured contribution under role scope.",
+      "CertaMaris lets consultancies and cyber service providers contribute evidence and findings under role scope while the operator keeps the controlled record.",
     responsibilities: [
       "Deliver assessment or remediation services under contract",
       "Submit evidence and technical findings as authorized",

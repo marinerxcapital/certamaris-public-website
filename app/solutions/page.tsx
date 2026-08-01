@@ -11,7 +11,7 @@ import { solutionsPages } from "@/lib/solutions-audience";
 
 export const metadata = pageMetadata(
   "Solutions",
-  "Fleet cyber compliance, audit readiness, IMO MSC.428(98), IACS UR E26/E27, evidence and findings, CAPA verification, cybersecurity plans, SBOM assurance, executive reporting, and regulatory change management.",
+  "Fleet cyber compliance solutions for audit readiness, IMO and IACS work, evidence, findings, CAPA verification, plans, SBOM assurance, and reporting.",
   "/solutions"
 );
 

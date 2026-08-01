@@ -292,7 +292,7 @@ export const productModules: ProductModule[] = [
     eyebrow: "Platform · Corporate",
     headline: "Internal administration across clients, vessels, and support access.",
     intro:
-      "The CertaMaris Corporate Control Plane is the internal owner and delivery workspace: portfolio visibility, client and vessel provisioning, assurance delivery support, and audited support sessions. It is not a customer self-service console and does not expose other tenants' private work.",
+      "The Corporate Control Plane supports portfolio visibility, client and vessel provisioning, assurance delivery, and audited support sessions; it is not a customer self-service console.",
     maturity: "current",
     buyer: "CertaMaris internal operators, delivery leads, and platform administrators",
     problem:
@@ -375,7 +375,7 @@ export const productModules: ProductModule[] = [
     eyebrow: "Platform · Company",
     headline: "A tenant-isolated workspace for the company that owns the fleet.",
     intro:
-      "The Client Company Portal is the operator's controlled workspace: company administration, fleet view, users and roles, engagements, assessments, evidence, findings, plans, and released deliverables — logically isolated from other customers.",
+      "The Client Company Portal is an operator workspace for company administration, fleets, users, engagements, assessments, evidence, findings, plans, and released deliverables.",
     maturity: "current",
     buyer: "Ship owners, operators, company admins, technical managers, and DPAs",
     problem:
@@ -458,7 +458,7 @@ export const productModules: ProductModule[] = [
     eyebrow: "Platform · Fleet",
     headline: "Vessel inventory, readiness, risks, and deadlines across the fleet.",
     intro:
-      "Fleet Management keeps vessel inventory, comparison views, readiness signals, open risks and actions, regulatory scope, and reporting access in one company-controlled structure.",
+      "Fleet Management keeps vessel inventory, readiness signals, risks, actions, regulatory scope, and reporting access in one company-controlled structure.",
     maturity: "current",
     buyer: "Fleet managers, technical managers, DPAs, and owner leadership",
     problem:
@@ -540,7 +540,7 @@ export const productModules: ProductModule[] = [
     eyebrow: "Platform · Vessel",
     headline: "Vessel-scoped assurance work with individual auditable identities.",
     intro:
-      "Each vessel portal holds vessel identity, systems and assets, assessments, evidence, findings, risks, actions, cybersecurity plans, and vessel-scoped reports. Human users receive individual accounts — CertaMaris does not advertise a shared vessel password.",
+      "Each vessel portal holds systems, assessments, evidence, findings, risks, actions, plans, and reports. Human users receive individual accounts, not a shared vessel password.",
     maturity: "current",
     buyer: "Vessel masters and officers, vessel IT/OT contacts, technical managers, and DPAs",
     problem:
@@ -628,7 +628,7 @@ export const productModules: ProductModule[] = [
     eyebrow: "Platform · Assessments",
     headline: "Plan, perform, and review assessment work against controlled scope.",
     intro:
-      "Assessments cover planning, questionnaires, control testing, evidence mapping, results, review, assignments, and outputs — kept distinct from final conclusions until reviewers decide.",
+      "Assessments cover planning, questionnaires, control testing, evidence mapping, review, assignments, and outputs, with conclusions left to reviewers.",
     maturity: "current",
     buyer: "Compliance leads, DPAs, technical managers, and assurance reviewers",
     problem:
@@ -699,7 +699,7 @@ export const productModules: ProductModule[] = [
     eyebrow: "Platform · Evidence",
     headline: "Requests, submissions, sufficiency, freshness, and audit history in one ledger.",
     intro:
-      "Evidence Management covers requests, upload, intake, mapping, review, sufficiency, freshness, expiration, rejection, resubmission, and full audit history — so an artifact is never just a file in a drive.",
+      "Evidence Management covers requests, intake, mapping, sufficiency, freshness, rejection, resubmission, and audit history, so artifacts stay reviewable.",
     maturity: "current",
     buyer: "Evidence custodians, DPAs, technical managers, and reviewers",
     problem:
@@ -770,7 +770,7 @@ export const productModules: ProductModule[] = [
     eyebrow: "Platform · Findings · CAPA",
     headline: "Findings with ownership. Actions with verification before closure.",
     intro:
-      "Findings capture condition, criterion, evidence, and consequence. Corrective actions stay owned, time-bound, and linked to verification evidence — with aging and escalation visibility.",
+      "Findings capture condition, criterion, evidence, and consequence. Corrective actions stay owned, time-bound, and linked to verification evidence.",
     maturity: "current",
     buyer: "Reviewers, action owners, DPAs, and technical managers",
     problem:
@@ -841,7 +841,7 @@ export const productModules: ProductModule[] = [
     eyebrow: "Platform · Plans",
     headline: "Version-controlled plan content assembled from approved facts.",
     intro:
-      "Cybersecurity Plan work products support templates, applicability, collaboration, review, versioning, controlled records, and release — so the plan a reviewer sees matches implemented work.",
+      "Cybersecurity Plan work products support templates, applicability, collaboration, review, versioning, and controlled release from approved facts.",
     maturity: "current",
     buyer: "DPAs, technical managers, cybersecurity leads, and company officers",
     problem:
@@ -912,7 +912,7 @@ export const productModules: ProductModule[] = [
     eyebrow: "Platform · Regulatory",
     headline: "Source text, versions, and impact — without replacing human applicability judgment.",
     intro:
-      "Regulatory Intelligence keeps official sources, versions, changes, mappings, and follow-up work distinct. Humans decide applicability; the platform shows what a change touches in the controlled record.",
+      "Regulatory Intelligence keeps official sources, versions, mappings, and follow-up work distinct; humans decide applicability and the platform shows impact.",
     maturity: "current",
     buyer: "Compliance leads, DPAs, technical managers, and cybersecurity leads",
     problem:
@@ -983,7 +983,7 @@ export const productModules: ProductModule[] = [
     eyebrow: "Platform · Assurance",
     headline: "Freshness, aging, exceptions, and drift between assessment cycles.",
     intro:
-      "Continuous Assurance focuses on evidence freshness, action aging, control drift signals, exceptions, and related KPIs so readiness does not collapse between reviews. Preview capabilities are labeled honestly.",
+      "Continuous Assurance focuses on evidence freshness, action aging, control drift, exceptions, and readiness signals between reviews.",
     maturity: "current",
     buyer: "DPAs, technical managers, cybersecurity leads, and fleet leadership",
     problem:
@@ -1058,7 +1058,7 @@ export const productModules: ProductModule[] = [
     eyebrow: "Platform · Reports",
     headline: "QA, approval, controlled release, and export from approved work.",
     intro:
-      "Readiness packages and governance reports compile scope, evidence, findings, corrective actions, exceptions, and reviewer notes — with QA, approvals, controlled release, comparison, and export.",
+      "Readiness packages and governance reports compile scope, evidence, findings, actions, exceptions, and reviewer notes with QA and controlled release.",
     maturity: "current",
     buyer: "DPAs, technical managers, executives, and authorized external reviewers",
     problem:
@@ -1128,7 +1128,7 @@ export const productModules: ProductModule[] = [
     eyebrow: "Platform · Integrations",
     headline: "Identity, storage, APIs, imports, SBOM, and export — labeled honestly.",
     intro:
-      "The integrations catalogue uses Available, Configurable, Custom, Planned, and Not Supported. Only verified categories are listed. SIEM and maritime ERP are not claimed as live standard connectors.",
+      "The integrations catalogue labels Available, Configurable, Custom, Planned, and Not Supported categories; unverified SIEM and ERP connectors are not claimed.",
     maturity: "current",
     buyer: "IT/OT leads, procurement, security, and implementation sponsors",
     problem:

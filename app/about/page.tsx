@@ -25,7 +25,7 @@ import { aboutContent } from "@/lib/trust-corporate";
 
 export const metadata = pageMetadata(
   "About CertaMaris",
-  "CertaMaris is maritime cyber compliance and continuous-assurance software connecting company, fleet, and vessel requirements, evidence, findings, and readiness reporting — founded by Skyler Brown.",
+  "CertaMaris is maritime cyber compliance software connecting company, fleet, and vessel requirements, evidence, findings, and readiness reporting.",
   "/about"
 );
 

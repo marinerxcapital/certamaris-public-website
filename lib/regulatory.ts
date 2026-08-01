@@ -278,7 +278,7 @@ export const frameworks: RegulatoryFramework[] = [
       "Voluntary guidance for OT security. Often used as technical reference for industrial/OT environments; not a maritime class or flag mandate by itself.",
     scope:
       "Security of operational technology systems — relevant by analogy to shipboard OT and industrial control contexts, with careful translation to vessel environments.",
-    officialSourceUrl: "https://csrc.nist.gov/publications/detail/sp/800-82/rev-3/final",
+    officialSourceUrl: "https://csrc.nist.gov/pubs/sp/800/82/r3/final",
     summary:
       "NIST SP 800-82 guides OT security practices. Shipboard OT differs from shore industrial plants, but concepts (segmentation, change control, inventory, least privilege) inform vessel OT cyber work. Always adapt with maritime class, OEM, and SMS context.",
     operationalImplications: [

@@ -9,7 +9,7 @@ import { implementationSteps } from "@/lib/solutions-audience";
 
 export const metadata = pageMetadata(
   "Implementation",
-  "How CertaMaris onboarding works: discovery, configuration, vessel onboarding, user setup with individual identities, data and evidence migration, launch, and continuous assurance.",
+  "CertaMaris onboarding: discovery, configuration, vessel and user setup, evidence migration, launch, and continuous assurance.",
   "/implementation"
 );
 

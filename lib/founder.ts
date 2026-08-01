@@ -16,7 +16,7 @@ export const FOUNDER_FULL_BIO =
   "His work on CertaMaris focuses on connecting company, fleet, and vessel-level requirements, systems, controls, assessments, evidence, findings, risks, corrective actions, plans, quality review, and controlled reporting in one traceable operating environment.";
 
 export const FOUNDER_SHORT_BIO =
-  "Skyler Brown is the founder of CertaMaris. He earned a Bachelor of Science in Marine Transportation in 2025 and holds a United States Merchant Mariner credential as Third Mate, Unlimited Tonnage, Oceans. His background combines commercial maritime operations, software development, data-driven systems design, and the development of maritime cybersecurity and compliance technology.";
+  "Skyler Brown founded CertaMaris after working across commercial maritime operations, software development, data-driven systems design, and maritime cybersecurity technology.";
 
 export const FOUNDER_COMPACT_BIO =
   "Skyler Brown founded CertaMaris to bring company, fleet, and vessel-level cybersecurity compliance records into one controlled and traceable operating environment. He holds a B.S. in Marine Transportation and a U.S. Merchant Mariner credential as Third Mate, Unlimited Tonnage, Oceans.";

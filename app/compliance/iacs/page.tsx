@@ -11,7 +11,7 @@ import { breadcrumbListSchema, webPageSchema } from "@/lib/seo-schema";
 
 export const metadata = pageMetadata(
   "IACS UR E26 & E27",
-  "IACS Unified Requirements E26 (ships) and E27 (systems and equipment): design-stage cyber resilience, contract-date applicability, and honest mapping status.",
+  "IACS Unified Requirements E26 and E27: design-stage cyber resilience, contract-date applicability, and mapping status.",
   "/compliance/iacs"
 );
 

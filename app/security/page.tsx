@@ -19,7 +19,7 @@ import {
 
 export const metadata = pageMetadata(
   "Security",
-  "How CertaMaris handles tenancy, access control, encryption, logging, and related platform controls — labeled Current, Configurable, Planned, Not claimed, or Available under NDA.",
+  "How CertaMaris handles tenancy, access control, encryption, logging, and related platform controls with honest maturity labels.",
   "/security"
 );
 

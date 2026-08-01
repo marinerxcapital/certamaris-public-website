@@ -10,7 +10,7 @@ import { TRACEABILITY_CHAIN } from "@/lib/product-hierarchy";
 
 export const metadata = pageMetadata(
   "Why CertaMaris",
-  "How CertaMaris differs from spreadsheets, shared drives, generic GRC, SMS/QHSE tools, class portals, consultancy-only delivery, vulnerability-only tools, and custom internal systems — without naming competitors or inventing proof.",
+  "Why CertaMaris differs from spreadsheets, shared drives, generic GRC, and disconnected maritime compliance tools — without inventing proof.",
   "/why-certamaris"
 );
 

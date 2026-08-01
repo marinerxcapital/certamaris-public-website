@@ -2,7 +2,7 @@ export const SITE_NAME = "CertaMaris";
 export const SITE_TAGLINE = "Maritime Cyber Compliance & Assurance";
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://certamaris.com";
 export const SITE_DESCRIPTION =
-  "Maritime cyber compliance and assurance software for fleet-scale operators — requirements, evidence, findings, and readiness packages in one controlled record.";
+  "Maritime cyber compliance software for fleet operators — requirements, evidence, findings, and readiness packages in one controlled record.";
 
 /**
  * INTEGRATION POINTS — CertaMaris application (Lovable-built, TanStack Start)

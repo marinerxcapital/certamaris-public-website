@@ -15,7 +15,7 @@ import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata(
   "Pricing",
-  "CertaMaris packages — Fleet Core, Fleet Assurance, and Enterprise — are engagement-scoped. Compare capability depth and request a quote. No public list prices.",
+  "CertaMaris packages are engagement-scoped. Compare Fleet Core, Fleet Assurance, and Enterprise capability depth, then request a quote.",
   "/pricing"
 );
 

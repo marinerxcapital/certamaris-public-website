@@ -71,6 +71,12 @@ export default {
       return withHeaders(Response.redirect(url.toString(), 301), request);
     }
 
+    // Permanent redirect: legacy industries route → canonical audience hub
+    if (url.pathname === "/industries" || url.pathname === "/industries/") {
+      url.pathname = "/who-we-serve";
+      return withHeaders(Response.redirect(url.toString(), 301), request);
+    }
+
     // Permanent redirect: legacy sample-platform → product demo hub
     if (url.pathname === "/sample-platform" || url.pathname === "/sample-platform/") {
       url.pathname = "/demo";

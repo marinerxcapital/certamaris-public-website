@@ -23,7 +23,6 @@ const coreRoutes: Entry[] = [
   { path: "/platform", priority: 0.95, changeFrequency: "weekly" },
   { path: "/solutions", priority: 0.9, changeFrequency: "weekly" },
   { path: "/who-we-serve", priority: 0.85, changeFrequency: "monthly" },
-  { path: "/industries", priority: 0.75, changeFrequency: "monthly" },
   { path: "/compliance", priority: 0.9, changeFrequency: "weekly" },
   { path: "/compliance/imo", priority: 0.85, changeFrequency: "monthly" },
   { path: "/compliance/iacs", priority: 0.85, changeFrequency: "monthly" },

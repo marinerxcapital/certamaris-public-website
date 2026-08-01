@@ -9,7 +9,7 @@ import { audiencePages } from "@/lib/solutions-audience";
 
 export const metadata = pageMetadata(
   "Who We Serve",
-  "How ship owners, operators, technical managers and DPAs, maritime IT/OT teams, vessel masters and officers, classification and survey stakeholders, insurers and P&I, and maritime service providers use CertaMaris.",
+  "How ship owners, operators, technical managers, IT/OT teams, vessel officers, survey stakeholders, insurers, and service providers use CertaMaris.",
   "/who-we-serve"
 );
 
@@ -64,13 +64,9 @@ export default function WhoWeServePage() {
 
       <Section surface="paper" spacing="compact">
         <Reveal className="max-w-3xl">
-          <Eyebrow>Note on Industries</Eyebrow>
+          <Eyebrow>Role-first information architecture</Eyebrow>
           <p className="text-[15px] text-structural leading-relaxed">
-            Stakeholder roles are the organizing concept for CertaMaris. The former{" "}
-            <Link href="/industries" className="font-semibold text-ocean hover:underline">
-              /industries
-            </Link>{" "}
-            route now points here so SEO equity is preserved while the information architecture stays role-first.
+            Stakeholder roles are the organizing concept for CertaMaris, so this section is the canonical audience hub.
           </p>
         </Reveal>
       </Section>

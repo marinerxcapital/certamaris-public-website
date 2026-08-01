@@ -20,7 +20,7 @@ import { productProofScreens } from "@/lib/product-screens";
 
 export const metadata = pageMetadata(
   "Platform",
-  "CertaMaris platform hierarchy: corporate administration, client company and fleet portals, vessel portals, assessments, evidence, findings, plans, regulatory intelligence, continuous assurance, reports, and integrations.",
+  "CertaMaris platform hierarchy: company, fleet, and vessel portals with assessments, evidence, findings, plans, regulatory intelligence, reports, and integrations.",
   "/platform"
 );
 
