@@ -8,9 +8,9 @@ const securityHeaders = [
   { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
   { key: "X-Frame-Options", value: "SAMEORIGIN" },
   {
-    key: "Content-Security-Policy-Report-Only",
+    key: "Content-Security-Policy",
     value:
-      "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.aidesigner.ai; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self'; font-src 'self' data:; connect-src 'self' https://app.certamaris.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self';",
+      "default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self'; font-src 'self' data:; connect-src 'self' https://app.certamaris.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self';",
   },
 ];
 

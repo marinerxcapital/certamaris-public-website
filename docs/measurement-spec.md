@@ -13,7 +13,7 @@
 |---|---|---|
 | **First-party event bus** | **No** | No `gtag`, Plausible, Segment, PostHog, or custom `dataLayer` in `app/` / `components/`. |
 | **Cloudflare Web Analytics / beacon** | **Likely at edge** | Worker CSP report-only allows `https://static.cloudflareinsights.com` (`worker/index.ts`). CF may inject insights beacon when enabled on the zone — not committed as a script tag in Next layout. Treat as **aggregate, privacy-oriented** traffic metrics only. |
-| **AidesignerRuntime** | **Yes (visual only)** | `components/AidesignerRuntime.tsx` loads `https://cdn.aidesigner.ai/effects/runtime/v1.js` via `next/script` (`afterInteractive`). Used for pixel-grid / liquid visual effects. Gated by parent on `prefers-reduced-motion` (`PixelGridBackground`). **Not a product analytics pipeline** — do not send conversion events there. |
+| **Third-party visual runtime** | **No** | The former Aidesigner visual runtime was removed from production. No third-party visual script is loaded, and it is not an analytics pipeline. |
 | **Contact conversion path** | **Yes** | `ContactForm` → `POST /api/contact` (Worker) or `NEXT_PUBLIC_CONTACT_ENDPOINT`. Success/error UI state only; **no client analytics calls today**. |
 | **Integration point markers** | **Partial** | Nav CTAs use `data-integration-point="sign-in"` / `"get-started"` — good hooks for future event binding without scraping copy. |
 
@@ -220,7 +220,7 @@ Wire examples:
 - [ ] No event payload contains email/name/message (spot-check Network tab)  
 - [ ] Privacy page names any non-CF vendor before it ships  
 - [ ] CSP still allows only approved script hosts  
-- [ ] `prefers-reduced-motion` still skips Aidesigner load  
+- [x] No third-party visual runtime is loaded
 - [ ] QA `content-qa` clean after removing placeholder analytics copy  
 
 **Signed:** SUBAGENT 7 · Tester · 2026-07-31

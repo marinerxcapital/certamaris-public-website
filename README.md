@@ -198,20 +198,14 @@ listed in the brief is implemented with final copy, not placeholder text.
 
 ## 7. Background system and professional readability bar
 
-The site uses **one** global AI Designer Pixel Grid background. Content stays
+The site uses a restrained first-party background treatment. Content stays
 readable through translucent professional panels — not by stacking extra
-background systems.
+background systems or loading third-party visual runtimes.
 
 | Item | Value |
 |---|---|
-| Runtime (once) | `https://cdn.aidesigner.ai/effects/runtime/v1.js` in `app/layout.tsx` |
-| Effect host | `components/PixelGridBackground.tsx` — single instance |
-| Layering | `fixed inset-0 z-0 pointer-events-none`; content shell `relative z-10` |
-| colors | `#F4F8FF,#DCEAFF,#A9C9FF,#4F91FF,#006CFE,#012B6D` |
-| bg / bg-alpha | `#FBFDFF` / `1` |
-| speed / block-size / levels | `0.16` / `72` / `8` |
-| scale / drift-angle | `1.15` / `24` |
-| glint / contrast | `0.14` / `1.45` |
+| Runtime | None — no third-party visual script is loaded in production |
+| Layering | Content shell remains `relative z-10` |
 
 **Readability bar (professional panels):** section shells stay transparent so
 the grid shows through. Dense copy sits on translucent surfaces —

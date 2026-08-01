@@ -428,7 +428,7 @@ export default function HomePage() {
             <Button
               href="/platform"
               variant="secondary"
-              className="border-white/35 bg-white/10 text-white hover:bg-white/16"
+              className="border-navy/80 bg-navy text-white hover:bg-[#0e3a68]"
             >
               View platform
             </Button>
@@ -436,7 +436,7 @@ export default function HomePage() {
               href={APP_SIGN_IN_URL}
               variant="ghost"
               external
-              className="text-white hover:text-ocean-light"
+              className="border border-navy/80 bg-navy/90 text-white hover:bg-navy"
             >
               Sign in
             </Button>

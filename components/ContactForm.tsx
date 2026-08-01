@@ -487,7 +487,7 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
       <button
         type="submit"
         disabled={status === "submitting"}
-        className="inline-flex w-full items-center justify-center rounded-md bg-[#1478B8] px-7 py-3 text-[15px] font-semibold text-white transition-colors hover:bg-[#0f639a] disabled:opacity-60 sm:w-auto"
+        className="inline-flex w-full items-center justify-center rounded-md bg-[#1878b5] px-7 py-3 text-[15px] font-semibold text-white transition-colors hover:bg-[#0f639a] disabled:opacity-60 sm:w-auto"
       >
         {status === "submitting" ? "Sending..." : intent.submitLabel}
       </button>

@@ -45,11 +45,11 @@ function actionClasses(variant: NonNullable<CtaBandAction["variant"]>, inverse: 
   }
   if (variant === "secondary") {
     return inverse
-      ? `${baseBtn} border border-white/35 bg-white/10 text-white hover:bg-white/16`
+      ? `${baseBtn} border border-navy/80 bg-navy text-white hover:bg-[#0e3a68]`
       : `${baseBtn} border border-navy/20 bg-white/80 text-navy backdrop-blur-sm hover:border-navy/40 hover:bg-white/90`;
   }
   return inverse
-    ? `${baseBtn} text-white/90 hover:text-white`
+    ? `${baseBtn} border border-navy/80 bg-navy/90 text-white hover:bg-navy`
     : `${baseBtn} text-navy hover:text-ocean`;
 }
 

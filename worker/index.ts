@@ -58,8 +58,8 @@ const SECURITY_HEADERS: Record<string, string> = {
   "Referrer-Policy": "strict-origin-when-cross-origin",
   "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
   "X-Frame-Options": "SAMEORIGIN",
-  "Content-Security-Policy-Report-Only":
-    "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.aidesigner.ai; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self'; font-src 'self' data:; connect-src 'self' https://app.certamaris.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self';",
+  "Content-Security-Policy":
+    "default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self'; font-src 'self' data:; connect-src 'self' https://app.certamaris.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self';",
 };
 
 export default {

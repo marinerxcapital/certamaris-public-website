@@ -4,7 +4,7 @@ type BrandLogoProps = {
 
 export function BrandLogo({ className = "" }: BrandLogoProps) {
   return (
-    <span className={`certamaris-logo inline-flex items-center gap-1.5 ${className}`} role="img" aria-label="CertaMaris">
+    <span className={`certamaris-logo inline-flex items-center gap-1.5 ${className}`}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/brand/optimized/certamaris-mark-64.webp"
@@ -13,6 +13,7 @@ export function BrandLogo({ className = "" }: BrandLogoProps) {
         height={32}
         className="certamaris-logo-mark h-8 w-8 shrink-0"
         aria-hidden="true"
+        role="presentation"
       />
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
@@ -21,7 +22,6 @@ export function BrandLogo({ className = "" }: BrandLogoProps) {
         width={142}
         height={32}
         className="h-8 w-auto"
-        aria-hidden="true"
       />
     </span>
   );

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { IBM_Plex_Mono, Inter, Space_Grotesk } from "next/font/google";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
-import { PixelGridBackground } from "@/components/PixelGridBackground";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/constants";
 import { organizationSchema, softwareApplicationSchema, websiteSchema } from "@/lib/seo-schema";
 import "./globals.css";
@@ -39,8 +38,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
       <body>
         <div className="site-root relative min-h-screen overflow-x-clip">
-          {/* PixelGridBackground client-gates aidesigner runtime + host (no load under prefers-reduced-motion) */}
-          <PixelGridBackground className="fixed inset-0 z-0 pointer-events-none" />
           {siteSchemas.map((schema, index) => (
             <script
               // eslint-disable-next-line react/no-danger
