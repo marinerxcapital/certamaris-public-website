@@ -101,13 +101,11 @@ export default function ProcurementPage() {
         </Reveal>
         <ol className="max-w-3xl space-y-4">
           {procurementContent.howItWorks.map((step, index) => (
-            <Reveal key={step}>
-              <li className="premium-card flex gap-4 p-5">
-                <span className="font-mono text-[13px] text-ocean shrink-0 pt-0.5">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <p className="text-[14.5px] text-structural leading-relaxed">{step}</p>
-              </li>
+            <Reveal as="li" key={step} className="premium-card flex gap-4 p-5">
+              <span className="font-mono text-[13px] text-ocean shrink-0 pt-0.5">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <p className="text-[14.5px] text-structural leading-relaxed">{step}</p>
             </Reveal>
           ))}
         </ol>

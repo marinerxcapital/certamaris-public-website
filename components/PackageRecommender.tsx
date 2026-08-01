@@ -73,6 +73,7 @@ export function PackageRecommender() {
               <RadioChip
                 key={opt.value}
                 name="vesselCount"
+                value={opt.value}
                 checked={vesselCount === opt.value}
                 onChange={() => {
                   setVesselCount(opt.value);
@@ -90,6 +91,7 @@ export function PackageRecommender() {
               <RadioChip
                 key={opt.value}
                 name="companyCount"
+                value={opt.value}
                 checked={companyCount === opt.value}
                 onChange={() => {
                   setCompanyCount(opt.value);
@@ -107,6 +109,7 @@ export function PackageRecommender() {
               <RadioChip
                 key={opt.value}
                 name="surveyTimeline"
+                value={opt.value}
                 checked={surveyTimeline === opt.value}
                 onChange={() => {
                   setSurveyTimeline(opt.value);
@@ -119,8 +122,10 @@ export function PackageRecommender() {
         </Fieldset>
 
         <div className="flex flex-col gap-3 sm:flex-row sm:gap-6">
-          <label className="inline-flex items-start gap-2.5 cursor-pointer text-[14px] text-navy">
+          <label htmlFor="needs-sso" className="inline-flex items-start gap-2.5 cursor-pointer text-[14px] text-navy">
             <input
+              id="needs-sso"
+              name="needsSso"
               type="checkbox"
               className="mt-1 h-4 w-4 accent-[#1478B8]"
               checked={needsSso}
@@ -131,8 +136,10 @@ export function PackageRecommender() {
             />
             <span>We need SSO (and likely SCIM)</span>
           </label>
-          <label className="inline-flex items-start gap-2.5 cursor-pointer text-[14px] text-navy">
+          <label htmlFor="needs-integrations" className="inline-flex items-start gap-2.5 cursor-pointer text-[14px] text-navy">
             <input
+              id="needs-integrations"
+              name="needsIntegrations"
               type="checkbox"
               className="mt-1 h-4 w-4 accent-[#1478B8]"
               checked={needsIntegrations}
@@ -222,22 +229,26 @@ function Fieldset({ legend, children }: { legend: string; children: ReactNode })
 
 function RadioChip({
   name,
+  value,
   checked,
   onChange,
   label,
 }: {
   name: string;
+  value: string;
   checked: boolean;
   onChange: () => void;
   label: string;
 }) {
+  const id = `${name}-${value}`;
   return (
     <label
+      htmlFor={id}
       className={`flex cursor-pointer items-center gap-2 rounded-sm border px-3 py-2.5 text-[13.5px] leading-snug ${
         checked ? "border-ocean bg-ocean/5 text-navy" : "border-navy/15 text-structural"
       }`}
     >
-      <input type="radio" name={name} checked={checked} onChange={onChange} className="accent-[#1478B8]" />
+      <input id={id} type="radio" name={name} value={value} checked={checked} onChange={onChange} className="accent-[#1478B8]" />
       {label}
     </label>
   );

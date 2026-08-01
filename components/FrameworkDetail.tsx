@@ -8,7 +8,7 @@ export function FrameworkDetail({ framework }: { framework: RegulatoryFramework 
     <article className="premium-card p-6 sm:p-8 space-y-6">
       <header className="space-y-2">
         <ReferenceLabel className="text-[11px] tracking-[0.08em]">{framework.issuingAuthority}</ReferenceLabel>
-        <h3 className="text-[20px] sm:text-[22px] font-semibold leading-snug text-navy">{framework.shortName}</h3>
+        <h2 className="text-[20px] sm:text-[22px] font-semibold leading-snug text-navy">{framework.shortName}</h2>
         <p className="text-[14.5px] text-structural leading-relaxed">{framework.officialTitle}</p>
       </header>
 
@@ -40,12 +40,12 @@ export function FrameworkDetail({ framework }: { framework: RegulatoryFramework 
       </dl>
 
       <div className="space-y-2">
-        <h4 className="text-[15px] font-semibold text-navy">Summary</h4>
+        <h3 className="text-[15px] font-semibold text-navy">Summary</h3>
         <p className="text-[14.5px] text-structural leading-relaxed">{framework.summary}</p>
       </div>
 
       <div className="space-y-2">
-        <h4 className="text-[15px] font-semibold text-navy">Operational implications</h4>
+        <h3 className="text-[15px] font-semibold text-navy">Operational implications</h3>
         <ul className="list-disc pl-5 space-y-2 text-[14.5px] text-structural leading-relaxed">
           {framework.operationalImplications.map((item) => (
             <li key={item}>{item}</li>
@@ -54,12 +54,12 @@ export function FrameworkDetail({ framework }: { framework: RegulatoryFramework 
       </div>
 
       <div className="space-y-2">
-        <h4 className="text-[15px] font-semibold text-navy">Mapping status (honest)</h4>
+        <h3 className="text-[15px] font-semibold text-navy">Mapping status (honest)</h3>
         <p className="text-[14.5px] text-structural leading-relaxed">{framework.mappingStatusNote}</p>
       </div>
 
       <div className="space-y-2">
-        <h4 className="text-[15px] font-semibold text-navy">Related product workflows</h4>
+        <h3 className="text-[15px] font-semibold text-navy">Related product workflows</h3>
         <ul className="flex flex-wrap gap-2">
           {framework.relatedProductWorkflows.map((w) => (
             <li

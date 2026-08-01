@@ -181,12 +181,10 @@ export default function DemoPage() {
         </Reveal>
         <ol className="grid md:grid-cols-5 gap-4">
           {workflowSteps.map((step) => (
-            <Reveal key={step.step}>
-              <li className="premium-card h-full p-5">
-                <p className="font-mono text-[11px] uppercase tracking-[0.1em] text-ocean mb-2">{step.step}</p>
-                <h3 className="text-[15px] font-semibold mb-2">{step.title}</h3>
-                <p className="text-[13.5px] text-structural leading-relaxed">{step.body}</p>
-              </li>
+            <Reveal as="li" key={step.step} className="premium-card h-full p-5">
+              <p className="font-mono text-[11px] uppercase tracking-[0.1em] text-ocean mb-2">{step.step}</p>
+              <h3 className="text-[15px] font-semibold mb-2">{step.title}</h3>
+              <p className="text-[13.5px] text-structural leading-relaxed">{step.body}</p>
             </Reveal>
           ))}
         </ol>

@@ -76,7 +76,7 @@ export default function MappingMethodologyPage() {
             <div className="mt-4 space-y-4">
               {statuses.map((row) => (
                 <div key={row.status} className="premium-card p-5">
-                  <h3 className="text-[15px] font-semibold text-navy mb-2">{mappingStatusLabel(row.status)}</h3>
+                  <h2 className="text-[15px] font-semibold text-navy mb-2">{mappingStatusLabel(row.status)}</h2>
                   <p className="text-[14.5px] text-structural leading-relaxed">{row.meaning}</p>
                 </div>
               ))}
