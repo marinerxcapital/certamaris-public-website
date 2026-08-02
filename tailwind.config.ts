@@ -30,7 +30,8 @@ const config: Config = {
       status: {
         ok: "#147A4C",
         okBg: "#E7F5EC",
-        caution: "#B4740A",
+        /* Synced with --status-caution in globals.css (4.72:1 on cautionBg) */
+        caution: "#94610B",
         cautionBg: "#FBF1DF",
         critical: "#B3261E",
         criticalBg: "#FBEAE9",
