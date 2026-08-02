@@ -1,12 +1,19 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import type { ProductScreenAnnotation } from "@/lib/product-screens";
+import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 
 /**
  * Product screenshots rendered as annotated exhibits — inline, aspect-correct,
- * labeled like evidence rather than a photo gallery. This replaced the modal
- * lightbox (zoom bar, pagination, focus trap) in the 2026-08-01 follow-up
- * pass: the exhibit is server-rendered with zero client state, numbered
- * callout pins tied to a visible caption list, and a plain "Full resolution"
- * link that opens the raw capture in a new tab for native browser zoom.
+ * labeled like evidence rather than a photo gallery (replaced the modal
+ * lightbox, 2026-08-01). Callouts are functional motion: pins "set" once on
+ * first view (staggered drop), and hovering a caption row highlights its pin
+ * and vice versa, teaching the pin↔caption mapping.
+ *
+ * Progressive enhancement per README §8: SSR/no-JS/reduced-motion renders
+ * pins fully placed and legible — the set animation only ever runs forward
+ * from a near-visible state after hydration.
  */
 type ProductScreenFrameProps = {
   src: string;
@@ -91,6 +98,31 @@ function ProductScreenExhibit({
 }: ProductScreenFrameProps) {
   const visibleAnnotations = clampAnnotations(annotations);
   const resolvedFullSrc = fullSrc ?? src;
+  const reduced = usePrefersReducedMotion();
+
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
+  /** "idle" (SSR/no-JS: fully placed) → "pending" → "set" (animation done). */
+  const [pinPhase, setPinPhase] = useState<"idle" | "pending" | "set">("idle");
+  const imageWrapRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (reduced || visibleAnnotations.length === 0) return;
+    const el = imageWrapRef.current;
+    if (!el) return;
+    setPinPhase("pending");
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setPinPhase("set");
+          io.disconnect();
+        }
+      },
+      { threshold: 0.35 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [reduced]);
 
   return (
     <figure className={`product-exhibit m-0 ${className}`}>
@@ -109,7 +141,7 @@ function ProductScreenExhibit({
             <span className="sr-only"> — opens {label} screenshot in a new tab</span>
           </a>
         </div>
-        <div className="relative block bg-paper">
+        <div ref={imageWrapRef} className="relative block bg-paper">
           <ProductScreenImage
             src={src}
             alt={alt}
@@ -120,14 +152,24 @@ function ProductScreenExhibit({
             className="h-auto w-full object-contain object-top"
           />
           {visibleAnnotations.length > 0 ? (
-            <span className="pointer-events-none absolute inset-0 hidden md:block" aria-hidden="true">
+            <span
+              className={`pointer-events-none absolute inset-0 hidden md:block exhibit-pins exhibit-pins--${pinPhase}`}
+              aria-hidden="true"
+            >
               {visibleAnnotations.map((annotation, index) => (
                 <span
                   key={annotation.id}
                   className="absolute max-w-[11rem] -translate-x-1/2 -translate-y-1/2"
                   style={{ left: `${annotation.x}%`, top: `${annotation.y}%` }}
                 >
-                  <span className="inline-flex max-w-full items-center gap-1.5 rounded border border-navy/20 bg-white/95 px-1.5 py-0.5 shadow-sm">
+                  <span
+                    className={`exhibit-pin pointer-events-auto inline-flex max-w-full items-center gap-1.5 rounded border bg-white/95 px-1.5 py-0.5 shadow-sm ${
+                      hoveredId === annotation.id ? "exhibit-pin--hot" : "border-navy/20"
+                    }`}
+                    style={{ transitionDelay: pinPhase === "set" ? `${index * 120}ms` : undefined }}
+                    onMouseEnter={() => setHoveredId(annotation.id)}
+                    onMouseLeave={() => setHoveredId(null)}
+                  >
                     <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-ocean/45 bg-white font-mono text-[9px] font-semibold leading-none text-ocean">
                       {index + 1}
                     </span>
@@ -143,7 +185,14 @@ function ProductScreenExhibit({
         <figcaption className="mt-2.5">
           <ol className="grid gap-1.5" aria-label="Exhibit callouts">
             {visibleAnnotations.map((annotation, index) => (
-              <li key={annotation.id} className="flex items-start gap-2 text-[12.5px] leading-snug text-structural">
+              <li
+                key={annotation.id}
+                className={`exhibit-caption-row flex items-start gap-2 rounded px-1.5 py-0.5 -mx-1.5 text-[12.5px] leading-snug text-structural ${
+                  hoveredId === annotation.id ? "exhibit-caption-row--hot" : ""
+                }`}
+                onMouseEnter={() => setHoveredId(annotation.id)}
+                onMouseLeave={() => setHoveredId(null)}
+              >
                 <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-ocean/40 font-mono text-[9px] font-semibold text-ocean">
                   {index + 1}
                 </span>
