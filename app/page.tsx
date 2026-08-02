@@ -7,6 +7,7 @@ import { HomepageProductShowcase } from "@/components/HomepageProductShowcase";
 import { LiquidGlass } from "@/components/LiquidGlass";
 import { ProductScreenFrame } from "@/components/ProductScreens";
 import { Reveal } from "@/components/Reveal";
+import { SampleRecordExplorer } from "@/components/SampleRecordExplorer";
 import { Eyebrow, Section } from "@/components/Section";
 import { APP_SIGN_IN_URL, REGULATORY_BOUNDARY } from "@/lib/constants";
 import { PLATFORM_HIERARCHY } from "@/lib/product-hierarchy";
@@ -260,6 +261,21 @@ export default function HomePage() {
             Platform capabilities
           </Link>
         </div>
+      </Section>
+
+      <Section id="sample-record" surface="paper" spacing="compact">
+        <Reveal className="mb-8 max-w-3xl">
+          <Eyebrow>Inspect it yourself</Eyebrow>
+          <h2 className="text-[30px] leading-[1.12] sm:text-[38px]">
+            Walk one sample record end to end.
+          </h2>
+          <p className="mt-4 max-w-2xl text-[15.5px] leading-relaxed text-structural">
+            An illustrative instance of the chain above for the sample vessel MV Certa Maris — the same object model
+            the product keeps for real fleets. Click any object, follow its linked records. No signup, and no invented
+            numbers: sample data is labeled as sample data.
+          </p>
+        </Reveal>
+        <SampleRecordExplorer />
       </Section>
 
       <Section id="hierarchy">
