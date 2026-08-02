@@ -83,12 +83,13 @@ const codeVariants = {
   },
 };
 
-/* Release stamp: the terminal node's ocean ring is pressed on when reached. */
+/* Release stamp: the terminal node's brass ring is pressed on when reached —
+   the only warm accent on the site, reserved for the chain's ending. */
 const releaseNodeVariants = {
-  hidden: { scale: 0.75, boxShadow: "0 0 0 0px rgba(18, 111, 170, 0.22)" },
+  hidden: { scale: 0.75, boxShadow: "0 0 0 0px rgba(184, 130, 58, 0.22)" },
   show: {
     scale: 1,
-    boxShadow: "0 0 0 4px rgba(18, 111, 170, 0.22)",
+    boxShadow: "0 0 0 4px rgba(184, 130, 58, 0.22)",
     transition: { duration: 0.32, ease: "easeOut" as const, delay: 0.28 },
   },
 };
