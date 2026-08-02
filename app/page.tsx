@@ -189,7 +189,9 @@ export default function HomePage() {
                 </a>
               </div>
               <a href="#evidence-chain" className="hero-chain-pointer mt-8 inline-block">
-                01 REQ → 10 PKG · follow the chain of custody ↓
+                <span className="hcp-seg">01 REQ</span> <span className="hcp-seg hcp-seg-2">→</span>{" "}
+                <span className="hcp-seg hcp-seg-3">10 PKG</span>{" "}
+                <span className="hcp-seg hcp-seg-4">· follow the chain of custody ↓</span>
               </a>
               <p className="hero-chart-boundary mt-6 max-w-xl text-[13.5px] leading-relaxed">
                 Workflow scope includes work aligned to IMO MSC.428(98) and IACS UR E26/E27. Official texts control;

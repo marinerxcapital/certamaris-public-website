@@ -37,13 +37,16 @@ export function DepthContours({ className = "" }: { className?: string }) {
           strokeOpacity="0.05"
           d="M-40 700 C 300 640, 600 760, 920 680 S 1280 630, 1480 710"
         />
-        {/* dashed safety-contour accents */}
+        {/* dashed safety-contour accents — dots crawl like current markers on a
+            chart (60–90s periods); frozen by prefers-reduced-motion in CSS */}
         <path
+          className="contour-drift-a"
           strokeOpacity="0.1"
           strokeDasharray="1 7"
           d="M-40 170 C 200 110, 440 225, 710 180 S 1165 90, 1480 165"
         />
         <path
+          className="contour-drift-b"
           strokeOpacity="0.07"
           strokeDasharray="1 7"
           d="M-40 390 C 250 320, 530 450, 820 385 S 1230 310, 1480 400"
