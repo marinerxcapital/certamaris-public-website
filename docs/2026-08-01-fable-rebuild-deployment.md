@@ -136,6 +136,35 @@ signature block naming the credential (Third Mate, Unlimited Tonnage,
 Oceans); links to /about/leadership. Homepage-targeted axe + overflow
 check: 0/0 both viewports; `qa:founder` suite passes.
 
+## Fifth pass, same day — motion pass ("instrumentation, not decoration")
+
+**Branch:** `claude/fable-motion-pass` → merged to `main` (`f356918`), plus
+follow-up `e51209c` directly on main · wrangler versions `8b127fdc` then
+`bb81279c` · verified live (pins/segments/drift markers + production
+functional check passed).
+
+Three motion layers, all frozen to designed static frames under
+`prefers-reduced-motion`, no loops except ambient texture:
+
+1. **Functional:** exhibit pins set once on first view (staggered drop)
+   and hover-link both ways with caption rows; sample-record cross-links
+   fly the mono id chip from link to card header (WAAPI, 340ms);
+   selections emit a single AIS-style acknowledgment ring (after first
+   interaction only).
+2. **Ledger stamps:** chain-step mono indices press on as steps dock;
+   the Released-package node's brass ring is stamped on when reached.
+3. **Ambient:** dashed safety-contours crawl at 90s/130s opposing
+   periods; the hero `01 REQ → 10 PKG` pointer runs a brighten-only
+   signal down its segments every 9s (contrast never below base; hover
+   pauses).
+
+Also fixed en route: the exhibit annotation system had never rendered —
+the `annotations` field existed but no screen defined pins. Added three
+claim-safe, position-verified callouts each to requirement-mapping and
+evidence-coverage. QA: axe + overflow clean on touched routes both
+viewports; sample-record and image-load functional checks pass locally
+and against production.
+
 ## Follow-ups (deliberate, not regressions)
 
 - `wrangler deploy` printed "No targets deployed" (routes unchanged) —
