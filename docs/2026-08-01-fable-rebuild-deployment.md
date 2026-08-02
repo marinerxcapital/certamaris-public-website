@@ -122,6 +122,20 @@ regulatory references name the instrument only). QA:
 crawl `audit/after-sample/` — 0 axe violations, 0 overflow, all 90
 routes.
 
+## Fourth pass, same day — signed founder note on the landing page
+
+**Branch:** `claude/fable-founder-note` → merged to `main` (`ef034d3`) ·
+wrangler version `e318282f-b21d-4e63-b52d-5e5fa5c62a28` · verified live
+(note, signature line, and portrait markers on second fetch).
+
+First-person "Why I built this" note from Skyler Brown on the homepage,
+placed between the compliance/implementation content and the trust
+boundary note. Every claim traces to the approved bio in
+`lib/founder.ts` (do-not-invent file); reuses `FounderPortrait`; printed
+signature block naming the credential (Third Mate, Unlimited Tonnage,
+Oceans); links to /about/leadership. Homepage-targeted axe + overflow
+check: 0/0 both viewports; `qa:founder` suite passes.
+
 ## Follow-ups (deliberate, not regressions)
 
 - `wrangler deploy` printed "No targets deployed" (routes unchanged) —
