@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { IBM_Plex_Mono, Inter, Space_Grotesk } from "next/font/google";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
+import { PixelGridBackground } from "@/components/PixelGridBackground";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/constants";
 import { organizationSchema, softwareApplicationSchema, websiteSchema } from "@/lib/seo-schema";
 import "./globals.css";
@@ -56,6 +57,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
             />
           ))}
+          <PixelGridBackground />
           <div className="relative z-10">
             <Nav />
             <main id="main-content" tabIndex={-1}>
