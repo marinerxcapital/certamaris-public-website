@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { BoundaryPanel } from "@/components/BoundaryPanel";
 import { Button } from "@/components/Button";
+import { EvidenceChain } from "@/components/EvidenceChain";
 import { PageHero } from "@/components/PageHero";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
 import { pageMetadata } from "@/lib/metadata";
 import { differentiationModels } from "@/lib/solutions-audience";
-import { TRACEABILITY_CHAIN } from "@/lib/product-hierarchy";
 
 export const metadata = pageMetadata(
   "Why CertaMaris",
@@ -80,9 +80,9 @@ export default function WhyCertaMarisPage() {
       <Section spacing="compact">
         <Reveal className="max-w-3xl">
           <Eyebrow>Traceability that survives review</Eyebrow>
-          <p className="hero-trace-line mb-4">
-            {TRACEABILITY_CHAIN.map((s) => s.title).join(" → ")}
-          </p>
+          <div className="mb-4">
+            <EvidenceChain variant="strip" />
+          </div>
           <p className="text-[15px] text-structural leading-relaxed mb-6">
             That chain is the product — not a slide claim. Reviewers follow requirement, applicability, control,
             assessment, evidence, finding, risk, corrective action, QA, and released readiness package in one record.
