@@ -194,3 +194,15 @@ hash pipeline.
   **Do not reintroduce a bespoke hero background (chart-navy, chart-light,
   or otherwise) without explicit owner direction — it hides the layer the
   owner has now asked for twice.**
+- (2026-08-01, owner markup) Custody thread/nodes thickened (track
+  2px→3px, node 12px→16px, ring 2.5px→3.5px) and every `.chain-card` now
+  carries a permanent blue-tinted border plus a thin brighter arc that
+  continuously orbits it (masked conic-gradient, 5s loop, staggered per
+  step, frozen under reduced motion) — the "line around the container
+  24/7" from the owner's markup. Fixing the desktop alternating-layout
+  offsets for the bigger nodes surfaced and fixed a real, unrelated AA
+  contrast bug in the exhibit-pin reveal (0.35 pending opacity on a
+  text-bearing badge → 0.96), caught by axe when a faster synthetic
+  scroll pattern raced the IntersectionObserver differently than prior
+  crawls had. Also added a bounded 1.5s fallback so that reveal always
+  completes even if a real user flick-scrolls past it and never returns.

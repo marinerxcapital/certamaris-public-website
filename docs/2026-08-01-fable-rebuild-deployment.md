@@ -236,6 +236,48 @@ sample-record and image-load functional suites still pass, mobile nav
 sheet confirmed as a clean rectangular panel (the "circular overlay"
 concern in the owner's brief didn't reproduce — nothing to fix there).
 
+## Ninth pass, same day — thicker custody chain + animated card borders
+
+**Branch:** `claude/fable-chain-thickness` → merged to `main` (`83106cd`)
+· wrangler `bfbf92fe` · verified live (byte-identical CSS confirmed
+against the local build after an initial CDN-propagation false alarm —
+see note below).
+
+Owner markup on the evidence-chain screenshot: thicken the custody
+thread and its node dots, and give every chain-card container a thin
+blue line that animates around it continuously. Shipped: thread track
+2px→3px, node 12px→16px with a 3.5px ring (release node's brass ring
+scaled to match), desktop alternating-layout node offsets recalculated
+(-52px→-54px) and verified by screenshot against the thicker geometry.
+Each `.chain-card` gets a permanent ocean-tinted resting border plus a
+masked conic-gradient comet that orbits the edge every 5s, staggered
+per step so the ten cards don't pulse in lockstep; degrades to the
+static border alone if `mask-composite` is unsupported; freezes via the
+existing sitewide reduced-motion rule (verified: `animation-duration`
+is provably `0s` under reduced motion, `5s` otherwise).
+
+**Bug found and fixed along the way:** the full-route axe re-run
+surfaced a real AA contrast failure (2.18:1) in the exhibit-pin
+drop-in reveal from an earlier motion pass — its pre-reveal state sat
+at 0.35 opacity on a text-bearing badge, which is only safe if the
+IntersectionObserver fires before anything inspects it. A faster
+synthetic scroll pattern in tonight's QA run raced that timing
+differently than earlier crawls had and caught it. Fixed by raising the
+pending-state floor to 0.96 (matching `Reveal.tsx`'s own precedent of
+never dropping below near-opaque) and adding a bounded 1.5s fallback
+timer so the reveal always resolves even if a real user scrolls past
+the exhibit too fast for the observer and never scrolls back.
+
+**Operational note:** the first live-verification fetch immediately
+after this deploy returned a CSS chunk with the *same filename* as the
+new build but stale byte content (50,757 vs the correct 59,616 bytes) —
+a transient CDN-propagation gap, not a bad deploy. A second fetch ~30s
+later returned `cf-cache-status: HIT` with content byte-identical
+(md5-verified) to the local build. Lesson for future verification: one
+fetch immediately post-deploy is not sufficient proof; re-fetch and
+diff against the local build output before declaring a shipped visual
+change confirmed live.
+
 ## Follow-ups (deliberate, not regressions)
 
 - `wrangler deploy` printed "No targets deployed" (routes unchanged) —
