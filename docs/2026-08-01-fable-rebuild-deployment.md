@@ -101,6 +101,27 @@ lightbox remnants).
    when verifying a deploy, fetch twice or check for markers, don't trust
    the first response.
 
+## Third pass, same day — inspectable sample record on the landing page
+
+**Branch:** `claude/fable-sample-record` → merged to `main` (`71b6e9c`) ·
+wrangler version `a513b21c-21b6-43d3-9fea-7f44495590f0` · verified live
+(markers on second fetch per the SWR gotcha, plus the full functional
+check run against production — all passed).
+
+`SampleRecordExplorer` (+ `lib/sample-record.ts`): one illustrative
+end-to-end chain instance for the sample vessel **MV Certa Maris**
+(self-referential name chosen to avoid any real-entity collision),
+REQ-0104 → PKG-0067, in a new homepage section `#sample-record` directly
+after the evidence-chain visualizer. Visitors click through the ten
+linked records — each with sample fields, status, owner, and cross-link
+buttons that jump between records with focus handoff. ARIA tabs pattern,
+reduced-motion static swaps, every value labeled illustrative (no
+customer data, no invented metrics, no fabricated clause numbers —
+regulatory references name the instrument only). QA:
+`check-sample-record.mjs` drives it headlessly (local + live); full
+crawl `audit/after-sample/` — 0 axe violations, 0 overflow, all 90
+routes.
+
 ## Follow-ups (deliberate, not regressions)
 
 - `wrangler deploy` printed "No targets deployed" (routes unchanged) —
