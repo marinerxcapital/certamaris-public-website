@@ -182,7 +182,7 @@ export default function HomePage() {
                 </Link>
                 <a
                   href={APP_SIGN_IN_URL}
-                  className="inline-flex items-center px-2 py-3 text-[15px] font-semibold text-white underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7fb4d6]"
+                  className="inline-flex items-center px-2 py-3 text-[15px] font-semibold text-navy underline-offset-4 hover:text-ocean hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ocean"
                   data-integration-point="sign-in"
                 >
                   Sign in
@@ -200,21 +200,21 @@ export default function HomePage() {
             </Reveal>
 
             <Reveal delay={0.06}>
-              <LiquidGlass variant="dark" padding="lg" className="hero-signal-panel">
+              <LiquidGlass variant="strong" padding="lg" className="hero-signal-panel">
                 <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
                   <div>
-                    <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-[#7fb4d6]">Product proof</p>
-                    <p className="mt-1 text-[15px] font-semibold text-white">Requirement and control mapping</p>
+                    <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-structural">Product proof</p>
+                    <p className="mt-1 text-[15px] font-semibold text-navy">Executive readiness at a glance</p>
                   </div>
                   <Link
                     href="/platform"
-                    className="text-[13.5px] font-semibold text-ocean-light underline-offset-4 hover:underline"
+                    className="text-[13.5px] font-semibold text-ocean underline-offset-4 hover:underline"
                   >
                     Inspect the platform
                   </Link>
                 </div>
                 <ProductScreenFrame
-                  {...productProofScreens.requirementMapping}
+                  {...productProofScreens.executiveReporting}
                   interactive={false}
                   priority
                   sizes="(min-width: 1280px) 48vw, (min-width: 768px) 82vw, 100vw"

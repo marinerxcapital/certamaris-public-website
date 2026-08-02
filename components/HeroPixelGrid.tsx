@@ -11,8 +11,9 @@
  * Reduced motion: `pxl-cell` animation is disabled in globals.css and every
  * cell freezes at its base opacity (a static frame, not a slowed loop).
  *
- * Contrast: brightest possible cell frame is 1.9 × 0.13 ≈ 0.25 opacity of
- * #7FB4D6 over #07223D ≈ #254663 — white hero text on that is 9.8:1.
+ * Contrast (light band): brightest possible cell frame is 1.9 × 0.13 ≈ 0.25
+ * opacity of ocean #126FAA over paper — navy hero text on that blend stays
+ * ≥10:1. Fill comes from --hero-grid-ink so the band owns the theme.
  */
 const SEED = 20260801;
 const CELL = 36;
@@ -41,11 +42,13 @@ const CELLS: Cell[] = (() => {
   const cells: Cell[] = [];
   for (let col = 0; col < COLS; col++) {
     for (let row = 0; row < ROWS; row++) {
-      // Keep the zone behind the headline/copy sparse.
+      // Keep the zone behind the headline/copy sparse; the grid is the
+      // hero's emphasized signature texture everywhere else (owner
+      // direction 2026-08-01: light band, grid pushed forward).
       const inCopyZone = col / COLS < 0.55 && row / ROWS > 0.12 && row / ROWS < 0.8;
-      const density = inCopyZone ? 0.05 : 0.16;
+      const density = inCopyZone ? 0.06 : 0.24;
       if (rand() > density) continue;
-      const big = rand() < 0.18;
+      const big = rand() < 0.22;
       cells.push({
         x: col * CELL,
         y: row * CELL,
