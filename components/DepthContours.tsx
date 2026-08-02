@@ -12,7 +12,7 @@ export function DepthContours({ className = "" }: { className?: string }) {
       aria-hidden="true"
       focusable="false"
     >
-      <g fill="none" stroke="var(--accent-sounding)" strokeWidth="1">
+      <g fill="none" stroke="var(--hero-grid-ink, var(--accent-sounding))" strokeWidth="1">
         <path
           strokeOpacity="0.16"
           d="M-40 120 C 180 60, 420 170, 680 130 S 1150 40, 1480 110"
@@ -54,7 +54,7 @@ export function DepthContours({ className = "" }: { className?: string }) {
       </g>
       {/* sparse sounding marks (depth figures on charts); decorative */}
       <g
-        fill="var(--accent-sounding)"
+        fill="var(--hero-grid-ink, var(--accent-sounding))"
         fillOpacity="0.18"
         fontFamily="var(--font-mono), Consolas, monospace"
         fontSize="11"

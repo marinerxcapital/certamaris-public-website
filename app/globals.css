@@ -873,13 +873,17 @@ figure.product-showcase-frame > div:first-child {
    All pairings AA-verified — see plan §2.1.
    ========================================================================== */
 
-/* ---------- Chart-navy hero band ---------- */
+/* ---------- Chart hero band (light, 2026-08-01 owner direction) ----------
+   Was chart-navy; now a light chart-paper band with the animated pixel grid
+   as the emphasized signature texture. Grid/contour linework inherits
+   --hero-grid-ink so the components stay theme-agnostic. */
 .hero-chart {
   position: relative;
-  background: var(--surface-chart);
-  color: var(--ink-inverse);
+  background: linear-gradient(180deg, #ffffff 0%, var(--surface-paper) 100%);
+  color: var(--ink-primary);
   overflow: hidden;
-  border-bottom: 1px solid rgba(127, 180, 214, 0.18);
+  border-bottom: 1px solid var(--hairline);
+  --hero-grid-ink: var(--accent-ocean);
 }
 
 .hero-chart-contours {
@@ -900,7 +904,7 @@ figure.product-showcase-frame > div:first-child {
 }
 
 .pxl-cell {
-  fill: var(--accent-sounding);
+  fill: var(--hero-grid-ink, var(--accent-sounding));
   opacity: var(--pxl-o, 0.07);
   animation-name: pxl-pulse;
   animation-timing-function: ease-in-out;
@@ -925,15 +929,15 @@ figure.product-showcase-frame > div:first-child {
 }
 
 .hero-chart h1 {
-  color: #ffffff;
+  color: var(--ink-primary);
 }
 
 .hero-chart .hero-chart-lede {
-  color: rgba(245, 248, 250, 0.92);
+  color: var(--ink-secondary);
 }
 
 .hero-chart .hero-chart-boundary {
-  color: rgba(245, 248, 250, 0.78);
+  color: var(--ink-tertiary);
 }
 
 .hero-chart-eyebrow {
@@ -941,11 +945,11 @@ figure.product-showcase-frame > div:first-child {
   font-size: 12px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--accent-sounding);
+  color: var(--accent-ocean);
   font-variant-numeric: tabular-nums;
 }
 
-/* CTA treatments on chart navy — white on ocean-deep 7.37:1, white outline 16:1 */
+/* CTA treatments on the light chart band — white on ocean-deep 7.37:1 */
 .btn-chart-primary {
   background: var(--accent-ocean-deep);
   color: #ffffff;
@@ -954,13 +958,13 @@ figure.product-showcase-frame > div:first-child {
   background: #0c4d77;
 }
 .btn-chart-secondary {
-  border: 1px solid rgba(184, 130, 58, 0.65);
-  background: rgba(255, 255, 255, 0.06);
-  color: #ffffff;
+  border: 1px solid rgba(6, 30, 54, 0.28);
+  background: rgba(255, 255, 255, 0.75);
+  color: var(--ink-primary);
 }
 .btn-chart-secondary:hover {
   border-color: var(--accent-brass);
-  background: rgba(255, 255, 255, 0.12);
+  background: #ffffff;
 }
 
 /* Chain pointer line in hero (mono, links to the visualizer) */
@@ -968,11 +972,11 @@ figure.product-showcase-frame > div:first-child {
   font-family: var(--font-mono), Consolas, monospace;
   font-size: 12.5px;
   letter-spacing: 0.05em;
-  color: var(--accent-sounding);
+  color: #8a5f1e;
   font-variant-numeric: tabular-nums;
 }
 .hero-chain-pointer:hover {
-  color: #a8cde6;
+  color: #6f4c15;
   text-decoration: underline;
   text-underline-offset: 3px;
 }
@@ -1355,8 +1359,8 @@ figure.product-showcase-frame > div:first-child {
   }
 }
 
-/* Signal runs down the pointer once per period — brighten-only, so contrast
-   never drops below the base sounding blue. */
+/* Signal runs down the pointer once per period — darken-only on the light
+   band, so contrast never drops below the base brass. */
 @keyframes hcp-signal {
   0%,
   9%,
@@ -1364,7 +1368,7 @@ figure.product-showcase-frame > div:first-child {
     color: inherit;
   }
   3.5% {
-    color: #d8ecf9;
+    color: #563a0c;
   }
 }
 
