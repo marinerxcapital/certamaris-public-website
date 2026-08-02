@@ -888,10 +888,10 @@ figure.product-showcase-frame > div:first-child {
   position: absolute;
   top: 8px;
   bottom: 8px;
-  left: 7px;
-  width: 2px;
+  left: 6.5px;
+  width: 3px;
   background: rgba(18, 111, 170, 0.18);
-  border-radius: 1px;
+  border-radius: 1.5px;
 }
 
 .chain-thread {
@@ -918,12 +918,12 @@ figure.product-showcase-frame > div:first-child {
   position: absolute;
   left: -28px;
   top: 26px;
-  width: 12px;
-  height: 12px;
-  margin-left: 2px;
+  width: 16px;
+  height: 16px;
+  margin-left: 0;
   border-radius: 50%;
   background: var(--surface-page);
-  border: 2.5px solid var(--accent-ocean);
+  border: 3.5px solid var(--accent-ocean);
 }
 
 /* The one warm note on the site: only the terminal released-package node
@@ -931,7 +931,91 @@ figure.product-showcase-frame > div:first-child {
 .chain-node--release {
   background: var(--accent-brass);
   border-color: var(--accent-brass);
-  box-shadow: 0 0 0 4px rgba(184, 130, 58, 0.22);
+  box-shadow: 0 0 0 5px rgba(184, 130, 58, 0.24);
+}
+
+.chain-card {
+  position: relative;
+  border-color: rgba(18, 111, 170, 0.4);
+}
+
+/* Thin blue line that continuously traces the container edge — a bright
+   comet sweeping around a permanently blue-tinted resting border, never
+   idle ("24/7" per owner direction 2026-08-01). Relies on the sitewide
+   reduced-motion rule above (duration:0 + iteration:1) to freeze to a
+   single static frame rather than adding a duplicate override here. */
+@property --chain-border-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.chain-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(
+    from var(--chain-border-angle),
+    rgba(18, 111, 170, 0) 0deg,
+    rgba(18, 111, 170, 0) 300deg,
+    rgba(79, 173, 224, 0.85) 330deg,
+    #126faa 345deg,
+    rgba(79, 173, 224, 0.85) 355deg,
+    rgba(18, 111, 170, 0) 360deg
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  animation: chain-border-orbit 5s linear infinite;
+}
+
+.chain-step:nth-child(1) .chain-card::before {
+  animation-delay: 0s;
+}
+.chain-step:nth-child(2) .chain-card::before {
+  animation-delay: -0.45s;
+}
+.chain-step:nth-child(3) .chain-card::before {
+  animation-delay: -0.9s;
+}
+.chain-step:nth-child(4) .chain-card::before {
+  animation-delay: -1.35s;
+}
+.chain-step:nth-child(5) .chain-card::before {
+  animation-delay: -1.8s;
+}
+.chain-step:nth-child(6) .chain-card::before {
+  animation-delay: -2.25s;
+}
+.chain-step:nth-child(7) .chain-card::before {
+  animation-delay: -2.7s;
+}
+.chain-step:nth-child(8) .chain-card::before {
+  animation-delay: -3.15s;
+}
+.chain-step:nth-child(9) .chain-card::before {
+  animation-delay: -3.6s;
+}
+.chain-step:nth-child(10) .chain-card::before {
+  animation-delay: -4.05s;
+}
+
+@keyframes chain-border-orbit {
+  to {
+    --chain-border-angle: 360deg;
+  }
+}
+
+/* Mask-composite unsupported: keep the static blue-tinted border from
+   .chain-card above, just drop the moving highlight instead of risking
+   an opaque overlay covering the card. */
+@supports not ((mask-composite: exclude) or (-webkit-mask-composite: xor)) {
+  .chain-card::before {
+    display: none;
+  }
 }
 
 .chain-code {
@@ -965,7 +1049,7 @@ figure.product-showcase-frame > div:first-child {
     padding-left: 0;
   }
   .chain-thread-track {
-    left: calc(50% - 1px);
+    left: calc(50% - 1.5px);
   }
   .chain-steps {
     gap: 26px;
@@ -981,10 +1065,10 @@ figure.product-showcase-frame > div:first-child {
   }
   .chain-step:nth-child(odd) .chain-node {
     left: auto;
-    right: -52px;
+    right: -54px;
   }
   .chain-step:nth-child(even) .chain-node {
-    left: -52px;
+    left: -54px;
   }
 }
 
@@ -1162,9 +1246,13 @@ figure.product-showcase-frame > div:first-child {
 }
 
 /* Pending state exists only after hydration and before first view —
-   SSR / no-JS / reduced motion always render pins fully placed. */
+   SSR / no-JS / reduced motion always render pins fully placed. Never
+   drop below ~0.95 here: this is a text-bearing badge, and axe caught
+   a real AA failure at the previous 0.35 when the reveal is caught
+   mid-transition (fast/flick scroll racing the IntersectionObserver).
+   Matches Reveal.tsx's own "never below near-opaque" rule. */
 .exhibit-pins--pending .exhibit-pin {
-  opacity: 0.35;
+  opacity: 0.96;
   transform: translateY(-4px);
 }
 
