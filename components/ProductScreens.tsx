@@ -120,7 +120,14 @@ function ProductScreenExhibit({
       { threshold: 0.35 }
     );
     io.observe(el);
-    return () => io.disconnect();
+    // Bounded fallback: a fast flick-scroll can carry the exhibit past the
+    // threshold before the observer ever fires, and one that never returns
+    // would otherwise leave the pins in "pending" indefinitely.
+    const fallback = window.setTimeout(() => setPinPhase("set"), 1500);
+    return () => {
+      io.disconnect();
+      window.clearTimeout(fallback);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reduced]);
 
