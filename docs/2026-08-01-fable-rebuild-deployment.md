@@ -200,6 +200,42 @@ re-specced. Deviation recorded in `design/redesign-plan.md` §6 — brass
 is retired as the custody color; don't bring it back without owner
 direction.
 
+## Eighth pass, same day — original Pixel Grid restored, sitewide
+
+**Branch:** `claude/fable-pixel-grid-restore` → merged to `main`
+(`115698e`) · wrangler `4ac30d1c` · verified live (single canvas,
+`opacity:.92` in the served CSS, screenshot-confirmed).
+
+Owner asked directly for the site's original animated Pixel Grid
+background back. Root cause of its absence: the Phase 1 audit correctly
+flagged `cdn.aidesigner.ai/effects/fx/blocky/v1.js` as an unreviewed
+third-party script and it was removed outright — taking the visual
+effect with it, since nothing first-party replaced it at the time. The
+homepage-only `HeroPixelGrid`/`DepthContours` built in a later pass were
+a different, smaller effect scoped to the hero band, not a restoration
+of the original.
+
+This pass rebuilds the original first-party: `PixelGridBackground.tsx`,
+a plain 2D canvas (no WebGL, no external script) implementing the
+canonical params — a 7-stop light-to-navy ramp, 72px blocks at 1.15
+scale quantized to 8 levels, 24° drift, glint 0.14, contrast 1.45 — and
+mounts it **once**, sitewide, in `app/layout.tsx`, restoring the
+original architecture (one fixed grid behind everything, not a per-page
+effect). The homepage hero's chart-navy/chart-light band — which had
+been silently painting over the grid — reverted to the transparent
+`.hero-section.landing-hero` pattern the CSS already carried unused
+comments for. Grid visibility raised from the old 0.34 dimming to 0.92,
+relying on the already-tuned Liquid Glass card system for text contrast
+instead of dimming the whole layer.
+
+Verified: exactly one canvas per page across 8 sampled routes, zero
+hydration mismatches, reduced motion provably freezes to a static frame
+(`canvas.toDataURL()` identical across a 1.2s window) while normal mode
+provably animates (frames differ), zero axe/overflow regressions,
+sample-record and image-load functional suites still pass, mobile nav
+sheet confirmed as a clean rectangular panel (the "circular overlay"
+concern in the owner's brief didn't reproduce — nothing to fix there).
+
 ## Follow-ups (deliberate, not regressions)
 
 - `wrangler deploy` printed "No targets deployed" (routes unchanged) —

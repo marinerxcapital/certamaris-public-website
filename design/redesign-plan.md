@@ -176,6 +176,21 @@ hash pipeline.
   **light-first** — the chart-navy hero band became a white→paper band
   with the animated pixel grid emphasized — and **brass is no longer the
   custody color**: all chain/custody accents now use the ocean family
-  (`#126FAA` strokes, `#0E5A8A` small mono text). `--accent-brass`
-  remains defined but unused on the homepage. Do not reintroduce navy
-  bands or brass custody accents without owner direction.
+  (`#126FAA` strokes, `#0E5A8A` small mono text), except the terminal
+  released-package node, which keeps brass as the site's one deliberate
+  warm accent (owner-approved). `--accent-brass` is otherwise unused.
+- (2026-08-01, owner direction — supersedes the point above) The hero's
+  bespoke chart band is retired entirely. The owner asked for the site's
+  **original full-page Pixel Grid back** — the animation the security
+  cleanup incidentally removed along with the third-party script it rode
+  on. Rebuilt first-party in `components/PixelGridBackground.tsx`, one
+  fixed instance mounted in `app/layout.tsx` (z-0, behind the existing
+  `relative z-10` content shell), visible from nav through footer on
+  every page, not homepage-only. The homepage hero reverted to
+  `.hero-section.landing-hero` (transparent — the pattern the CSS was
+  already built and commented for) with LiquidGlass panels. Grid opacity
+  raised from 0.34 to 0.92 sitewide; legibility comes entirely from the
+  Liquid Glass translucent-card system now, not from dimming the grid.
+  **Do not reintroduce a bespoke hero background (chart-navy, chart-light,
+  or otherwise) without explicit owner direction — it hides the layer the
+  owner has now asked for twice.**
