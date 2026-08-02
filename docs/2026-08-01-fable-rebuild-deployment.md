@@ -165,6 +165,25 @@ evidence-coverage. QA: axe + overflow clean on touched routes both
 viewports; sample-record and image-load functional checks pass locally
 and against production.
 
+## Sixth pass, same day — light hero + landscape proof (owner direction)
+
+**Branch:** `claude/fable-light-hero` → merged to `main` (`91c96ab`) ·
+wrangler `5a5846c6` · verified live (139 pxl-cells, executive-readiness
+exhibit markers).
+
+Owner feedback: the hero's portrait requirement-mapping capture made the
+proof panel absurdly tall (full app sidebar scrolling on mobile), and
+the site should read **light** with the animated pixel grid emphasized.
+Changes: the chart band flipped navy→white/paper gradient with navy
+type; pixel cells + contours now inherit `--hero-grid-ink` (ocean on
+light, components stay theme-agnostic); cell density raised outside the
+copy zone (0.16→0.24, big-cell 0.22); chain-pointer signal became
+darken-only brass; hero proof swapped to the landscape 1440×1100
+executive-readiness dashboard. Navy text ≥10:1 over the brightest cell
+frame; axe + overflow 0/0 both viewports. **Design note for future
+passes: the dark register is gone from the hero — extend the light chart
+language, don't reintroduce navy bands without owner direction.**
+
 ## Follow-ups (deliberate, not regressions)
 
 - `wrangler deploy` printed "No targets deployed" (routes unchanged) —
