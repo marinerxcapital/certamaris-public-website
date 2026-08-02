@@ -93,6 +93,15 @@ async function main() {
       } catch {
         await page.goto(url, { waitUntil: "load", timeout: 30000 }).catch(() => {});
       }
+      // Scroll the page so lazy images load before the full-page screenshot.
+      await page.evaluate(async () => {
+        const step = window.innerHeight * 0.85;
+        for (let y = 0; y < document.body.scrollHeight; y += step) {
+          window.scrollTo(0, y);
+          await new Promise((r) => setTimeout(r, 60));
+        }
+        window.scrollTo(0, 0);
+      });
       await page.waitForTimeout(350);
       // horizontal overflow check
       const overflow = await page.evaluate(
