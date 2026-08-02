@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Button } from "@/components/Button";
 import { DepthContours } from "@/components/DepthContours";
 import { EvidenceChain } from "@/components/EvidenceChain";
+import { FounderPortrait } from "@/components/FounderPortrait";
 import { HeroPixelGrid } from "@/components/HeroPixelGrid";
 import { HomepageProductShowcase } from "@/components/HomepageProductShowcase";
 import { LiquidGlass } from "@/components/LiquidGlass";
@@ -445,6 +446,48 @@ export default function HomePage() {
             Full implementation path
           </Link>
         </div>
+      </Section>
+
+      <Section spacing="compact">
+        <Reveal className="mx-auto max-w-4xl">
+          <div className="grid gap-8 sm:grid-cols-[auto_1fr] sm:items-start">
+            <FounderPortrait size="sm" className="mx-auto sm:mx-0" />
+            <div className="max-w-2xl">
+              <Eyebrow>From the founder</Eyebrow>
+              <h2 className="text-[26px] leading-[1.14] sm:text-[30px]">Why I built this.</h2>
+              <div className="mt-4 grid gap-4 text-[15px] leading-relaxed text-structural">
+                <p>
+                  I came to this problem from the deck side. I hold a U.S. Merchant Mariner credential — Third Mate,
+                  Unlimited Tonnage, Oceans — and I know how shipboard work actually gets documented: safety-management
+                  systems, inspections, records that have to hold up when someone official asks for them.
+                </p>
+                <p>
+                  Cyber compliance kept breaking the same way. The requirement lived in one place and the proof in
+                  another — spreadsheets, shared drives, inboxes, consultant reports — and by survey week nobody could
+                  show how any of it connected. CertaMaris exists to keep that chain connected: requirement to control
+                  to evidence to finding to corrective action to a package you can hand over.
+                </p>
+                <p>
+                  You won&apos;t find invented metrics or compliance guarantees on this site. Official texts control,
+                  and humans make the calls. That&apos;s the standard the product is built to — and the standard this
+                  website is held to.
+                </p>
+              </div>
+              <div className="mt-6 border-t border-navy/10 pt-4">
+                <p className="text-[16px] font-semibold text-navy">Skyler Brown</p>
+                <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.12em] text-structural">
+                  Founder, CertaMaris · Third Mate, Unlimited Tonnage, Oceans
+                </p>
+                <Link
+                  href="/about/leadership"
+                  className="mt-3 inline-block text-[14px] font-semibold text-ocean hover:underline"
+                >
+                  Full profile and credentials
+                </Link>
+              </div>
+            </div>
+          </div>
+        </Reveal>
       </Section>
 
       <Section spacing="compact">
