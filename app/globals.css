@@ -58,8 +58,8 @@
 
 html {
   scroll-behavior: auto;
-  /* Fallback base when Pixel Grid is reduced-motion-hidden; otherwise the fixed grid paints above */
-  background: #fbfdff;
+  /* Fallback base before the Pixel Grid canvas paints its first frame */
+  background: #f8fbff;
 }
 
 body {
@@ -97,8 +97,11 @@ body {
   height: 100%;
   min-height: 100vh;
   min-height: 100dvh;
-  /* Dimmed so page copy stays readable across all surfaces (was 0.52) */
-  opacity: 0.34;
+  /* Owner direction 2026-08-01: the grid should be clearly visible, not a
+     dim texture (previously 0.34). Legibility is now handled by the
+     translucent Liquid Glass card system (--lg-bg etc.), which every
+     content surface already sits on, not by pre-dimming the whole layer. */
+  opacity: 0.92;
   overflow: hidden;
   pointer-events: none;
 }
@@ -782,9 +785,10 @@ textarea:focus-visible,
     scroll-behavior: auto !important;
   }
 
-  .pixel-grid-background {
-    display: none !important;
-  }
+  /* Keep the Pixel Grid's visual identity — PixelGridBackground.tsx paints
+     one static frame and never starts its drift loop under reduced motion,
+     so no CSS override is needed here (a display:none would remove the
+     texture entirely, which the brief explicitly asks us not to do). */
 }
 
 .bg-paper a.text-ocean {
@@ -858,10 +862,6 @@ figure.product-showcase-frame > div:first-child {
 }
 
 @media (max-width: 767px) {
-  .pixel-grid-background {
-    opacity: 0.26;
-  }
-
   .hero-section {
     min-height: auto;
   }
@@ -869,117 +869,14 @@ figure.product-showcase-frame > div:first-child {
 
 /* ==========================================================================
    Redesign 2026-08-01 (design/redesign-plan.md)
-   Chart-navy hero band, custody-thread evidence chain, command palette.
+   Custody-thread evidence chain, command palette, sample record.
    All pairings AA-verified — see plan §2.1.
+   (The chart-navy/chart-light hero band this section originally shipped
+   with was retired 2026-08-01: the hero is back on the sitewide Pixel
+   Grid via .hero-section.landing-hero — see PixelGridBackground.tsx and
+   app/layout.tsx. Do not reintroduce a bespoke hero surface without
+   owner direction; it hides the grid the owner wants emphasized.)
    ========================================================================== */
-
-/* ---------- Chart hero band (light, 2026-08-01 owner direction) ----------
-   Was chart-navy; now a light chart-paper band with the animated pixel grid
-   as the emphasized signature texture. Grid/contour linework inherits
-   --hero-grid-ink so the components stay theme-agnostic. */
-.hero-chart {
-  position: relative;
-  background: linear-gradient(180deg, #ffffff 0%, var(--surface-paper) 100%);
-  color: var(--ink-primary);
-  overflow: hidden;
-  border-bottom: 1px solid var(--hairline);
-  --hero-grid-ink: var(--accent-ocean);
-}
-
-.hero-chart-contours {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-/* Animated pixel-grid layer (HeroPixelGrid) — sits under the contour linework */
-.hero-chart-pixels {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-.pxl-cell {
-  fill: var(--hero-grid-ink, var(--accent-sounding));
-  opacity: var(--pxl-o, 0.07);
-  animation-name: pxl-pulse;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
-}
-
-@keyframes pxl-pulse {
-  0%,
-  100% {
-    opacity: calc(var(--pxl-o, 0.07) * 0.35);
-  }
-  50% {
-    opacity: calc(var(--pxl-o, 0.07) * 1.9);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .pxl-cell {
-    animation: none !important;
-    opacity: var(--pxl-o, 0.07);
-  }
-}
-
-.hero-chart h1 {
-  color: var(--ink-primary);
-}
-
-.hero-chart .hero-chart-lede {
-  color: var(--ink-secondary);
-}
-
-.hero-chart .hero-chart-boundary {
-  color: var(--ink-tertiary);
-}
-
-.hero-chart-eyebrow {
-  font-family: var(--font-mono), Consolas, monospace;
-  font-size: 12px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--accent-ocean);
-  font-variant-numeric: tabular-nums;
-}
-
-/* CTA treatments on the light chart band — white on ocean-deep 7.37:1 */
-.btn-chart-primary {
-  background: var(--accent-ocean-deep);
-  color: #ffffff;
-}
-.btn-chart-primary:hover {
-  background: #0c4d77;
-}
-.btn-chart-secondary {
-  border: 1px solid rgba(6, 30, 54, 0.28);
-  background: rgba(255, 255, 255, 0.75);
-  color: var(--ink-primary);
-}
-.btn-chart-secondary:hover {
-  border-color: var(--accent-ocean);
-  background: #ffffff;
-}
-
-/* Chain pointer line in hero (mono, links to the visualizer) */
-.hero-chain-pointer {
-  font-family: var(--font-mono), Consolas, monospace;
-  font-size: 12.5px;
-  letter-spacing: 0.05em;
-  color: #0e5a8a;
-  font-variant-numeric: tabular-nums;
-}
-.hero-chain-pointer:hover {
-  color: #0c4d77;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
 
 /* ---------- Custody thread / evidence chain (signature element) ---------- */
 .chain-spine {
@@ -1324,55 +1221,6 @@ figure.product-showcase-frame > div:first-child {
   border-radius: 6px;
   padding: 2px 8px;
   box-shadow: 0 6px 18px rgba(11, 42, 74, 0.18);
-}
-
-/* ---------- Ambient: contour drift + hero chain-pointer signal ---------- */
-@media (prefers-reduced-motion: no-preference) {
-  .contour-drift-a {
-    animation: contour-drift-fwd 90s linear infinite;
-  }
-  .contour-drift-b {
-    animation: contour-drift-rev 130s linear infinite;
-  }
-  .hcp-seg {
-    animation: hcp-signal 9s ease-in-out infinite;
-  }
-  .hcp-seg-2 {
-    animation-delay: 0.18s;
-  }
-  .hcp-seg-3 {
-    animation-delay: 0.36s;
-  }
-  .hcp-seg-4 {
-    animation-delay: 0.54s;
-  }
-  .hero-chain-pointer:hover .hcp-seg {
-    animation-play-state: paused;
-  }
-}
-
-@keyframes contour-drift-fwd {
-  to {
-    stroke-dashoffset: -160;
-  }
-}
-@keyframes contour-drift-rev {
-  to {
-    stroke-dashoffset: 160;
-  }
-}
-
-/* Signal runs down the pointer once per period — darken-only on the light
-   band, so contrast never drops below the base brass. */
-@keyframes hcp-signal {
-  0%,
-  9%,
-  100% {
-    color: inherit;
-  }
-  3.5% {
-    color: #083a5c;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
