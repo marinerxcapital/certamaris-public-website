@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Button } from "@/components/Button";
 import { DepthContours } from "@/components/DepthContours";
 import { EvidenceChain } from "@/components/EvidenceChain";
+import { HeroPixelGrid } from "@/components/HeroPixelGrid";
 import { HomepageProductShowcase } from "@/components/HomepageProductShowcase";
 import { LiquidGlass } from "@/components/LiquidGlass";
 import { ProductScreenFrame } from "@/components/ProductScreens";
@@ -146,6 +147,7 @@ export default function HomePage() {
   return (
     <>
       <section className="hero-chart relative" aria-labelledby="hero-title">
+        <HeroPixelGrid className="hero-chart-pixels" />
         <DepthContours className="hero-chart-contours" />
         <div className="shell relative z-10 py-16 sm:py-20 lg:py-24">
           <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:gap-14">
