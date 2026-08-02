@@ -1,10 +1,13 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { StatusBadge } from "@/components/StatusBadge";
 import { SAMPLE_RECORD, type SampleRecordObject } from "@/lib/sample-record";
 import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
+
+/** A cross-link jump in flight: which record was followed, from where. */
+type CustodyFlight = { id: string; from: DOMRect };
 
 /**
  * The landing page's inspectable sample record: one real end-to-end
@@ -22,8 +25,11 @@ const cardMotion = {
 
 export function SampleRecordExplorer() {
   const [activeId, setActiveId] = useState(SAMPLE_RECORD[0].id);
+  const [interacted, setInteracted] = useState(false);
   const reduced = usePrefersReducedMotion();
   const baseId = useId();
+  /** Set by linked-record clicks; consumed once by the next RecordCard mount. */
+  const flightRef = useRef<CustodyFlight | null>(null);
 
   const activeIndex = Math.max(
     0,
@@ -34,6 +40,7 @@ export function SampleRecordExplorer() {
   const tabDomId = (id: string) => `${baseId}-tab-${id}`;
 
   const jumpTo = (id: string) => {
+    setInteracted(true);
     setActiveId(id);
     document.getElementById(tabDomId(id))?.focus();
   };
@@ -51,7 +58,7 @@ export function SampleRecordExplorer() {
     jumpTo(SAMPLE_RECORD[nextIndex].id);
   };
 
-  const card = <RecordCard record={active} onJump={jumpTo} />;
+  const card = <RecordCard record={active} onJump={jumpTo} flightRef={flightRef} reduced={reduced} />;
 
   return (
     <div className="sample-record liquid-glass liquid-glass--strong lg-pad-md">
@@ -83,13 +90,19 @@ export function SampleRecordExplorer() {
                 aria-selected={isActive}
                 aria-controls={`${baseId}-panel`}
                 tabIndex={isActive ? 0 : -1}
-                onClick={() => setActiveId(record.id)}
-                className={`shrink-0 rounded-md border px-3 py-2 text-left transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-ocean lg:shrink ${
+                onClick={() => {
+                  setInteracted(true);
+                  setActiveId(record.id);
+                }}
+                className={`relative shrink-0 rounded-md border px-3 py-2 text-left transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-ocean lg:shrink ${
                   isActive
                     ? "border-[#B8823A]/60 bg-white shadow-card"
                     : "border-navy/10 bg-white/55 hover:border-navy/25 hover:bg-white/80"
                 }`}
               >
+                {isActive && interacted && !reduced ? (
+                  <span key={`ping-${record.id}`} className="tab-ping" aria-hidden="true" />
+                ) : null}
                 <span className="flex items-baseline gap-2">
                   <span className="font-mono text-[10.5px] font-semibold tracking-[0.08em] text-[#8a5f1e] tabular-nums">
                     {String(index + 1).padStart(2, "0")}
@@ -130,18 +143,52 @@ export function SampleRecordExplorer() {
 function RecordCard({
   record,
   onJump,
+  flightRef,
+  reduced,
 }: {
   record: SampleRecordObject;
   onJump: (id: string) => void;
+  flightRef: React.MutableRefObject<CustodyFlight | null>;
+  reduced: boolean;
 }) {
+  const headerIdRef = useRef<HTMLSpanElement>(null);
   const linked = record.links
     .map((id) => SAMPLE_RECORD.find((candidate) => candidate.id === id))
     .filter((candidate): candidate is SampleRecordObject => Boolean(candidate));
 
+  // Custody handoff: when this card was reached via a linked-record click,
+  // fly the mono id chip from the clicked link to the card header.
+  useEffect(() => {
+    const flight = flightRef.current;
+    if (!flight || flight.id !== record.id || reduced) return;
+    flightRef.current = null;
+    const target = headerIdRef.current;
+    if (!target || typeof target.animate !== "function") return;
+    const to = target.getBoundingClientRect();
+    const chip = document.createElement("span");
+    chip.textContent = record.id;
+    chip.className = "custody-flight";
+    chip.style.left = `${flight.from.left}px`;
+    chip.style.top = `${flight.from.top}px`;
+    document.body.appendChild(chip);
+    const animation = chip.animate(
+      [
+        { transform: "translate(0, 0)", opacity: 0.95 },
+        {
+          transform: `translate(${to.left - flight.from.left}px, ${to.top - flight.from.top}px)`,
+          opacity: 0.25,
+        },
+      ],
+      { duration: 340, easing: "cubic-bezier(0.16, 1, 0.3, 1)" }
+    );
+    animation.onfinish = () => chip.remove();
+    return () => chip.remove();
+  }, [record.id, flightRef, reduced]);
+
   return (
     <article className="rounded-md border border-navy/12 bg-white p-5 shadow-card sm:p-6">
       <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-        <span className="font-mono text-[12px] font-semibold tracking-[0.06em] text-[#8a5f1e]">
+        <span ref={headerIdRef} className="font-mono text-[12px] font-semibold tracking-[0.06em] text-[#8a5f1e]">
           {record.id}
         </span>
         <span className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-structural">
@@ -182,7 +229,14 @@ function RecordCard({
               <li key={target.id}>
                 <button
                   type="button"
-                  onClick={() => onJump(target.id)}
+                  onClick={(event) => {
+                    const idSpan = event.currentTarget.querySelector("span");
+                    flightRef.current = {
+                      id: target.id,
+                      from: (idSpan ?? event.currentTarget).getBoundingClientRect(),
+                    };
+                    onJump(target.id);
+                  }}
                   className="inline-flex items-baseline gap-1.5 rounded-md border border-navy/15 bg-paper px-2.5 py-1.5 text-left transition-colors hover:border-[#B8823A]/60 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-ocean"
                 >
                   <span className="font-mono text-[11px] font-semibold text-[#8a5f1e]">{target.id}</span>
