@@ -18,7 +18,7 @@ export function BrandLogo({ className = "" }: BrandLogoProps) {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/brand/optimized/certamaris-wordmark-284.webp"
-        alt=""
+        alt="CertaMaris"
         width={142}
         height={32}
         className="h-8 w-auto"

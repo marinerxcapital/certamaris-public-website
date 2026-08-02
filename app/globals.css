@@ -7,6 +7,10 @@
   --surface-paper: #f5f8fa;
   --surface-raised: #eef3f6;
   --surface-navy: #0b2a4a;
+  /* Chart-navy band + sounding linework (redesign 2026-08-01, design/redesign-plan.md) */
+  --surface-chart: #07223d;
+  --accent-sounding: #7fb4d6;
+  --accent-ocean-deep: #0e5a8a;
   --ink-primary: #061e36;
   --ink-secondary: #1f3348;
   --ink-tertiary: #2c4054;
@@ -861,4 +865,357 @@ textarea:focus-visible,
   .hero-section {
     min-height: auto;
   }
+}
+
+/* ==========================================================================
+   Redesign 2026-08-01 (design/redesign-plan.md)
+   Chart-navy hero band, custody-thread evidence chain, command palette.
+   All pairings AA-verified — see plan §2.1.
+   ========================================================================== */
+
+/* ---------- Chart-navy hero band ---------- */
+.hero-chart {
+  position: relative;
+  background: var(--surface-chart);
+  color: var(--ink-inverse);
+  overflow: hidden;
+  border-bottom: 1px solid rgba(127, 180, 214, 0.18);
+}
+
+.hero-chart-contours {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.hero-chart h1 {
+  color: #ffffff;
+}
+
+.hero-chart .hero-chart-lede {
+  color: rgba(245, 248, 250, 0.92);
+}
+
+.hero-chart .hero-chart-boundary {
+  color: rgba(245, 248, 250, 0.78);
+}
+
+.hero-chart-eyebrow {
+  font-family: var(--font-mono), Consolas, monospace;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-sounding);
+  font-variant-numeric: tabular-nums;
+}
+
+/* CTA treatments on chart navy — white on ocean-deep 7.37:1, white outline 16:1 */
+.btn-chart-primary {
+  background: var(--accent-ocean-deep);
+  color: #ffffff;
+}
+.btn-chart-primary:hover {
+  background: #0c4d77;
+}
+.btn-chart-secondary {
+  border: 1px solid rgba(184, 130, 58, 0.65);
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+}
+.btn-chart-secondary:hover {
+  border-color: var(--accent-brass);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Chain pointer line in hero (mono, links to the visualizer) */
+.hero-chain-pointer {
+  font-family: var(--font-mono), Consolas, monospace;
+  font-size: 12.5px;
+  letter-spacing: 0.05em;
+  color: var(--accent-sounding);
+  font-variant-numeric: tabular-nums;
+}
+.hero-chain-pointer:hover {
+  color: #a8cde6;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ---------- Custody thread / evidence chain (signature element) ---------- */
+.chain-spine {
+  position: relative;
+  padding-left: 28px;
+}
+
+.chain-thread-track {
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  left: 7px;
+  width: 2px;
+  background: rgba(184, 130, 58, 0.18);
+  border-radius: 1px;
+}
+
+.chain-thread {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, var(--accent-brass), #a06f2c);
+  border-radius: 1px;
+  transform-origin: top;
+}
+
+.chain-steps {
+  display: grid;
+  gap: 18px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.chain-step {
+  position: relative;
+}
+
+.chain-node {
+  position: absolute;
+  left: -28px;
+  top: 26px;
+  width: 12px;
+  height: 12px;
+  margin-left: 2px;
+  border-radius: 50%;
+  background: var(--surface-page);
+  border: 2.5px solid var(--accent-brass);
+}
+
+.chain-node--release {
+  background: var(--accent-brass);
+  box-shadow: 0 0 0 4px rgba(184, 130, 58, 0.22);
+}
+
+.chain-code {
+  display: inline-block;
+  font-family: var(--font-mono), Consolas, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: #8a5f1e;
+  font-variant-numeric: tabular-nums;
+}
+
+.chain-title {
+  margin-top: 6px;
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--ink-primary);
+}
+
+.chain-detail {
+  margin-top: 6px;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--ink-secondary);
+  max-width: 46rem;
+}
+
+@media (min-width: 1024px) {
+  .chain-spine {
+    padding-left: 0;
+  }
+  .chain-thread-track {
+    left: calc(50% - 1px);
+  }
+  .chain-steps {
+    gap: 26px;
+  }
+  .chain-step {
+    width: calc(50% - 40px);
+  }
+  .chain-step:nth-child(odd) {
+    margin-right: auto;
+  }
+  .chain-step:nth-child(even) {
+    margin-left: auto;
+  }
+  .chain-step:nth-child(odd) .chain-node {
+    left: auto;
+    right: -52px;
+  }
+  .chain-step:nth-child(even) .chain-node {
+    left: -52px;
+  }
+}
+
+/* ---------- Compact horizontal chain strip (interior pages) ---------- */
+.chain-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 6px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.chain-strip-step {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.chain-strip-step + .chain-strip-step::before {
+  content: "→";
+  margin-right: 6px;
+  color: rgba(184, 130, 58, 0.7);
+  font-size: 12px;
+}
+
+.chain-strip-code {
+  font-family: var(--font-mono), Consolas, monospace;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: #8a5f1e;
+  font-variant-numeric: tabular-nums;
+}
+
+.chain-strip-title {
+  font-size: 13px;
+  color: var(--ink-secondary);
+}
+
+/* ---------- Command palette ---------- */
+.palette-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--lg-border);
+  border-radius: var(--radius-control);
+  background: var(--lg-bg-subtle);
+  padding: 6px 10px;
+  font-size: 13px;
+  color: var(--ink-secondary);
+  cursor: pointer;
+  transition: border-color 150ms ease, background-color 150ms ease;
+}
+.palette-trigger:hover {
+  border-color: var(--lg-border-hover);
+  background: var(--lg-bg-strong);
+}
+.palette-trigger:focus-visible {
+  outline: 2px solid var(--accent-ocean);
+  outline-offset: 2px;
+}
+.palette-trigger-icon {
+  font-size: 15px;
+  line-height: 1;
+}
+.palette-trigger-hint {
+  font-family: var(--font-mono), Consolas, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  border: 1px solid var(--hairline);
+  border-radius: 4px;
+  padding: 2px 5px;
+  color: var(--ink-tertiary);
+}
+
+.palette-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: rgba(6, 30, 54, 0.45);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 12vh 16px 16px;
+}
+
+.palette-panel {
+  width: 100%;
+  max-width: 560px;
+  padding: 10px;
+  border-radius: 14px;
+}
+
+.palette-input {
+  width: 100%;
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius-control);
+  background: #ffffff;
+  padding: 12px 14px;
+  font-size: 15px;
+  color: var(--ink-primary);
+}
+.palette-input:focus-visible {
+  outline: 2px solid var(--accent-ocean);
+  outline-offset: 1px;
+}
+.palette-input::placeholder {
+  color: var(--ink-tertiary);
+}
+
+.palette-results {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  max-height: 46vh;
+  overflow-y: auto;
+}
+
+.palette-option {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: var(--radius-control);
+  cursor: pointer;
+}
+.palette-option--active {
+  background: var(--accent-wash);
+}
+.palette-option-label {
+  font-size: 14.5px;
+  font-weight: 500;
+  color: var(--ink-primary);
+}
+.palette-option-group {
+  font-family: var(--font-mono), Consolas, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-tertiary);
+  white-space: nowrap;
+}
+
+.palette-empty {
+  padding: 14px 12px;
+  font-size: 14px;
+  color: var(--ink-secondary);
+}
+
+.palette-footer {
+  margin: 8px 4px 2px;
+  font-family: var(--font-mono), Consolas, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  color: var(--ink-tertiary);
+}
+
+/* Ledger-style route label on interior page heroes */
+.ledger-route {
+  font-family: var(--font-mono), Consolas, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #8a5f1e;
+  font-variant-numeric: tabular-nums;
 }

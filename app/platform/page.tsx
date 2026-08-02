@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { BoundaryPanel } from "@/components/BoundaryPanel";
 import { Button } from "@/components/Button";
+import { EvidenceChain } from "@/components/EvidenceChain";
 import { PageHero } from "@/components/PageHero";
 import { ProcessStepList } from "@/components/ProcessStepList";
 import { ProductScreenFrame, ProductScreenTile } from "@/components/ProductScreens";
@@ -129,9 +130,9 @@ export default function PlatformPage() {
             <p className="text-[15.5px] text-structural leading-relaxed mb-6">
               The operating unit of the platform is the connected chain — not a separate dashboard for each step.
             </p>
-            <p className="hero-trace-line mb-4">
-              {TRACEABILITY_CHAIN.map((s) => s.title).join(" → ")}
-            </p>
+            <div className="mb-4">
+              <EvidenceChain variant="strip" />
+            </div>
           </Reveal>
           <Reveal delay={0.06}>
             <ol className="space-y-3">

@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { BrandLogo } from "@/components/BrandLogo";
+import { CommandPalette } from "@/components/CommandPalette";
 import {
   APP_GET_STARTED_URL,
   APP_SIGN_IN_URL,
@@ -400,6 +401,7 @@ export function Nav() {
           </nav>
 
           <div className="hidden items-center gap-1 lg:flex">
+            <CommandPalette />
             <a
               href={APP_SIGN_IN_URL}
               className="rounded-md px-3 py-2 text-[14px] font-medium text-navy transition-colors hover:text-ocean xl:text-[15px]"

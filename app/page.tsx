@@ -1,12 +1,14 @@
 import Link from "next/link";
 import { Button } from "@/components/Button";
+import { DepthContours } from "@/components/DepthContours";
+import { EvidenceChain } from "@/components/EvidenceChain";
 import { HomepageProductShowcase } from "@/components/HomepageProductShowcase";
 import { LiquidGlass } from "@/components/LiquidGlass";
 import { ProductScreenFrame } from "@/components/ProductScreens";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
 import { APP_SIGN_IN_URL, REGULATORY_BOUNDARY } from "@/lib/constants";
-import { PLATFORM_HIERARCHY, TRACEABILITY_CHAIN } from "@/lib/product-hierarchy";
+import { PLATFORM_HIERARCHY } from "@/lib/product-hierarchy";
 import { productProofScreens } from "@/lib/product-screens";
 import { differentiationModels, implementationSteps } from "@/lib/solutions-audience";
 
@@ -143,51 +145,65 @@ const homepageDifferentiation = differentiationModels.slice(0, 6);
 export default function HomePage() {
   return (
     <>
-      <section className="hero-section landing-hero relative" aria-labelledby="hero-title">
+      <section className="hero-chart relative" aria-labelledby="hero-title">
+        <DepthContours className="hero-chart-contours" />
         <div className="shell relative z-10 py-16 sm:py-20 lg:py-24">
           <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:gap-14">
             <Reveal className="hero-copy-block max-w-2xl">
-              <LiquidGlass variant="strong" padding="lg">
-                <Eyebrow>Maritime cyber compliance and continuous assurance</Eyebrow>
-                <h1
-                  id="hero-title"
-                  className="mb-6 text-[40px] leading-[1.02] tracking-[-0.02em] sm:text-[56px] lg:text-[64px]"
+              <p className="hero-chart-eyebrow mb-5">Maritime cyber compliance · Continuous assurance</p>
+              <h1
+                id="hero-title"
+                className="mb-6 text-[40px] leading-[1.02] tracking-[-0.02em] sm:text-[56px] lg:text-[64px]"
+              >
+                Continuous assurance across every company, fleet, vessel, control, evidence record, finding, and
+                released report.
+              </h1>
+              <p className="hero-chart-lede mb-7 max-w-[39rem] text-[17px] font-medium leading-[1.55] tracking-[-0.01em] sm:text-[19px]">
+                CertaMaris is evidence-first maritime cyber compliance software for ship owners, operators, DPAs,
+                technical managers, IT/OT teams, and vessel users — so readiness work is inspectable before survey
+                week.
+              </p>
+              <div className="flex flex-wrap items-center gap-4">
+                <Link
+                  href="/contact?intent=demo"
+                  className="btn-chart-primary inline-flex items-center justify-center gap-2 rounded-md px-6 py-3 text-[15px] font-semibold transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7fb4d6]"
                 >
-                  Continuous assurance across every company, fleet, vessel, control, evidence record, finding, and
-                  released report.
-                </h1>
-                <p className="mb-4 max-w-[39rem] text-[17px] font-medium leading-[1.55] tracking-[-0.01em] text-navy/82 sm:text-[19px]">
-                  CertaMaris is evidence-first maritime cyber compliance software for ship owners, operators, DPAs,
-                  technical managers, IT/OT teams, and vessel users — so readiness work is inspectable before survey
-                  week.
-                </p>
-                <p className="hero-trace-line mb-8">
-                  {TRACEABILITY_CHAIN.map((s) => s.title).join(" → ")}
-                </p>
-                <div className="flex flex-wrap gap-4">
-                  <Button href="/contact?intent=demo">Request a demo</Button>
-                  <Button href="/platform" variant="secondary">
-                    View platform
-                  </Button>
-                  <Button href={APP_SIGN_IN_URL} variant="ghost" external>
-                    Sign in
-                  </Button>
-                </div>
-                <p className="mt-6 max-w-xl text-[13.5px] leading-relaxed text-navy/75">
-                  Workflow scope includes work aligned to IMO MSC.428(98) and IACS UR E26/E27. Official texts control;
-                  CertaMaris does not certify compliance or guarantee survey outcomes.
-                </p>
-              </LiquidGlass>
+                  Request a demo
+                </Link>
+                <Link
+                  href="/platform"
+                  className="btn-chart-secondary inline-flex items-center justify-center gap-2 rounded-md px-6 py-3 text-[15px] font-semibold transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7fb4d6]"
+                >
+                  View platform
+                </Link>
+                <a
+                  href={APP_SIGN_IN_URL}
+                  className="inline-flex items-center px-2 py-3 text-[15px] font-semibold text-white underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7fb4d6]"
+                  data-integration-point="sign-in"
+                >
+                  Sign in
+                </a>
+              </div>
+              <a href="#evidence-chain" className="hero-chain-pointer mt-8 inline-block">
+                01 REQ → 10 PKG · follow the chain of custody ↓
+              </a>
+              <p className="hero-chart-boundary mt-6 max-w-xl text-[13.5px] leading-relaxed">
+                Workflow scope includes work aligned to IMO MSC.428(98) and IACS UR E26/E27. Official texts control;
+                CertaMaris does not certify compliance or guarantee survey outcomes.
+              </p>
             </Reveal>
 
             <Reveal delay={0.06}>
-              <LiquidGlass variant="strong" padding="lg" className="hero-signal-panel">
+              <LiquidGlass variant="dark" padding="lg" className="hero-signal-panel">
                 <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
                   <div>
-                    <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-structural">Product proof</p>
-                    <p className="mt-1 text-[15px] font-semibold text-navy">Requirement and control mapping</p>
+                    <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-[#7fb4d6]">Product proof</p>
+                    <p className="mt-1 text-[15px] font-semibold text-white">Requirement and control mapping</p>
                   </div>
-                  <Link href="/platform" className="text-[13.5px] font-semibold text-ocean hover:underline">
+                  <Link
+                    href="/platform"
+                    className="text-[13.5px] font-semibold text-ocean-light underline-offset-4 hover:underline"
+                  >
                     Inspect the platform
                   </Link>
                 </div>
@@ -221,6 +237,26 @@ export default function HomePage() {
               <p className="pl-3 text-[14.5px] leading-relaxed text-structural">{item.body}</p>
             </LiquidGlass>
           ))}
+        </div>
+      </Section>
+
+      <Section id="evidence-chain">
+        <Reveal className="mb-12 max-w-3xl">
+          <Eyebrow>Chain of custody</Eyebrow>
+          <h2 className="text-[30px] leading-[1.12] sm:text-[38px]">
+            One unbroken record from requirement to released readiness package.
+          </h2>
+          <p className="mt-4 max-w-2xl text-[15.5px] leading-relaxed text-structural">
+            Every step below is a controlled object in the platform — owned, versioned, and inspectable. This chain is
+            the product&apos;s operating unit, not a marketing diagram.
+          </p>
+        </Reveal>
+        <EvidenceChain />
+        <div className="mt-12 flex flex-wrap items-center gap-4">
+          <Button href="/demo">See the workflow in action</Button>
+          <Link href="/platform" className="text-[14px] font-semibold text-ocean hover:underline">
+            Platform capabilities
+          </Link>
         </div>
       </Section>
 

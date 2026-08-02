@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { LedgerRoute } from "@/components/LedgerRoute";
 import { Eyebrow } from "@/components/Section";
 
 export function PageHero({
@@ -30,6 +31,7 @@ export function PageHero({
       <div className={`shell relative z-10 ${elevated ? "py-20 sm:py-24" : "py-16 sm:py-20"}`}>
         <div className={aside ? "grid lg:grid-cols-[1fr_auto] gap-10 items-end" : undefined}>
           <div className="liquid-glass liquid-glass--strong lg-pad-lg max-w-2xl">
+            <LedgerRoute />
             <Eyebrow>{eyebrow}</Eyebrow>
             <h1
               className={
