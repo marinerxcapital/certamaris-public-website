@@ -63,7 +63,7 @@ export function SampleRecordExplorer() {
   return (
     <div className="sample-record liquid-glass liquid-glass--strong lg-pad-md">
       <p className="mb-4 flex flex-wrap items-center gap-x-3 gap-y-1 border-b border-navy/10 pb-3">
-        <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8a5f1e]">
+        <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-[#0e5a8a]">
           Sample record · MV Certa Maris
         </span>
         <span className="text-[12.5px] text-structural">
@@ -96,7 +96,7 @@ export function SampleRecordExplorer() {
                 }}
                 className={`relative shrink-0 rounded-md border px-3 py-2 text-left transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-ocean lg:shrink ${
                   isActive
-                    ? "border-[#B8823A]/60 bg-white shadow-card"
+                    ? "border-ocean/60 bg-white shadow-card"
                     : "border-navy/10 bg-white/55 hover:border-navy/25 hover:bg-white/80"
                 }`}
               >
@@ -104,7 +104,7 @@ export function SampleRecordExplorer() {
                   <span key={`ping-${record.id}`} className="tab-ping" aria-hidden="true" />
                 ) : null}
                 <span className="flex items-baseline gap-2">
-                  <span className="font-mono text-[10.5px] font-semibold tracking-[0.08em] text-[#8a5f1e] tabular-nums">
+                  <span className="font-mono text-[10.5px] font-semibold tracking-[0.08em] text-[#0e5a8a] tabular-nums">
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   <span className="font-mono text-[11px] font-semibold tracking-[0.06em] text-navy">
@@ -188,7 +188,7 @@ function RecordCard({
   return (
     <article className="rounded-md border border-navy/12 bg-white p-5 shadow-card sm:p-6">
       <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-        <span ref={headerIdRef} className="font-mono text-[12px] font-semibold tracking-[0.06em] text-[#8a5f1e]">
+        <span ref={headerIdRef} className="font-mono text-[12px] font-semibold tracking-[0.06em] text-[#0e5a8a]">
           {record.id}
         </span>
         <span className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-structural">
@@ -221,7 +221,7 @@ function RecordCard({
 
       {linked.length > 0 ? (
         <div className="mt-5 border-t border-navy/10 pt-4">
-          <p className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-[#8a5f1e]">
+          <p className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-[#0e5a8a]">
             Linked records
           </p>
           <ul className="mt-2 flex flex-wrap gap-2">
@@ -237,9 +237,9 @@ function RecordCard({
                     };
                     onJump(target.id);
                   }}
-                  className="inline-flex items-baseline gap-1.5 rounded-md border border-navy/15 bg-paper px-2.5 py-1.5 text-left transition-colors hover:border-[#B8823A]/60 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-ocean"
+                  className="inline-flex items-baseline gap-1.5 rounded-md border border-navy/15 bg-paper px-2.5 py-1.5 text-left transition-colors hover:border-ocean/60 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-ocean"
                 >
-                  <span className="font-mono text-[11px] font-semibold text-[#8a5f1e]">{target.id}</span>
+                  <span className="font-mono text-[11px] font-semibold text-[#0e5a8a]">{target.id}</span>
                   <span className="text-[12.5px] text-structural">{target.step}</span>
                 </button>
               </li>

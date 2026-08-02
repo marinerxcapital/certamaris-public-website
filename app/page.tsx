@@ -508,15 +508,15 @@ export default function HomePage() {
         </Reveal>
       </Section>
 
-      <Section surface="navy">
+      <Section surface="paper">
         <div className="final-cta-grid">
           <Reveal className="max-w-2xl">
-            <LiquidGlass variant="dark" padding="lg">
-              <p className="mb-3 font-mono text-[12px] uppercase tracking-[0.14em] text-ocean-light">Request a demo</p>
-              <h2 className="mb-4 text-[30px] leading-[1.08] text-white sm:text-[40px]">
+            <LiquidGlass variant="strong" padding="lg">
+              <p className="mb-3 font-mono text-[12px] uppercase tracking-[0.14em] text-ocean">Request a demo</p>
+              <h2 className="mb-4 text-[30px] leading-[1.08] sm:text-[40px]">
                 Request a focused conversation on readiness across your fleet.
               </h2>
-              <p className="max-w-xl text-[15.5px] leading-relaxed text-white/72">
+              <p className="max-w-xl text-[15.5px] leading-relaxed text-structural">
                 Tell us about fleet scope, evidence condition, and open findings. This is a request form — not a
                 calendar booking — so we can prepare a useful demo and readiness discussion.
               </p>
@@ -524,18 +524,10 @@ export default function HomePage() {
           </Reveal>
           <Reveal delay={0.06} className="flex flex-col gap-3 sm:flex-row lg:justify-end lg:self-center">
             <Button href="/contact?intent=demo">Request a demo</Button>
-            <Button
-              href="/platform"
-              variant="inverse"
-            >
+            <Button href="/platform" variant="secondary">
               View platform
             </Button>
-            <Button
-              href={APP_SIGN_IN_URL}
-              variant="ghost"
-              external
-              className="border border-navy/80 bg-navy/90 text-white hover:bg-navy"
-            >
+            <Button href={APP_SIGN_IN_URL} variant="ghost" external>
               Sign in
             </Button>
           </Reveal>
