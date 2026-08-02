@@ -62,6 +62,45 @@ anchor pointer in the hero rather than physically crossing the
 navy→light boundary; ledger labels derived from URL instead of per-page
 props; light/dark mode pass deferred deliberately.
 
+## Follow-up pass, same day — hero motion restore + exhibit replacement
+
+**Branch:** `claude/fable-hero-exhibit-fix` → merged to `main` (`8a1f7cb`) ·
+deployed wrangler version `1b766504-008a-4453-ae31-edcdcc2fa01e` · verified
+live (pxl-cell markers on `/`, 18 exhibit headers on `/demo`, zero
+lightbox remnants).
+
+1. **Hero motion restored, first-party** (`HeroPixelGrid`): deterministic
+   pixel-cell scatter in sounding blue pulsing on 6–16s desynced periods —
+   SVG + CSS keyframes, no script, no CSP change, density reduced behind
+   the headline. Reduced motion freezes at base opacity. Brightest frame
+   keeps white text ≥9.8:1. Frame-time probe (`scripts/qa/perf-hero.mjs`)
+   showed no measurable cost vs animation-off (both pinned at the headless
+   30Hz cap). This replaces the third-party aidesigner blocky effect that
+   was removed in the audit cleanup.
+2. **Lightbox → annotated exhibit panels** (`ProductScreens.tsx`, −172
+   lines): direction chosen was the *static inline exhibit* (the brief's
+   recommended direction, taken to its simplest form) — `Exhibit · <label>`
+   header, aspect-correct inline image, numbered callout pins + visible
+   caption list, "Full resolution" link for native zoom. No modal, no zoom
+   bar, no pagination, no client state; the component is now
+   server-rendered. Reasoning: expand-in-place added state and layout
+   shift for little gain since tiles already render aspect-correct at cell
+   width, and grid parents are wrapped in `Reveal` divs that break
+   `grid-column` spans.
+3. **`/demo` broken thumbnails**: could not reproduce the stall against
+   live (assets all 200), but the fragile client path is gone with the
+   lightbox rebuild. Verified on production post-deploy:
+   `check-demo-images.mjs --base https://certamaris.com` → 49/49 images
+   `naturalWidth > 0` across `/demo`, `/platform`, `/compliance`,
+   `/security`, `/solutions`, `/resources`.
+4. **QA:** full re-crawl (`audit/after-exhibit/`, gitignored): 0 axe
+   violations, 0 horizontal overflow on all 90 routes. Crawl now scrolls
+   before screenshots so lazy images appear in evidence captures (the
+   "blank panels" in earlier audit screenshots were capture artifacts).
+   Note the edge serves `stale-while-revalidate` copies for up to a day —
+   when verifying a deploy, fetch twice or check for markers, don't trust
+   the first response.
+
 ## Follow-ups (deliberate, not regressions)
 
 - `wrangler deploy` printed "No targets deployed" (routes unchanged) —
