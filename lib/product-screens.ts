@@ -34,6 +34,12 @@ export const productProofScreens = {
     title: "Requirement mapping with control context",
     body: "Map maritime requirements to controls in a reviewable matrix while keeping source clauses and mapping status visible together.",
     galleryOrder: 1,
+    /* Pin positions verified against the actual capture (% of image area). */
+    annotations: [
+      { id: "rm-source", label: "Source clause, versioned", x: 31, y: 10 },
+      { id: "rm-matrix", label: "Mapping status per control", x: 70, y: 16 },
+      { id: "rm-current", label: "Published mapping record", x: 85, y: 8 },
+    ],
   },
   evidenceCoverage: {
     src: "/product/updated/evidence-coverage.png",
@@ -44,6 +50,12 @@ export const productProofScreens = {
     label: "Evidence coverage",
     title: "Evidence coverage and freshness",
     body: "See coverage gaps, freshness, and missing support at control level before a review becomes a document chase.",
+    /* Pin positions verified against the actual capture (% of image area). */
+    annotations: [
+      { id: "ec-missing", label: "Missing evidence counted, not hidden", x: 31, y: 12 },
+      { id: "ec-coverage", label: "Coverage vs required, per control", x: 70, y: 24 },
+      { id: "ec-freshness", label: "Freshness tracked per artifact", x: 82, y: 26 },
+    ],
     galleryOrder: 2,
   },
   findingsRegister: {
