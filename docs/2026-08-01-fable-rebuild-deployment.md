@@ -184,6 +184,22 @@ frame; axe + overflow 0/0 both viewports. **Design note for future
 passes: the dark register is gone from the hero — extend the light chart
 language, don't reintroduce navy bands without owner direction.**
 
+## Seventh pass, same day — blue custody accents + light CTA (owner markup)
+
+**Branch:** `claude/fable-blue-custody` → merged to `main` (`d833037`) ·
+wrangler `a8ff00eb` · verified live (0 brass hexes in homepage HTML,
+`section-surface--navy` gone from homepage).
+
+Owner markup screenshots: (1) the brass/orange custody thread should be
+the site's blue; (2) the grey-navy backdrop behind the final CTA doesn't
+fit. Every brass accent swapped to the ocean family — ocean-deep
+`#0E5A8A` for small mono text (7.4:1), ocean `#126FAA` for decorative
+strokes (thread, nodes, rings, ping, flight chip, pin highlights). Final
+CTA section: navy surface → paper, dark card → light glass, buttons
+re-specced. Deviation recorded in `design/redesign-plan.md` §6 — brass
+is retired as the custody color; don't bring it back without owner
+direction.
+
 ## Follow-ups (deliberate, not regressions)
 
 - `wrangler deploy` printed "No targets deployed" (routes unchanged) —

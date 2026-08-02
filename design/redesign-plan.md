@@ -172,3 +172,10 @@ hash pipeline.
 - (2026-08-01) `hero-trace-line` plain-text chains on `/platform` and
   `/why-certamaris` replaced with the `EvidenceChain` strip variant, per
   plan §2.3 interior-template note.
+- (2026-08-01, owner direction) §2.1 superseded in two ways: the site is
+  **light-first** — the chart-navy hero band became a white→paper band
+  with the animated pixel grid emphasized — and **brass is no longer the
+  custody color**: all chain/custody accents now use the ocean family
+  (`#126FAA` strokes, `#0E5A8A` small mono text). `--accent-brass`
+  remains defined but unused on the homepage. Do not reintroduce navy
+  bands or brass custody accents without owner direction.
