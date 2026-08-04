@@ -52,9 +52,13 @@ const coreRoutes: Entry[] = [
   { path: "/trust/status", priority: 0.6, changeFrequency: "weekly" },
   { path: "/pricing", priority: 0.85, changeFrequency: "monthly" },
   { path: "/faq", priority: 0.7, changeFrequency: "monthly" },
-  { path: "/privacy", priority: 0.4, changeFrequency: "yearly" },
-  { path: "/terms", priority: 0.4, changeFrequency: "yearly" },
   { path: "/accessibility", priority: 0.4, changeFrequency: "yearly" },
+];
+
+const legalRoutes: Entry[] = [
+  { path: "/legal/privacy", priority: 0.4, changeFrequency: "yearly" },
+  { path: "/legal/terms", priority: 0.4, changeFrequency: "yearly" },
+  { path: "/legal/dpa", priority: 0.4, changeFrequency: "yearly" },
 ];
 
 function toSitemapEntry(
@@ -73,6 +77,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Deterministic: the global accessibility, security, navigation, and brand-asset
   // remediation materially changed every generated marketing page on this date.
   const remediationDate = new Date("2026-08-01T00:00:00.000Z");
+  const legalStatusDate = new Date("2026-08-04T00:00:00.000Z");
 
   const platformRoutes = productModules.map((mod) =>
     toSitemapEntry({ path: `/platform/${mod.slug}`, priority: 0.8, changeFrequency: "monthly" }, remediationDate)
@@ -99,6 +104,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     ...coreRoutes.map((r) => toSitemapEntry(r, remediationDate)),
+    ...legalRoutes.map((r) => toSitemapEntry(r, legalStatusDate)),
     ...platformRoutes,
     ...solutionRoutes,
     ...audienceRoutes,

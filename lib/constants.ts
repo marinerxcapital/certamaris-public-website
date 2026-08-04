@@ -161,7 +161,9 @@ export const RESOURCES_LINKS: SiteLink[] = [
 export const TRUST_LINKS: SiteLink[] = [
   { label: "Security", href: "/security" },
   { label: "Trust Center", href: "/trust" },
-  { label: "Privacy", href: "/privacy" },
+  { label: "Privacy Policy", href: "/legal/privacy" },
+  { label: "Business Terms", href: "/legal/terms" },
+  { label: "Data Processing Agreement", href: "/legal/dpa" },
   { label: "Subprocessors", href: "/trust/subprocessors" },
   { label: "Responsible Disclosure", href: "/trust/responsible-disclosure" },
   { label: "Accessibility", href: "/accessibility" },
@@ -344,8 +346,9 @@ export const FOOTER_GROUPS: { title: string; links: [string, string][] }[] = [
     links: [
       ["Security", "/security"],
       ["Trust Center", "/trust"],
-      ["Privacy", "/privacy"],
-      ["Terms", "/terms"],
+      ["Privacy Policy", "/legal/privacy"],
+      ["Business Terms", "/legal/terms"],
+      ["Data Processing Agreement", "/legal/dpa"],
       ["Accessibility", "/accessibility"],
       ["Subprocessors", "/trust/subprocessors"],
       ["Responsible Disclosure", "/trust/responsible-disclosure"],

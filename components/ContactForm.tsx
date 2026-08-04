@@ -479,7 +479,7 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
 
       <p className="text-[12.5px] leading-relaxed text-structural">
         By submitting, you agree we may use the details you provide to respond to this request. See our{" "}
-        <a href="/privacy" className="text-ocean hover:underline">
+        <a href="/legal/privacy" className="text-ocean hover:underline">
           Privacy notice
         </a>
         . We do not sell contact data.

@@ -172,6 +172,7 @@ app/
   compliance/             IMO / IACS UR E26 & E27 plain-language overview
   resources/              Article index + [slug] detail pages (6 launch articles)
   about/  contact/  security/  pricing/  faq/
+  legal/privacy/  legal/terms/  legal/dpa/
   privacy/  terms/  accessibility/
   not-found.tsx           Custom 404
   sitemap.ts  robots.ts
@@ -191,8 +192,10 @@ public/
   og/                     Open Graph social image
 ```
 
-~2,600 lines of source across pages, components, and content — every route
-listed in the brief is implemented with final copy, not placeholder text.
+The public marketing site now includes canonical legal-status routes at
+`/legal/privacy`, `/legal/terms`, and `/legal/dpa`, plus compatibility
+helpers at `/privacy` and `/terms` that point to the same current-status
+content.
 
 ---
 
@@ -290,6 +293,12 @@ explicit, reusable disclaimer (`components/BoundaryPanel.tsx`) on every
 page that references them — this is not legal or regulatory advice, and
 qualified human review is required for applicability determinations.
 
+The Tuesday, August 4, 2026 legal package is treated as a controlling
+source. Because that package still marks the Privacy Policy, Business Terms,
+and DPA as configuration incomplete, the public `/legal/*` routes publish
+source-backed status pages rather than incomplete operative legal text or
+public PDF downloads.
+
 ---
 
 ## 11. Owner decisions not invented
@@ -299,12 +308,12 @@ than fabricated, matching the source brief's instruction not to invent
 legal or organizational specifics:
 
 - Legal entity name, registered address, governing law, and venue
-  (`app/privacy/page.tsx`, `app/terms/page.tsx`).
+  (`app/legal/privacy/page.tsx`, `app/legal/terms/page.tsx`, `app/legal/dpa/page.tsx`).
 - Specific leadership names/credentials on `app/about/page.tsx`.
 - Formal third-party certifications (SOC 2, ISO 27001) — marked "Planned"
   on `app/security/page.tsx`, not claimed as current.
 - Analytics provider (none wired up; add one deliberately, with its privacy
-  disclosure updated in `app/privacy/page.tsx` to match).
+  disclosure updated in `app/legal/privacy/page.tsx` once approved facts exist).
 - Contact form delivery target — see §3 and §5.
 
 ---

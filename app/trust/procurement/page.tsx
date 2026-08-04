@@ -49,6 +49,17 @@ export default function ProcurementPage() {
               Review public security controls
             </Button>
           </div>
+          <div className="flex flex-wrap gap-3 mb-6">
+            <Button href="/legal/privacy" variant="ghost">
+              Privacy Policy status
+            </Button>
+            <Button href="/legal/terms" variant="ghost">
+              Business Terms status
+            </Button>
+            <Button href="/legal/dpa" variant="ghost">
+              DPA status
+            </Button>
+          </div>
           <ul className="space-y-2 text-[14.5px] text-structural">
             <li>
               Sales:{" "}
@@ -79,6 +90,11 @@ export default function ProcurementPage() {
           <p className="text-[15px] text-structural leading-relaxed">
             Items below are requestable during qualified evaluation. Status reflects public website claims, not a
             promise that every document is ready for immediate download.
+          </p>
+          <p className="mt-4 text-[14px] text-structural leading-relaxed">
+            The August 4, 2026 legal source package remains configuration incomplete. The public legal routes describe
+            current status without exposing blocked PDFs or customer-reliance language before the remaining fields are
+            approved.
           </p>
         </Reveal>
         <RevealGroup className="grid sm:grid-cols-2 gap-4" stagger={0.04}>

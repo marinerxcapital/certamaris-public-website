@@ -370,8 +370,9 @@ export const corporateInformationContent = {
   omittedNote:
     "Registered legal entity, registration, office, and jurisdiction details are not approved for publication on this page. Qualified procurement teams may request the applicable corporate record.",
   related: [
-    { href: "/privacy", label: "Privacy Policy" },
-    { href: "/terms", label: "Terms of Service" },
+    { href: "/legal/privacy", label: "Privacy Policy" },
+    { href: "/legal/terms", label: "Business Terms of Service" },
+    { href: "/legal/dpa", label: "Data Processing Agreement" },
     { href: "/trust/procurement", label: "Procurement" },
     { href: "/contact", label: "Contact" },
   ],

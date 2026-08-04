@@ -136,9 +136,9 @@ const audiences = [
 
 const trustLinks: [string, string][] = [
   ["/security", "Security"],
-  ["/privacy", "Privacy"],
-  ["/accessibility", "Accessibility"],
-  ["/compliance", "Compliance"],
+  ["/legal/privacy", "Privacy Policy"],
+  ["/legal/terms", "Business Terms"],
+  ["/legal/dpa", "Data Processing Agreement"],
 ];
 
 const homepageDifferentiation = differentiationModels.slice(0, 6);
