@@ -21,7 +21,16 @@ const MIME = {
   ".xml": "application/xml", ".txt": "text/plain", ".avif": "image/avif",
 };
 function resolveFile(urlPath) {
-  const clean = decodeURIComponent(urlPath.split("?")[0]).replace(/\/+$/, "") || "/";
+  const parsed = new URL(urlPath, "http://127.0.0.1");
+  let clean = decodeURIComponent(parsed.pathname).replace(/\/+$/, "") || "/";
+  if (parsed.searchParams.has("_rsc")) {
+    const marker = "/__next.";
+    const markerIndex = clean.indexOf(marker);
+    if (markerIndex > 0 && clean.endsWith(".txt")) {
+      const routePath = clean.slice(0, markerIndex);
+      clean = routePath === "/" ? "/index.txt" : `${routePath}.txt`;
+    }
+  }
   const candidates =
     clean === "/"
       ? [path.join(OUT, "index.html")]
@@ -36,6 +45,18 @@ function resolveFile(urlPath) {
   return null;
 }
 const server = http.createServer((req, res) => {
+  if (req.url?.startsWith("/api/status")) {
+    res.writeHead(200, { "content-type": "application/json; charset=utf-8" });
+    res.end(JSON.stringify({
+      checkedAt: new Date().toISOString(),
+      components: [
+        { id: "website", name: "Public website", status: "operational" },
+        { id: "application", name: "CertaMaris application", status: "operational" },
+        { id: "api", name: "CertaMaris API", status: "operational" },
+      ],
+    }));
+    return;
+  }
   const file = resolveFile(req.url);
   if (!file) {
     const nf = path.join(OUT, "404.html");
@@ -140,8 +161,6 @@ async function main() {
     await ctx.close();
   }
 
-  await browser.close();
-  server.close();
   fs.writeFileSync(path.join(AUDIT_DIR, "results.json"), JSON.stringify(results, null, 2));
 
   const withViolations = results.filter((r) => r.axe && r.axe.length);
@@ -153,6 +172,13 @@ async function main() {
     for (const v of r.axe) console.log(`  ${r.route} · ${v.id} (${v.impact}) ×${v.count}`);
   console.log(`pages with horizontal overflow: ${withOverflow.length}`);
   for (const r of withOverflow) console.log(`  ${r.viewport} ${r.route} +${r.overflow}px`);
+
+  await Promise.race([
+    browser.close(),
+    new Promise((resolve) => setTimeout(resolve, 2_000)),
+  ]);
+  server.close(() => process.exit(0));
+  setTimeout(() => process.exit(0), 1_000);
 }
 
 main().catch((e) => {
