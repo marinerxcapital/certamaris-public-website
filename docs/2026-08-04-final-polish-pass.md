@@ -11,7 +11,7 @@ this repo only.
 
 The live legal-route incident is fixed. The site was redeployed from
 `C:\certamaris-startup-site-pnpm\certamaris-startup-site` and verified live
-at 2026-08-04T23:00:05Z.
+at 2026-08-04T23:50:13Z after CDN propagation settled.
 
 ## Root cause
 
@@ -80,14 +80,15 @@ Result:
 
 ### Live legal-route verification
 
-Verified twice after deploy. Each remote body hash matched the local
-`out/legal/*.html` hash exactly.
+Verified three times after the final local deploy. Passes 3, 4, and 5 each
+showed the remote body hash matching the local `out/legal/*.html` hash exactly
+after CDN propagation settled.
 
 | Route | HTTP | SHA-256 |
 |---|---:|---|
-| `/legal/privacy` | `200` | `B5266982A1342D64DC038BADA38B86292A61E6363F86C5BEBCB551AC046F0509` |
-| `/legal/terms` | `200` | `9842F6EE35C8070B86A78BAA2240D20BBFFC3F0A045A3C1F8B2B2976BD03027C` |
-| `/legal/dpa` | `200` | `1CB831A14FEE4456B303F6628223CDD3C3A3AECBAB1FA4A8EB2D14594412353C` |
+| `/legal/privacy` | `200` | `028380C068934AA215FF078A8C3BA3BDD3853D79F726F86B74AA70E9E968EB30` |
+| `/legal/terms` | `200` | `30FC376AD0F9DD1D32CB3FCB5F6A8DD893008F01FD2795C9B2C9603C3B472CA6` |
+| `/legal/dpa` | `200` | `CCD4772FB575F4882547240365A421BB022A2D7AC11D430C5E67E444BA933BBA` |
 
 ### Live route and asset spot checks
 
@@ -160,9 +161,13 @@ npx wrangler deploy --config wrangler.jsonc --keep-vars
 ```
 
 - Worker: `certamaris-site`.
-- Corrective deployment created: 2026-08-04T22:59:04.541Z.
+- Initial corrective local deployment created: 2026-08-04T22:59:04.541Z,
+  Worker version `6f4f4340-a5d0-4577-8c95-24260fb48010`.
+- GitHub Actions push deployment created: 2026-08-04T23:43:07.192Z,
+  Worker version `7da3da3d-25e7-459b-951a-50a9bbe27051`.
+- Final local deployment created: 2026-08-04T23:48:15.749Z.
 - Worker version:
-  `6f4f4340-a5d0-4577-8c95-24260fb48010`.
+  `5255643e-e5a7-442d-b35c-9d10b08f30da`.
 - Uploaded assets: `504` new or modified; `526` already uploaded.
 
 ## Git
@@ -171,6 +176,8 @@ npx wrangler deploy --config wrangler.jsonc --keep-vars
   `fix(marketing): distinguish legacy legal route metadata`
 - `c4926e9`
   `test(marketing): harden full-route audit crawl`
+- `8b2c789`
+  `docs(marketing): record final polish incident closure`
 
 ## Known residuals
 
