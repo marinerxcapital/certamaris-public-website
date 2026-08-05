@@ -262,6 +262,11 @@ export const TRUST_CENTER_LINKS: { href: string; title: string; description: str
     description: "How to report a security issue to security@certamaris.com.",
   },
   {
+    href: "/trust/ai-policy",
+    title: "AI provider & data classification policy",
+    description: "Approved AI providers, data classification ceilings, human review, and inference budgets.",
+  },
+  {
     href: "/trust/status",
     title: "Service status",
     description: "Current operational status for the website, application, and API, with support escalation paths.",

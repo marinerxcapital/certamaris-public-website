@@ -8,6 +8,8 @@ import { PRIMARY_CTA_LABEL } from "@/lib/constants";
 import {
   packageTiers,
   pricingComparisonRows,
+  pricingTiers,
+  PRICE_ANCHORS,
   PRICING_BASIS_NOTE,
   type ComparisonValue,
 } from "@/lib/faq-pricing";
@@ -15,7 +17,7 @@ import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata(
   "Pricing",
-  "CertaMaris packages are engagement-scoped. Compare Fleet Core, Fleet Assurance, and Enterprise capability depth, then request a quote.",
+  "Annual platform-plus-contracted-vessel pricing for Core, Assurance, and Enterprise, plus separately priced remote and on-board assurance engagements.",
   "/pricing"
 );
 
@@ -91,13 +93,16 @@ function formatComparisonValue(value: ComparisonValue): string {
 }
 
 export default function PricingPage() {
+  const priceFor = (name: string) =>
+    pricingTiers.find((tier) => name.toLowerCase().includes(tier.name.toLowerCase()));
+
   return (
     <>
       <PageHero
         emphasis="elevated"
         eyebrow="Pricing"
-        title="Priced to fleet size and scope — not a one-size list price."
-        intro="Maritime fleets vary too much in size, vessel type, and existing compliance maturity for a fixed public price list to be meaningful. We scope every engagement individually and do not publish dollar list prices."
+        title="Annual platform pricing, published."
+        intro="CertaMaris pricing is a hybrid annual model: a platform fee plus contracted-vessel licensing, with separately priced assurance engagements. Vessel count is the recurring value metric — there is no per-seat charge."
       />
 
       <Section>
@@ -115,6 +120,14 @@ export default function PricingPage() {
                 <p className="font-mono text-[11px] uppercase tracking-[0.1em] text-ocean mb-2">{pkg.audience}</p>
                 <h3 className="text-[19px] font-semibold mb-2">{pkg.name}</h3>
                 <p className="text-[13.5px] text-structural leading-relaxed mb-4">{pkg.summary}</p>
+                {priceFor(pkg.name) ? (
+                  <div className="mb-4 border-t border-navy/8 pt-3">
+                    <p className="font-mono text-[12px] uppercase tracking-[0.1em] text-ocean">
+                      {priceFor(pkg.name)!.platformFee} + {priceFor(pkg.name)!.vesselPrice}
+                    </p>
+                    <p className="mt-1 text-[12.5px] text-structural">{priceFor(pkg.name)!.minimumNote}</p>
+                  </div>
+                ) : null}
                 <ul className="space-y-2.5 flex-1">
                   {pkg.features.map((feature) => (
                     <li key={feature} className="flex gap-2.5 text-[14px] leading-relaxed text-structural">
@@ -134,9 +147,86 @@ export default function PricingPage() {
         </div>
         <Reveal className="mt-6">
           <p className="text-[13.5px] text-structural leading-relaxed max-w-3xl">
-            Pricing is scoped to vessel count, evidence condition, and services depth. Request
-            a proposal.
+            The tier above sets the annual platform fee and per-vessel license. Assurance engagements are priced
+            separately — see the published anchors below.
           </p>
+        </Reveal>
+      </Section>
+
+      <Section surface="paper" spacing="compact">
+        <Reveal className="max-w-2xl mb-8">
+          <Eyebrow>Published annual pricing</Eyebrow>
+          <h2 className="text-[27px] sm:text-[32px] leading-[1.16] mb-4">
+            Platform fee plus contracted-vessel licensing.
+          </h2>
+          <p className="text-[15px] text-structural leading-relaxed">
+            Every subscription is an annual platform fee with a per-vessel license for the billable fleet count.
+            There is no per-seat pricing, and assurance engagements are priced separately.
+          </p>
+        </Reveal>
+        <Reveal>
+          <div className="overflow-x-auto rounded-md border border-navy/10 bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ocean">
+            <table className="w-full min-w-[720px] border-collapse text-left text-[13.5px]">
+              <caption className="sr-only">CertaMaris annual pricing tiers</caption>
+              <thead>
+                <tr className="border-b border-navy/10 bg-paper">
+                  <th scope="col" className="px-4 py-3 font-semibold text-navy">
+                    Tier
+                  </th>
+                  <th scope="col" className="px-4 py-3 font-semibold text-navy">
+                    Fleet gate
+                  </th>
+                  <th scope="col" className="px-4 py-3 font-semibold text-navy">
+                    Platform fee
+                  </th>
+                  <th scope="col" className="px-4 py-3 font-semibold text-navy">
+                    Per vessel
+                  </th>
+                  <th scope="col" className="px-4 py-3 font-semibold text-navy">
+                    Minimum
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {pricingTiers.map((tier) => (
+                  <tr key={tier.id} className="border-b border-navy/8 last:border-0">
+                    <th scope="row" className="px-4 py-3 font-medium text-navy align-top">
+                      {tier.name}
+                    </th>
+                    <td className="px-4 py-3 text-structural align-top">{tier.fleetGate}</td>
+                    <td className="px-4 py-3 text-structural align-top">{tier.platformFee}</td>
+                    <td className="px-4 py-3 text-structural align-top">{tier.vesselPrice}</td>
+                    <td className="px-4 py-3 text-structural align-top">{tier.minimumNote}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Reveal>
+        <Reveal className="mt-8">
+          <div className="premium-card p-6">
+            <h3 className="text-[16px] font-semibold mb-3">Price anchors</h3>
+            <ul className="grid gap-2 sm:grid-cols-2">
+              {PRICE_ANCHORS.map((anchor) => (
+                <li key={anchor.label} className="flex gap-2.5 text-[14px] leading-relaxed text-structural">
+                  <span aria-hidden="true" className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-ocean" />
+                  <span>
+                    <strong className="font-medium text-navy">{anchor.label}:</strong> {anchor.value}
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-4 text-[12.5px] text-structural leading-relaxed">
+              A QA-reviewed report is a CertaMaris quality and assurance review — not certification, class approval,
+              legal advice, or a guarantee of regulatory compliance. Prices are USD and exclude taxes, travel, and
+              expenses. Contract terms are 12-month, non-cancelable commitments billed annually in advance. Review
+              how CertaMaris handles AI providers and data classification in the{" "}
+              <a href="/trust/ai-policy" className="font-medium text-ocean hover:underline">
+                AI Provider &amp; Data Classification Policy
+              </a>
+              .
+            </p>
+          </div>
         </Reveal>
       </Section>
 

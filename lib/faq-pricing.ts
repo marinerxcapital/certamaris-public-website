@@ -1,7 +1,102 @@
 /**
  * FAQ categories + pricing comparison data for the marketing site.
- * No dollar prices — packages describe capability depth; quotes are engagement-scoped.
+ * Pricing is the finalized hybrid annual model: platform fee + contracted-vessel
+ * licensing + separately priced assurance engagements.
  */
+
+export type PricingTier = {
+  id: "core" | "assurance" | "enterprise";
+  name: string;
+  audience: string;
+  fleetGate: string;
+  platformFee: string;
+  vesselPrice: string;
+  minimumNote: string;
+  included: string[];
+  excluded: string[];
+};
+
+export const pricingTiers: PricingTier[] = [
+  {
+    id: "core",
+    name: "Core",
+    audience: "Small fleets",
+    fleetGate: "1–9 vessels · 5-vessel billing minimum",
+    platformFee: "$15,000 / year",
+    vesselPrice: "$3,000 / vessel / year",
+    minimumNote: "Minimum $30,000 ARR at five vessels.",
+    included: [
+      "Engagements and evidence collection",
+      "Gap / risk register and corrective actions",
+      "Standard report generation",
+      "Standard IMO / IACS mappings",
+      "Cyber Resilience Twin",
+      "Unlimited customer users",
+    ],
+    excluded: [
+      "CertaMaris QA sign-off",
+      "SSO / SCIM",
+      "API access",
+      "Custom frameworks",
+      "On-site work",
+    ],
+  },
+  {
+    id: "assurance",
+    name: "Assurance",
+    audience: "Growing fleets",
+    fleetGate: "10–24 vessels · 10-vessel minimum",
+    platformFee: "$24,000 / year",
+    vesselPrice: "$3,000 / vessel / year",
+    minimumNote: "Minimum $54,000 ARR at ten vessels.",
+    included: [
+      "Everything in Core",
+      "One remotely QA-reviewed assessment report per contracted vessel annually",
+      "Auditor / reviewer workspace",
+      "Fleet-level dashboards",
+      "Approval workflows",
+      "Priority support",
+    ],
+    excluded: [
+      "On-site assessments",
+      "Custom SLA",
+      "SSO / SCIM",
+      "Bespoke integrations",
+    ],
+  },
+  {
+    id: "enterprise",
+    name: "Enterprise",
+    audience: "Large, multi-entity fleets",
+    fleetGate: "25+ vessels · 25-vessel minimum",
+    platformFee: "$48,000 / year",
+    vesselPrice: "$2,400 / vessel / year",
+    minimumNote: "Minimum $108,000 ARR at twenty-five vessels.",
+    included: [
+      "Everything in Assurance",
+      "SSO / SCIM",
+      "API access",
+      "Multi-entity administration",
+      "Custom framework mappings",
+      "Configurable retention and enterprise security review",
+      "Quarterly governance review",
+      "Annual fleet executive report",
+    ],
+    excluded: [
+      "On-site assessments",
+      "Travel",
+      "Formal certification or classification-society approval",
+    ],
+  },
+];
+
+export const PRICE_ANCHORS: { label: string; value: string }[] = [
+  { label: "Core minimum", value: "$30,000 ARR for five vessels" },
+  { label: "Assurance minimum", value: "$54,000 ARR for ten vessels" },
+  { label: "Enterprise minimum", value: "$108,000 ARR for twenty-five vessels" },
+  { label: "Additional remote assessment / QA-reviewed report", value: "$6,000 per vessel" },
+  { label: "On-board assessment", value: "$15,000 per vessel plus travel and expenses" },
+];
 
 export type FaqCategoryId =
   | "product"
@@ -139,13 +234,13 @@ export const categorizedFaqItems: FaqItem[] = [
     category: "commercial",
     question: "Is there a free trial?",
     answer:
-      "Access is arranged per engagement based on fleet size, workflow scope, evidence condition, and onboarding requirements. Send a readiness request and CertaMaris will scope the appropriate next step without publishing unsupported price points on the website.",
+      "There is no self-serve free trial. Access is arranged per engagement based on fleet size, workflow scope, evidence condition, and onboarding requirements. Send a readiness request and CertaMaris will scope the appropriate next step against the published pricing model.",
   },
   {
     category: "commercial",
-    question: "Why are there no public dollar prices?",
+    question: "How does pricing work?",
     answer:
-      "Fleet size, vessel mix, evidence condition, manager structure, and services depth vary too widely for a fixed list price to be meaningful. Packages (Fleet Core, Fleet Assurance, Enterprise) describe capability shape; commercial terms are engagement-scoped. Contact CertaMaris for a quote.",
+      "CertaMaris uses an annual platform-plus-contracted-vessel model. Core starts at a $15,000 platform fee plus $3,000 per vessel per year (minimum $30,000 ARR at five vessels); Assurance is $24,000 plus $3,000 per vessel (minimum $54,000 ARR at ten vessels); Enterprise is $48,000 plus $2,400 per vessel (minimum $108,000 ARR at twenty-five vessels). Remote assurance and QA-reviewed reports are $6,000 per vessel; on-board assessments are $15,000 per vessel plus travel and expenses. There is no per-seat charge. See the Pricing page for the full published model.",
   },
   {
     category: "commercial",
@@ -377,7 +472,7 @@ export const pricingComparisonRows: ComparisonRow[] = [
 ];
 
 export const PRICING_BASIS_NOTE =
-  "Pricing is engagement-scoped based on vessel count, evidence condition, workflow depth, and optional services. CertaMaris does not publish dollar list prices. Contact us for a scoped quote.";
+  "Annual hybrid model: a platform fee plus contracted-vessel licensing, with separately priced assurance engagements. Vessel count is the recurring value metric because each vessel adds compliance scope, evidence, risks, corrective actions, reporting obligations, and Cyber Resilience Twin coverage. There is no per-seat pricing.";
 
 export type RecommenderInput = {
   vesselCount: "1-5" | "6-20" | "21-50" | "50+";

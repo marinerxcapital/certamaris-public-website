@@ -349,6 +349,7 @@ export const FOOTER_GROUPS: { title: string; links: [string, string][] }[] = [
       ["Privacy Policy", "/legal/privacy"],
       ["Business Terms", "/legal/terms"],
       ["Data Processing Agreement", "/legal/dpa"],
+      ["AI Policy", "/trust/ai-policy"],
       ["Accessibility", "/accessibility"],
       ["Subprocessors", "/trust/subprocessors"],
       ["Responsible Disclosure", "/trust/responsible-disclosure"],
