@@ -114,9 +114,19 @@ export default function ContactPage() {
             <div className="premium-card p-7 sm:p-9">
               <Suspense
                 fallback={
-                  <p className="text-[14px] text-structural" role="status">
-                    Loading contact form…
-                  </p>
+                  <div className="space-y-3" role="status">
+                    <p className="text-[14px] text-structural">Loading contact form…</p>
+                    <p className="text-[14px] text-structural">
+                      If the form does not load, email{" "}
+                      <a
+                        href={`mailto:${APP_SALES_EMAIL}`}
+                        className="font-medium text-ocean hover:underline"
+                      >
+                        {APP_SALES_EMAIL}
+                      </a>
+                      .
+                    </p>
+                  </div>
                 }
               >
                 <ContactForm defaultIntent="demo" />
