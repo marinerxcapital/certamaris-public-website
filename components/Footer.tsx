@@ -36,14 +36,14 @@ export function Footer() {
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
             <a
               href={APP_SIGN_IN_URL}
-              className="inline-flex items-center justify-center rounded-md border border-white/25 px-5 py-2.5 text-[14px] font-semibold text-white transition-colors hover:bg-white/10"
+              className="inline-flex min-h-11 items-center justify-center rounded-md border border-white/30 px-5 py-2.5 text-[14px] font-semibold text-white transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-navy"
               data-integration-point="sign-in"
             >
               {SIGN_IN_LABEL}
             </a>
             <Link
               href={APP_GET_STARTED_URL}
-              className="inline-flex items-center justify-center rounded-md bg-white px-5 py-2.5 text-[14px] font-semibold text-navy transition-colors hover:bg-white/92"
+              className="inline-flex min-h-11 items-center justify-center rounded-md bg-white px-5 py-2.5 text-[14px] font-semibold text-navy transition-colors hover:bg-white/92 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-navy"
               data-integration-point="get-started"
             >
               {PRIMARY_CTA_LABEL}
@@ -54,11 +54,14 @@ export function Footer() {
         <div className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7">
           {FOOTER_GROUPS.map((group) => (
             <div key={group.title}>
-              <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.12em] text-white/55">{group.title}</p>
+              <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.12em] text-white/70">{group.title}</p>
               <ul className="space-y-2.5">
                 {group.links.map(([label, href]) => (
                   <li key={`${group.title}-${href}-${label}`}>
-                    <Link href={href} className="text-[14px] text-white/85 transition-colors hover:text-white">
+                    <Link
+                      href={href}
+                      className="rounded-sm text-[14px] text-white/88 underline-offset-4 transition-colors hover:text-white hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-navy"
+                    >
                       {label}
                     </Link>
                   </li>
@@ -69,8 +72,8 @@ export function Footer() {
         </div>
 
         <div className="mt-14 flex flex-col gap-4 border-t border-white/15 pt-6 md:flex-row md:items-start md:justify-between">
-          <p className="max-w-2xl text-[13px] leading-relaxed text-white/55">{FOOTER_STANDING_LINE}</p>
-          <p className="whitespace-nowrap text-[13px] text-white/60 md:pt-0.5">
+          <p className="max-w-2xl text-[13px] leading-relaxed text-white/70">{FOOTER_STANDING_LINE}</p>
+          <p className="whitespace-nowrap text-[13px] text-white/72 md:pt-0.5">
             © {new Date().getFullYear()} CertaMaris. All rights reserved.
           </p>
         </div>

@@ -134,8 +134,8 @@ function ProductScreenExhibit({
 
   return (
     <figure className={`product-exhibit m-0 ${className}`}>
-      <div className="overflow-hidden rounded-md border border-navy/15 bg-white shadow-card">
-        <div className="flex h-9 items-center justify-between gap-2 border-b border-navy/10 bg-paper px-3">
+      <div className="overflow-hidden rounded-lg border border-navy/15 bg-white shadow-card">
+        <div className="flex min-h-10 items-center justify-between gap-2 border-b border-navy/10 bg-paper px-3">
           <span className="truncate font-mono text-[11px] uppercase tracking-[0.1em] text-structural">
             Exhibit · {label}
           </span>
@@ -143,7 +143,7 @@ function ProductScreenExhibit({
             href={resolvedFullSrc}
             target="_blank"
             rel="noopener noreferrer"
-            className="shrink-0 rounded font-mono text-[10px] uppercase tracking-[0.08em] text-[#0b6597] underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ocean"
+            className="shrink-0 rounded border border-transparent px-2 py-1 font-mono text-[10px] uppercase tracking-[0.08em] text-[#0b6597] underline-offset-2 hover:border-ocean/20 hover:bg-white hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ocean"
           >
             Full resolution<span aria-hidden="true"> ↗</span>
             <span className="sr-only"> — opens {label} screenshot in a new tab</span>
@@ -190,12 +190,12 @@ function ProductScreenExhibit({
         </div>
       </div>
       {visibleAnnotations.length > 0 ? (
-        <figcaption className="mt-2.5">
+        <figcaption className="mt-3">
           <ol className="grid gap-1.5" aria-label="Exhibit callouts">
             {visibleAnnotations.map((annotation, index) => (
               <li
                 key={annotation.id}
-                className={`exhibit-caption-row flex items-start gap-2 rounded px-1.5 py-0.5 -mx-1.5 text-[12.5px] leading-snug text-structural ${
+                className={`exhibit-caption-row flex items-start gap-2 rounded px-2 py-1 -mx-2 text-[12.5px] leading-snug text-structural ${
                   hoveredId === annotation.id ? "exhibit-caption-row--hot" : ""
                 }`}
                 onMouseEnter={() => setHoveredId(annotation.id)}

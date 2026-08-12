@@ -36,6 +36,7 @@
   --radius-glass: 22px;
   --shadow-card: 0 1px 0 var(--hairline), 0 8px 24px rgba(11, 42, 74, 0.05);
   --shadow-raised: 0 1px 0 var(--hairline), 0 12px 32px rgba(11, 42, 74, 0.07);
+  --focus-ring: 0 0 0 3px rgba(18, 111, 170, 0.22);
   /* Liquid Glass material tokens (homepage over Pixel Grid) */
   /* Stronger frosted panels so body copy stays legible over the animated grid */
   --lg-bg: rgba(248, 251, 255, 0.82);
@@ -836,6 +837,32 @@ textarea:focus-visible,
   font-family: var(--font-mono), Consolas, monospace;
   font-size: 12px;
   letter-spacing: 0.04em;
+  color: var(--ink-secondary);
+}
+
+.hero-proof-strip {
+  border-top: 1px solid rgba(11, 42, 74, 0.1);
+  padding-top: 16px;
+}
+
+.hero-proof-item {
+  border-left: 2px solid rgba(18, 111, 170, 0.36);
+  padding-left: 12px;
+}
+
+.hero-proof-item dt {
+  font-family: var(--font-mono), Consolas, monospace;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #0e5a8a;
+}
+
+.hero-proof-item dd {
+  margin-top: 5px;
+  font-size: 13px;
+  line-height: 1.45;
   color: var(--ink-secondary);
 }
 

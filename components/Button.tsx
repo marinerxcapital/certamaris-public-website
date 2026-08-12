@@ -10,13 +10,13 @@ type ButtonProps = {
 };
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-md px-6 py-3 text-[15px] font-semibold transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ocean";
+  "inline-flex min-h-11 shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-md px-6 py-3 text-[15px] font-semibold transition duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ocean focus-visible:ring-offset-2 active:translate-y-px";
 
 const variants: Record<NonNullable<ButtonProps["variant"]>, string> = {
-  primary: "bg-navy text-white hover:bg-[#0e3a68]",
+  primary: "bg-navy text-white shadow-[0_10px_24px_rgba(11,42,74,0.16)] hover:bg-[#0e3a68]",
   secondary:
     "border border-navy/20 bg-white/80 text-navy backdrop-blur-sm hover:border-navy/40 hover:bg-white/90",
-  ghost: "text-navy hover:text-ocean",
+  ghost: "text-navy underline-offset-4 hover:text-ocean hover:underline",
   inverse: "border border-white/35 bg-white text-navy hover:border-white hover:bg-[#e8f2f8]",
 };
 
