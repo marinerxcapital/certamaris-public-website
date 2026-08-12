@@ -367,7 +367,7 @@ export const productModules: ProductModule[] = [
       { href: "/security", label: "Security & Trust" },
       { href: "/implementation", label: "Implementation" },
     ],
-    screenKey: "fleetInventory",
+    screenKey: "corporateControlPlane",
   },
   {
     slug: "client-company-portal",
@@ -450,7 +450,7 @@ export const productModules: ProductModule[] = [
       { href: "/solutions/fleet-cyber-compliance", label: "Fleet Cyber Compliance" },
       { href: "/who-we-serve/operators", label: "Operators" },
     ],
-    screenKey: "fleetInventory",
+    screenKey: "clientCompanyPortal",
   },
   {
     slug: "fleet-management",
@@ -532,7 +532,7 @@ export const productModules: ProductModule[] = [
       { href: "/solutions/fleet-cyber-compliance", label: "Fleet Cyber Compliance" },
       { href: "/solutions/executive-board-reporting", label: "Executive & Board Reporting" },
     ],
-    screenKey: "fleetInventory",
+    screenKey: "clientFleet",
   },
   {
     slug: "vessel-portal",
@@ -620,7 +620,7 @@ export const productModules: ProductModule[] = [
       { href: "/who-we-serve/vessel-masters-officers", label: "Vessel Masters & Officers" },
       { href: "/solutions/vessel-cyber-risk-management", label: "Vessel Cyber-Risk Management" },
     ],
-    screenKey: "evidenceCoverage",
+    screenKey: "vesselPortal",
   },
   {
     slug: "assessments",
@@ -691,7 +691,7 @@ export const productModules: ProductModule[] = [
       { href: "/platform/findings-corrective-actions", label: "Findings & Corrective Actions" },
       { href: "/solutions/audit-survey-readiness", label: "Audit & Survey Readiness" },
     ],
-    screenKey: "requirementMapping",
+    screenKey: "assessments",
   },
   {
     slug: "evidence",
@@ -904,7 +904,7 @@ export const productModules: ProductModule[] = [
       { href: "/platform/reports-readiness", label: "Reports & Readiness" },
       { href: "/compliance", label: "Compliance" },
     ],
-    screenKey: "auditReadiness",
+    screenKey: "cybersecurityPlans",
   },
   {
     slug: "regulatory-intelligence",
@@ -1050,7 +1050,7 @@ export const productModules: ProductModule[] = [
       { href: "/platform/findings-corrective-actions", label: "Findings & Corrective Actions" },
       { href: "/solutions/sbom-vulnerability-assurance", label: "SBOM & Vulnerability Assurance" },
     ],
-    screenKey: "evidenceCoverage",
+    screenKey: "continuousAssurance",
   },
   {
     slug: "reports-readiness",
@@ -1120,7 +1120,7 @@ export const productModules: ProductModule[] = [
       { href: "/solutions/executive-board-reporting", label: "Executive & Board Reporting" },
       { href: "/platform/cybersecurity-plans", label: "Cybersecurity Plans" },
     ],
-    screenKey: "auditReadiness",
+    screenKey: "controlledRelease",
   },
   {
     slug: "integrations",
@@ -1190,7 +1190,7 @@ export const productModules: ProductModule[] = [
       { href: "/implementation", label: "Implementation" },
       { href: "/solutions/sbom-vulnerability-assurance", label: "SBOM & Vulnerability Assurance" },
     ],
-    screenKey: "requirementMapping",
+    screenKey: "integrations",
   },
 ];
 

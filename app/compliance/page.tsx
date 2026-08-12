@@ -188,12 +188,8 @@ export default function CompliancePage() {
           </Reveal>
           <Reveal delay={0.08}>
             <ProductScreenFrame
-              src={productProofScreens.requirementMapping.src}
-              alt={productProofScreens.requirementMapping.alt}
+              {...productProofScreens.requirementMapping}
               label="Control detail and evidence mapping"
-              lightboxTitle={productProofScreens.requirementMapping.title}
-              lightboxBody={productProofScreens.requirementMapping.body}
-              galleryOrder={productProofScreens.requirementMapping.galleryOrder}
             />
           </Reveal>
         </div>
@@ -201,12 +197,9 @@ export default function CompliancePage() {
           {supportingProof.map((screen) => (
             <ProductScreenTile
               key={screen.src}
-              src={screen.src}
-              alt={screen.alt}
-              label={screen.label}
+              {...screen}
               title={screen.title}
               body={screen.body}
-              galleryOrder={screen.galleryOrder}
               sizes="(min-width: 768px) 28vw, 100vw"
             />
           ))}

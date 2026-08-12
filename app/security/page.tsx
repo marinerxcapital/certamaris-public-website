@@ -219,13 +219,8 @@ export default function SecurityPage() {
           </Reveal>
           <Reveal delay={0.08}>
             <ProductScreenFrame
-              src={productProofScreens.requirementMapping.src}
-              alt={productProofScreens.requirementMapping.alt}
-              label={productProofScreens.requirementMapping.label}
-              lightboxTitle={productProofScreens.requirementMapping.title}
-              lightboxBody={productProofScreens.requirementMapping.body}
+              {...productProofScreens.requirementMapping}
               priority
-              galleryOrder={productProofScreens.requirementMapping.galleryOrder}
             />
           </Reveal>
         </div>

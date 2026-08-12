@@ -18,6 +18,7 @@ const args = parseArgs();
 const steps = [
   { name: "contact and Worker tests", file: "check-worker.mjs", argv: [] },
   { name: "content-qa", file: "content-qa.mjs", argv: [] },
+  { name: "product-proof integrity", file: "check-product-proof.mjs", argv: [] },
   {
     name: "check-routes (out)",
     file: "check-routes.mjs",

@@ -44,7 +44,7 @@ export function PageHero({
             </h1>
             {intro && <p className="text-[16px] text-structural leading-relaxed max-w-xl">{intro}</p>}
           </div>
-          {aside ? <div className="hidden lg:block">{aside}</div> : null}
+          {aside ? <div className="mt-6 max-w-full lg:mt-0">{aside}</div> : null}
         </div>
       </div>
     </section>

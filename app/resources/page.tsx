@@ -65,13 +65,9 @@ export default function ResourcesPage() {
           </Reveal>
           <Reveal delay={0.08}>
             <ProductScreenFrame
-              src={productProofScreens.evidenceCoverage.src}
-              alt={productProofScreens.evidenceCoverage.alt}
+              {...productProofScreens.evidenceCoverage}
               label="Evidence sufficiency matrix"
-              lightboxTitle={productProofScreens.evidenceCoverage.title}
-              lightboxBody={productProofScreens.evidenceCoverage.body}
               priority
-              galleryOrder={productProofScreens.evidenceCoverage.galleryOrder}
             />
           </Reveal>
         </div>

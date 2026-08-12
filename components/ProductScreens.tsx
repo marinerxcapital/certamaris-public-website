@@ -42,9 +42,7 @@ type ProductScreenTileProps = ProductScreenFrameProps & {
 };
 
 function getOptimizedBase(src: string) {
-  return src
-    .replace(/\/product\/(?:clean|updated)\//, "/product/updated/optimized/")
-    .replace(/\.png$/, "");
+  return src.replace(/\/product\/dashboard-v2\//, "/product/dashboard-v2/optimized/").replace(/\.png$/, "");
 }
 
 function clampAnnotations(annotations?: ProductScreenAnnotation[]) {
@@ -62,14 +60,17 @@ export function ProductScreenImage({
   height,
 }: Pick<ProductScreenFrameProps, "src" | "alt" | "sizes" | "priority" | "className" | "width" | "height">) {
   const optimizedBase = getOptimizedBase(src);
+  const canUseResponsiveWebp = src.startsWith("/product/dashboard-v2/") && src.endsWith(".png");
 
   return (
     <picture>
-      <source
-        type="image/webp"
-        srcSet={`${optimizedBase}-384.webp 384w, ${optimizedBase}-640.webp 640w, ${optimizedBase}-960.webp 960w, ${optimizedBase}-1440.webp 1440w`}
-        sizes={sizes}
-      />
+      {canUseResponsiveWebp ? (
+        <source
+          type="image/webp"
+          srcSet={`${optimizedBase}-384.webp 384w, ${optimizedBase}-640.webp 640w, ${optimizedBase}-960.webp 960w, ${optimizedBase}-1440.webp 1440w`}
+          sizes={sizes}
+        />
+      ) : null}
       <img
         src={src}
         alt={alt}
