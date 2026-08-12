@@ -30,7 +30,7 @@ const expectations = [
   },
   {
     title: "What happens next",
-    body: "CertaMaris routes your submission to the matching internal owner, who follows up on the email you provide. You can also reach the team directly at the address below. This is not a timed SLA.",
+    body: "Submit your request through the form or email the team directly. A team member follows up on the email you provide. This is not a timed SLA.",
   },
 ];
 

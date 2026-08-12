@@ -100,7 +100,7 @@ export default function TrustCenterPage() {
       <Section surface="paper" spacing="compact">
         <Reveal className="max-w-2xl mb-10">
           <Eyebrow>Trust resources</Eyebrow>
-          <h2 className="text-[28px] sm:text-[34px] leading-[1.14]">Browse the Trust Center pages.</h2>
+          <h2 className="section-h2 section-h2--lg">Browse the Trust Center pages.</h2>
         </Reveal>
         <RevealGroup className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5" stagger={0.04}>
           {TRUST_CENTER_LINKS.map((link) => (

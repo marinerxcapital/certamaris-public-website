@@ -184,7 +184,7 @@ export default function HomePage() {
                 <Eyebrow>Maritime cyber assurance</Eyebrow>
                 <h1
                   id="hero-title"
-                  className="mb-6 text-[38px] leading-[1.03] tracking-[-0.02em] sm:text-[52px] lg:text-[58px]"
+                  className="hero-display mb-6"
                 >
                   Maritime cyber assurance from requirement to readiness package.
                 </h1>

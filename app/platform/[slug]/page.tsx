@@ -83,7 +83,7 @@ export default async function PlatformModulePage({ params }: { params: Promise<{
         <Section surface="paper" spacing="compact">
           <Reveal className="mb-8 max-w-2xl">
             <Eyebrow>Integration catalogue</Eyebrow>
-            <h2 className="text-[28px] sm:text-[34px] leading-[1.14]">
+            <h2 className="section-h2 section-h2--lg">
               Availability labels — Available, Configurable, Custom, Planned, Not supported
             </h2>
             <p className="mt-4 text-[15px] text-structural leading-relaxed">
@@ -115,7 +115,7 @@ export default async function PlatformModulePage({ params }: { params: Promise<{
         <Section surface="paper" spacing="compact">
           <Reveal className="mb-8 max-w-2xl">
             <Eyebrow>Capabilities</Eyebrow>
-            <h2 className="text-[28px] sm:text-[34px] leading-[1.14]">What this module covers</h2>
+            <h2 className="section-h2 section-h2--lg">What this module covers</h2>
           </Reveal>
           <div className="grid sm:grid-cols-2 gap-5">
             {mod.capabilities.map((cap) => {

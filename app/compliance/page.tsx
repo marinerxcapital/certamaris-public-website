@@ -81,7 +81,7 @@ export default function CompliancePage() {
         <Reveal className="max-w-2xl mb-10">
           <p className="text-[13px] font-mono text-structural mb-6">Last reviewed: {reviewedLabel}</p>
           <Eyebrow>Authority nest</Eyebrow>
-          <h2 className="text-[28px] sm:text-[34px] leading-[1.14]">Explore by instrument family.</h2>
+          <h2 className="section-h2 section-h2--lg">Explore by instrument family.</h2>
         </Reveal>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {complianceNavLinks.map((item) => (
@@ -169,7 +169,7 @@ export default function CompliancePage() {
       <Section spacing="compact">
         <Reveal className="max-w-2xl mb-10">
           <Eyebrow>Further reading</Eyebrow>
-          <h2 className="text-[28px] sm:text-[34px] leading-[1.14]">Source explainers and operational notes.</h2>
+          <h2 className="section-h2 section-h2--lg">Source explainers and operational notes.</h2>
         </Reveal>
         <div className="grid md:grid-cols-3 gap-5">
           {resourceLinks.map((item) => (
@@ -188,7 +188,7 @@ export default function CompliancePage() {
         <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-14 items-center mb-10">
           <Reveal>
             <Eyebrow>How the product supports the work</Eyebrow>
-            <h2 className="text-[28px] sm:text-[34px] leading-[1.14] mb-5">
+            <h2 className="section-h2 section-h2--lg mb-5">
               Mapped requirements become structured work — not a product claim of compliance.
             </h2>
             <p className="text-[15.5px] text-structural leading-relaxed mb-4">

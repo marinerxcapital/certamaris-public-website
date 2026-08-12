@@ -92,7 +92,7 @@ export default function SecurityPage() {
       <Section surface="paper" spacing="compact">
         <Reveal className="max-w-2xl mb-10">
           <Eyebrow>Platform controls</Eyebrow>
-          <h2 className="text-[28px] sm:text-[34px] leading-[1.14] mb-4">
+          <h2 className="section-h2 section-h2--lg mb-4">
             Tenancy, identity, encryption, operations, and assurance — with status labels.
           </h2>
           <p className="text-[15px] text-structural leading-relaxed">
@@ -197,7 +197,7 @@ export default function SecurityPage() {
       <Section spacing="compact">
         <Reveal className="max-w-2xl mb-10">
           <Eyebrow>Product UI (not a certification)</Eyebrow>
-          <h2 className="text-[28px] sm:text-[34px] leading-[1.14] mb-4">
+          <h2 className="section-h2 section-h2--lg mb-4">
             {SECURITY_PAGE_SECTIONS.productVsVendor.title}
           </h2>
           <p className="text-[15px] text-structural leading-relaxed">
