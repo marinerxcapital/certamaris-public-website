@@ -22,7 +22,7 @@ const expectations = [
   },
   {
     title: "Intent-based routing",
-    body: "Choose demo, readiness, procurement, security, privacy, support, partnership, press, careers, or disclosure. Each path is tagged for internal email routing via the existing contact forward endpoint.",
+    body: "Choose demo, readiness, procurement, security, privacy, support, partnership, press, careers, or disclosure. Each path is tagged so the right internal owner responds.",
   },
   {
     title: "What to prepare",
@@ -30,7 +30,7 @@ const expectations = [
   },
   {
     title: "What happens next",
-    body: "If delivery is configured, CertaMaris receives a tagged payload and follows up on the email you provide. If delivery is unavailable, use the direct email fallback. This is not a timed SLA.",
+    body: "CertaMaris routes your submission to the matching internal owner, who follows up on the email you provide. You can also reach the team directly at the address below. This is not a timed SLA.",
   },
 ];
 

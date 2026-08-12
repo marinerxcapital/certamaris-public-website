@@ -97,6 +97,8 @@ function formatComparisonValue(value: ComparisonValue): string {
       return "Add-on / scoped";
     case "scoped":
       return "Scoped";
+    case "planned":
+      return "Planned";
     case "not-included":
       return "—";
     default:

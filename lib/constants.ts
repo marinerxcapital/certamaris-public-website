@@ -33,12 +33,11 @@ export const SECURITY_EMAIL = process.env.NEXT_PUBLIC_SECURITY_EMAIL ?? "securit
 export const CONTACT_FORWARD_ENDPOINT = process.env.CONTACT_FORWARD_ENDPOINT ?? "";
 
 /**
- * For static-export deployments (e.g. Netlify without a Node runtime), the
- * built-in /api/contact route isn't available. Set this to a publicly
- * callable endpoint (a hosted function, form backend, or webhook that
- * accepts the same { name, email, company, fleetSize, message } JSON body)
- * and the contact form will POST to it directly from the browser instead
- * of the local API route.
+ * For static-export deployments where the Cloudflare Worker /api/contact
+ * route is not running, the built-in /api/contact route isn't available. Set
+ * this to a publicly callable endpoint (a hosted function, form backend, or
+ * webhook that accepts the same JSON body) and the contact form will POST to
+ * it directly from the browser instead of the local API route.
  */
 export const NEXT_PUBLIC_CONTACT_ENDPOINT = process.env.NEXT_PUBLIC_CONTACT_ENDPOINT ?? "";
 
