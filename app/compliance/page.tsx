@@ -7,7 +7,7 @@ import { Reveal } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
 import { pageMetadata } from "@/lib/metadata";
 import { productProofScreens } from "@/lib/product-screens";
-import { complianceNavLinks, frameworks } from "@/lib/regulatory";
+import { complianceNavLinks, frameworks, REGULATORY_LAST_REVIEWED } from "@/lib/regulatory";
 import { breadcrumbListSchema, webPageSchema } from "@/lib/seo-schema";
 
 export const metadata = pageMetadata(
@@ -15,6 +15,17 @@ export const metadata = pageMetadata(
   "Maritime cyber compliance authority: IMO MSC.428(98), IACS UR E26/E27, standards context, official sources, and honest mapping methodology.",
   "/compliance"
 );
+
+function formatReviewDate(isoDate: string): string {
+  const [year, month, day] = isoDate.split("-").map(Number);
+  if (!year || !month || !day) return isoDate;
+  return new Date(Date.UTC(year, month - 1, day)).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone: "UTC",
+  });
+}
 
 const resourceLinks = [
   {
@@ -41,6 +52,8 @@ const supportingProof = [
 ];
 
 export default function CompliancePage() {
+  const reviewedLabel = formatReviewDate(REGULATORY_LAST_REVIEWED);
+
   return (
     <>
       <JsonLd
@@ -66,6 +79,7 @@ export default function CompliancePage() {
 
       <Section>
         <Reveal className="max-w-2xl mb-10">
+          <p className="text-[13px] font-mono text-structural mb-6">Last reviewed: {reviewedLabel}</p>
           <Eyebrow>Authority nest</Eyebrow>
           <h2 className="text-[28px] sm:text-[34px] leading-[1.14]">Explore by instrument family.</h2>
         </Reveal>
