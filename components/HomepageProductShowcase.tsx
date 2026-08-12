@@ -103,8 +103,11 @@ export function HomepageProductShowcase({ steps }: { steps: ShowcaseStep[] }) {
       <LiquidGlass variant="default" padding="sm">
         <ProductScreenFrame
           src={activeScreen.src}
+          fullSrc={activeScreen.fullSrc}
           alt={activeScreen.alt}
           label={activeScreen.label}
+          width={activeScreen.width}
+          height={activeScreen.height}
           annotations={activeScreen.annotations}
           interactive={false}
           priority
@@ -121,8 +124,11 @@ export function HomepageProductShowcase({ steps }: { steps: ShowcaseStep[] }) {
       <LiquidGlass variant="strong" padding="sm">
         <ProductScreenFrame
           src={activeScreen.src}
+          fullSrc={activeScreen.fullSrc}
           alt={activeScreen.alt}
           label={activeScreen.label}
+          width={activeScreen.width}
+          height={activeScreen.height}
           annotations={activeScreen.annotations}
           interactive={false}
           priority

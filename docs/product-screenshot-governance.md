@@ -4,54 +4,52 @@ This standard controls public CertaMaris product screenshots used on the marketi
 
 ## Asset Standard
 
-- Source resolution: `1440x1040` PNG.
-- Aspect ratio: `18:13`.
-- Source location: `public/product/clean/`.
-- Optimized variants: `public/product/optimized/`.
-- Required optimized widths: `384`, `640`, and `960` WebP.
-- Naming: lowercase kebab-case, matching the source PNG base name, for example `audit-readiness.png` and `audit-readiness-640.webp`.
-- Crop: show product chrome, sidebar context, title, and the primary working area. Do not crop away the workflow context that explains the screen.
-- Safe margins: keep critical text and controls at least `24px` from the screenshot edge.
+- Product UI authority: current Dashboard V2 renders from the canonical CertaMaris platform implementation.
+- Canonical public directory: `public/product/dashboard-v2/`.
+- Optimized variants: `public/product/dashboard-v2/optimized/`.
+- Required optimized widths: `384`, `640`, `960`, and `1440` WebP.
+- Naming: lowercase kebab-case based on the represented Dashboard V2 surface, for example `requirement-mapping.png` and `controlled-release.png`.
+- Do not create generational folders such as `clean`, `updated`, `new`, `final`, or `updated2`.
+- Source dimensions may vary by Dashboard V2 route because the QA harness captures the actual settled page height. Metadata in `lib/product-screens.ts` must match the PNG dimensions exactly.
+- Crop: use actual Dashboard V2 screenshots. Do not recreate or approximate Dashboard V2 in a mockup tool.
 
 ## Frame and Presentation
 
-- Screens render as **static inline proof frames** (dossier chrome: label bar + screenshot). No Mac traffic-light chrome.
+- Screens render as static inline proof frames with dossier chrome: label bar plus screenshot.
 - Use `object-contain` so the full product UI remains visible without crop distortion.
-- Featured / showcase frames may use a stronger shadow than tile frames; that difference is intentional.
-- **Lightbox is removed.** Do not reintroduce click-to-expand galleries, portals, or "Expand" controls on product screenshots. Optional `lightboxTitle` / `lightboxBody` props on `ProductScreenFrame` are accepted as no-ops for legacy call sites only.
+- Featured and showcase frames may use a stronger surface treatment than tile frames; that difference is intentional.
+- `ProductScreenImage` may serve WebP derivatives only for the canonical Dashboard V2 path. It must not rewrite legacy asset generations.
+- The full-resolution link must point to the same canonical Dashboard V2 PNG.
 
-## Annotations (optional callouts)
+## Annotations
 
 - Defined on `ProductProofScreen.annotations?: { id, label, x, y }[]` in `lib/product-screens.ts`.
-- `x` / `y` are percentages (`0`–`100`) of the **screenshot image area** (not including the dossier label bar).
-- `ProductScreenFrame` renders **at most 3** annotations.
-- **Desktop (`md+`):** absolute hairline callout chips over the image. Static only — no pulse, bounce, or attention animation.
-- **Mobile:** numbered caption list under the frame instead of overlaid pins (pins are hard to read and collide on small viewports).
-- Labels must stay **claim-safe**: describe visible workflow structure (mapping, coverage, ownership, verification, package sections) — never audit pass, certification, regulator acceptance, dollar exposure, or guaranteed outcomes.
-- Prefer annotations on primary proof screens used in the homepage showcase: requirement mapping, evidence coverage, corrective actions, and audit readiness.
-- Do not use annotations to invent UI that is not visible in the screenshot.
+- `x` and `y` are percentages (`0`-`100`) of the screenshot image area, excluding the exhibit label bar.
+- `ProductScreenFrame` renders at most 3 annotations.
+- Labels must stay claim-safe: describe visible workflow structure, not certification, audit pass, regulator acceptance, dollar exposure, or guaranteed outcomes.
+- If a screenshot is replaced, annotation positions must be recalculated against the new image.
+- Remove annotations that no longer point at a visible Dashboard V2 object.
 
 ## Data Rules
 
 - Use sanitized product-like data only.
-- Prefer role and function labels over person names.
-- Generic roles are acceptable: `Assurance owner`, `Compliance lead`, `Security lead`, `Technical manager`, and `DPA review`.
-- Avoid accidental placeholder names such as `John Doe`, `Jane Smith`, `Test User`, `Acme`, or `Demo Customer`.
-- Do not include real customer names, customer logos, vessel names, IMO numbers, addresses, emails, phone numbers, or personal data unless specifically approved for public use.
+- Preserve visible Dashboard V2 demo/preview data boundaries when present.
+- Do not include customer data, real customer names, personal information, credentials, secrets, private URLs, raw vulnerability details, or live security findings.
+- Do not invent fake compliance results to improve screenshot appearance.
 
 ## Metric Policy
 
 Public screenshots must not show unsupported business metrics or outcomes, including:
 
-- Dollar exposure, avoided loss, aggregate loss estimates, or revenue impact.
-- NPS, logo retention, win rate, board score, regulator grade, or similar commercial KPIs.
+- Dollar exposure, avoided loss, revenue impact, ARR/MRR, or financial forecasts.
+- NPS, logo retention, board score, regulator grade, or similar commercial KPIs.
 - Audit pass rate, certification status, class approval, regulator acceptance, or guaranteed survey outcomes.
 - Customer results, benchmark claims, or time savings unless approved and substantiated.
 
 Allowed operational labels include:
 
 - Assurance posture.
-- Open critical findings.
+- Open findings.
 - Evidence freshness.
 - Corrective actions awaiting verification.
 - Exceptions requiring review.
@@ -59,53 +57,61 @@ Allowed operational labels include:
 - Governance decisions.
 - Readiness package status.
 
+## Current Dashboard V2 Proof Set
+
+| Registry key | Asset | Dashboard V2 source route |
+|---|---|---|
+| `executiveReporting` | `executive-readiness.png` | `/client/executive` |
+| `requirementMapping` | `requirement-mapping.png` | `/app/regulatory/mappings` |
+| `evidenceCoverage` | `evidence-coverage.png` | `/app/evidence/coverage` |
+| `findingsRegister` | `findings-register.png` | `/app/risks/findings` |
+| `correctiveActions` | `corrective-actions.png` | `/app/corrective-actions/` |
+| `auditReadiness` | `audit-readiness.png` | `/app/reports-deliverables/` |
+| `controlledRelease` | `controlled-release.png` | `/app/releases/` |
+| `fleetInventory` | `fleet-inventory.png` | `/app/engagements/EG-2026-014/inventory/fleet-facilities` |
+| `cybersecurityPlans` | `cybersecurity-plans.png` | `/app/cybersecurity-plans/CSP-2026-014/` |
+| `corporateControlPlane` | `corporate-control-plane.png` | `/internal/corporate` |
+| `clientCompanyPortal` | `client-company-portal.png` | `/app/organizations` |
+| `clientFleet` | `client-fleet.png` | `/client/fleet` |
+| `vesselPortal` | `vessel-portal.png` | `/client/vessels/:vesselId` |
+| `assessments` | `assessments.png` | `/app/assessments` |
+| `integrations` | `integrations.png` | `/app/integrations` |
+| `continuousAssurance` | `continuous-assurance.png` | `/app/assurance/evidence-freshness-control-drift` |
+| `sbomVulnerabilityAssurance` | `sbom-vulnerability-assurance.png` | `/app/suppliers/sbom` |
+
 ## Claim Mapping
 
 Each screenshot may support only the claims below:
 
 | Screenshot | Allowed marketing claim |
 |---|---|
-| `requirement-control-mapping.png` | Requirements, controls, evidence, exceptions, and validation history stay connected. |
-| `evidence-coverage.png` | Evidence sufficiency and freshness can be reviewed before a document chase begins. |
-| `findings-register.png` | Findings remain owned, risk-rated, aged, and tied to action context. |
-| `corrective-actions.png` | Corrective actions remain time-bound and independently verifiable before closure. |
-| `audit-readiness.png` | Readiness packages can organize scope, evidence, findings, actions, exceptions, and reviewer notes for inspection. |
-| `governance-reporting.png` | Governance reporting can summarize assurance posture, freshness, actions, and review decisions from the same record. |
-| `fleet-inventory.png` | Fleet scope and review cadence can remain visible where vessel or facility scope matters. |
+| `executive-readiness.png` | Leadership can view qualified demo-data readiness, evidence, findings, actions, reports, and traceability signals from the controlled record. |
+| `requirement-mapping.png` | Findings, evidence, engagements, and program targets can be organized for requirement mapping with product boundaries visible. |
+| `evidence-coverage.png` | Evidence sufficiency, freshness, and requests can be reviewed before work becomes a document chase. |
+| `findings-register.png` | Findings remain owned, risk-rated, aged, and linked to risk/action context. |
+| `corrective-actions.png` | Corrective actions remain owned, dated, prioritized, and verification-oriented before closure. |
+| `audit-readiness.png` | Readiness deliverables can organize package status and source context for controlled review. |
+| `controlled-release.png` | Release state, approvals, exceptions, and package controls can be managed before sharing. |
+| `fleet-inventory.png` | Fleet and facility scope, region, status, criticality, and review cadence remain visible where scope matters. |
+| `cybersecurity-plans.png` | Plan sections, review state, linked authorities, and controlled workflow can stay visible. |
+| `corporate-control-plane.png` | Internal corporate operations can see portfolio and support context without implying unrestricted tenant access. |
+| `client-company-portal.png` | Company-level tenant workspace and administration can be represented with demo data. |
+| `client-fleet.png` | Fleet posture, vessel roll-up, and open work can be summarized for company users. |
+| `vessel-portal.png` | Vessel-scoped evidence, findings, systems, plans, and actions can remain tied to vessel membership. |
+| `assessments.png` | Assessment planning, controls, questionnaire work, and review status can remain connected. |
+| `integrations.png` | Integration categories and availability boundaries can be shown without claiming unsupported connectors. |
+| `continuous-assurance.png` | Evidence freshness, control drift, exceptions, and review queues can be monitored between cycles. |
+| `sbom-vulnerability-assurance.png` | Configurable supplier, SBOM, and vulnerability workflows can be represented without claiming universal live telemetry. |
 
-## Placement and Sequencing
-
-- The primary marketing sequence is requirement mapping -> evidence sufficiency -> findings ownership -> corrective-action verification -> audit readiness -> governance reporting.
-- Homepage and solution overview sections should make the first one or two proof screens visually dominant. Later governance and fleet-scope views should support the story rather than compete with the operational proof screens.
-- Use audit-readiness screens where the page discusses review packages, survey preparation, or readiness workflow.
-- Use governance reporting only where leadership, board, owner review, or recurring reporting is the point.
-- Fleet inventory is route-contextual and should not replace the core proof sequence unless fleet scope is the section's primary claim.
-
-## Legal and Regulatory Boundaries
-
-- Do not imply CertaMaris provides legal or regulatory advice.
-- Do not imply a certification, class approval, regulator approval, audit pass, or guaranteed survey outcome.
-- Do not show badges or seals that resemble certifications unless the certificate exists and its public scope is approved.
-- Keep disclaimer-sensitive language in page copy and screenshot captions aligned with the public website's compliance boundary.
-
-## Accessibility Expectations
-
-- Every public screenshot reference must include alt text that describes the screen and the relevant workflow.
-- Frame labels and optional annotation captions must state what the screenshot proves without overstating claims.
-- Text inside screenshots should remain legible at desktop, tablet, and mobile viewport widths when shown inline with `object-contain`.
-- Thumbnail crops must not obscure the main workflow signal.
-- Desktop annotation pins are decorative (`aria-hidden`); mobile uses a readable numbered caption list.
-
-## Review Checklist
+## Validation
 
 Before deployment, verify:
 
-- Source PNG is `1440x1040`.
-- `384`, `640`, and `960` WebP variants exist.
-- File names match the registry in `lib/product-screens.ts`.
-- No customer claims, customer logos, personal data, fake certifications, unsupported financial metrics, or pass/fail claims appear.
-- No empty states, loading states, preview toggles, debug UI, local environment labels, or obvious mock/demo controls appear.
-- Screens render as static frames (no lightbox / expand interaction).
-- Annotations (if any) are claim-safe, max 3, positioned in % of the image area, static (no pulse), and mobile falls back to a caption list.
-- The screenshot supports the exact claim assigned in this document.
-- `npm.cmd run typecheck` and `npm.cmd run build:static` pass before deployment.
+- `npm run qa:product-proof` passes.
+- Every registry `src` and `fullSrc` exists.
+- Every PNG dimension matches `lib/product-screens.ts`.
+- Every optimized derivative exists for `384`, `640`, `960`, and `1440`.
+- Active source contains zero `/product/clean/`, `/product/updated/`, or `/product/optimized/` references.
+- No stale legacy screenshot filename is referenced by active source.
+- Product-proof pages render without broken images at desktop, tablet, and mobile widths.
+- No screenshot exposes customer data, secrets, private URLs, unsupported compliance claims, or unqualified production metrics.

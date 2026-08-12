@@ -11,6 +11,8 @@
     "ci:validate": "npm audit --omit=dev --audit-level=high && npm run typecheck && npm run build:static",
     "qa": "node scripts/qa/run-all.mjs",
     "qa:content": "node scripts/qa/content-qa.mjs",
+    "qa:product-proof": "node scripts/qa/check-product-proof.mjs",
+    "qa:product-proof:render": "node scripts/qa/check-product-proof-render.mjs",
     "qa:routes": "node scripts/qa/check-routes.mjs --out --include-planned",
     "qa:seo": "node scripts/qa/check-seo.mjs",
     "qa:links": "node scripts/qa/check-links.mjs",
@@ -39,6 +41,7 @@
     "wrangler": "4.114.0"
   },
   "overrides": {
+    "nanoid": "3.3.17",
     "postcss": "8.5.23",
     "sharp": "0.35.3"
   },

@@ -108,7 +108,7 @@ export const solutionsPages: SolutionPage[] = [
       { href: "/solutions/vessel-cyber-risk-management", label: "Vessel Cyber-Risk Management" },
       { href: "/who-we-serve/ship-owners", label: "Ship Owners" },
     ],
-    screenKey: "fleetInventory",
+    screenKey: "clientFleet",
   },
   {
     slug: "audit-survey-readiness",
@@ -172,7 +172,7 @@ export const solutionsPages: SolutionPage[] = [
       { href: "/solutions/evidence-findings-management", label: "Evidence & Findings" },
       { href: "/who-we-serve/classification-survey", label: "Classification & Survey Stakeholders" },
     ],
-    screenKey: "auditReadiness",
+    screenKey: "controlledRelease",
   },
   {
     slug: "imo-msc-428-98",
@@ -416,7 +416,7 @@ export const solutionsPages: SolutionPage[] = [
       { href: "/who-we-serve/vessel-masters-officers", label: "Vessel Masters & Officers" },
       { href: "/solutions/fleet-cyber-compliance", label: "Fleet Cyber Compliance" },
     ],
-    screenKey: "findingsRegister",
+    screenKey: "vesselPortal",
   },
   {
     slug: "evidence-findings-management",
@@ -598,7 +598,7 @@ export const solutionsPages: SolutionPage[] = [
       { href: "/solutions/imo-msc-428-98", label: "IMO MSC.428(98)" },
       { href: "/platform/reports-readiness", label: "Reports & Readiness" },
     ],
-    screenKey: "auditReadiness",
+    screenKey: "cybersecurityPlans",
   },
   {
     slug: "sbom-vulnerability-assurance",
@@ -659,7 +659,7 @@ export const solutionsPages: SolutionPage[] = [
       { href: "/platform/continuous-assurance", label: "Continuous Assurance" },
       { href: "/solutions/iacs-ur-e27", label: "IACS UR E27" },
     ],
-    screenKey: "evidenceCoverage",
+    screenKey: "sbomVulnerabilityAssurance",
   },
   {
     slug: "executive-board-reporting",
