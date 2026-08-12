@@ -926,12 +926,9 @@ figure.product-showcase-frame > div:first-child {
   border: 3.5px solid var(--accent-ocean);
 }
 
-/* The one warm note on the site: only the terminal released-package node
-   carries brass — the chain's earned ending (owner-approved 2026-08-01). */
 .chain-node--release {
-  background: var(--accent-brass);
-  border-color: var(--accent-brass);
-  box-shadow: 0 0 0 5px rgba(184, 130, 58, 0.24);
+  background: var(--surface-page);
+  border-color: var(--accent-ocean);
 }
 
 .chain-card {
