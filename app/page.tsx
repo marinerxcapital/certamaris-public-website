@@ -132,6 +132,21 @@ const audiences = [
     body: "Vessel-scoped work with named users — not a shared vessel password.",
     href: "/who-we-serve/vessel-masters-officers",
   },
+  {
+    title: "Classification & survey",
+    body: "Readiness evidence and controlled packages prepared for survey and classification review.",
+    href: "/who-we-serve/classification-survey",
+  },
+  {
+    title: "Insurers & P&I",
+    body: "Assurance posture and evidence freshness to support underwriting and renewal conversations.",
+    href: "/who-we-serve/insurers-pi",
+  },
+  {
+    title: "Maritime service providers",
+    body: "A delivery workspace for managed compliance and multi-tenant service work.",
+    href: "/who-we-serve/maritime-service-providers",
+  },
 ];
 
 const trustLinks: [string, string][] = [
@@ -365,7 +380,7 @@ export default function HomePage() {
               All roles
             </Link>
           </Reveal>
-          <div className="grid gap-4">
+          <div className="grid gap-4 sm:grid-cols-2">
             {audiences.map((item) => (
               <LiquidGlass key={item.title} as="article" variant="subtle" padding="md" className="audience-note">
                 <h3 className="mb-2 text-[17px] font-semibold">

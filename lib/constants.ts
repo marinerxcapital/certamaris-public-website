@@ -33,12 +33,11 @@ export const SECURITY_EMAIL = process.env.NEXT_PUBLIC_SECURITY_EMAIL ?? "securit
 export const CONTACT_FORWARD_ENDPOINT = process.env.CONTACT_FORWARD_ENDPOINT ?? "";
 
 /**
- * For static-export deployments (e.g. Netlify without a Node runtime), the
- * built-in /api/contact route isn't available. Set this to a publicly
- * callable endpoint (a hosted function, form backend, or webhook that
- * accepts the same { name, email, company, fleetSize, message } JSON body)
- * and the contact form will POST to it directly from the browser instead
- * of the local API route.
+ * For static-export deployments where the Cloudflare Worker /api/contact
+ * route is not running, the built-in /api/contact route isn't available. Set
+ * this to a publicly callable endpoint (a hosted function, form backend, or
+ * webhook that accepts the same JSON body) and the contact form will POST to
+ * it directly from the browser instead of the local API route.
  */
 export const NEXT_PUBLIC_CONTACT_ENDPOINT = process.env.NEXT_PUBLIC_CONTACT_ENDPOINT ?? "";
 
@@ -269,7 +268,16 @@ export const NAV_GROUPS: { title: string; links: [string, string][] }[] = [
   },
 ];
 
-/** Footer column groups — scannable, not exhaustive of every deep page. */
+/**
+ * Footer column groups — scannable, not exhaustive of every deep page.
+ *
+ * NOTE: this array is hand-maintained separately from NAV_PRIMARY and the
+ * individual *_LINKS sources above. When a new page is added, its footer
+ * exposure must be added here by hand or it silently becomes crawl-orphaned.
+ * A single-source-of-truth refactor (derive FOOTER_GROUPS from the *_LINKS
+ * collections plus an explicit "featured" curation) would remove this drift
+ * risk. Flagged for follow-up rather than expanded inline here.
+ */
 export const FOOTER_GROUPS: { title: string; links: [string, string][] }[] = [
   {
     title: "Product",
@@ -303,7 +311,10 @@ export const FOOTER_GROUPS: { title: string; links: [string, string][] }[] = [
       ["Operators", "/who-we-serve/operators"],
       ["Technical Managers & DPAs", "/who-we-serve/technical-managers-dpas"],
       ["Maritime IT/OT", "/who-we-serve/maritime-it-ot"],
+      ["Vessel Masters & Officers", "/who-we-serve/vessel-masters-officers"],
       ["Classification & Survey", "/who-we-serve/classification-survey"],
+      ["Insurers & P&I", "/who-we-serve/insurers-pi"],
+      ["Maritime Service Providers", "/who-we-serve/maritime-service-providers"],
     ],
   },
   {
@@ -315,6 +326,7 @@ export const FOOTER_GROUPS: { title: string; links: [string, string][] }[] = [
       ["Guidelines", "/compliance/guidelines"],
       ["Update Center", "/compliance/update-center"],
       ["Official Sources", "/compliance/official-sources"],
+      ["Mapping Methodology", "/compliance/mapping-methodology"],
     ],
   },
   {
@@ -327,6 +339,9 @@ export const FOOTER_GROUPS: { title: string; links: [string, string][] }[] = [
       ["Pricing", "/pricing"],
       ["FAQ", "/faq"],
       ["Product tour", "/demo"],
+      ["IMO MSC.428(98) Explained", "/resources/imo-msc-428-98-explained"],
+      ["IACS UR E26/E27 Overview", "/resources/iacs-ur-e26-e27-overview"],
+      ["Evidence Sufficiency", "/resources/evidence-sufficiency-cyber-compliance"],
     ],
   },
   {
@@ -334,6 +349,7 @@ export const FOOTER_GROUPS: { title: string; links: [string, string][] }[] = [
     links: [
       ["About", "/about"],
       ["Leadership", "/about/leadership"],
+      ["Corporate Information", "/about/corporate-information"],
       ["Partners", "/about/partners"],
       ["Careers", "/about/careers"],
       ["Press", "/about/press"],

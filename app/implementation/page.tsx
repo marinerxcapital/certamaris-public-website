@@ -102,7 +102,7 @@ export default function ImplementationPage() {
         </Reveal>
         <Reveal delay={0.05} className="flex flex-wrap gap-3">
           <Button href="/contact?intent=demo">Request a demo</Button>
-          <Button href="/contact?intent=implementation" variant="secondary">
+          <Button href="/contact?intent=sales" variant="secondary">
             Discuss implementation
           </Button>
         </Reveal>

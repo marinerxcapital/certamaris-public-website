@@ -6,7 +6,7 @@ import { Reveal, RevealGroup } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
 import { pageMetadata } from "@/lib/metadata";
 import { TRUST_CENTER_LINKS } from "@/lib/security-trust";
-import { trustCenterOverview } from "@/lib/trust-corporate";
+import { CORPORATE_LAST_REVIEWED, trustCenterOverview } from "@/lib/trust-corporate";
 
 export const metadata = pageMetadata(
   "Trust Center",
@@ -14,7 +14,20 @@ export const metadata = pageMetadata(
   "/trust"
 );
 
+function formatReviewDate(isoDate: string): string {
+  const [year, month, day] = isoDate.split("-").map(Number);
+  if (!year || !month || !day) return isoDate;
+  return new Date(Date.UTC(year, month - 1, day)).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone: "UTC",
+  });
+}
+
 export default function TrustCenterPage() {
+  const reviewedLabel = formatReviewDate(CORPORATE_LAST_REVIEWED);
+
   return (
     <>
       <PageHero
@@ -25,6 +38,9 @@ export default function TrustCenterPage() {
       />
 
       <Section spacing="compact">
+        <Reveal className="max-w-3xl">
+          <p className="text-[13px] font-mono text-structural mb-6">Last reviewed: {reviewedLabel}</p>
+        </Reveal>
         <RevealGroup className="grid sm:grid-cols-3 gap-5" stagger={0.05}>
           {trustCenterOverview.principles.map((item) => (
             <div key={item.title} className="premium-card p-6">

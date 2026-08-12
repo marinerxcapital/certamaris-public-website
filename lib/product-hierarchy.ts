@@ -200,8 +200,8 @@ export const integrationsCatalogue: IntegrationEntry[] = [
     category: "Identity",
     title: "Enterprise SSO / SCIM",
     summary:
-      "Enterprise single sign-on and directory provisioning are engagement-dependent. Confirm current identity options during procurement.",
-    availability: "configurable",
+      "Enterprise single sign-on and directory provisioning are planned. Confirm current identity options and roadmap timing during procurement.",
+    availability: "planned",
   },
   {
     id: "email-notifications",

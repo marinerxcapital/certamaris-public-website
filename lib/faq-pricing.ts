@@ -74,7 +74,6 @@ export const pricingTiers: PricingTier[] = [
     minimumNote: "Minimum $108,000 ARR at twenty-five vessels.",
     included: [
       "Everything in Assurance",
-      "SSO / SCIM",
       "API access",
       "Multi-entity administration",
       "Custom framework mappings",
@@ -85,6 +84,7 @@ export const pricingTiers: PricingTier[] = [
     excluded: [
       "On-site assessments",
       "Travel",
+      "SSO / SCIM (planned)",
       "Formal certification or classification-society approval",
     ],
   },
@@ -258,7 +258,7 @@ export const categorizedFaqItems: FaqItem[] = [
     category: "procurement",
     question: "Do you support SSO and SCIM?",
     answer:
-      "SSO and SCIM are available on Enterprise-shaped engagements when configured for your environment. Confirm current identity options during security and commercial scoping rather than treating marketing copy as a binding configuration commitment.",
+      "Enterprise single sign-on (SSO) and SCIM provisioning are planned enterprise identity capabilities, not a current standard feature on any package. Confirm current identity options and roadmap timing during security and commercial scoping rather than treating marketing copy as a binding configuration commitment.",
   },
   {
     category: "procurement",
@@ -320,7 +320,7 @@ export const packageTiers: PackageTier[] = [
     summary: "Identity integrations, diligence support, and custom terms.",
     features: [
       "Everything in Fleet Assurance",
-      "SSO and SCIM when configured for your environment",
+      "SSO / SCIM (planned enterprise identity)",
       "Security review support for buyer diligence",
       "Custom contractual terms as agreed",
     ],
@@ -424,15 +424,15 @@ export const pricingComparisonRows: ComparisonRow[] = [
     key: "sso",
     feature: "SSO",
     fleetCore: "not-included",
-    fleetAssurance: "add-on",
-    enterprise: "included",
+    fleetAssurance: "planned",
+    enterprise: "planned",
   },
   {
     key: "scim",
     feature: "SCIM",
     fleetCore: "not-included",
     fleetAssurance: "not-included",
-    enterprise: "included",
+    enterprise: "planned",
   },
   {
     key: "support",
@@ -511,7 +511,7 @@ export function recommendPackage(input: RecommenderInput): {
   }
   if (input.needsSso) {
     score = "enterprise";
-    reasons.push("SSO (and SCIM when required) is positioned on Enterprise-shaped engagements.");
+    reasons.push("SSO and SCIM are planned enterprise identity capabilities; Enterprise is the path where those requirements are scoped.");
   }
   if (input.needsIntegrations && score === "fleet-core") {
     score = "fleet-assurance";

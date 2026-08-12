@@ -14,12 +14,24 @@ import {
   type ComparisonValue,
 } from "@/lib/faq-pricing";
 import { pageMetadata } from "@/lib/metadata";
+import { REGULATORY_LAST_REVIEWED } from "@/lib/regulatory";
 
 export const metadata = pageMetadata(
   "Pricing",
   "Annual platform-plus-contracted-vessel pricing for Core, Assurance, and Enterprise, plus separately priced remote and on-board assurance engagements.",
   "/pricing"
 );
+
+function formatReviewDate(isoDate: string): string {
+  const [year, month, day] = isoDate.split("-").map(Number);
+  if (!year || !month || !day) return isoDate;
+  return new Date(Date.UTC(year, month - 1, day)).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone: "UTC",
+  });
+}
 
 const commercialModel = [
   {
@@ -85,6 +97,8 @@ function formatComparisonValue(value: ComparisonValue): string {
       return "Add-on / scoped";
     case "scoped":
       return "Scoped";
+    case "planned":
+      return "Planned";
     case "not-included":
       return "—";
     default:
@@ -95,6 +109,7 @@ function formatComparisonValue(value: ComparisonValue): string {
 export default function PricingPage() {
   const priceFor = (name: string) =>
     pricingTiers.find((tier) => name.toLowerCase().includes(tier.name.toLowerCase()));
+  const reviewedLabel = formatReviewDate(REGULATORY_LAST_REVIEWED);
 
   return (
     <>
@@ -107,6 +122,7 @@ export default function PricingPage() {
 
       <Section>
         <Reveal className="max-w-2xl mb-10">
+          <p className="text-[13px] font-mono text-structural mb-6">Last reviewed: {reviewedLabel}</p>
           <Eyebrow>Package shapes</Eyebrow>
           <h2 className="text-[27px] sm:text-[32px] leading-[1.16] mb-4">
             Three ways to structure the commercial engagement.

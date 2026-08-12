@@ -22,7 +22,7 @@ const expectations = [
   },
   {
     title: "Intent-based routing",
-    body: "Choose demo, readiness, procurement, security, privacy, support, partnership, press, careers, or disclosure. Each path is tagged for internal email routing via the existing contact forward endpoint.",
+    body: "Choose demo, readiness, procurement, security, privacy, support, partnership, press, careers, or disclosure. Each path is tagged so the right internal owner responds.",
   },
   {
     title: "What to prepare",
@@ -30,7 +30,7 @@ const expectations = [
   },
   {
     title: "What happens next",
-    body: "If delivery is configured, CertaMaris receives a tagged payload and follows up on the email you provide. If delivery is unavailable, use the direct email fallback. This is not a timed SLA.",
+    body: "CertaMaris routes your submission to the matching internal owner, who follows up on the email you provide. You can also reach the team directly at the address below. This is not a timed SLA.",
   },
 ];
 
@@ -114,9 +114,19 @@ export default function ContactPage() {
             <div className="premium-card p-7 sm:p-9">
               <Suspense
                 fallback={
-                  <p className="text-[14px] text-structural" role="status">
-                    Loading contact form…
-                  </p>
+                  <div className="space-y-3" role="status">
+                    <p className="text-[14px] text-structural">Loading contact form…</p>
+                    <p className="text-[14px] text-structural">
+                      If the form does not load, email{" "}
+                      <a
+                        href={`mailto:${APP_SALES_EMAIL}`}
+                        className="font-medium text-ocean hover:underline"
+                      >
+                        {APP_SALES_EMAIL}
+                      </a>
+                      .
+                    </p>
+                  </div>
                 }
               >
                 <ContactForm defaultIntent="demo" />
