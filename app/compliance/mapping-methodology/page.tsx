@@ -18,7 +18,7 @@ const statuses: { status: MappingStatus; meaning: string }[] = [
   {
     status: "workflow-supported",
     meaning:
-      "Product workflows (requirements, controls, evidence, findings, readiness) are designed to support work teams do under this instrument family. Not automatic certification.",
+      "Product workflows (requirements, controls, evidence, findings, readiness) are designed to support the work teams do under this instrument family. Not automatic certification.",
   },
   {
     status: "partial-workflow",

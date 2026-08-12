@@ -6,12 +6,12 @@ import { Reveal } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
 import { PRIMARY_CTA_LABEL } from "@/lib/constants";
 import {
-  categorizedFaqItems,
   FAQ_CATEGORIES,
   faqItems,
   faqItemsByCategory,
 } from "@/lib/faq-pricing";
 import { pageMetadata } from "@/lib/metadata";
+import { REGULATORY_LAST_REVIEWED } from "@/lib/regulatory";
 import { faqPageSchema } from "@/lib/seo-schema";
 
 export const metadata = pageMetadata(
@@ -20,8 +20,20 @@ export const metadata = pageMetadata(
   "/faq"
 );
 
+function formatReviewDate(isoDate: string): string {
+  const [year, month, day] = isoDate.split("-").map(Number);
+  if (!year || !month || !day) return isoDate;
+  return new Date(Date.UTC(year, month - 1, day)).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone: "UTC",
+  });
+}
+
 export default function FaqPage() {
   const faqJsonLd = faqPageSchema(faqItems, "/faq");
+  const reviewedLabel = formatReviewDate(REGULATORY_LAST_REVIEWED);
 
   return (
     <>
@@ -34,6 +46,7 @@ export default function FaqPage() {
 
       <Section spacing="compact" surface="paper">
         <Reveal className="max-w-2xl mb-6">
+          <p className="text-[13px] font-mono text-structural mb-6">Last reviewed: {reviewedLabel}</p>
           <Eyebrow>Categories</Eyebrow>
           <p className="text-[14.5px] text-structural leading-relaxed">
             Jump to a topic. Every answer below is also included in the page FAQ schema for discoverability.
@@ -76,9 +89,6 @@ export default function FaqPage() {
             );
           })}
         </div>
-        <p className="sr-only">
-          Total FAQ items on this page: {categorizedFaqItems.length}. All are visible in the categories above.
-        </p>
       </Section>
 
       <Section surface="paper" spacing="compact">

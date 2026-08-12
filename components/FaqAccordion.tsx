@@ -45,16 +45,15 @@ export function FaqAccordion({
                 </span>
               </button>
             </h3>
-            {isOpen && (
-              <div
-                id={panelId}
-                role="region"
-                aria-labelledby={triggerId}
-                className="mt-3 text-[14.5px] text-structural leading-relaxed max-w-2xl"
-              >
-                {item.answer}
-              </div>
-            )}
+            <div
+              id={panelId}
+              role="region"
+              aria-labelledby={triggerId}
+              hidden={!isOpen}
+              className="mt-3 text-[14.5px] text-structural leading-relaxed max-w-2xl"
+            >
+              {item.answer}
+            </div>
           </div>
         );
       })}
