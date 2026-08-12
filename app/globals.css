@@ -102,7 +102,7 @@ body {
      dim texture (previously 0.34). Legibility is now handled by the
      translucent Liquid Glass card system (--lg-bg etc.), which every
      content surface already sits on, not by pre-dimming the whole layer. */
-  opacity: 0.92;
+  opacity: 0.65;
   overflow: hidden;
   pointer-events: none;
 }
@@ -808,7 +808,7 @@ textarea:focus-visible,
 
 .footer-logo {
   filter: brightness(0) invert(1);
-  opacity: 0.92;
+  opacity: 0.65;
 }
 
 .hero-section {
