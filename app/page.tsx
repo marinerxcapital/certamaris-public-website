@@ -244,7 +244,7 @@ export default function HomePage() {
           </p>
         </Reveal>
         <EvidenceChain />
-        <div className="mt-12 flex flex-wrap items-center gap-4">
+        <div className="mt-16 flex flex-wrap items-center gap-4 sm:mt-12">
           <Button href="/demo">See the workflow in action</Button>
           <Link href="/platform" className="text-[14px] font-semibold text-ocean hover:underline">
             Platform capabilities
