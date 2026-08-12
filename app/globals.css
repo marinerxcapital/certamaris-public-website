@@ -98,10 +98,10 @@ body {
   height: 100%;
   min-height: 100vh;
   min-height: 100dvh;
-  /* Owner direction 2026-08-01: the grid should be clearly visible, not a
-     dim texture (previously 0.34). Legibility is now handled by the
-     translucent Liquid Glass card system (--lg-bg etc.), which every
-     content surface already sits on, not by pre-dimming the whole layer. */
+  /* Owner direction 2026-08-12: keep the grid clearly visible but soften the
+     full layer to 0.65 so body text over transparent sections stays legible
+     without relying solely on Liquid Glass cards. The first-party animation
+     and reduced-motion freeze are preserved. */
   opacity: 0.65;
   overflow: hidden;
   pointer-events: none;
