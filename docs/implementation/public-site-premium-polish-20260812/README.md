@@ -8,6 +8,8 @@ Branch: `codex/public-site-premium-polish-20260812`
 
 Starting HEAD: `d194d32005c2617299857e077093c4fb4c2bbe74`
 
+Merged / deployed HEAD: `86218909772578ca6026629c04f706342dc6c025`
+
 Production URL: `https://certamaris.com`
 
 ## Result
@@ -20,6 +22,8 @@ This sprint tightened the public website's first impression and shared visual pr
 - Product proof frames have cleaner exhibit chrome and clearer full-resolution affordance.
 - Footer inverse text and focus states are stronger across every route.
 - `/industries` no longer uses the undefined `border-line` Tailwind class.
+
+GitHub Actions run `31577979769` validated and deployed the merged `main` commit to the production Cloudflare Worker. Live `https://certamaris.com` verification passed; details are in [PRODUCTION-VERIFICATION.md](./PRODUCTION-VERIFICATION.md).
 
 ## Evidence Documents
 
