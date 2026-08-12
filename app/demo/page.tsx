@@ -1,7 +1,8 @@
 import { BoundaryPanel } from "@/components/BoundaryPanel";
 import { Button } from "@/components/Button";
+import { DemoTourGallery } from "@/components/DemoTourGallery";
 import { PageHero } from "@/components/PageHero";
-import { ProductScreenFrame, ProductScreenTile } from "@/components/ProductScreens";
+import { ProductScreenFrame } from "@/components/ProductScreens";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
 import { StatusBadge } from "@/components/StatusBadge";
@@ -14,45 +15,6 @@ export const metadata = pageMetadata(
   "Guided product tour of CertaMaris — corporate control plane, client admin, fleet, and vessel workflows with sanitized product screens.",
   "/demo"
 );
-
-const tourSections = [
-  {
-    id: "owner-corporate",
-    eyebrow: "Owner / corporate",
-    title: "Corporate control plane",
-    body: "Owners and corporate operators see multi-entity structure, governance posture, and decisions that need attention — without treating a dashboard screenshot as a live customer metric.",
-    status: "ok" as const,
-    statusLabel: "Governance view",
-    screen: productProofScreens.executiveReporting,
-  },
-  {
-    id: "client-admin",
-    eyebrow: "Client admin",
-    title: "Organization and access administration",
-    body: "Client administrators configure organizations, roles, and the boundary between corporate oversight and day-to-day fleet work. Access remains role-based; this tour does not claim specific SSO configurations.",
-    status: "caution" as const,
-    statusLabel: "Admin workflow",
-    screen: productProofScreens.fleetInventory,
-  },
-  {
-    id: "fleet",
-    eyebrow: "Fleet",
-    title: "Fleet readiness and findings",
-    body: "Fleet teams work the operational middle layer: vessel scope, evidence coverage, open findings, and corrective actions that still need verification.",
-    status: "pending" as const,
-    statusLabel: "Fleet operations",
-    screen: productProofScreens.evidenceCoverage,
-  },
-  {
-    id: "vessel",
-    eyebrow: "Vessel",
-    title: "Vessel-level evidence and actions",
-    body: "Vessel contributors submit and refresh evidence, respond to findings, and keep corrective actions moving — connected back to the same controlled record shoreside teams review.",
-    status: "critical" as const,
-    statusLabel: "Vessel contribution",
-    screen: productProofScreens.correctiveActions,
-  },
-];
 
 const workflowSteps = [
   {
@@ -82,13 +44,6 @@ const workflowSteps = [
   },
 ];
 
-const galleryScreens = [
-  productProofScreens.requirementMapping,
-  productProofScreens.findingsRegister,
-  productProofScreens.auditReadiness,
-  productProofScreens.fleetInventory,
-];
-
 export default function DemoPage() {
   return (
     <>
@@ -113,60 +68,21 @@ export default function DemoPage() {
       />
 
       <Section spacing="compact" surface="paper">
-        <Reveal className="max-w-2xl mb-6">
+        <Reveal className="max-w-2xl mb-8">
           <Eyebrow>Tour map</Eyebrow>
-          <h2 className="text-[24px] sm:text-[28px] leading-[1.16] mb-3">Four operating layers.</h2>
+          <h2 className="text-[24px] sm:text-[28px] leading-[1.16] mb-3">Seven product views.</h2>
           <p className="text-[14.5px] text-structural leading-relaxed">
-            Jump to owner/corporate, client admin, fleet, or vessel. Status labels describe workflow stage — not
-            compliance outcomes for a real fleet.
+            Jump to owner/corporate, client admin, fleet, vessel, requirement mapping, findings, or readiness packages.
+            Status labels describe workflow stage — not compliance outcomes for a real fleet.
+          </p>
+          <p className="mt-3">
+            <a href="#workflow" className="text-[13px] font-medium text-ocean underline-offset-4 hover:underline">
+              Corporate → vessel workflow
+            </a>
           </p>
         </Reveal>
-        <nav aria-label="Demo tour sections" className="flex flex-wrap gap-2">
-          {tourSections.map((section) => (
-            <a
-              key={section.id}
-              href={`#${section.id}`}
-              className="rounded-full border border-navy/15 bg-white px-3.5 py-1.5 text-[13px] font-medium text-navy hover:border-ocean/40 hover:text-ocean"
-            >
-              {section.eyebrow}
-            </a>
-          ))}
-          <a
-            href="#workflow"
-            className="rounded-full border border-navy/15 bg-white px-3.5 py-1.5 text-[13px] font-medium text-navy hover:border-ocean/40 hover:text-ocean"
-          >
-            Corporate → vessel workflow
-          </a>
-        </nav>
+        <DemoTourGallery />
       </Section>
-
-      {tourSections.map((section, index) => (
-        <Section
-          key={section.id}
-          id={section.id}
-          surface={index % 2 === 0 ? "page" : "paper"}
-          spacing="compact"
-        >
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
-            <Reveal>
-              <div className="flex flex-wrap items-center gap-2 mb-3">
-                <Eyebrow>{section.eyebrow}</Eyebrow>
-                <StatusBadge status={section.status} label={section.statusLabel} />
-              </div>
-              <h2 className="text-[26px] sm:text-[32px] leading-[1.12] mb-4">{section.title}</h2>
-              <p className="text-[15px] text-structural leading-relaxed mb-6">{section.body}</p>
-              <Button href="/contact?intent=demo">{PRIMARY_CTA_LABEL}</Button>
-            </Reveal>
-            <Reveal delay={0.06}>
-              <ProductScreenFrame
-                {...section.screen}
-                priority={index === 0}
-                sizes="(min-width: 1024px) 48vw, 100vw"
-              />
-            </Reveal>
-          </div>
-        </Section>
-      ))}
 
       <Section id="workflow">
         <Reveal className="max-w-2xl mb-10">
@@ -188,23 +104,6 @@ export default function DemoPage() {
             </Reveal>
           ))}
         </ol>
-      </Section>
-
-      <Section surface="paper" spacing="compact">
-        <Reveal className="max-w-2xl mb-8">
-          <Eyebrow>More screens</Eyebrow>
-          <h2 className="text-[24px] sm:text-[28px] leading-[1.16] mb-3">Additional sanitized product views.</h2>
-          <p className="text-[14.5px] text-structural leading-relaxed">
-            Requirement mapping, findings, readiness packages, and fleet inventory — an orientation to current product workflows.
-          </p>
-        </Reveal>
-        <div className="grid sm:grid-cols-2 gap-6">
-          {galleryScreens.map((screen) => (
-            <Reveal key={screen.src}>
-              <ProductScreenTile {...screen} galleryOrder={screen.galleryOrder} />
-            </Reveal>
-          ))}
-        </div>
       </Section>
 
       <Section spacing="compact">
