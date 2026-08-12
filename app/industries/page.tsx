@@ -54,7 +54,7 @@ export default function IndustriesRedirectHubPage() {
               <li key={a.slug}>
                 <Link
                   href={`/who-we-serve/${a.slug}`}
-                  className="block rounded-lg border border-line bg-white/60 px-4 py-3 text-[14.5px] font-medium text-navy hover:border-ocean/40"
+                  className="block rounded-lg border border-navy/15 bg-white/60 px-4 py-3 text-[14.5px] font-medium text-navy hover:border-ocean/40"
                 >
                   {a.title}
                 </Link>

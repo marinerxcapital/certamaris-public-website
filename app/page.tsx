@@ -141,6 +141,21 @@ const trustLinks: [string, string][] = [
   ["/legal/dpa", "Data Processing Agreement"],
 ];
 
+const assuranceSignals = [
+  {
+    label: "Operating model",
+    value: "Requirement -> control -> evidence -> finding -> action -> package",
+  },
+  {
+    label: "Maritime scope",
+    value: "Company, fleet, vessel, IT/OT, SMS, and review workflows",
+  },
+  {
+    label: "Boundary discipline",
+    value: "Official texts control; qualified humans decide applicability",
+  },
+];
+
 const homepageDifferentiation = differentiationModels.slice(0, 6);
 
 export default function HomePage() {
@@ -149,20 +164,19 @@ export default function HomePage() {
       <section className="hero-section landing-hero relative" aria-labelledby="hero-title">
         <div className="shell relative z-10 py-16 sm:py-20 lg:py-24">
           <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:gap-14">
-            <Reveal className="hero-copy-block max-w-2xl">
+            <Reveal className="hero-copy-block min-w-0 w-full max-w-2xl">
               <LiquidGlass variant="strong" padding="lg">
-                <Eyebrow>Maritime cyber compliance and continuous assurance</Eyebrow>
+                <Eyebrow>Maritime cyber assurance</Eyebrow>
                 <h1
                   id="hero-title"
-                  className="mb-6 text-[40px] leading-[1.02] tracking-[-0.02em] sm:text-[56px] lg:text-[64px]"
+                  className="mb-6 text-[38px] leading-[1.03] tracking-[-0.02em] sm:text-[52px] lg:text-[58px]"
                 >
-                  Continuous assurance across every company, fleet, vessel, control, evidence record, finding, and
-                  released report.
+                  Maritime cyber assurance from requirement to readiness package.
                 </h1>
                 <p className="mb-4 max-w-[39rem] text-[17px] font-medium leading-[1.55] tracking-[-0.01em] text-navy/82 sm:text-[19px]">
-                  CertaMaris is evidence-first maritime cyber compliance software for ship owners, operators, DPAs,
-                  technical managers, IT/OT teams, and vessel users — so readiness work is inspectable before survey
-                  week.
+                  CertaMaris connects requirements, controls, evidence, findings, corrective actions, and review
+                  packages across company, fleet, and vessel work so maritime cyber compliance stays inspectable before
+                  the review window.
                 </p>
                 <p className="hero-trace-line mb-8">
                   <a href="#evidence-chain" className="font-semibold text-ocean hover:underline">
@@ -170,11 +184,11 @@ export default function HomePage() {
                   </a>
                 </p>
                 <div className="flex flex-wrap gap-4">
-                  <Button href="/contact?intent=demo">Request a demo</Button>
-                  <Button href="/platform" variant="secondary">
-                    View platform
+                  <Button href="/contact?intent=demo" className="w-full sm:w-auto">Request a demo</Button>
+                  <Button href="/platform" variant="secondary" className="w-full sm:w-auto">
+                    Inspect the platform
                   </Button>
-                  <Button href={APP_SIGN_IN_URL} variant="ghost" external>
+                  <Button href={APP_SIGN_IN_URL} variant="ghost" external className="w-full sm:w-auto">
                     Sign in
                   </Button>
                 </div>
@@ -182,21 +196,29 @@ export default function HomePage() {
                   Workflow scope includes work aligned to IMO MSC.428(98) and IACS UR E26/E27. Official texts control;
                   CertaMaris does not certify compliance or guarantee survey outcomes.
                 </p>
+                <dl className="hero-proof-strip mt-7 hidden gap-2 sm:grid sm:grid-cols-3">
+                  {assuranceSignals.map((signal) => (
+                    <div key={signal.label} className="hero-proof-item">
+                      <dt>{signal.label}</dt>
+                      <dd>{signal.value}</dd>
+                    </div>
+                  ))}
+                </dl>
               </LiquidGlass>
             </Reveal>
 
-            <Reveal delay={0.06}>
+            <Reveal delay={0.06} className="min-w-0 w-full">
               <LiquidGlass variant="strong" padding="lg" className="hero-signal-panel">
                 <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
                   <div>
                     <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-structural">Product proof</p>
-                    <p className="mt-1 text-[15px] font-semibold text-navy">Executive readiness at a glance</p>
+                    <p className="mt-1 text-[15px] font-semibold text-navy">Dashboard V2 readiness proof</p>
                   </div>
                   <Link
-                    href="/platform"
+                    href="/demo"
                     className="text-[13.5px] font-semibold text-ocean underline-offset-4 hover:underline"
                   >
-                    Inspect the platform
+                    View product tour
                   </Link>
                 </div>
                 <ProductScreenFrame
