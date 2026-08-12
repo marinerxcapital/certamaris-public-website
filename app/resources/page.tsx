@@ -45,7 +45,7 @@ export default function ResourcesPage() {
         <div className="grid lg:grid-cols-[0.85fr_1.15fr] gap-14 items-center">
           <Reveal>
             <Eyebrow>Read with the product in mind</Eyebrow>
-            <h2 className="text-[28px] sm:text-[34px] leading-[1.14] mb-5">
+            <h2 className="section-h2 section-h2--lg mb-5">
               Each explainer points back to an operating workflow.
             </h2>
             <p className="text-[15.5px] text-structural leading-relaxed">
@@ -76,7 +76,7 @@ export default function ResourcesPage() {
       <Section surface="paper">
         <Reveal className="max-w-2xl mb-12">
           <Eyebrow>Product reading paths</Eyebrow>
-          <h2 className="text-[28px] sm:text-[34px] leading-[1.14]">Start with the workflow, then go deeper.</h2>
+          <h2 className="section-h2 section-h2--lg">Start with the workflow, then go deeper.</h2>
         </Reveal>
         <RevealGroup className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6" stagger={0.05}>
           <ProductScreenTile
@@ -110,7 +110,7 @@ export default function ResourcesPage() {
       <Section>
         <Reveal className="max-w-2xl mb-8">
           <Eyebrow>Library</Eyebrow>
-          <h2 className="text-[28px] sm:text-[34px] leading-[1.14]">Search, filter, and read.</h2>
+          <h2 className="section-h2 section-h2--lg">Search, filter, and read.</h2>
           <p className="text-[15px] text-structural mt-3 leading-relaxed">
             Filter by topic, tag, or type. Also see the{" "}
             <Link href="/glossary" className="font-medium text-ocean hover:underline">

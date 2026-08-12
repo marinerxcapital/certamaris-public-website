@@ -39,7 +39,7 @@ export default function WhyCertaMarisPage() {
       <Section>
         <Reveal className="mb-8 max-w-2xl">
           <Eyebrow>Operating model comparison</Eyebrow>
-          <h2 className="text-[28px] sm:text-[34px] leading-[1.14]">
+          <h2 className="section-h2 section-h2--lg">
             Where common approaches break — and what CertaMaris structures instead.
           </h2>
         </Reveal>

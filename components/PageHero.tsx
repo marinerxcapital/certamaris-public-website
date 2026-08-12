@@ -36,8 +36,8 @@ export function PageHero({
             <h1
               className={
                 elevated
-                  ? "text-[38px] sm:text-[52px] lg:text-[60px] leading-[1.0] tracking-[-0.015em] mb-5"
-                  : "text-[34px] sm:text-[44px] leading-[1.08] mb-4"
+                  ? "page-h1 page-h1--elevated mb-5"
+                  : "page-h1 mb-4"
               }
             >
               {title}

@@ -51,7 +51,7 @@ export default function SolutionsPage() {
         <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-12 items-start">
           <Reveal>
             <Eyebrow>Operating proof</Eyebrow>
-            <h2 className="text-[28px] sm:text-[34px] leading-[1.14] mb-5">
+            <h2 className="section-h2 section-h2--lg mb-5">
               Start with fleet scope. Follow the trail into evidence and readiness.
             </h2>
             <p className="text-[15.5px] text-structural leading-relaxed mb-6">
@@ -101,7 +101,7 @@ export default function SolutionsPage() {
       <Section surface="paper" spacing="compact">
         <Reveal className="mb-8 max-w-2xl">
           <Eyebrow>All solutions</Eyebrow>
-          <h2 className="text-[28px] sm:text-[34px] leading-[1.14]">Choose a workflow to inspect.</h2>
+          <h2 className="section-h2 section-h2--lg">Choose a workflow to inspect.</h2>
         </Reveal>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {solutionsPages.map((item, index) => (

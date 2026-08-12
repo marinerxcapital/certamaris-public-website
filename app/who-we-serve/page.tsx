@@ -40,7 +40,7 @@ export default function WhoWeServePage() {
       <Section>
         <Reveal className="mb-8 max-w-2xl">
           <Eyebrow>Roles</Eyebrow>
-          <h2 className="text-[28px] sm:text-[34px] leading-[1.14]">
+          <h2 className="section-h2 section-h2--lg">
             Built for the seats that carry the review record.
           </h2>
         </Reveal>

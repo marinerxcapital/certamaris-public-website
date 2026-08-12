@@ -34,7 +34,7 @@ export default function AboutPage() {
       <Section spacing="compact">
         <Reveal className="max-w-3xl">
           <Eyebrow>{aboutContent.whyExists.eyebrow}</Eyebrow>
-          <h2 className="text-[28px] sm:text-[34px] leading-[1.14] mb-5">{aboutContent.whyExists.title}</h2>
+          <h2 className="section-h2 section-h2--lg mb-5">{aboutContent.whyExists.title}</h2>
           <p className="text-[15.5px] text-structural leading-relaxed mb-4">{aboutContent.whyExists.body}</p>
           <p className="text-[15.5px] text-structural leading-relaxed">{aboutContent.mission}</p>
         </Reveal>
@@ -44,7 +44,7 @@ export default function AboutPage() {
       <Section surface="paper">
         <Reveal className="max-w-2xl mb-10">
           <Eyebrow>{aboutContent.operatingModel.eyebrow}</Eyebrow>
-          <h2 className="text-[28px] sm:text-[34px] leading-[1.14] mb-4">
+          <h2 className="section-h2 section-h2--lg mb-4">
             {aboutContent.operatingModel.title}
           </h2>
           <p className="text-[15.5px] text-structural leading-relaxed">{aboutContent.operatingModel.intro}</p>
@@ -68,7 +68,7 @@ export default function AboutPage() {
       <Section id="founder">
         <Reveal className="max-w-2xl mb-10">
           <Eyebrow>Leadership</Eyebrow>
-          <h2 className="text-[28px] sm:text-[34px] leading-[1.14] mb-4">Leadership</h2>
+          <h2 className="section-h2 section-h2--lg mb-4">Leadership</h2>
           <p className="text-[15.5px] text-structural leading-relaxed">
             CertaMaris is founder-led. Additional executive profiles will be published as roles and individuals are confirmed.
           </p>
@@ -80,7 +80,7 @@ export default function AboutPage() {
       <Section surface="paper">
         <Reveal className="max-w-2xl mb-12">
           <Eyebrow>Product philosophy</Eyebrow>
-          <h2 className="text-[28px] sm:text-[34px] leading-[1.14]">How CertaMaris is built to behave.</h2>
+          <h2 className="section-h2 section-h2--lg">How CertaMaris is built to behave.</h2>
         </Reveal>
         <RevealGroup className="grid sm:grid-cols-2 gap-5" stagger={0.06}>
           {aboutContent.philosophy.map((item) => (
@@ -97,7 +97,7 @@ export default function AboutPage() {
         <div className="grid lg:grid-cols-[0.85fr_1.15fr] gap-14 items-start">
           <Reveal>
             <Eyebrow>{aboutContent.doesNotReplace.eyebrow}</Eyebrow>
-            <h2 className="text-[28px] sm:text-[34px] leading-[1.14] mb-4">
+            <h2 className="section-h2 section-h2--lg mb-4">
               {aboutContent.doesNotReplace.title}
             </h2>
             <p className="text-[15px] text-structural leading-relaxed">{aboutContent.doesNotReplace.intro}</p>

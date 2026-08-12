@@ -45,7 +45,7 @@ export default function ImplementationPage() {
       <Section>
         <Reveal className="mb-10 max-w-2xl">
           <Eyebrow>Onboarding path</Eyebrow>
-          <h2 className="text-[28px] sm:text-[34px] leading-[1.14]">Seven practical steps.</h2>
+          <h2 className="section-h2 section-h2--lg">Seven practical steps.</h2>
         </Reveal>
         <ol className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           {implementationSteps.map((step) => (

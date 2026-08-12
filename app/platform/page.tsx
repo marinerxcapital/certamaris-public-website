@@ -155,7 +155,7 @@ export default function PlatformPage() {
       <Section id="operational-screens" spacing="compact">
         <Reveal className="max-w-2xl mb-10">
           <Eyebrow>Operating sequence</Eyebrow>
-          <h2 className="text-[28px] sm:text-[34px] leading-[1.14]">
+          <h2 className="section-h2 section-h2--lg">
             From coverage gaps to a reviewable readiness package.
           </h2>
         </Reveal>
@@ -169,7 +169,7 @@ export default function PlatformPage() {
       <Section surface="paper" spacing="compact">
         <Reveal className="max-w-2xl mb-10">
           <Eyebrow>Work products</Eyebrow>
-          <h2 className="text-[28px] sm:text-[34px] leading-[1.14]">
+          <h2 className="section-h2 section-h2--lg">
             Concrete artifacts the program produces.
           </h2>
         </Reveal>
@@ -191,7 +191,7 @@ export default function PlatformPage() {
       <Section spacing="compact" id="modules">
         <Reveal className="max-w-2xl mb-10">
           <Eyebrow>Product modules</Eyebrow>
-          <h2 className="text-[28px] sm:text-[34px] leading-[1.14]">Explore every platform surface.</h2>
+          <h2 className="section-h2 section-h2--lg">Explore every platform surface.</h2>
           <p className="mt-4 text-[15px] text-structural leading-relaxed">
             Maturity labels are honest: Current, Configurable, Planned, or Preview.
           </p>
@@ -220,7 +220,7 @@ export default function PlatformPage() {
       <Section surface="paper" spacing="compact">
         <Reveal className="max-w-2xl mb-10">
           <Eyebrow>Process</Eyebrow>
-          <h2 className="text-[28px] sm:text-[34px] leading-[1.14]">From scope to continuous readiness.</h2>
+          <h2 className="section-h2 section-h2--lg">From scope to continuous readiness.</h2>
         </Reveal>
         <Reveal delay={0.06}>
           <ProcessStepList steps={processSteps} />
