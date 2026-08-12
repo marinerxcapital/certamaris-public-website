@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Button } from "@/components/Button";
 import { CtaBand } from "@/components/CtaBand";
 import { FounderJsonLd } from "@/components/FounderJsonLd";
-import { FounderPortrait } from "@/components/FounderPortrait";
+import { LeadershipGrid } from "@/components/LeadershipGrid";
 import { PageHero } from "@/components/PageHero";
 import { Reveal, RevealGroup } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
@@ -14,12 +14,6 @@ import {
   SECONDARY_CTA_LABEL,
   SIGN_IN_LABEL,
 } from "@/lib/constants";
-import {
-  FOUNDER_CREDENTIALS,
-  FOUNDER_FULL_BIO,
-  FOUNDER_NAME,
-  FOUNDER_TITLE_LONG,
-} from "@/lib/founder";
 import { pageMetadata } from "@/lib/metadata";
 import { aboutContent } from "@/lib/trust-corporate";
 
@@ -30,8 +24,6 @@ export const metadata = pageMetadata(
 );
 
 export default function AboutPage() {
-  const bioParagraphs = FOUNDER_FULL_BIO.split("\n\n").filter(Boolean);
-
   return (
     <>
       <FounderJsonLd variant="about" />
@@ -72,50 +64,16 @@ export default function AboutPage() {
         </Reveal>
       </Section>
 
-      {/* 4. Founder */}
+      {/* 4. Leadership */}
       <Section id="founder">
-        <div className="grid lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.2fr)] gap-10 lg:gap-14 items-start">
-          <Reveal className="order-1 lg:order-1">
-            <div className="mx-auto w-full max-w-[22rem] lg:mx-0 lg:max-w-none">
-              <FounderPortrait
-                size="lg"
-                className="!w-full max-w-[22rem] shadow-[0_12px_40px_-20px_rgba(10,37,64,0.45)]"
-                sizes="(min-width: 1024px) 360px, (min-width: 640px) 320px, 85vw"
-              />
-            </div>
-          </Reveal>
-          <Reveal delay={0.05} className="order-2 lg:order-2">
-            <Eyebrow>Founder</Eyebrow>
-            <h2 className="text-[28px] sm:text-[34px] leading-[1.14] mb-2">{FOUNDER_NAME}</h2>
-            <p className="text-[15px] font-medium text-ocean mb-6">{FOUNDER_TITLE_LONG}</p>
-            <div className="space-y-4 mb-8">
-              {bioParagraphs.map((paragraph) => (
-                <p key={paragraph.slice(0, 48)} className="text-[15px] text-structural leading-relaxed">
-                  {paragraph}
-                </p>
-              ))}
-            </div>
-            <div>
-              <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-ocean mb-3">Credentials</p>
-              <ul className="flex flex-wrap gap-2">
-                {FOUNDER_CREDENTIALS.map((credential) => (
-                  <li
-                    key={credential}
-                    className="rounded-full border border-navy/15 bg-white/70 px-3.5 py-1.5 text-[13px] text-navy/85"
-                  >
-                    {credential}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <p className="mt-6 text-[13.5px] text-structural">
-              Full leadership page:{" "}
-              <Link href="/about/leadership" className="font-medium text-ocean hover:underline">
-                /about/leadership
-              </Link>
-            </p>
-          </Reveal>
-        </div>
+        <Reveal className="max-w-2xl mb-10">
+          <Eyebrow>Leadership</Eyebrow>
+          <h2 className="text-[28px] sm:text-[34px] leading-[1.14] mb-4">Leadership</h2>
+          <p className="text-[15.5px] text-structural leading-relaxed">
+            CertaMaris is founder-led. Additional executive profiles will be published as roles and individuals are confirmed.
+          </p>
+        </Reveal>
+        <LeadershipGrid />
       </Section>
 
       {/* 5. Product philosophy */}
