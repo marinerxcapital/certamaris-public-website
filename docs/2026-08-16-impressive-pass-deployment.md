@@ -72,23 +72,33 @@ npx wrangler deploy --config wrangler.jsonc --keep-vars
 
 ## 5. Validation (local, this session)
 
-Run and record results when committing:
+- `npm run typecheck` — PASS
+- `npm run build:static` — PASS (includes `/trust/assurance-model`)
+- `npm run qa` — PASS (0 failures)
+- `npm run ci:validate` — PASS
+- Sample-record QA with `?srqa=1` — PASS
 
-- `npm run typecheck`
-- `npm run build:static`
-- `npm run qa`
-- `npm run ci:validate`
-- Sample-record QA with `?srqa=1` (Chromium/Chrome)
+## 5b. Production verification (2026-08-16 post-deploy)
 
-Live QA checklist after main deploy:
+| Item | Value |
+|---|---|
+| Main tip | `3b30d14` |
+| Feature merge | `df5f174` (PR #6) |
+| CI deploy run | `31925758112` (success) |
+| Worker version | `4621aedc-0fca-4c5c-a20d-9e0a63e50fd2` |
 
-- [ ] `https://certamaris.com/` — brand hero + sample record + persona picker
-- [ ] `https://certamaris.com/demo#scrub-tour` — scrub/play
-- [ ] `https://certamaris.com/platform` — authored layout + custody strip
-- [ ] `https://certamaris.com/solutions` — custody strip
-- [ ] `https://certamaris.com/trust/assurance-model` — print leave-behind
-- [ ] `https://certamaris.com/contact` — still honest about delivery until secrets set
+Live HTTP marker checks (all 200):
 
+- `/` — brand-hero-mark, sample-record, Start as
+- `/demo` — scrub-tour, custody-strip
+- `/platform` — Operating beats, platform-hierarchy, custody-strip
+- `/solutions` — custody-strip
+- `/why-certamaris` — custody-strip
+- `/trust/assurance-model` — assurance-leavebehind, Leave-behind
+
+Note: edge cache (`s-maxage=300`) briefly served stale 404 for the new route after deploy; cleared within TTL.
+
+Contact secrets remain owner-blocked.
 ---
 
 ## 6. Future-agent instructions

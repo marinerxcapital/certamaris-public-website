@@ -3,8 +3,8 @@
 **Signed:** Cursor Cloud Agent (Composer) · **Date:** 2026-08-16  
 **Run:** https://cursor.com/agents/bc-01a0088b-afcf-732b-9a58-c0e555d9e469  
 **Owner:** Skyler Brown (`skyler@certamaris.com`)  
-**Live SoT repo:** `marinerxcapital/certamaris-public-website` · branch **`main`** · tip **`df5f174`**  
-**Production:** https://certamaris.com · Worker `certamaris-site`
+**Live SoT repo:** `marinerxcapital/certamaris-public-website` · branch **`main`** · tip **`3b30d14`** (feature content from **`df5f174`** + tip finalize)  
+**Production:** https://certamaris.com · Worker `certamaris-site` · Version ID **`4621aedc-0fca-4c5c-a20d-9e0a63e50fd2`** (CI deploy 2026-08-16)
 
 > Future agentic sessions: **read this file first**, then the latest dated deployment note under `docs/`, then `docs/CODEX_MARKETING_TAKEOVER.md`. Do not invent customers, metrics, certifications, compliance guarantees, or contact-forward secrets.
 
