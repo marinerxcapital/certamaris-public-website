@@ -17,7 +17,7 @@
 | **Authenticated app (separate)** | https://app.certamaris.com — do **not** merge into this repo |
 | **GitHub** | https://github.com/marinerxcapital/certamaris-public-website |
 | **Branch** | **`main` only** for production |
-| **Tip (2026-08-16)** | **`df5f174`** — PR #6 impressive pass on top of PR #5 (`660e5b4`) |
+| **Tip (2026-08-16)** | **`3b30d14`** — tip finalize on top of PR #6 `df5f174` / PR #5 `660e5b4` |
 | **Worker name** | `certamaris-site` |
 | **Worker config** | `wrangler.jsonc` · assets `./out` · entry `worker/index.ts` |
 | **Stack** | Next.js 16 App Router · static export · Cloudflare Worker |
