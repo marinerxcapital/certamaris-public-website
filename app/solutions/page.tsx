@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { BoundaryPanel } from "@/components/BoundaryPanel";
 import { Button } from "@/components/Button";
+import { CustodyStripBand } from "@/components/CustodyStripBand";
 import { PageHero } from "@/components/PageHero";
 import { ProductScreenFrame, ProductScreenTile } from "@/components/ProductScreens";
 import { Reveal } from "@/components/Reveal";
@@ -31,6 +32,8 @@ export default function SolutionsPage() {
         title="Concrete maritime workflows — from fleet scope to released readiness packages."
         intro="Twelve solutions describe how CertaMaris supports operators, DPAs, IT/OT teams, and leadership without claiming automatic compliance, class endorsement, or guaranteed survey outcomes."
       />
+
+      <CustodyStripBand href="/demo#scrub-tour" label="Scrub the product tour" />
 
       <nav aria-label="Jump to solution" className="jump-nav border-b" style={{ borderColor: "var(--hairline)" }}>
         <div className="shell py-4 flex flex-wrap gap-x-5 gap-y-2">

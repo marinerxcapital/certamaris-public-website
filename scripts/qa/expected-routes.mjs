@@ -80,6 +80,7 @@ export const CURRENT_STATIC_ROUTES = [
   "/security",
   "/trust",
   "/trust/procurement",
+  "/trust/assurance-model",
   "/trust/subprocessors",
   "/trust/responsible-disclosure",
   "/trust/status",

@@ -277,6 +277,11 @@ export const TRUST_CENTER_LINKS: { href: string; title: string; description: str
     description: "Request NDA materials, questionnaires, DPA/MSA discussion, and related documents.",
   },
   {
+    href: "/trust/assurance-model",
+    title: "Assurance model one-pager",
+    description: "Printable REQ→PKG operating model plus regulatory boundary for procurement forwarding.",
+  },
+  {
     href: "/accessibility",
     title: "Accessibility",
     description: "Public-site accessibility approach, limitations, and how to request materials.",

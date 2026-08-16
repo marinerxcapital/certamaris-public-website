@@ -7,16 +7,20 @@ built to stand on its own and to later link out to the authenticated
 CertaMaris application (being built separately in Lovable) through four
 clearly labeled integration points.
 
-## Production source of truth (2026-08-01)
+## Production source of truth (2026-08-16)
 
 | Item | Value |
 |---|---|
 | **This repo** | **Live SoT** for https://certamaris.com |
 | **Branch** | **`main`** only for production |
-| **Local path** | `C:\certamaris-startup-site-pnpm\certamaris-startup-site` |
 | **Worker** | Cloudflare `certamaris-site` (`wrangler.jsonc`) |
 | **App** | Separate: https://app.certamaris.com |
+| **Agent memory (START HERE)** | [`docs/AGENT_MEMORY.md`](docs/AGENT_MEMORY.md) |
 | **Codex handoff** | [`docs/CODEX_MARKETING_TAKEOVER.md`](docs/CODEX_MARKETING_TAKEOVER.md) |
+| **Latest deploy note** | [`docs/2026-08-16-impressive-pass-deployment.md`](docs/2026-08-16-impressive-pass-deployment.md) |
+| **Main tip after PR #5** | `660e5b4` (update after impressive-pass merge) |
+
+**Signed:** Cursor Cloud Agent · **Date:** 2026-08-16 (supersedes SuperGrok 2026-08-01 tip line)
 
 ### Not live (do not deploy marketing from these)
 
@@ -25,9 +29,7 @@ clearly labeled integration points.
 | Hub `01_product/marketing` | **STALE** |
 | Monorepo `apps/marketing` | Import/snapshot only until **owner cutover** |
 
-Canonical product monorepo (SPA/API, not live marketing): https://github.com/marinerxcapital/certamaris  
-
-**Signed:** SuperGrok · **Date:** 2026-08-01
+Canonical product monorepo (SPA/API, not live marketing): https://github.com/marinerxcapital/certamaris
 
 ---
 

@@ -160,6 +160,12 @@ export const procurementContent = {
   salesEmail: APP_SALES_EMAIL,
   materials: [
     {
+      title: "Assurance model one-pager",
+      body: "Public printable leave-behind: REQ→PKG operating chain plus regulatory boundary for legal/class/procurement forwarding.",
+      status: "current" as const,
+      href: "/trust/assurance-model",
+    },
+    {
       title: "NDA",
       body: "Mutual or inbound NDA discussion for procurement document exchange.",
       status: "available_under_nda" as const,

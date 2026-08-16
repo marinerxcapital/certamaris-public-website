@@ -15,8 +15,6 @@ export const metadata = pageMetadata(
 );
 
 export default function ProcurementPage() {
-  const ndaBadge = TRUST_STATUS_BADGE.available_under_nda;
-
   return (
     <>
       <PageHero
@@ -45,7 +43,10 @@ export default function ProcurementPage() {
           </p>
           <div className="flex flex-wrap gap-3 mb-4">
             <Button href={procurementContent.requestHref}>{procurementContent.requestLabel}</Button>
-            <Button href="/security" variant="secondary">
+            <Button href="/trust/assurance-model" variant="secondary">
+              Assurance model one-pager
+            </Button>
+            <Button href="/security" variant="ghost">
               Review public security controls
             </Button>
           </div>
@@ -98,15 +99,31 @@ export default function ProcurementPage() {
           </p>
         </Reveal>
         <RevealGroup className="grid sm:grid-cols-2 gap-4" stagger={0.04}>
-          {procurementContent.materials.map((item) => (
-            <div key={item.title} className="premium-card p-5 flex flex-col gap-3">
-              <div className="flex items-start justify-between gap-3">
-                <h3 className="text-[15.5px] font-semibold">{item.title}</h3>
-                <StatusBadge status={ndaBadge.badgeStatus} label={ndaBadge.label} />
+          {procurementContent.materials.map((item) => {
+            const badge = TRUST_STATUS_BADGE[item.status];
+            return (
+              <div key={item.title} className="premium-card flex flex-col gap-3 p-5">
+                <div className="flex items-start justify-between gap-3">
+                  <h3 className="text-[15.5px] font-semibold">
+                    {"href" in item && item.href ? (
+                      <a href={item.href} className="hover:text-ocean">
+                        {item.title}
+                      </a>
+                    ) : (
+                      item.title
+                    )}
+                  </h3>
+                  <StatusBadge status={badge.badgeStatus} label={badge.label} />
+                </div>
+                <p className="text-[14px] leading-relaxed text-structural">{item.body}</p>
+                {"href" in item && item.href ? (
+                  <a href={item.href} className="text-[13.5px] font-semibold text-ocean hover:underline">
+                    Open leave-behind
+                  </a>
+                ) : null}
               </div>
-              <p className="text-[14px] text-structural leading-relaxed">{item.body}</p>
-            </div>
-          ))}
+            );
+          })}
         </RevealGroup>
       </Section>
 

@@ -168,6 +168,7 @@ export const TRUST_LINKS: SiteLink[] = [
   { label: "Accessibility", href: "/accessibility" },
   { label: "System Status", href: "/trust/status" },
   { label: "Procurement", href: "/trust/procurement" },
+  { label: "Assurance Model", href: "/trust/assurance-model" },
 ];
 
 /* -------------------------------------------------------------------------- */
@@ -371,6 +372,7 @@ export const FOOTER_GROUPS: { title: string; links: [string, string][] }[] = [
       ["Responsible Disclosure", "/trust/responsible-disclosure"],
       ["Status", "/trust/status"],
       ["Procurement", "/trust/procurement"],
+      ["Assurance Model", "/trust/assurance-model"],
     ],
   },
 ];
