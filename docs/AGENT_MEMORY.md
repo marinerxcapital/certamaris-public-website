@@ -3,7 +3,7 @@
 **Signed:** Cursor Cloud Agent (Composer) · **Date:** 2026-08-16  
 **Run:** https://cursor.com/agents/bc-01a0088b-afcf-732b-9a58-c0e555d9e469  
 **Owner:** Skyler Brown (`skyler@certamaris.com`)  
-**Live SoT repo:** `marinerxcapital/certamaris-public-website` · branch **`main`**  
+**Live SoT repo:** `marinerxcapital/certamaris-public-website` · branch **`main`** · tip **`df5f174`**  
 **Production:** https://certamaris.com · Worker `certamaris-site`
 
 > Future agentic sessions: **read this file first**, then the latest dated deployment note under `docs/`, then `docs/CODEX_MARKETING_TAKEOVER.md`. Do not invent customers, metrics, certifications, compliance guarantees, or contact-forward secrets.
@@ -22,7 +22,7 @@
 | Persona-gated entry | `lib/personas.ts` + `PersonaEntry` — 4 roles; `sessionStorage` + `?persona=`; `?srqa=1` keeps QA deterministic |
 | CI audit fix | `overrides.nanoid` **3.3.17 → 3.3.18** (GHSA-2v37-7h3g-55p8) |
 
-### B. Impressive follow-on pass (this branch → merge to `main`)
+### B. Impressive follow-on pass (merged PR #6 → `df5f174` on `main`)
 
 | Item | Detail |
 |---|---|

@@ -18,7 +18,7 @@ clearly labeled integration points.
 | **Agent memory (START HERE)** | [`docs/AGENT_MEMORY.md`](docs/AGENT_MEMORY.md) |
 | **Codex handoff** | [`docs/CODEX_MARKETING_TAKEOVER.md`](docs/CODEX_MARKETING_TAKEOVER.md) |
 | **Latest deploy note** | [`docs/2026-08-16-impressive-pass-deployment.md`](docs/2026-08-16-impressive-pass-deployment.md) |
-| **Main tip after PR #5** | `660e5b4` (update after impressive-pass merge) |
+| **Main tip** | `df5f174` — impressive pass #6 (leave-behind, platform, custody, memory) |
 
 **Signed:** Cursor Cloud Agent · **Date:** 2026-08-16 (supersedes SuperGrok 2026-08-01 tip line)
 
