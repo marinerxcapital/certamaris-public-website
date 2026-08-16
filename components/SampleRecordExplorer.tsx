@@ -23,13 +23,33 @@ const cardMotion = {
   transition: { duration: 0.22, ease: [0.16, 1, 0.3, 1] as const },
 };
 
-export function SampleRecordExplorer() {
-  const [activeId, setActiveId] = useState(SAMPLE_RECORD[0].id);
+type SampleRecordExplorerProps = {
+  /** Open this sample object first (must exist in SAMPLE_RECORD). */
+  initialId?: string;
+  /** Optional class on the outer liquid-glass shell. */
+  className?: string;
+};
+
+function resolveInitialId(initialId?: string) {
+  if (initialId && SAMPLE_RECORD.some((record) => record.id === initialId)) {
+    return initialId;
+  }
+  return SAMPLE_RECORD[0].id;
+}
+
+export function SampleRecordExplorer({ initialId, className = "" }: SampleRecordExplorerProps) {
+  const [activeId, setActiveId] = useState(() => resolveInitialId(initialId));
   const [interacted, setInteracted] = useState(false);
   const reduced = usePrefersReducedMotion();
   const baseId = useId();
   /** Set by linked-record clicks; consumed once by the next RecordCard mount. */
   const flightRef = useRef<CustodyFlight | null>(null);
+
+  useEffect(() => {
+    const next = resolveInitialId(initialId);
+    setActiveId(next);
+    setInteracted(false);
+  }, [initialId]);
 
   const activeIndex = Math.max(
     0,
@@ -61,7 +81,7 @@ export function SampleRecordExplorer() {
   const card = <RecordCard record={active} onJump={jumpTo} flightRef={flightRef} reduced={reduced} />;
 
   return (
-    <div className="sample-record liquid-glass liquid-glass--strong lg-pad-md">
+    <div className={`sample-record liquid-glass liquid-glass--strong lg-pad-md ${className}`.trim()}>
       <p className="mb-4 flex flex-wrap items-center gap-x-3 gap-y-1 border-b border-navy/10 pb-3">
         <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-[#0e5a8a]">
           Sample record · MV Certa Maris
