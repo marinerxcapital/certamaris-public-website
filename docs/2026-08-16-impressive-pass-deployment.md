@@ -34,6 +34,7 @@ Production deploy job on PRs is skipped (main-only). Confirm Worker tip after th
 |---|---|
 | Branch | `cursor/impressive-pass-memory-main-e469` |
 | Base | `main` @ `660e5b4` |
+| **Merged to main** | **`df5f174`** (PR #6 squash) |
 | Intent | Leave-behind + authored platform + custody strips + memory docs + contact blocker registration |
 
 ### Files / surfaces
