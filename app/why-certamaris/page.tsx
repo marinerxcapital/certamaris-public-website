@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { BoundaryPanel } from "@/components/BoundaryPanel";
 import { Button } from "@/components/Button";
+import { CustodyStripBand } from "@/components/CustodyStripBand";
 import { EvidenceChain } from "@/components/EvidenceChain";
 import { PageHero } from "@/components/PageHero";
 import { Reveal } from "@/components/Reveal";
@@ -35,6 +36,8 @@ export default function WhyCertaMarisPage() {
         title="Maritime-native assurance — not another spreadsheet or generic GRC shell."
         intro="CertaMaris is built for company, fleet, and vessel cyber compliance work: evidence-first, role-scoped, and explicit about what software can and cannot decide."
       />
+
+      <CustodyStripBand href="/trust/assurance-model" label="Printable assurance model" />
 
       <Section>
         <Reveal className="mb-8 max-w-2xl">

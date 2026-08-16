@@ -1,8 +1,8 @@
 import { BoundaryPanel } from "@/components/BoundaryPanel";
 import { Button } from "@/components/Button";
+import { CustodyStripBand } from "@/components/CustodyStripBand";
 import { DemoScrubTour } from "@/components/DemoScrubTour";
 import { DemoTourGallery } from "@/components/DemoTourGallery";
-import { EvidenceChain } from "@/components/EvidenceChain";
 import { PageHero } from "@/components/PageHero";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
@@ -25,6 +25,8 @@ export default function DemoPage() {
         intro="A cinematic tour of sanitized product captures along the real chain of custody. Not live customer data, certifications, or outcome guarantees — sales-assisted access for a live demonstration."
       />
 
+      <CustodyStripBand href="/#evidence-chain" label="Homepage chain of custody" />
+
       <Section id="scrub-tour" spacing="compact" surface="paper">
         <Reveal className="mb-8 max-w-2xl">
           <Eyebrow>Cinematic tour</Eyebrow>
@@ -35,9 +37,6 @@ export default function DemoPage() {
           </p>
         </Reveal>
         <DemoScrubTour />
-        <div className="mt-8">
-          <EvidenceChain variant="strip" />
-        </div>
       </Section>
 
       <Section spacing="compact">
