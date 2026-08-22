@@ -150,6 +150,11 @@ export function PersonaPicker({
           );
         })}
       </div>
+      {!selectedId ? (
+        <p className="mt-3 text-[13px] leading-6 text-structural">
+          Pick a role to adjust the sample record and product tour around the review pressure you carry.
+        </p>
+      ) : null}
       {selectedId ? (
         <p className="mt-3 text-[13px] text-structural">
           <Link

@@ -1,9 +1,17 @@
 "use client";
 
+import Link from "next/link";
+
 import { Button } from "@/components/Button";
 import { PersonaPicker, personaHomeCopy, usePersonaSelection } from "@/components/PersonaEntry";
 import { SampleRecordExplorer } from "@/components/SampleRecordExplorer";
 import { DEMO_TOUR_HREF, PRIMARY_CTA_HREF } from "@/lib/constants";
+
+const buyerPaths = [
+  { href: "#sample-record", title: "Inspect proof", label: "See one vessel record" },
+  { href: "/pricing", title: "Compare packages", label: "Map trial to fleet rollout" },
+  { href: "#buyer-diligence", title: "Diligence faster", label: "Open trust, legal, AI, procurement" },
+];
 
 /**
  * Compressed homepage hero: brand-first copy, persona gate, and the
@@ -37,6 +45,18 @@ export function HomeHero() {
             <Button href={demoHref} variant="secondary" className="w-full sm:w-auto">
               Scrub the product tour
             </Button>
+          </div>
+          <div className="mx-auto mt-5 grid max-w-3xl gap-2 text-left sm:grid-cols-3">
+            {buyerPaths.map((path) => (
+              <Link
+                key={path.href}
+                href={path.href}
+                className="rounded-md border border-navy/10 bg-white/70 px-4 py-3 transition hover:border-ocean/30 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ocean focus-visible:ring-offset-2"
+              >
+                <span className="block text-[13px] font-semibold text-navy">{path.title}</span>
+                <span className="mt-1 block text-[12px] leading-5 text-structural">{path.label}</span>
+              </Link>
+            ))}
           </div>
           <p className="mx-auto mt-5 max-w-xl text-[13px] leading-relaxed text-navy/70">
             Workflow scope includes work aligned to IMO MSC.428(98) and IACS UR E26/E27. Official texts

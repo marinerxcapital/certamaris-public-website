@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { BoundaryPanel } from "@/components/BoundaryPanel";
+import { BuyerDiligencePacket } from "@/components/BuyerDiligencePacket";
 import { CtaBand } from "@/components/CtaBand";
 import { PageHero } from "@/components/PageHero";
 import { Reveal, RevealGroup } from "@/components/Reveal";
@@ -36,6 +37,12 @@ export default function TrustCenterPage() {
         title={trustCenterOverview.title}
         intro={trustCenterOverview.intro}
       />
+
+      <Section spacing="compact">
+        <Reveal>
+          <BuyerDiligencePacket compact />
+        </Reveal>
+      </Section>
 
       <Section spacing="compact">
         <Reveal className="max-w-3xl">

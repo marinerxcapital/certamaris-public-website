@@ -19,6 +19,7 @@ const steps = [
   { name: "contact and Worker tests", file: "check-worker.mjs", argv: [] },
   { name: "content-qa", file: "content-qa.mjs", argv: [] },
   { name: "product-proof integrity", file: "check-product-proof.mjs", argv: [] },
+  { name: "buyer-path integrity", file: "check-buyer-paths.mjs", argv: [], needsOut: true },
   {
     name: "check-routes (out)",
     file: "check-routes.mjs",
