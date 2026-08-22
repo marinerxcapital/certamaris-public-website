@@ -3,8 +3,8 @@
 **Signed:** Cursor Cloud Agent (Composer) · **Date:** 2026-08-16  
 **Run:** https://cursor.com/agents/bc-01a0088b-afcf-732b-9a58-c0e555d9e469  
 **Owner:** Skyler Brown (`skyler@certamaris.com`)  
-**Live SoT repo:** `marinerxcapital/certamaris-public-website` · branch **`main`** · tip **`3b30d14`** (feature content from **`df5f174`** + tip finalize)  
-**Production:** https://certamaris.com · Worker `certamaris-site` · Version ID **`4621aedc-0fca-4c5c-a20d-9e0a63e50fd2`** (CI deploy 2026-08-16)
+**Live SoT repo:** `marinerxcapital/certamaris-public-website` · branch **`main`** · tip **`190533a`** (link-preview branding fix, PR #9; prior feature content from **`df5f174`**)
+**Production:** https://certamaris.com · Worker `certamaris-site` · latest verified CI deploy run **`32539507125`** (2026-08-21)
 
 > Future agentic sessions: **read this file first**, then the latest dated deployment note under `docs/`, then `docs/CODEX_MARKETING_TAKEOVER.md`. Do not invent customers, metrics, certifications, compliance guarantees, or contact-forward secrets.
 
@@ -44,6 +44,7 @@
 6. **Marketing vs app:** `certamaris.com` ≠ `app.certamaris.com` — never rebind.
 7. **Deploy:** `npm run build:static` then `npx wrangler deploy --config wrangler.jsonc --keep-vars`.
 8. **Reduced motion:** never animate from opacity 0; use `usePrefersReducedMotion()` from `lib/`, not framer’s hook alone.
+9. **Root link preview:** active metadata must use `/og/certamaris-link-preview-2026-08-v2.png`; do not restore `/og/certamaris-og.jpg` to `og:image` or `twitter:image`.
 
 ---
 
@@ -61,6 +62,7 @@
 | Assurance leave-behind | `app/trust/assurance-model/page.tsx`, `components/PrintButton.tsx` |
 | Contact Worker | `worker/index.ts` (`CONTACT_FORWARD_ENDPOINT` + `CONTACT_FORWARD_SECRET`) |
 | Route QA inventory | `scripts/qa/expected-routes.mjs` |
+| Link-preview QA | `scripts/qa/check-link-preview.mjs` |
 | Design tokens | `app/globals.css`, `tailwind.config.ts` |
 
 ---
@@ -94,7 +96,9 @@ CHROMIUM_PATH=/usr/local/bin/google-chrome node scripts/qa/check-sample-record.m
 | Doc | Purpose |
 |---|---|
 | `docs/2026-08-16-impressive-pass-deployment.md` | Full deployment / merge record for this pass |
+| `docs/2026-08-21-link-preview-branding-deployment.md` | Link-preview branding fix and production verification |
 | `docs/implementation/impressive-pass-20260816/` | Implementation folder (README, CHANGES, CONTACT) |
+| `docs/implementation/link-preview-branding-20260821/` | Implementation record for OG/Twitter preview remediation |
 | `docs/CODEX_MARKETING_TAKEOVER.md` | Codex/agent takeover (updated tip + features) |
 | `docs/2026-08-12-truth-reconciliation-deployment.md` | Prior truth/polish deploy |
 | `design/redesign-plan.md` | Design SoT + owner deviations (Pixel Grid) |

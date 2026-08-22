@@ -151,7 +151,7 @@ Mark **ADD** only when page actually ships. Do not claim live until deploy smoke
 |---|---|---|
 | Product PNGs/WebPs | `public/product/**` | `docs/product-screenshot-governance.md` |
 | Brand | `public/brand/**` | Preserve lockups |
-| OG | `public/og/certamaris-og.jpg` | Keep dimensions 1200×630 |
+| OG | `public/og/certamaris-og.jpg` | Historical only as of 2026-08-21; active metadata uses `public/og/certamaris-link-preview-2026-08-v2.png` at 1200×630 |
 
 **Post-remediation product hierarchy file(s):** `lib/product-hierarchy.ts` (Agent 3) — fill when created.
 
@@ -221,7 +221,7 @@ Review date constant: `SECURITY_TRUST_LAST_REVIEWED = 2026-07-30` — update whe
 | Per-page metadata | `lib/metadata.ts` `pageMetadata()` | Extend for new routes |
 | Sitemap | `app/sitemap.ts` | Add new routes + articles |
 | Robots | `app/robots.ts` | Confirm allow/disallow |
-| OG image | `/og/certamaris-og.jpg` | Keep or refresh |
+| OG image | `/og/certamaris-og.jpg` | Superseded 2026-08-21; active root metadata must use `/og/certamaris-link-preview-2026-08-v2.png` |
 | Title template | `%s — CertaMaris` | Keep |
 
 ### Target keyword themes (Agent 5 finalizes)

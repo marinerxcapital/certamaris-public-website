@@ -1,11 +1,11 @@
 # CODEX TAKEOVER — CertaMaris Marketing Website
 
 **Prepared:** 2026-08-01 · SuperGrok  
-**Updated:** 2026-08-16 · Cursor Cloud Agent (Composer)  
+**Updated:** 2026-08-21 · Codex
 **Audience:** Codex / Cursor / any successor agent  
 **Status:** Live production site organized; **this repo is the only deploy SoT**
 
-> **START HERE for new sessions:** [`docs/AGENT_MEMORY.md`](./AGENT_MEMORY.md) (signed 2026-08-16), then this file, then the latest `docs/2026-08-*-deployment.md`.
+> **START HERE for new sessions:** [`docs/AGENT_MEMORY.md`](./AGENT_MEMORY.md), then this file, then the latest `docs/2026-08-*-deployment.md`.
 
 ---
 
@@ -17,7 +17,7 @@
 | **Authenticated app (separate)** | https://app.certamaris.com — do **not** merge into this repo |
 | **GitHub** | https://github.com/marinerxcapital/certamaris-public-website |
 | **Branch** | **`main` only** for production |
-| **Tip (2026-08-16)** | **`3b30d14`** — tip finalize on top of PR #6 `df5f174` / PR #5 `660e5b4` |
+| **Tip (2026-08-21)** | **`190533a`** - PR #9 link-preview branding fix; prior PR #6 `df5f174` / PR #5 `660e5b4` |
 | **Worker name** | `certamaris-site` |
 | **Worker config** | `wrangler.jsonc` · assets `./out` · entry `worker/index.ts` |
 | **Stack** | Next.js 16 App Router · static export · Cloudflare Worker |
@@ -48,6 +48,13 @@
 2. **Authored `/platform`** (custody strip, hierarchy spine, four beats)
 3. **`CustodyStripBand`** on platform / solutions / demo / why-certamaris
 4. Memory package: `docs/AGENT_MEMORY.md` + `docs/2026-08-16-impressive-pass-deployment.md` + `docs/implementation/impressive-pass-20260816/`
+
+### Link-preview branding fix (2026-08-21)
+
+1. Root-domain Open Graph/Twitter metadata now uses `/og/certamaris-link-preview-2026-08-v2.png`.
+2. The old `/og/certamaris-og.jpg` asset is historical-only and must not be restored as active `og:image` or `twitter:image`.
+3. Regression check: `npm run qa:link-preview`.
+4. Deployment record: `docs/2026-08-21-link-preview-branding-deployment.md`.
 
 ---
 

@@ -114,7 +114,7 @@ All returned `200`:
 - `/favicon.ico`
 - `/apple-icon.png`
 - `/icon.png`
-- `/og/certamaris-og.jpg`
+- `/og/certamaris-og.jpg` (superseded 2026-08-21 by `/og/certamaris-link-preview-2026-08-v2.png` for active link-preview metadata)
 - `/brand/certamaris-full.png`
 - `/api/status`
 
