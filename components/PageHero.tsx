@@ -28,7 +28,7 @@ export function PageHero({
       className="page-hero-section page-hero-polished relative overflow-visible border-b"
       style={{ borderColor: "var(--hairline)" }}
     >
-      <div className={`shell relative z-10 ${elevated ? "py-20 sm:py-24" : "py-16 sm:py-20"}`}>
+      <div className={`shell relative z-10 ${elevated ? "py-16 sm:py-20" : "py-14 sm:py-16"}`}>
         <div className={aside ? "grid lg:grid-cols-[1fr_auto] gap-10 items-end" : undefined}>
           <div className="liquid-glass liquid-glass--strong lg-pad-lg max-w-2xl">
             <LedgerRoute />

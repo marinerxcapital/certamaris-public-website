@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { BoundaryPanel } from "@/components/BoundaryPanel";
 import { Button } from "@/components/Button";
+import { BuyerDiligencePacket } from "@/components/BuyerDiligencePacket";
 import { ContactForm } from "@/components/ContactForm";
 import { PageHero } from "@/components/PageHero";
 import { Reveal } from "@/components/Reveal";
@@ -65,6 +66,12 @@ export default function ContactPage() {
             </a>
           ))}
         </div>
+      </Section>
+
+      <Section spacing="compact">
+        <Reveal>
+          <BuyerDiligencePacket compact />
+        </Reveal>
       </Section>
 
       <Section>

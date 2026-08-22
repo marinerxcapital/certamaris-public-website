@@ -17,6 +17,7 @@
 | **Authenticated app (separate)** | https://app.certamaris.com — do **not** merge into this repo |
 | **GitHub** | https://github.com/marinerxcapital/certamaris-public-website |
 | **Branch** | **`main` only** for production |
+| **Latest UX pass (2026-08-22)** | Branch `codex/conversion-trust-ux-20260822`; deployment note `docs/2026-08-22-conversion-trust-ux-deployment.md` |
 | **Link-preview code commit (2026-08-21)** | **`190533a`** - PR #9 link-preview branding fix; prior PR #6 `df5f174` / PR #5 `660e5b4` |
 | **Worker name** | `certamaris-site` |
 | **Worker config** | `wrangler.jsonc` · assets `./out` · entry `worker/index.ts` |
@@ -55,6 +56,14 @@
 2. The old `/og/certamaris-og.jpg` asset is historical-only and must not be restored as active `og:image` or `twitter:image`.
 3. Regression check: `npm run qa:link-preview`.
 4. Deployment record: `docs/2026-08-21-link-preview-branding-deployment.md`.
+
+### Conversion, trust, and buyer-path UX pass (2026-08-22)
+
+1. `components/BuyerDiligencePacket.tsx` packages pricing, Trust Center, assurance model, procurement, AI/data policy, legal status, and contact intent paths.
+2. Homepage hero exposes proof, pricing, and diligence next actions above the fold.
+3. Pricing, Trust, and Contact include the shared diligence packet; Pricing has a compact hero buyer path.
+4. Mobile nav drawer opacity was increased so Pixel Grid/hero text does not bleed through the sheet.
+5. Regression check: `npm run qa:buyer-paths`, also included in `npm run qa`.
 
 ---
 
@@ -101,6 +110,7 @@ Never re-bind `app.certamaris.com` to `certamaris-site`.
 | Assurance leave-behind | `app/trust/assurance-model/page.tsx` |
 | Founder | `lib/founder.ts`, `components/FounderPortrait.tsx` |
 | Contact form | `components/ContactForm.tsx` |
+| Buyer diligence packet | `components/BuyerDiligencePacket.tsx` |
 | Worker contact + redirects | `worker/index.ts` |
 | Pixel Grid | `components/PixelGridBackground.tsx` |
 | Design tokens | `app/globals.css` |
@@ -150,7 +160,7 @@ Fallback addresses: `skyler@certamaris.com`, `sales@certamaris.com`.
 
 1. `git checkout main && git pull origin main`  
 2. Read **`docs/AGENT_MEMORY.md`** then this file  
-3. `npm run typecheck && npm run qa` (after `build:static` if needed)  
+3. `npm run typecheck && npm run qa` (after `build:static` if needed; includes buyer-path QA)
 4. Confirm https://certamaris.com 200  
 5. Only then edit — feature branch `cursor/<name>-e469` unless owner says push main  
 6. Deploy only via `build:static` + `wrangler deploy --keep-vars` or CI on main  

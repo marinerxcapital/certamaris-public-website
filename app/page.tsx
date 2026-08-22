@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/Button";
+import { BuyerDiligencePacket } from "@/components/BuyerDiligencePacket";
 import { EvidenceChain } from "@/components/EvidenceChain";
 import { FounderPortrait } from "@/components/FounderPortrait";
 import { HomeHero } from "@/components/HomeHero";
@@ -105,6 +106,12 @@ export default function HomePage() {
           </p>
         </Reveal>
         <HomepageProductShowcase steps={showcaseSteps} />
+      </Section>
+
+      <Section id="buyer-diligence" spacing="compact">
+        <Reveal>
+          <BuyerDiligencePacket />
+        </Reveal>
       </Section>
 
       <Section spacing="compact">

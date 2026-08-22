@@ -17,7 +17,7 @@ clearly labeled integration points.
 | **App** | Separate: https://app.certamaris.com |
 | **Agent memory (START HERE)** | [`docs/AGENT_MEMORY.md`](docs/AGENT_MEMORY.md) |
 | **Codex handoff** | [`docs/CODEX_MARKETING_TAKEOVER.md`](docs/CODEX_MARKETING_TAKEOVER.md) |
-| **Latest deploy note** | [`docs/2026-08-21-link-preview-branding-deployment.md`](docs/2026-08-21-link-preview-branding-deployment.md) |
+| **Latest deploy note** | [`docs/2026-08-22-conversion-trust-ux-deployment.md`](docs/2026-08-22-conversion-trust-ux-deployment.md) |
 | **Link-preview code commit** | `190533a` - link-preview branding fix (PR #9); prior feature content `df5f174` (PR #6) |
 
 **Signed:** Cursor Cloud Agent · **Date:** 2026-08-16 (supersedes SuperGrok 2026-08-01 tip line)
@@ -67,6 +67,7 @@ npm run typecheck   # tsc --noEmit
 npm run build       # production build (Node/server target)
 npm run build:static # static export build (writes to /out)
 npm run start        # serve the production build locally
+npm run qa:buyer-paths # static-export guard for the buyer diligence path
 ```
 
 ---

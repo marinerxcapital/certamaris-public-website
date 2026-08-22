@@ -1,5 +1,6 @@
 import { BoundaryPanel } from "@/components/BoundaryPanel";
 import { Button } from "@/components/Button";
+import { BuyerDiligencePacket } from "@/components/BuyerDiligencePacket";
 import { PackageRecommender } from "@/components/PackageRecommender";
 import { PageHero } from "@/components/PageHero";
 import { Reveal } from "@/components/Reveal";
@@ -118,9 +119,27 @@ export default function PricingPage() {
         eyebrow="Pricing"
         title="Annual platform pricing, published."
         intro="CertaMaris pricing is a hybrid annual model: a platform fee plus contracted-vessel licensing, with separately priced assurance engagements. Vessel count is the recurring value metric — there is no per-seat charge."
+        aside={
+          <div className="liquid-glass liquid-glass--subtle lg-pad-md w-full max-w-sm">
+            <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-[#0e5a8a]">
+              Buyer path
+            </p>
+            <div className="mt-4 grid gap-3 text-[14px]">
+              <a href="#package-comparison" className="font-semibold text-navy hover:text-ocean hover:underline">
+                Compare package detail
+              </a>
+              <a href="/trust/procurement" className="font-semibold text-navy hover:text-ocean hover:underline">
+                Review procurement packet
+              </a>
+              <a href="/contact?intent=procurement" className="font-semibold text-navy hover:text-ocean hover:underline">
+                Start a procurement request
+              </a>
+            </div>
+          </div>
+        }
       />
 
-      <Section>
+      <Section spacing="compact">
         <Reveal className="max-w-2xl mb-10">
           <p className="text-[13px] font-mono text-structural mb-6">Last reviewed: {reviewedLabel}</p>
           <Eyebrow>Package shapes</Eyebrow>
@@ -166,6 +185,12 @@ export default function PricingPage() {
             The tier above sets the annual platform fee and per-vessel license. Assurance engagements are priced
             separately — see the published anchors below.
           </p>
+        </Reveal>
+      </Section>
+
+      <Section spacing="compact">
+        <Reveal>
+          <BuyerDiligencePacket compact />
         </Reveal>
       </Section>
 

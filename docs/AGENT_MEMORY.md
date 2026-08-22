@@ -3,7 +3,7 @@
 **Signed:** Cursor Cloud Agent (Composer) · **Date:** 2026-08-16  
 **Run:** https://cursor.com/agents/bc-01a0088b-afcf-732b-9a58-c0e555d9e469  
 **Owner:** Skyler Brown (`skyler@certamaris.com`)  
-**Live SoT repo:** `marinerxcapital/certamaris-public-website` · branch **`main`** · link-preview code commit **`190533a`** (PR #9; prior feature content from **`df5f174`**)
+**Live SoT repo:** `marinerxcapital/certamaris-public-website` · branch **`main`** · latest UX branch **`codex/conversion-trust-ux-20260822`**; link-preview code commit **`190533a`** (PR #9; prior feature content from **`df5f174`**)
 **Production:** https://certamaris.com · Worker `certamaris-site` · link-preview code deploy run **`32539507125`** (2026-08-21); records closeout PR #10 followed on `main`
 
 > Future agentic sessions: **read this file first**, then the latest dated deployment note under `docs/`, then `docs/CODEX_MARKETING_TAKEOVER.md`. Do not invent customers, metrics, certifications, compliance guarantees, or contact-forward secrets.
@@ -11,6 +11,17 @@
 ---
 
 ## 1. What shipped 2026-08-16 (this session)
+
+### 2026-08-22 conversion / trust / visual UX pass
+
+| Item | Detail |
+|---|---|
+| Buyer diligence packet | `components/BuyerDiligencePacket.tsx` links pricing, Trust Center, assurance model, procurement, AI/data policy, legal status, and contact intents |
+| Homepage routing | Above-fold quick path: inspect proof, compare packages, open diligence |
+| Pricing / Trust / Contact | Shared diligence packet added; Pricing hero includes comparison/procurement/contact aside |
+| Mobile nav | Drawer made more opaque over Pixel Grid hero to prevent background text bleed-through |
+| Regression QA | `scripts/qa/check-buyer-paths.mjs`; run with `npm run qa:buyer-paths` and included in `npm run qa` |
+| Evidence | `docs/implementation/conversion-trust-ux-20260822/` |
 
 ### A. Homepage + demo + persona (merged as PR #5 → `660e5b4`)
 
@@ -63,6 +74,7 @@
 | Contact Worker | `worker/index.ts` (`CONTACT_FORWARD_ENDPOINT` + `CONTACT_FORWARD_SECRET`) |
 | Route QA inventory | `scripts/qa/expected-routes.mjs` |
 | Link-preview QA | `scripts/qa/check-link-preview.mjs` |
+| Buyer-path QA | `scripts/qa/check-buyer-paths.mjs` |
 | Design tokens | `app/globals.css`, `tailwind.config.ts` |
 
 ---
@@ -97,8 +109,10 @@ CHROMIUM_PATH=/usr/local/bin/google-chrome node scripts/qa/check-sample-record.m
 |---|---|
 | `docs/2026-08-16-impressive-pass-deployment.md` | Full deployment / merge record for this pass |
 | `docs/2026-08-21-link-preview-branding-deployment.md` | Link-preview branding fix and production verification |
+| `docs/2026-08-22-conversion-trust-ux-deployment.md` | Conversion, trust packaging, buyer-path, and mobile-nav UX pass |
 | `docs/implementation/impressive-pass-20260816/` | Implementation folder (README, CHANGES, CONTACT) |
 | `docs/implementation/link-preview-branding-20260821/` | Implementation record for OG/Twitter preview remediation |
+| `docs/implementation/conversion-trust-ux-20260822/` | Screenshot-backed implementation record for the buyer-path UX pass |
 | `docs/CODEX_MARKETING_TAKEOVER.md` | Codex/agent takeover (updated tip + features) |
 | `docs/2026-08-12-truth-reconciliation-deployment.md` | Prior truth/polish deploy |
 | `design/redesign-plan.md` | Design SoT + owner deviations (Pixel Grid) |
