@@ -35,6 +35,13 @@ const expectations = [
   },
 ];
 
+const requestChecklist = [
+  "Fleet size and vessel types in scope",
+  "Primary pressure: demo, readiness, procurement, security, support, or disclosure",
+  "Current evidence condition and target planning horizon",
+  "Documents needed, if this is a procurement or security request",
+];
+
 export default function ContactPage() {
   const hasScheduling = Boolean(APP_SCHEDULING_URL.trim());
 
@@ -85,6 +92,19 @@ export default function ContactPage() {
                   <p className="text-[14px] text-structural leading-relaxed">{item.body}</p>
                 </div>
               ))}
+            </div>
+            <div className="mt-8 rounded-md border border-ocean/15 bg-ocean/5 p-5">
+              <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-ocean">
+                Fastest useful request
+              </p>
+              <ul className="mt-3 space-y-2">
+                {requestChecklist.map((item) => (
+                  <li key={item} className="flex gap-2.5 text-[13.5px] leading-6 text-structural">
+                    <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-ocean" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
             </div>
             <div className="mt-8 pt-6 border-t space-y-4" style={{ borderColor: "var(--hairline)" }}>
               <div>

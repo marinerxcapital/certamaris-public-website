@@ -563,7 +563,7 @@ body {
 }
 
 .page-hero-polished {
-  min-height: clamp(320px, 42vh, 520px);
+  min-height: clamp(280px, 36vh, 460px);
 }
 
 .page-hero-polished::after {
@@ -940,6 +940,10 @@ figure.product-showcase-frame > div:first-child {
 
 @media (max-width: 767px) {
   .hero-section {
+    min-height: auto;
+  }
+
+  .page-hero-polished {
     min-height: auto;
   }
 }
@@ -1416,6 +1420,21 @@ figure.product-showcase-frame > div:first-child {
 
 .hero-brand-block .hero-display {
   font-size: clamp(2rem, 4vw, 3.15rem);
+}
+
+@media (max-width: 640px) {
+  .hero-brand-block .hero-display {
+    font-size: clamp(1.9rem, 8.4vw, 2.35rem);
+    line-height: 1.05;
+  }
+
+  .brand-hero-mark {
+    font-size: 1.75rem;
+  }
+
+  .persona-picker {
+    padding: 12px;
+  }
 }
 
 .hero-sample-plane {
