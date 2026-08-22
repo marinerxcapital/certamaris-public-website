@@ -109,7 +109,7 @@ export const CURRENT_RESOURCE_ROUTES = [
 export const CURRENT_ASSET_ROUTES = [
   "/robots.txt",
   "/sitemap.xml",
-  "/og/certamaris-og.jpg",
+  "/og/certamaris-link-preview-2026-08-v2.png",
   "/brand/certamaris-full.png",
 ];
 

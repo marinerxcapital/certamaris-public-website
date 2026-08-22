@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { SITE_NAME, SITE_URL } from "@/lib/constants";
+import { SITE_NAME, SITE_URL, SOCIAL_PREVIEW_IMAGE_URL } from "@/lib/constants";
 
 export type PageMetadataOptions = {
   /** Override Open Graph type (default website; use article for resources). */
@@ -30,10 +30,11 @@ export function pageMetadata(
   options: PageMetadataOptions = {}
 ): Metadata {
   const normalizedPath = path.startsWith("/") ? path : `/${path}`;
-  const url = `${SITE_URL}${normalizedPath === "/" ? "" : normalizedPath}`;
+  const url = `${SITE_URL}${normalizedPath === "/" ? "/" : normalizedPath}`;
   const brandedTitle = `${title} — ${SITE_NAME}`;
-  const image = options.image ?? "/og/certamaris-og.jpg";
+  const image = options.image ?? SOCIAL_PREVIEW_IMAGE_URL;
   const ogType = options.ogType ?? "website";
+  const imageUrl = image.startsWith("http://") || image.startsWith("https://") ? image : `${SITE_URL}${image}`;
 
   const openGraph =
     ogType === "article"
@@ -43,7 +44,7 @@ export function pageMetadata(
           url,
           siteName: SITE_NAME,
           type: "article" as const,
-          images: [{ url: image, width: 1200, height: 630, alt: SITE_NAME }],
+          images: [{ url: imageUrl, secureUrl: imageUrl, type: "image/png", width: 1200, height: 630, alt: SITE_NAME }],
           ...(options.publishedTime ? { publishedTime: options.publishedTime } : {}),
           ...(options.modifiedTime ? { modifiedTime: options.modifiedTime } : {}),
         }
@@ -53,7 +54,7 @@ export function pageMetadata(
           url,
           siteName: SITE_NAME,
           type: "website" as const,
-          images: [{ url: image, width: 1200, height: 630, alt: SITE_NAME }],
+          images: [{ url: imageUrl, secureUrl: imageUrl, type: "image/png", width: 1200, height: 630, alt: SITE_NAME }],
         };
 
   return {
@@ -69,7 +70,7 @@ export function pageMetadata(
       card: "summary_large_image",
       title: brandedTitle,
       description,
-      images: [image],
+      images: [{ url: imageUrl, alt: SITE_NAME }],
     },
   };
 }
