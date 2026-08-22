@@ -32,6 +32,8 @@ Baseline screenshots are in `screenshots/baseline/`.
 
 Post-change local screenshots are in `screenshots/after-local/`.
 
+Production screenshots after PR #12 deployment are in `screenshots/production/`.
+
 ## Local Verification
 
 ```bash
@@ -48,4 +50,15 @@ All commands passed locally on the implementation branch.
 
 ## Production Verification
 
-Pending PR merge and production deployment.
+RESOLVED.
+
+- PR #12 merged.
+- Implementation commit: `b25a6f8`.
+- Merge commit: `4f206e6`.
+- Production workflow run: `32549762207`.
+- Deploy job: `96974526637`, passed.
+- `https://certamaris.com/`: 200 OK with root ETag `"ef210f2eb759010ed7929d13e25285fd"`.
+- `https://www.certamaris.com`: 301 to `https://certamaris.com/`.
+- Root live HTML contains the buyer-diligence path and no `/og/certamaris-og.jpg`.
+- OG/Twitter preview still points to `https://certamaris.com/og/certamaris-link-preview-2026-08-v2.png`.
+- Preview image returns 200 `image/png`, dimensions `1200x630`, payload `121623` bytes.

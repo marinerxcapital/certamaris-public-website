@@ -2,9 +2,13 @@
 
 ## Status
 
+RESOLVED.
+
+Completed: 2026-08-21T20:49:28-07:00 / 2026-08-22T03:49:28Z.
+
 Implementation branch: `codex/conversion-trust-ux-20260822`
 
-Final production status will be updated after the PR is merged, GitHub Actions deploys `main`, and live production verification is complete.
+Records branch: `codex/conversion-trust-ux-records-20260822`
 
 ## Problem
 
@@ -76,6 +80,15 @@ Post-change local screenshots:
 - `docs/implementation/conversion-trust-ux-20260822/screenshots/after-local/05-home-mobile.png`
 - `docs/implementation/conversion-trust-ux-20260822/screenshots/after-local/06-mobile-menu.png`
 
+Production screenshots after deployment:
+
+- `docs/implementation/conversion-trust-ux-20260822/screenshots/production/01-home-desktop.png`
+- `docs/implementation/conversion-trust-ux-20260822/screenshots/production/02-pricing-desktop.png`
+- `docs/implementation/conversion-trust-ux-20260822/screenshots/production/03-trust-desktop.png`
+- `docs/implementation/conversion-trust-ux-20260822/screenshots/production/04-contact-desktop.png`
+- `docs/implementation/conversion-trust-ux-20260822/screenshots/production/05-home-mobile.png`
+- `docs/implementation/conversion-trust-ux-20260822/screenshots/production/06-mobile-menu.png`
+
 ## Local Validation
 
 Commands run:
@@ -102,11 +115,60 @@ Results:
 
 ## Deployment
 
-Pending until PR merge to `main`.
+Repository: `marinerxcapital/certamaris-public-website`.
+
+Pull request: PR #12, `Improve public-site buyer diligence path`.
+
+Implementation commit: `b25a6f8` (`feat(marketing): improve buyer diligence path`).
+
+Merge commit on `main`: `4f206e6` (`Merge pull request #12 from marinerxcapital/codex/conversion-trust-ux-20260822`).
+
+Production workflow run: `32549762207`.
+
+GitHub Actions jobs:
+
+- Validate marketing site: `96974462307`, passed in 31s.
+- Deploy production Worker: `96974526637`, passed in 49s.
+
+Cloudflare Worker: `certamaris-site`.
+
+Cache/CDN action: production Worker deploy replaced the static asset bundle. Live root HTML returned new ETag `"ef210f2eb759010ed7929d13e25285fd"` and `CF-Cache-Status: MISS` on first verified apex fetch, then HIT. No manual Cloudflare purge was required because the Worker deployment published the new asset manifest and the root HTML is cache-bounded (`s-maxage=300`, `stale-while-revalidate=86400`).
 
 ## Production Verification
 
-Pending until production deployment completes.
+Commands used:
+
+```bash
+curl -I -L https://certamaris.com/
+curl -I -L https://certamaris.com
+curl -I -L https://www.certamaris.com
+curl -I -L https://certamaris.com/pricing
+curl -I -L https://certamaris.com/trust
+curl -I -L https://certamaris.com/contact
+curl -I -L https://certamaris.com/demo
+curl -I -L https://certamaris.com/contact/delivery-failed
+curl -sSL https://certamaris.com/
+curl -sSL -A "facebookexternalhit/1.1" https://certamaris.com/
+curl -sSL -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_0) AppleWebKit/605.1.15 (KHTML, like Gecko)" https://certamaris.com/
+curl -I -L https://certamaris.com/og/certamaris-link-preview-2026-08-v2.png
+```
+
+Results:
+
+- `https://certamaris.com/`: 200 OK, `Content-Type: text/html`, `Cache-Control: public, max-age=0, s-maxage=300, stale-while-revalidate=86400`, `ETag: "ef210f2eb759010ed7929d13e25285fd"`.
+- `https://certamaris.com`: 200 OK, same root ETag.
+- `https://www.certamaris.com`: 301 to `https://certamaris.com/`, then 200 OK.
+- `/pricing`, `/trust`, `/contact`, `/demo`, and `/contact/delivery-failed`: 200 OK.
+- Root HTML contains `Buyer diligence`, `#sample-record`, `#buyer-diligence`, `/trust/procurement`, `/trust/assurance-model`, `/trust/ai-policy`, `/legal/privacy`, and `/contact?intent=procurement`.
+- Root HTML contains exactly one `og:image` and exactly one `twitter:image`.
+- Root HTML contains `https://certamaris.com/og/certamaris-link-preview-2026-08-v2.png`.
+- Root HTML does not contain `/og/certamaris-og.jpg`.
+- Facebook-style crawler fetch and Apple-like WebKit fetch both returned the versioned OG image path and buyer-diligence content.
+- Preview image: 200 OK, `Content-Type: image/png`, `Cache-Control: public, max-age=604800, stale-while-revalidate=86400`, `ETag: "9559a90840a76c84816f63f278e4405c"`, dimensions `1200x630`, payload `121623` bytes.
+- `/pricing` live HTML contains `Buyer path`, `Compare package detail`, `Review procurement packet`, and `Buyer diligence`.
+- `/trust` live HTML contains `Buyer diligence`, `/trust/procurement`, `/trust/assurance-model`, and `/trust/ai-policy`.
+- `/contact` live HTML contains `Buyer diligence`, `/contact?intent=procurement`, and `Prefer email?`.
+- `/contact/delivery-failed` live HTML contains the delivery-failure fallback copy and direct email fallback.
 
 ## Residual Risks
 
