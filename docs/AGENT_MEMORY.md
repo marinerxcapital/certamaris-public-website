@@ -3,7 +3,7 @@
 **Signed:** Cursor Cloud Agent (Composer) · **Date:** 2026-08-16  
 **Run:** https://cursor.com/agents/bc-01a0088b-afcf-732b-9a58-c0e555d9e469  
 **Owner:** Skyler Brown (`skyler@certamaris.com`)  
-**Live SoT repo:** `marinerxcapital/certamaris-public-website` · branch **`main`** · latest UX branch **`codex/conversion-trust-ux-20260822`**; link-preview code commit **`190533a`** (PR #9; prior feature content from **`df5f174`**)
+**Live SoT repo:** `marinerxcapital/certamaris-public-website` · branch **`main`** · latest UX merge **`4f206e6`** / PR #12 / deploy run **`32549762207`**; link-preview code commit **`190533a`** (PR #9; prior feature content from **`df5f174`**)
 **Production:** https://certamaris.com · Worker `certamaris-site` · link-preview code deploy run **`32539507125`** (2026-08-21); records closeout PR #10 followed on `main`
 
 > Future agentic sessions: **read this file first**, then the latest dated deployment note under `docs/`, then `docs/CODEX_MARKETING_TAKEOVER.md`. Do not invent customers, metrics, certifications, compliance guarantees, or contact-forward secrets.
@@ -12,7 +12,7 @@
 
 ## 1. What shipped 2026-08-16 (this session)
 
-### 2026-08-22 conversion / trust / visual UX pass
+### 2026-08-22 conversion / trust / visual UX pass (merged PR #12 -> `4f206e6`)
 
 | Item | Detail |
 |---|---|
@@ -21,7 +21,8 @@
 | Pricing / Trust / Contact | Shared diligence packet added; Pricing hero includes comparison/procurement/contact aside |
 | Mobile nav | Drawer made more opaque over Pixel Grid hero to prevent background text bleed-through |
 | Regression QA | `scripts/qa/check-buyer-paths.mjs`; run with `npm run qa:buyer-paths` and included in `npm run qa` |
-| Evidence | `docs/implementation/conversion-trust-ux-20260822/` |
+| Evidence | `docs/implementation/conversion-trust-ux-20260822/`; production screenshots in `screenshots/production/` |
+| Production deploy | GitHub Actions run `32549762207`; deploy job `96974526637`; live root ETag `"ef210f2eb759010ed7929d13e25285fd"` |
 
 ### A. Homepage + demo + persona (merged as PR #5 → `660e5b4`)
 
