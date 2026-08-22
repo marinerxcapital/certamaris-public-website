@@ -7,7 +7,7 @@ built to stand on its own and to later link out to the authenticated
 CertaMaris application (being built separately in Lovable) through four
 clearly labeled integration points.
 
-## Production source of truth (2026-08-16)
+## Production source of truth (verified 2026-08-21)
 
 | Item | Value |
 |---|---|
@@ -17,8 +17,8 @@ clearly labeled integration points.
 | **App** | Separate: https://app.certamaris.com |
 | **Agent memory (START HERE)** | [`docs/AGENT_MEMORY.md`](docs/AGENT_MEMORY.md) |
 | **Codex handoff** | [`docs/CODEX_MARKETING_TAKEOVER.md`](docs/CODEX_MARKETING_TAKEOVER.md) |
-| **Latest deploy note** | [`docs/2026-08-16-impressive-pass-deployment.md`](docs/2026-08-16-impressive-pass-deployment.md) |
-| **Main tip** | `3b30d14` — tip finalize; feature content `df5f174` (PR #6) |
+| **Latest deploy note** | [`docs/2026-08-21-link-preview-branding-deployment.md`](docs/2026-08-21-link-preview-branding-deployment.md) |
+| **Main tip** | `190533a` - link-preview branding fix (PR #9); prior feature content `df5f174` (PR #6) |
 
 **Signed:** Cursor Cloud Agent · **Date:** 2026-08-16 (supersedes SuperGrok 2026-08-01 tip line)
 
@@ -191,7 +191,7 @@ lib/                      constants.ts, content.ts, solutions-industries.ts,
 public/
   brand/                  Logo mark, full lockup, favicons (derived from
                            the approved CertaMaris brand assets)
-  og/                     Open Graph social image
+  og/                     Versioned Open Graph social image
 ```
 
 The public marketing site now includes canonical legal-status routes at
@@ -365,6 +365,7 @@ Local CI parity (mirrors the validate job):
 
 ```bash
 npm run ci:validate
+npm run qa:link-preview
 ```
 
 If hosted jobs never start (empty steps, ~3–12s), fix org billing first:
