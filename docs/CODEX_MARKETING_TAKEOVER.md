@@ -17,7 +17,7 @@
 | **Authenticated app (separate)** | https://app.certamaris.com — do **not** merge into this repo |
 | **GitHub** | https://github.com/marinerxcapital/certamaris-public-website |
 | **Branch** | **`main` only** for production |
-| **Latest UX pass (2026-08-22)** | Unreasonable excellence branch `codex/unreasonable-excellence-20260822` pending PR/deploy · note `docs/2026-08-22-unreasonable-excellence-deployment.md`; last completed deploy PR #12 · merge `4f206e6` · deploy run `32549762207` |
+| **Latest UX pass (2026-08-22)** | PR #14 · merge `8a633155` · deploy run `32556978238` · note `docs/2026-08-22-unreasonable-excellence-deployment.md` |
 | **Link-preview code commit (2026-08-21)** | **`190533a`** - PR #9 link-preview branding fix; prior PR #6 `df5f174` / PR #5 `660e5b4` |
 | **Worker name** | `certamaris-site` |
 | **Worker config** | `wrangler.jsonc` · assets `./out` · entry `worker/index.ts` |
@@ -66,7 +66,7 @@
 5. Regression check: `npm run qa:buyer-paths`, also included in `npm run qa`.
 6. Production deploy: GitHub Actions run `32549762207`, deploy job `96974526637`; live root ETag `"ef210f2eb759010ed7929d13e25285fd"`.
 
-### Unreasonable excellence pass (2026-08-22, branch `codex/unreasonable-excellence-20260822`)
+### Unreasonable excellence pass (2026-08-22, PR #14 -> `8a633155`)
 
 1. Pricing hero exposes Core, Assurance, and Enterprise package economics above the fold from existing published data.
 2. Shared `BuyerDiligencePacket` now includes a forwardable four-step review route for proof, fit, diligence, and request.
@@ -74,7 +74,8 @@
 4. Contact page adds a concise "fastest useful request" checklist while preserving truthful routed follow-up and direct-email fallback behavior.
 5. `app/globals.css` reduces avoidable page-hero and mobile hero height without removing Pixel Grid / Liquid Glass.
 6. Regression check: `npm run qa:excellence`, also included in `npm run qa`.
-7. Evidence: `docs/implementation/unreasonable-excellence-20260822/`.
+7. Production deploy: GitHub Actions run `32556978238`, validate job `96992622323`, deploy job `96992697549`; live root ETag `"82a210908a5433f9fdb216a2b0f5836e"`.
+8. Evidence: `docs/implementation/unreasonable-excellence-20260822/`.
 
 ---
 

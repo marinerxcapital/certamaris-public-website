@@ -1,6 +1,7 @@
 # CertaMaris Public Website Unreasonable Excellence Pass
 
 Date started: 2026-08-21 23:22 America/Los_Angeles  
+Completed: 2026-08-22 06:28 UTC  
 Branch: `codex/unreasonable-excellence-20260822`  
 Production repo: `marinerxcapital/certamaris-public-website`  
 Production Worker: `certamaris-site`  
@@ -43,6 +44,17 @@ After screenshots:
 - `screenshots/after/06-home-mobile.png`
 - `screenshots/after/07-pricing-mobile.png`
 - `screenshots/after/08-contact-mobile.png`
+
+Production screenshots:
+
+- `screenshots/production/01-home-desktop.png`
+- `screenshots/production/02-pricing-desktop.png`
+- `screenshots/production/03-trust-desktop.png`
+- `screenshots/production/04-procurement-desktop.png`
+- `screenshots/production/05-contact-desktop.png`
+- `screenshots/production/06-home-mobile.png`
+- `screenshots/production/07-pricing-mobile.png`
+- `screenshots/production/08-contact-mobile.png`
 
 ## Implementation
 
@@ -103,17 +115,32 @@ Non-blocking limitation:
 
 ## Deployment
 
-Pending at this stage:
+- Feature commit: `399920b`
+- PR: #14 (`https://github.com/marinerxcapital/certamaris-public-website/pull/14`)
+- Merge commit: `8a6331554025af500c83e050eb33b220a2caa415`
+- PR validation run: `32556922541`, job `96992484622`, passed
+- Production deploy run: `32556978238`, validate job `96992622323`, deploy job `96992697549`, passed
+- Production root ETag after deploy: `"82a210908a5433f9fdb216a2b0f5836e"`
+- Production preview image ETag: `"9559a90840a76c84816f63f278e4405c"`
 
-- Commit SHA
-- PR number
-- GitHub Actions run
-- Cloudflare deployment identifier
-- Production ETag and live screenshots
+## Production Verification
 
-These fields must be updated after merge and production verification.
+- `https://certamaris.com/` returned `200 OK`, `Content-Type: text/html`, `CF-Cache-Status: HIT`, `Cache-Control: public, max-age=0, s-maxage=300, stale-while-revalidate=86400`.
+- `https://www.certamaris.com/` returned `301 Moved Permanently` to `https://certamaris.com/`, then `200 OK`.
+- Live root HTML contains `Forwardable review route`, `/pricing`, `/trust/procurement`, `/contact?intent=procurement`.
+- Live `/pricing` contains `Package snapshot`, `Core`, `Assurance`, `Enterprise`, `$15,000 / year`, and `#package-comparison`.
+- Live `/trust/procurement` contains `Procurement review path`, `Public security controls`, `Assurance model one-pager`, and `/contact?intent=procurement`.
+- Live `/contact` contains `Fastest useful request`, `Fleet size and vessel types in scope`, and `Forwardable review route`.
+- Live metadata contains `<link rel="canonical" href="https://certamaris.com"/>`.
+- Live metadata contains exactly one `og:image` and one `twitter:image`, both pointing to `https://certamaris.com/og/certamaris-link-preview-2026-08-v2.png`.
+- Live root HTML does not contain `certamaris-og.jpg`.
+- Live preview image returned `200`, `Content-Type: image/png`, `Cache-Control: public, max-age=604800, stale-while-revalidate=86400`, `121623` bytes, dimensions `1200x630`.
+- Twitterbot-style root fetch received the current preview image URL and no old `certamaris-og.jpg` reference.
+
+## External Cache Note
+
+Apple/iMessage and other preview clients can retain their own URL-level cache independently of CertaMaris production. The production source is corrected for fresh crawls.
 
 ## Status
 
-Local implementation and validation: complete.  
-Production verification: pending PR merge and deploy.
+RESOLVED.
