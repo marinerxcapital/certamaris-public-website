@@ -14,6 +14,7 @@
     "qa:product-proof": "node scripts/qa/check-product-proof.mjs",
     "qa:product-proof:render": "node scripts/qa/check-product-proof-render.mjs",
     "qa:buyer-paths": "node scripts/qa/check-buyer-paths.mjs",
+    "qa:excellence": "node scripts/qa/check-excellence-path.mjs",
     "qa:routes": "node scripts/qa/check-routes.mjs --out --include-planned",
     "qa:seo": "node scripts/qa/check-seo.mjs",
     "qa:link-preview": "node scripts/qa/check-link-preview.mjs",

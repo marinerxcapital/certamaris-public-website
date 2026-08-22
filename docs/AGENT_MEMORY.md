@@ -3,7 +3,7 @@
 **Signed:** Cursor Cloud Agent (Composer) · **Date:** 2026-08-16  
 **Run:** https://cursor.com/agents/bc-01a0088b-afcf-732b-9a58-c0e555d9e469  
 **Owner:** Skyler Brown (`skyler@certamaris.com`)  
-**Live SoT repo:** `marinerxcapital/certamaris-public-website` · branch **`main`** · latest UX merge **`4f206e6`** / PR #12 / deploy run **`32549762207`**; link-preview code commit **`190533a`** (PR #9; prior feature content from **`df5f174`**)
+**Live SoT repo:** `marinerxcapital/certamaris-public-website` · branch **`main`** · latest completed UX merge **`4f206e6`** / PR #12 / deploy run **`32549762207`**; active excellence branch **`codex/unreasonable-excellence-20260822`** pending production merge; link-preview code commit **`190533a`** (PR #9; prior feature content from **`df5f174`**)
 **Production:** https://certamaris.com · Worker `certamaris-site` · link-preview code deploy run **`32539507125`** (2026-08-21); records closeout PR #10 followed on `main`
 
 > Future agentic sessions: **read this file first**, then the latest dated deployment note under `docs/`, then `docs/CODEX_MARKETING_TAKEOVER.md`. Do not invent customers, metrics, certifications, compliance guarantees, or contact-forward secrets.
@@ -11,6 +11,19 @@
 ---
 
 ## 1. What shipped 2026-08-16 (this session)
+
+### 2026-08-22 unreasonable excellence pass (branch `codex/unreasonable-excellence-20260822`)
+
+| Item | Detail |
+|---|---|
+| Pricing first viewport | `/pricing` hero now exposes Core, Assurance, and Enterprise package economics using existing `pricingTiers` data |
+| Diligence sequence | `components/BuyerDiligencePacket.tsx` adds a forwardable four-step review route: proof, fit, diligence, request |
+| Procurement route | `/trust/procurement` hero now has a procurement review path linking security controls, assurance one-pager, and contact intent |
+| Contact clarity | `/contact` adds a concise checklist for the fastest useful request while preserving follow-up/fallback truth |
+| Responsive density | `app/globals.css` tightens page hero and mobile home hero spacing without removing Pixel Grid / Liquid Glass |
+| Regression QA | `scripts/qa/check-excellence-path.mjs`; run with `npm run qa:excellence`, included in `npm run qa` |
+| Evidence | `docs/implementation/unreasonable-excellence-20260822/`; baseline and after screenshots captured |
+| Status | Local validation passed; PR/production fields tracked in `docs/2026-08-22-unreasonable-excellence-deployment.md` |
 
 ### 2026-08-22 conversion / trust / visual UX pass (merged PR #12 -> `4f206e6`)
 
@@ -76,6 +89,7 @@
 | Route QA inventory | `scripts/qa/expected-routes.mjs` |
 | Link-preview QA | `scripts/qa/check-link-preview.mjs` |
 | Buyer-path QA | `scripts/qa/check-buyer-paths.mjs` |
+| Excellence-path QA | `scripts/qa/check-excellence-path.mjs` |
 | Design tokens | `app/globals.css`, `tailwind.config.ts` |
 
 ---

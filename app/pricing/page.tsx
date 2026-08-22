@@ -120,11 +120,29 @@ export default function PricingPage() {
         title="Annual platform pricing, published."
         intro="CertaMaris pricing is a hybrid annual model: a platform fee plus contracted-vessel licensing, with separately priced assurance engagements. Vessel count is the recurring value metric — there is no per-seat charge."
         aside={
-          <div className="liquid-glass liquid-glass--subtle lg-pad-md w-full max-w-sm">
+          <div className="liquid-glass liquid-glass--subtle lg-pad-md w-full max-w-[27rem]">
             <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-[#0e5a8a]">
-              Buyer path
+              Package snapshot
             </p>
-            <div className="mt-4 grid gap-3 text-[14px]">
+            <div className="mt-4 grid gap-3">
+              {pricingTiers.map((tier) => (
+                <a
+                  key={tier.id}
+                  href="#package-comparison"
+                  className="rounded-md border border-navy/10 bg-white/70 p-3 transition hover:border-ocean/35 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ocean focus-visible:ring-offset-2"
+                >
+                  <span className="flex items-baseline justify-between gap-3">
+                    <span className="text-[14px] font-semibold text-navy">{tier.name}</span>
+                    <span className="text-right font-mono text-[11px] text-ocean">{tier.audience}</span>
+                  </span>
+                  <span className="mt-1 block text-[12.5px] leading-5 text-structural">
+                    {tier.platformFee} + {tier.vesselPrice}
+                  </span>
+                  <span className="mt-1 block text-[12px] leading-5 text-structural">{tier.minimumNote}</span>
+                </a>
+              ))}
+            </div>
+            <div className="mt-4 grid gap-2 border-t border-navy/10 pt-4 text-[13px]">
               <a href="#package-comparison" className="font-semibold text-navy hover:text-ocean hover:underline">
                 Compare package detail
               </a>

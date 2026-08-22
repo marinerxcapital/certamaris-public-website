@@ -1,44 +1,64 @@
 #!/usr/bin/env node
 /**
- * Regression guard for the public-site buyer journey:
- * Home -> product proof -> pricing -> trust/procurement -> contact.
+ * Static regression guard for the 2026-08-22 buyer-readiness improvements.
+ * Checks generated HTML because buyers, crawlers, and link validators should
+ * receive the core route guidance before client-side hydration.
  */
 
 import path from "node:path";
 
 import { OUT_DIR, exitCode, pathExists, printReport, readText } from "./lib.mjs";
 
-const pages = [
+const routeChecks = [
   {
     route: "/",
     candidates: ["index.html"],
     required: [
-      "Buyer diligence",
-      "#sample-record",
-      "#buyer-diligence",
+      "Forwardable review route",
+      "/demo#scrub-tour",
       "/pricing",
       "/trust/procurement",
-      "/trust/assurance-model",
-      "/trust/ai-policy",
-      "/legal/privacy",
       "/contact?intent=procurement",
-      "/contact?intent=demo",
     ],
   },
   {
     route: "/pricing",
     candidates: [path.join("pricing", "index.html"), "pricing.html"],
-    required: ["Package snapshot", "#package-comparison", "/trust/procurement", "/contact?intent=procurement"],
+    required: [
+      "Package snapshot",
+      "Core",
+      "Assurance",
+      "Enterprise",
+      "$15,000 / year",
+      "$24,000 / year",
+      "$48,000 / year",
+      "#package-comparison",
+    ],
   },
   {
     route: "/trust",
     candidates: [path.join("trust", "index.html"), "trust.html"],
-    required: ["Buyer diligence", "/trust/procurement", "/trust/assurance-model", "/trust/ai-policy"],
+    required: ["Forwardable review route", "/trust/ai-policy", "/legal/privacy"],
+  },
+  {
+    route: "/trust/procurement",
+    candidates: [path.join("trust", "procurement", "index.html"), path.join("trust", "procurement.html")],
+    required: [
+      "Procurement review path",
+      "Public security controls",
+      "Assurance model one-pager",
+      "/contact?intent=procurement",
+    ],
   },
   {
     route: "/contact",
     candidates: [path.join("contact", "index.html"), "contact.html"],
-    required: ["Buyer diligence", "/pricing", "/trust/procurement", "/contact?intent=procurement"],
+    required: [
+      "Fastest useful request",
+      "Fleet size and vessel types in scope",
+      "Documents needed, if this is a procurement or security request",
+      "Forwardable review route",
+    ],
   },
 ];
 
@@ -57,11 +77,11 @@ async function main() {
 
   if (!(await pathExists(OUT_DIR))) {
     fail.push("out/ does not exist; run npm run build:static first");
-    printReport("buyer-path QA", { ok, fail, warn });
+    printReport("excellence-path QA", { ok, fail, warn });
     process.exit(exitCode(fail.length));
   }
 
-  for (const page of pages) {
+  for (const page of routeChecks) {
     const { filePath, html } = await readRouteHtml(page);
     if (!html) {
       fail.push(`${page.route}: static HTML not found`);
@@ -75,7 +95,7 @@ async function main() {
     }
   }
 
-  printReport("buyer-path QA", { ok, fail, warn });
+  printReport("excellence-path QA", { ok, fail, warn });
   process.exit(exitCode(fail.length));
 }
 
