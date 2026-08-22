@@ -75,25 +75,45 @@ Non-blocking notes:
 
 ## Deployment
 
-Pending until PR merge and production deployment:
+- Feature commit: `399920b`
+- PR: #14 (`https://github.com/marinerxcapital/certamaris-public-website/pull/14`)
+- Merge commit: `8a6331554025af500c83e050eb33b220a2caa415`
+- PR validation: GitHub Actions run `32556922541`, job `96992484622`, passed
+- Production deployment: GitHub Actions run `32556978238`, validate job `96992622323`, deploy job `96992697549`, passed
+- Production Worker: `certamaris-site`
+- Production root ETag after deploy: `"82a210908a5433f9fdb216a2b0f5836e"`
+- Production preview image ETag: `"9559a90840a76c84816f63f278e4405c"`
 
-- Commit SHA: pending
-- PR: pending
-- GitHub Actions run: pending
-- Cloudflare deployment: pending
-- Production ETag: pending
+Production screenshots captured:
+
+- `docs/implementation/unreasonable-excellence-20260822/screenshots/production/01-home-desktop.png`
+- `docs/implementation/unreasonable-excellence-20260822/screenshots/production/02-pricing-desktop.png`
+- `docs/implementation/unreasonable-excellence-20260822/screenshots/production/03-trust-desktop.png`
+- `docs/implementation/unreasonable-excellence-20260822/screenshots/production/04-procurement-desktop.png`
+- `docs/implementation/unreasonable-excellence-20260822/screenshots/production/05-contact-desktop.png`
+- `docs/implementation/unreasonable-excellence-20260822/screenshots/production/06-home-mobile.png`
+- `docs/implementation/unreasonable-excellence-20260822/screenshots/production/07-pricing-mobile.png`
+- `docs/implementation/unreasonable-excellence-20260822/screenshots/production/08-contact-mobile.png`
 
 ## Production Verification
 
-Pending until production deploy:
+- `curl -I -L https://certamaris.com/`: final `200 OK`, `Content-Type: text/html`, `CF-Cache-Status: HIT`, `Cache-Control: public, max-age=0, s-maxage=300, stale-while-revalidate=86400`, ETag `"82a210908a5433f9fdb216a2b0f5836e"`.
+- `curl -I -L https://www.certamaris.com/`: `301 Moved Permanently` to `https://certamaris.com/`, then `200 OK` with the same root ETag.
+- Live root HTML contains `Forwardable review route`, `/pricing`, `/trust/procurement`, `/contact?intent=procurement`, and `https://certamaris.com/og/certamaris-link-preview-2026-08-v2.png`.
+- Live root HTML does not contain `certamaris-og.jpg`.
+- Live metadata contains `<link rel="canonical" href="https://certamaris.com"/>`.
+- Live metadata contains one `og:image` and one `twitter:image`, both pointing to `https://certamaris.com/og/certamaris-link-preview-2026-08-v2.png`.
+- Live `/pricing`: `200`, ETag `W/"c4accbf757ef110c18737a313b561aa3"`, contains `Package snapshot`, `Core`, `Assurance`, `Enterprise`, `$15,000 / year`, `#package-comparison`.
+- Live `/trust`: `200`, ETag `W/"0741c52d546181a027ff4ca1a2ddc8ef"`, contains `Forwardable review route`, `/trust/ai-policy`, `/legal/privacy`.
+- Live `/trust/procurement`: `200`, ETag `W/"e8e978a5b53b1884a6a58c71d7e5abc0"`, contains `Procurement review path`, `Public security controls`, `Assurance model one-pager`, `/contact?intent=procurement`.
+- Live `/contact`: `200`, ETag `W/"f4580274a7c93a31839c49d65b89cbcf"`, contains `Fastest useful request`, `Fleet size and vessel types in scope`, `Forwardable review route`.
+- Live preview image `https://certamaris.com/og/certamaris-link-preview-2026-08-v2.png`: `200`, `Content-Type: image/png`, `Cache-Control: public, max-age=604800, stale-while-revalidate=86400`, `121623` bytes, dimensions `1200x630`.
+- Twitterbot-style root fetch received the current preview image URL and no old `certamaris-og.jpg` reference.
 
-- `https://certamaris.com`
-- `https://www.certamaris.com`
-- Key improved routes: `/pricing`, `/trust`, `/trust/procurement`, `/contact`
-- Root metadata and social preview image
-- Buyer diligence links and generated HTML
-- Desktop/mobile production screenshots
+## External Cache Note
+
+Apple/iMessage and other preview clients can retain their own URL-level preview cache independently after production changes. The production source is corrected for fresh crawls and continues to serve the current versioned social preview image.
 
 ## Status
 
-Local validation complete; production deployment pending.
+RESOLVED.
