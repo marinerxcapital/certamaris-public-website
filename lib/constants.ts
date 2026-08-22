@@ -1,8 +1,11 @@
 export const SITE_NAME = "CertaMaris";
 export const SITE_TAGLINE = "Maritime Cyber Compliance & Assurance";
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://certamaris.com";
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://certamaris.com").replace(/\/$/, "");
+export const SITE_CANONICAL_URL = `${SITE_URL}/`;
 export const SITE_DESCRIPTION =
   "Maritime cyber compliance software for fleet operators — requirements, evidence, findings, and readiness packages in one controlled record.";
+export const SOCIAL_PREVIEW_IMAGE_PATH = "/og/certamaris-link-preview-2026-08-v2.png";
+export const SOCIAL_PREVIEW_IMAGE_URL = `${SITE_URL}${SOCIAL_PREVIEW_IMAGE_PATH}`;
 
 /**
  * INTEGRATION POINTS — CertaMaris application (Lovable-built, TanStack Start)
