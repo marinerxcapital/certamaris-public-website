@@ -10,6 +10,8 @@ Status: **production verified** on `https://certamaris.com`.
 | Branch | `main` |
 | Product commit | `dfb009f526eb1a3d7e42be050a796230603bb5d1` |
 | Pricing keyboard-access closeout | `0084f5135328645b50cb0d911dca877358c83a94` |
+| Full-crawl closeout | `ee4267f8150be9b6b8dcfce8d6ac7985e70c235f` |
+| Workflow runtime closeout | `2d910695deb97635aebc36e5848e14933b857062` |
 | CI validation commit | `da501d5d92142d0a28ae49d849756cc7f9697f1b` |
 | Documentation sync commit | `ed632bbe112b3ba4f2efc4044806d9f0f5275a92` |
 | Product GitHub Actions run | `32627169675` |
@@ -19,8 +21,11 @@ Status: **production verified** on `https://certamaris.com`.
 | Accessibility closeout GitHub Actions run | `32628481367` |
 | Accessibility closeout validate job | `97167459683` |
 | Accessibility closeout deploy job | `97167550885` |
+| Workflow runtime GitHub Actions run | `32629618157` |
+| Workflow runtime validate job | `97170253355` |
+| Workflow runtime deploy job | `97170338326` |
 | Cloudflare Worker | `certamaris-site` |
-| Cloudflare deployment readback | Verified by `wrangler deployments list`; exact Worker version changes with documentation-only deploys |
+| Workflow runtime Cloudflare deployment readback | `ad6dc837-6bf2-459e-81e2-6b882500a930` at 100% from `wrangler deployments list` |
 | Production domain | `https://certamaris.com` |
 
 ## Product experience shipped
@@ -47,10 +52,14 @@ Status: **production verified** on `https://certamaris.com`.
 | Secrets sweep | Pass: no secret values found in changed source |
 | `node scripts/qa/audit-crawl.mjs final-product-experience --no-shots` | Pass: 93 routes, desktop/mobile, `pages with axe violations: 0`, `pages with horizontal overflow: 0`, console errors `0` |
 | Workflow maintenance | `actions/checkout` updated to `v7.0.1`; `actions/setup-node` updated to `v7.0.0` after live release to remove Node 20 action-runtime annotations |
+| Final production smoke | Pass: sitemap count, homepage lifecycle, pricing share estimate, keyboard-focusable pricing table, demo chain query state, persona path, evidence simulator, evidence OG metadata |
+| Final live sitemap crawl | Pass: 93 sitemap routes, 143 internal assets, 115 internal links |
+| Final live responsive/Axe | Pass: 16 key routes x 8 viewports, console errors `0`, serious/critical Axe violations `0`, overflow `0`, broken images `0` |
 
 Notes:
 
 - The legacy full-route crawl was rerun at closeout as `node scripts/qa/audit-crawl.mjs final-product-experience --no-shots` and passed across all 93 sitemap routes on desktop and mobile.
+- This release-log sync is documentation-only; it does not change the deployed product artifact recorded above.
 - Existing static-export warnings about Next.js custom headers/rewrites remain unchanged.
 - Node's direct TypeScript test runner emits `MODULE_TYPELESS_PACKAGE_JSON` warnings; tests pass and no package-type migration was made.
 
@@ -61,8 +70,9 @@ Production checks on `https://certamaris.com` after deployment:
 | Check | Result |
 |---|---|
 | Apex and changed routes | 200 for `/`, `/pricing`, `/demo`, `/platform/evidence`, `/resources`, `/security`, `/who-we-serve/maritime-it-ot`, `/sitemap.xml`, `/robots.txt` |
-| Live sitemap crawl | Pass: 93 sitemap URLs returned non-error HTTP responses |
-| Live product journeys | Pass: homepage lifecycle to demo, chain inspector query state, pricing shared estimate, persona CTA, evidence simulator lifecycle |
+| `www` redirect behavior | Pass: `https://www.certamaris.com/` redirects to apex; pricing estimate query string is preserved |
+| Live sitemap crawl | Pass: 93 sitemap URLs, 143 internal assets, and 115 internal links returned non-error HTTP responses |
+| Live product journeys | Pass: homepage lifecycle to demo, chain inspector query state, pricing shared estimate, keyboard-focusable pricing table, persona CTA, evidence simulator lifecycle |
 | Live OG metadata | Pass: route-specific `og:image` and `twitter:image` for required routes; image URLs returned PNG |
 | Live screenshots | Captured under ignored `audit/live-product-experience-20260823/` for desktop and mobile changed routes |
 | Live image checks | Pass: changed routes had no broken `<img>` assets |
