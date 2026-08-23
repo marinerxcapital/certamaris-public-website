@@ -9,12 +9,16 @@ Status: **production verified** on `https://certamaris.com`.
 | Repository | `marinerxcapital/certamaris-public-website` |
 | Branch | `main` |
 | Product commit | `dfb009f526eb1a3d7e42be050a796230603bb5d1` |
+| Pricing keyboard-access closeout | `0084f5135328645b50cb0d911dca877358c83a94` |
 | CI validation commit | `da501d5d92142d0a28ae49d849756cc7f9697f1b` |
 | Documentation sync commit | `ed632bbe112b3ba4f2efc4044806d9f0f5275a92` |
 | Product GitHub Actions run | `32627169675` |
 | Documentation sync GitHub Actions run | `32627693133` |
 | Documentation sync validate job | `97165485674` |
 | Documentation sync deploy job | `97165581354` |
+| Accessibility closeout GitHub Actions run | `32628481367` |
+| Accessibility closeout validate job | `97167459683` |
+| Accessibility closeout deploy job | `97167550885` |
 | Cloudflare Worker | `certamaris-site` |
 | Cloudflare deployment readback | Verified by `wrangler deployments list`; exact Worker version changes with documentation-only deploys |
 | Production domain | `https://certamaris.com` |
@@ -27,6 +31,7 @@ Status: **production verified** on `https://certamaris.com`.
 - Role-specific "Your path through the record" modules across `/who-we-serve/*`, with tailored DPA, owner/fleet leadership, IT/OT, vessel, reviewer, insurer, and service-provider paths into relevant demo state.
 - `/platform/evidence` simulator v2 with selectable evidence rows, freshness state, reviewer disposition, finding creation, corrective action linkage, resolved/reset state, and explicit sample/demo boundaries.
 - Route-specific Open Graph/Twitter preview PNGs for `/pricing`, `/security`, `/demo`, `/platform/evidence`, and `/resources`.
+- `/pricing` package-comparison table is keyboard reachable as a named focusable region for horizontal table navigation.
 - Trust-labeling and claims cleanup preserved the site's implemented/planned/not-claimed discipline and avoided invented customer, certification, regulatory, integration, AI, telemetry, or guarantee claims.
 - QA expanded to include pricing unit tests, product-experience browser journeys, and responsive/axe coverage at `320`, `360`, `375`, `390`, `430`, `768`, `1024`, `1280`, and `1440` widths.
 

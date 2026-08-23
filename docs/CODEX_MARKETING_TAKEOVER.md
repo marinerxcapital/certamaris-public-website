@@ -17,7 +17,7 @@
 | **Authenticated app (separate)** | https://app.certamaris.com — do **not** merge into this repo |
 | **GitHub** | https://github.com/marinerxcapital/certamaris-public-website |
 | **Branch** | **`main` only** for production |
-| **Latest UX pass (2026-08-23)** | Product experience upgrade `dfb009f` · docs synchronized on `main` · note `docs/2026-08-23-product-experience-upgrade-deployment.md` |
+| **Latest UX pass (2026-08-23)** | Product experience upgrade `dfb009f` · pricing table keyboard-access closeout `0084f51` · note `docs/2026-08-23-product-experience-upgrade-deployment.md` |
 | **Link-preview code commit (2026-08-21)** | **`190533a`** - PR #9 link-preview branding fix; prior PR #6 `df5f174` / PR #5 `660e5b4` |
 | **Worker name** | `certamaris-site` |
 | **Worker config** | `wrangler.jsonc` · assets `./out` · entry `worker/index.ts` |
@@ -87,6 +87,11 @@
 6. Required route-specific OG previews shipped for `/pricing`, `/security`, `/demo`, `/platform/evidence`, and `/resources`.
 7. Regression checks: `npm run ci:validate`, `npm run qa`, `npm run qa:responsive-a11y`; live sitemap crawl covered 93 URLs.
 8. Production deploy: product run `32627169675`; documentation sync run `32627693133`; final current-main deploy re-triggered by workflow dispatch after docs sync.
+
+### Pricing keyboard-access closeout (2026-08-23, `0084f51`)
+
+1. `/pricing` package-comparison table wrapper is now keyboard reachable as a named region: `role="region"`, `aria-label="Annual pricing tiers"`, `tabIndex={0}`.
+2. Production deploy: GitHub Actions run `32628481367`, validate job `97167459683`, deploy job `97167550885`; Cloudflare readback verified after deploy.
 
 ---
 

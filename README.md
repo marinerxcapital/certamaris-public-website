@@ -18,7 +18,7 @@ clearly labeled integration points.
 | **Agent memory (START HERE)** | [`docs/AGENT_MEMORY.md`](docs/AGENT_MEMORY.md) |
 | **Codex handoff** | [`docs/CODEX_MARKETING_TAKEOVER.md`](docs/CODEX_MARKETING_TAKEOVER.md) |
 | **Latest deploy note** | [`docs/2026-08-23-product-experience-upgrade-deployment.md`](docs/2026-08-23-product-experience-upgrade-deployment.md) |
-| **Latest UX pass** | Product experience upgrade `dfb009f`; docs synchronized on `main`; deploy evidence in the latest note |
+| **Latest UX pass** | Product experience upgrade `dfb009f` plus pricing table keyboard-access closeout `0084f51`; deploy evidence in the latest note |
 | **Link-preview code commit** | `190533a` - link-preview branding fix (PR #9); prior feature content `df5f174` (PR #6) |
 
 **Signed:** Cursor Cloud Agent · **Date:** 2026-08-16 (supersedes SuperGrok 2026-08-01 tip line)
