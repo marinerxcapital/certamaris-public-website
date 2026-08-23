@@ -16,7 +16,7 @@ Status: **production verified** on `https://certamaris.com`.
 | Documentation sync validate job | `97165485674` |
 | Documentation sync deploy job | `97165581354` |
 | Cloudflare Worker | `certamaris-site` |
-| Cloudflare deployment version | `e8374a9b-a77f-4c91-90b0-959fcb0d5b13` |
+| Cloudflare deployment readback | Verified by `wrangler deployments list`; exact Worker version changes with documentation-only deploys |
 | Production domain | `https://certamaris.com` |
 
 ## Product experience shipped

@@ -86,7 +86,7 @@
 5. `/platform/evidence` includes evidence simulator v2 with freshness, reviewer disposition, finding, corrective action, and resolved/reset state.
 6. Required route-specific OG previews shipped for `/pricing`, `/security`, `/demo`, `/platform/evidence`, and `/resources`.
 7. Regression checks: `npm run ci:validate`, `npm run qa`, `npm run qa:responsive-a11y`; live sitemap crawl covered 93 URLs.
-8. Production deploy: product run `32627169675`; documentation sync run `32627693133`, deploy job `97165581354`, Cloudflare version `e8374a9b-a77f-4c91-90b0-959fcb0d5b13`.
+8. Production deploy: product run `32627169675`; documentation sync run `32627693133`; final current-main deploy re-triggered by workflow dispatch after docs sync.
 
 ---
 
