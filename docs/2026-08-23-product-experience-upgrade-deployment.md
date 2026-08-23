@@ -9,12 +9,14 @@ Status: **production verified** on `https://certamaris.com`.
 | Repository | `marinerxcapital/certamaris-public-website` |
 | Branch | `main` |
 | Product commit | `dfb009f526eb1a3d7e42be050a796230603bb5d1` |
-| CI/deploy source commit | `da501d5d92142d0a28ae49d849756cc7f9697f1b` |
-| GitHub Actions run | `32627169675` |
-| Validate job | `97164170450` |
-| Deploy job | `97164257002` |
+| CI validation commit | `da501d5d92142d0a28ae49d849756cc7f9697f1b` |
+| Documentation sync commit | `ed632bbe112b3ba4f2efc4044806d9f0f5275a92` |
+| Product GitHub Actions run | `32627169675` |
+| Documentation sync GitHub Actions run | `32627693133` |
+| Documentation sync validate job | `97165485674` |
+| Documentation sync deploy job | `97165581354` |
 | Cloudflare Worker | `certamaris-site` |
-| Cloudflare deployment version | `c4c58190-ad1c-49a7-9825-b5894d45a1d7` |
+| Cloudflare deployment version | `e8374a9b-a77f-4c91-90b0-959fcb0d5b13` |
 | Production domain | `https://certamaris.com` |
 
 ## Product experience shipped

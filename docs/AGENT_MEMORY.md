@@ -3,8 +3,8 @@
 **Signed:** Cursor Cloud Agent (Composer) · **Date:** 2026-08-16  
 **Run:** https://cursor.com/agents/bc-01a0088b-afcf-732b-9a58-c0e555d9e469  
 **Owner:** Skyler Brown (`skyler@certamaris.com`)  
-**Live SoT repo:** `marinerxcapital/certamaris-public-website` · branch **`main`** · product experience upgrade **`dfb009f`** · CI/deploy source **`da501d5`** · deploy run **`32627169675`**; prior UX merge **`8a633155`** / PR #14; prior conversion merge **`4f206e6`** / PR #12; link-preview code commit **`190533a`** (PR #9)
-**Production:** https://certamaris.com · Worker `certamaris-site` · Cloudflare deployment version **`c4c58190-ad1c-49a7-9825-b5894d45a1d7`** (2026-08-23)
+**Live SoT repo:** `marinerxcapital/certamaris-public-website` · branch **`main`** · product experience upgrade **`dfb009f`** · docs synchronized on **`main`**; product run **`32627169675`**; documentation sync run **`32627693133`**; prior UX merge **`8a633155`** / PR #14; prior conversion merge **`4f206e6`** / PR #12; link-preview code commit **`190533a`** (PR #9)
+**Production:** https://certamaris.com · Worker `certamaris-site` · Cloudflare deployment version **`e8374a9b-a77f-4c91-90b0-959fcb0d5b13`** (2026-08-23)
 
 > Future agentic sessions: **read this file first**, then the latest dated deployment note under `docs/`, then `docs/CODEX_MARKETING_TAKEOVER.md`. Do not invent customers, metrics, certifications, compliance guarantees, or contact-forward secrets.
 
@@ -12,7 +12,7 @@
 
 ## 1. What shipped
 
-### 2026-08-23 product experience upgrade (`dfb009f` -> CI/deploy source `da501d5`)
+### 2026-08-23 product experience upgrade (`dfb009f`, docs synchronized on `main`)
 
 | Item | Detail |
 |---|---|
@@ -24,7 +24,7 @@
 | OG previews | Route-specific 1200x630 PNGs for `/pricing`, `/security`, `/demo`, `/platform/evidence`, `/resources` |
 | Trust / claims | Implemented/planned/not-claimed discipline preserved; no invented customers, certifications, regulatory endorsement, telemetry, or integrations |
 | QA | `npm run ci:validate`, `npm run qa`, `npm run qa:responsive-a11y`; live sitemap crawl 93 URLs; live changed-route image/overflow/axe checks passed |
-| Production deploy | GitHub Actions run `32627169675`; validate job `97164170450`; deploy job `97164257002`; Cloudflare version `c4c58190-ad1c-49a7-9825-b5894d45a1d7` |
+| Production deploy | Product run `32627169675`; documentation sync run `32627693133`; documentation sync deploy job `97165581354`; Cloudflare version `e8374a9b-a77f-4c91-90b0-959fcb0d5b13` |
 | Deployment note | `docs/2026-08-23-product-experience-upgrade-deployment.md` |
 
 ### 2026-08-22 unreasonable excellence pass (merged PR #14 -> `8a633155`)

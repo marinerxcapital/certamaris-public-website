@@ -17,7 +17,7 @@
 | **Authenticated app (separate)** | https://app.certamaris.com — do **not** merge into this repo |
 | **GitHub** | https://github.com/marinerxcapital/certamaris-public-website |
 | **Branch** | **`main` only** for production |
-| **Latest UX pass (2026-08-23)** | Product experience upgrade `dfb009f` · CI/deploy source `da501d5` · deploy run `32627169675` · note `docs/2026-08-23-product-experience-upgrade-deployment.md` |
+| **Latest UX pass (2026-08-23)** | Product experience upgrade `dfb009f` · docs synchronized on `main` · note `docs/2026-08-23-product-experience-upgrade-deployment.md` |
 | **Link-preview code commit (2026-08-21)** | **`190533a`** - PR #9 link-preview branding fix; prior PR #6 `df5f174` / PR #5 `660e5b4` |
 | **Worker name** | `certamaris-site` |
 | **Worker config** | `wrangler.jsonc` · assets `./out` · entry `worker/index.ts` |
@@ -77,7 +77,7 @@
 7. Production deploy: GitHub Actions run `32556978238`, validate job `96992622323`, deploy job `96992697549`; live root ETag `"82a210908a5433f9fdb216a2b0f5836e"`.
 8. Evidence: `docs/implementation/unreasonable-excellence-20260822/`.
 
-### Product experience upgrade (2026-08-23, CI/deploy source `da501d5`)
+### Product experience upgrade (2026-08-23, docs synchronized on `main`)
 
 1. Homepage now includes an accessible interactive `REQ -> APP -> CTL -> ASM -> EVD -> FND -> RSK -> CAP -> QA -> PKG` lifecycle teaser.
 2. `/demo` includes a chain-of-custody inspector backed by the approved `lib/sample-record.ts` fixture.
@@ -86,7 +86,7 @@
 5. `/platform/evidence` includes evidence simulator v2 with freshness, reviewer disposition, finding, corrective action, and resolved/reset state.
 6. Required route-specific OG previews shipped for `/pricing`, `/security`, `/demo`, `/platform/evidence`, and `/resources`.
 7. Regression checks: `npm run ci:validate`, `npm run qa`, `npm run qa:responsive-a11y`; live sitemap crawl covered 93 URLs.
-8. Production deploy: GitHub Actions run `32627169675`, deploy job `97164257002`, Cloudflare version `c4c58190-ad1c-49a7-9825-b5894d45a1d7`.
+8. Production deploy: product run `32627169675`; documentation sync run `32627693133`, deploy job `97165581354`, Cloudflare version `e8374a9b-a77f-4c91-90b0-959fcb0d5b13`.
 
 ---
 
