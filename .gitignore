@@ -4,6 +4,7 @@ out
 .wrangler
 artifacts
 qa-screenshots
+qa-artifacts
 audit
 pnpm-lock.yaml
 public/product/test-executive.png

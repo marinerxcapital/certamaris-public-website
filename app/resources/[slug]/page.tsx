@@ -23,6 +23,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!article) return pageMetadata("Resource not found", "This resource could not be found.", "/resources");
   return pageMetadata(article.title, article.excerpt, `/resources/${article.slug}`, {
     ogType: "article",
+    image: "/og/certamaris-resources-2026-08-product-experience.png",
     publishedTime: article.publishedDate,
     modifiedTime: article.updatedDate ?? article.publishedDate,
     keywords: article.tags,

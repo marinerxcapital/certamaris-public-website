@@ -5,7 +5,6 @@ import {
   MAX_CONTACT_BODY_BYTES,
   readContactRequest,
   validateContactInput,
-// @ts-expect-error Node 22 type-stripping executes this TypeScript test directly.
 } from "./contact-request.ts";
 
 const valid = {

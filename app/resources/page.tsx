@@ -15,7 +15,8 @@ import { breadcrumbListSchema, webPageSchema } from "@/lib/seo-schema";
 export const metadata = pageMetadata(
   "Resources",
   "Plain-language explainers, guides, and checklists on IMO cyber-risk management, IACS UR E26/E27, evidence, and fleet cyber governance.",
-  "/resources"
+  "/resources",
+  { image: "/og/certamaris-resources-2026-08-product-experience.png" }
 );
 
 export default function ResourcesPage() {
@@ -78,7 +79,7 @@ export default function ResourcesPage() {
           <Eyebrow>Product reading paths</Eyebrow>
           <h2 className="section-h2 section-h2--lg">Start with the workflow, then go deeper.</h2>
         </Reveal>
-        <RevealGroup className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6" stagger={0.05}>
+        <RevealGroup className="grid md:grid-cols-2 lg:grid-cols-3 gap-6" stagger={0.05}>
           <ProductScreenTile
             {...productProofScreens.requirementMapping}
             title="Regulatory intelligence"

@@ -4,6 +4,8 @@
  * licensing + separately priced assurance engagements.
  */
 
+export { pricingCalculatorTiers, type PricingCalculatorTier } from "@/lib/pricing-calculator";
+
 export type PricingTier = {
   id: "core" | "assurance" | "enterprise";
   name: string;
@@ -87,28 +89,6 @@ export const pricingTiers: PricingTier[] = [
       "SSO / SCIM (planned)",
       "Formal certification or classification-society approval",
     ],
-  },
-];
-
-export type PricingCalculatorTier = {
-  id: PricingTier["id"];
-  name: PricingTier["name"];
-  maxVessels: number;
-  platformFeeUsd: number;
-  perVesselUsd: number;
-  minVessels: number;
-};
-
-export const pricingCalculatorTiers: PricingCalculatorTier[] = [
-  { id: "core", name: "Core", maxVessels: 9, platformFeeUsd: 15000, perVesselUsd: 3000, minVessels: 5 },
-  { id: "assurance", name: "Assurance", maxVessels: 24, platformFeeUsd: 24000, perVesselUsd: 3000, minVessels: 10 },
-  {
-    id: "enterprise",
-    name: "Enterprise",
-    maxVessels: Number.POSITIVE_INFINITY,
-    platformFeeUsd: 48000,
-    perVesselUsd: 2400,
-    minVessels: 25,
   },
 ];
 

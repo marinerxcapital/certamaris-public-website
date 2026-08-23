@@ -11,7 +11,7 @@ const label = process.argv[2] || "before";
 const noShots = process.argv.includes("--no-shots");
 const OUT = "out";
 const AUDIT_DIR = path.join("audit", label);
-const PORT = 4517;
+const PORT = Number(process.env.QA_PORT || 4517);
 
 // --- static server over ./out with Next-style .html resolution ---
 const MIME = {
@@ -106,7 +106,8 @@ async function main() {
     });
     page.on("pageerror", (err) => consoleErrors.push({ route: page.url(), text: String(err) }));
 
-    for (const route of routes) {
+    for (const [index, route] of routes.entries()) {
+      console.log(`${vp.name}: checking ${index + 1}/${routes.length} ${route}`);
       const url = `http://127.0.0.1:${PORT}${route === "/" ? "/" : route}`;
       try {
         await page.goto(url, { waitUntil: "networkidle", timeout

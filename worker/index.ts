@@ -3,7 +3,6 @@ import {
   readContactRequest,
   validateContactInput,
   type NormalizedContact,
-// @ts-expect-error Wrangler and Node 22 type-stripping resolve the explicit TypeScript source extension.
 } from "../lib/contact-request.ts";
 
 type RateLimitBinding = {

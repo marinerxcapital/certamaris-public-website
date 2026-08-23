@@ -21,7 +21,8 @@ import { REGULATORY_LAST_REVIEWED } from "@/lib/regulatory";
 export const metadata = pageMetadata(
   "Pricing",
   "Annual platform-plus-contracted-vessel pricing for Core, Assurance, and Enterprise, plus separately priced remote and on-board assurance engagements.",
-  "/pricing"
+  "/pricing",
+  { image: "/og/certamaris-pricing-2026-08-product-experience.png" }
 );
 
 function formatReviewDate(isoDate: string): string {

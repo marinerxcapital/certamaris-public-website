@@ -20,7 +20,8 @@ import {
 export const metadata = pageMetadata(
   "Security",
   "How CertaMaris handles tenancy, access control, encryption, logging, and related platform controls with honest maturity labels.",
-  "/security"
+  "/security",
+  { image: "/og/certamaris-security-2026-08-product-experience.png" }
 );
 
 function formatReviewDate(isoDate: string): string {

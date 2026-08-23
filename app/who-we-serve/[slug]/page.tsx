@@ -5,6 +5,7 @@ import { Button } from "@/components/Button";
 import { FaqAccordion } from "@/components/FaqAccordion";
 import { PageHero } from "@/components/PageHero";
 import { Reveal } from "@/components/Reveal";
+import { RoleRecordPath } from "@/components/RoleRecordPath";
 import { Eyebrow, Section } from "@/components/Section";
 import { audiencePages, getAudiencePage } from "@/lib/solutions-audience";
 import { pageMetadata } from "@/lib/metadata";
@@ -71,6 +72,12 @@ export default async function AudienceDetailPage({ params }: { params: Promise<{
             </ul>
           </Reveal>
         </div>
+      </Section>
+
+      <Section surface="paper" spacing="compact">
+        <Reveal>
+          <RoleRecordPath slug={page.slug} />
+        </Reveal>
       </Section>
 
       <Section surface="paper" spacing="compact">

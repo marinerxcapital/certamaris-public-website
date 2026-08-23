@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AssuranceLifecycleTeaser } from "@/components/AssuranceLifecycleTeaser";
 import { Button } from "@/components/Button";
 import { BuyerDiligencePacket } from "@/components/BuyerDiligencePacket";
 import { EvidenceChain } from "@/components/EvidenceChain";
@@ -84,6 +85,9 @@ export default function HomePage() {
             Every step below is a controlled object in the platform — owned, versioned, and
             inspectable. This chain is the product&apos;s operating unit, not a marketing diagram.
           </p>
+        </Reveal>
+        <Reveal className="mb-8">
+          <AssuranceLifecycleTeaser />
         </Reveal>
         <EvidenceChain />
         <div className="mt-12 flex flex-wrap items-center gap-4">

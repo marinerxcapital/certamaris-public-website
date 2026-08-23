@@ -1,5 +1,6 @@
 import { BoundaryPanel } from "@/components/BoundaryPanel";
 import { Button } from "@/components/Button";
+import { ChainOfCustodyInspector } from "@/components/ChainOfCustodyInspector";
 import { CustodyStripBand } from "@/components/CustodyStripBand";
 import { DemoScrubTour } from "@/components/DemoScrubTour";
 import { DemoTourGallery } from "@/components/DemoTourGallery";
@@ -12,7 +13,8 @@ import { pageMetadata } from "@/lib/metadata";
 export const metadata = pageMetadata(
   "Product Demo",
   "Cinematic scrub tour of CertaMaris — requirement to readiness package with sanitized Dashboard V2 product screens.",
-  "/demo"
+  "/demo",
+  { image: "/og/certamaris-demo-2026-08-product-experience.png" }
 );
 
 export default function DemoPage() {
@@ -26,6 +28,12 @@ export default function DemoPage() {
       />
 
       <CustodyStripBand href="/#evidence-chain" label="Homepage chain of custody" />
+
+      <Section id="chain-inspector" spacing="compact">
+        <Reveal>
+          <ChainOfCustodyInspector />
+        </Reveal>
+      </Section>
 
       <Section id="scrub-tour" spacing="compact" surface="paper">
         <Reveal className="mb-8 max-w-2xl">

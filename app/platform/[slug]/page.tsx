@@ -27,7 +27,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const mod = getProductModule(slug);
   if (!mod) return {};
-  return pageMetadata(mod.title, mod.intro, `/platform/${mod.slug}`);
+  return pageMetadata(mod.title, mod.intro, `/platform/${mod.slug}`, {
+    image: mod.slug === "evidence" ? "/og/certamaris-evidence-2026-08-product-experience.png" : undefined,
+  });
 }
 
 export default async function PlatformModulePage({ params }: { params: Promise<{ slug: string }> }) {

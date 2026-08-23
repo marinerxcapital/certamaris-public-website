@@ -17,8 +17,10 @@
   --ink-inverse: #f5f8fa;
   --accent-ocean: #126faa;
   --accent-ocean-cta: #1478b8;
+  /* Decorative/accent only on light surfaces; use --accent-ocean-deep for readable body copy. */
   --accent-ocean-light: #4fade0;
   --accent-wash: #e7f3fb;
+  /* Decorative/accent only unless paired with an audited high-contrast foreground/background. */
   --accent-brass: #b8823a;
   --accent-brass-soft: rgba(184, 130, 58, 0.32);
   --status-ok: #147a4c;
@@ -1393,6 +1395,117 @@ figure.product-showcase-frame > div:first-child {
   .tab-ping,
   .custody-flight {
     display: none;
+  }
+}
+
+/* ---------- Product-experience upgrade 2026-08-23 ---------- */
+.lifecycle-teaser-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+@media (min-width: 640px) {
+  .lifecycle-teaser-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+.lifecycle-teaser-node {
+  min-width: 0;
+}
+
+.lifecycle-teaser-button {
+  width: 100%;
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  border: 1px solid rgba(11, 42, 74, 0.12);
+  border-radius: var(--radius-control);
+  background: rgba(255, 255, 255, 0.72);
+  padding: 10px 11px;
+  cursor: pointer;
+  transition: border-color 160ms ease, background-color 160ms ease, box-shadow 160ms ease;
+}
+
+.lifecycle-teaser-button:hover,
+.lifecycle-teaser-button:focus-visible,
+.lifecycle-teaser-button.is-active {
+  border-color: rgba(18, 111, 170, 0.66);
+  background: #ffffff;
+}
+
+.lifecycle-teaser-button:focus-visible {
+  outline: 2px solid var(--accent-ocean);
+  outline-offset: 2px;
+}
+
+.lifecycle-teaser-button.is-active {
+  box-shadow: 0 0 0 1px rgba(18, 111, 170, 0.25), 0 10px 24px rgba(11, 42, 74, 0.08);
+}
+
+.custody-inspector-chain {
+  display: grid;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.custody-inspector-step {
+  position: relative;
+}
+
+.custody-inspector-step + .custody-inspector-step::before {
+  content: "";
+  position: absolute;
+  left: 20px;
+  top: -8px;
+  height: 8px;
+  border-left: 2px solid rgba(18, 111, 170, 0.35);
+}
+
+.custody-inspector-button {
+  display: grid;
+  width: 100%;
+  min-height: 56px;
+  grid-template-columns: 4.5rem minmax(4.8rem, 0.5fr) minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  border: 1px solid rgba(11, 42, 74, 0.12);
+  border-radius: var(--radius-control);
+  background: rgba(255, 255, 255, 0.76);
+  padding: 10px 12px;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 160ms ease, background-color 160ms ease, box-shadow 160ms ease;
+}
+
+.custody-inspector-button:hover,
+.custody-inspector-button:focus-visible,
+.custody-inspector-button.is-active {
+  border-color: rgba(18, 111, 170, 0.66);
+  background: #ffffff;
+}
+
+.custody-inspector-button:focus-visible {
+  outline: 2px solid var(--accent-ocean);
+  outline-offset: 2px;
+}
+
+.custody-inspector-button.is-active {
+  box-shadow: 0 0 0 1px rgba(18, 111, 170, 0.25), 0 10px 24px rgba(11, 42, 74, 0.08);
+}
+
+@media (max-width: 520px) {
+  .custody-inspector-button {
+    grid-template-columns: 1fr;
+    gap: 3px;
   }
 }
 

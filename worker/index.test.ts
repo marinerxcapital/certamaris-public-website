@@ -1,6 +1,5 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-// @ts-expect-error Node 22 type-stripping executes this TypeScript test directly.
 import worker from "./index.ts";
 
 const validContact = {
