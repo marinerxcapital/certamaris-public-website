@@ -45,10 +45,11 @@ Status: **production verified** on `https://certamaris.com`.
 | OG assets | Pass: five route-specific PNGs verified at `1200x630` |
 | Claims sweep | Pass: no generic hype phrases found; trust/future claims remained bounded |
 | Secrets sweep | Pass: no secret values found in changed source |
+| `node scripts/qa/audit-crawl.mjs final-product-experience --no-shots` | Pass: 93 routes, desktop/mobile, `pages with axe violations: 0`, `pages with horizontal overflow: 0`, console errors `0` |
 
 Notes:
 
-- The legacy `node scripts/qa/audit-crawl.mjs after-product-experience --no-shots` did not complete under the local terminal runtime and timed out after ten minutes. The release was covered by the green static route/SEO/link checks, expanded responsive/axe sweep, focused browser journeys, live sitemap crawl, live image checks, and live serious/critical axe sweep.
+- The legacy full-route crawl was rerun at closeout as `node scripts/qa/audit-crawl.mjs final-product-experience --no-shots` and passed across all 93 sitemap routes on desktop and mobile.
 - Existing static-export warnings about Next.js custom headers/rewrites remain unchanged.
 - Node's direct TypeScript test runner emits `MODULE_TYPELESS_PACKAGE_JSON` warnings; tests pass and no package-type migration was made.
 
