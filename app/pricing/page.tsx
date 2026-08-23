@@ -232,7 +232,12 @@ export default function PricingPage() {
           </p>
         </Reveal>
         <Reveal>
-          <div className="overflow-x-auto rounded-md border border-navy/10 bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ocean">
+          <div
+            aria-label="Annual pricing tiers"
+            className="overflow-x-auto rounded-md border border-navy/10 bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ocean"
+            role="region"
+            tabIndex={0}
+          >
             <table className="w-full min-w-[720px] border-collapse text-left text-[13.5px]">
               <caption className="sr-only">CertaMaris annual pricing tiers</caption>
               <thead>
