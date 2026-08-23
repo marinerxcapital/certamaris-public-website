@@ -87,6 +87,16 @@ async function main() {
     await assertNoOverflow(page, "homepage/demo chain");
   });
 
+  await step("homepage fleet workbench switches sample vessel", async () => {
+    await page.goto(`${base}/`, { waitUntil: "load" });
+    await page.locator('[data-qa="fleet-assurance-workbench"]').waitFor();
+    await page.getByRole("tab", { name: /MV Pelagos/ }).click();
+    await page.getByText("Readiness package under QA review").waitFor();
+    await page.getByText("Reviewer decision on EVD-0994").waitFor();
+    await page.getByRole("link", { name: "Inspect lineage" }).waitFor();
+    await assertNoOverflow(page, "fleet workbench");
+  });
+
   await step("demo inspector restores query stage and navigates lineage", async () => {
     await page.goto(`${base}/demo?stage=EVD#chain-inspector`, { waitUntil: "load" });
     await page.getByText("EVD-0847").first().waitFor();

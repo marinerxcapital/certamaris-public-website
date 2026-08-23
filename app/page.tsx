@@ -3,6 +3,7 @@ import { AssuranceLifecycleTeaser } from "@/components/AssuranceLifecycleTeaser"
 import { Button } from "@/components/Button";
 import { BuyerDiligencePacket } from "@/components/BuyerDiligencePacket";
 import { EvidenceChain } from "@/components/EvidenceChain";
+import { FleetAssuranceWorkbench } from "@/components/FleetAssuranceWorkbench";
 import { FounderPortrait } from "@/components/FounderPortrait";
 import { HomeHero } from "@/components/HomeHero";
 import { HomepageProductShowcase } from "@/components/HomepageProductShowcase";
@@ -74,6 +75,22 @@ export default function HomePage() {
   return (
     <>
       <HomeHero />
+
+      <Section id="fleet-workbench" surface="paper" spacing="compact">
+        <Reveal className="mb-10 max-w-3xl">
+          <Eyebrow>Maritime software proof</Eyebrow>
+          <h2 className="section-h2 section-h2--lg">
+            A fleet assurance workbench, not a brochure diagram.
+          </h2>
+          <p className="mt-4 max-w-2xl text-[15.5px] leading-relaxed text-structural">
+            Use this sample workspace to see how vessel scope, evidence, findings, corrective
+            actions, and readiness packages stay in one inspectable record.
+          </p>
+        </Reveal>
+        <Reveal>
+          <FleetAssuranceWorkbench />
+        </Reveal>
+      </Section>
 
       <Section id="evidence-chain">
         <Reveal className="mb-12 max-w-3xl">
