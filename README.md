@@ -7,7 +7,7 @@ built to stand on its own and to later link out to the authenticated
 CertaMaris application (being built separately in Lovable) through four
 clearly labeled integration points.
 
-## Production source of truth (verified 2026-08-21)
+## Production source of truth (verified 2026-08-23)
 
 | Item | Value |
 |---|---|
@@ -17,8 +17,8 @@ clearly labeled integration points.
 | **App** | Separate: https://app.certamaris.com |
 | **Agent memory (START HERE)** | [`docs/AGENT_MEMORY.md`](docs/AGENT_MEMORY.md) |
 | **Codex handoff** | [`docs/CODEX_MARKETING_TAKEOVER.md`](docs/CODEX_MARKETING_TAKEOVER.md) |
-| **Latest deploy note** | [`docs/2026-08-22-unreasonable-excellence-deployment.md`](docs/2026-08-22-unreasonable-excellence-deployment.md) |
-| **Latest UX pass** | PR #14 · merge `8a633155` · deploy run `32556978238` |
+| **Latest deploy note** | [`docs/2026-08-23-product-experience-upgrade-deployment.md`](docs/2026-08-23-product-experience-upgrade-deployment.md) |
+| **Latest UX pass** | Product experience upgrade `dfb009f`; final main `da501d5`; deploy run `32627169675` |
 | **Link-preview code commit** | `190533a` - link-preview branding fix (PR #9); prior feature content `df5f174` (PR #6) |
 
 **Signed:** Cursor Cloud Agent · **Date:** 2026-08-16 (supersedes SuperGrok 2026-08-01 tip line)
@@ -70,6 +70,7 @@ npm run build:static # static export build (writes to /out)
 npm run start        # serve the production build locally
 npm run qa:buyer-paths # static-export guard for the buyer diligence path
 npm run qa:excellence # static-export guard for high-intent buyer readiness surfaces
+npm run qa:product-experience # browser guard for lifecycle, chain, pricing, persona, and evidence journeys
 ```
 
 ---
@@ -368,6 +369,7 @@ Local CI parity (mirrors the validate job):
 
 ```bash
 npm run ci:validate
+npm run qa
 npm run qa:link-preview
 ```
 

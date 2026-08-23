@@ -1,7 +1,7 @@
 # CODEX TAKEOVER — CertaMaris Marketing Website
 
 **Prepared:** 2026-08-01 · SuperGrok  
-**Updated:** 2026-08-21 · Codex
+**Updated:** 2026-08-23 · Codex
 **Audience:** Codex / Cursor / any successor agent  
 **Status:** Live production site organized; **this repo is the only deploy SoT**
 
@@ -17,7 +17,7 @@
 | **Authenticated app (separate)** | https://app.certamaris.com — do **not** merge into this repo |
 | **GitHub** | https://github.com/marinerxcapital/certamaris-public-website |
 | **Branch** | **`main` only** for production |
-| **Latest UX pass (2026-08-22)** | PR #14 · merge `8a633155` · deploy run `32556978238` · note `docs/2026-08-22-unreasonable-excellence-deployment.md` |
+| **Latest UX pass (2026-08-23)** | Product experience upgrade `dfb009f` · final main `da501d5` · deploy run `32627169675` · note `docs/2026-08-23-product-experience-upgrade-deployment.md` |
 | **Link-preview code commit (2026-08-21)** | **`190533a`** - PR #9 link-preview branding fix; prior PR #6 `df5f174` / PR #5 `660e5b4` |
 | **Worker name** | `certamaris-site` |
 | **Worker config** | `wrangler.jsonc` · assets `./out` · entry `worker/index.ts` |
@@ -77,6 +77,17 @@
 7. Production deploy: GitHub Actions run `32556978238`, validate job `96992622323`, deploy job `96992697549`; live root ETag `"82a210908a5433f9fdb216a2b0f5836e"`.
 8. Evidence: `docs/implementation/unreasonable-excellence-20260822/`.
 
+### Product experience upgrade (2026-08-23, final main `da501d5`)
+
+1. Homepage now includes an accessible interactive `REQ -> APP -> CTL -> ASM -> EVD -> FND -> RSK -> CAP -> QA -> PKG` lifecycle teaser.
+2. `/demo` includes a chain-of-custody inspector backed by the approved `lib/sample-record.ts` fixture.
+3. `/pricing` calculator v2 uses canonical `lib/pricing-calculator.ts` logic, supports total fleet versus contracted vessels, optional remote QA reports, optional on-board assessments, non-binding estimate copy, and shareable query parameters.
+4. `/who-we-serve/*` pages include tailored "Your path through the record" modules.
+5. `/platform/evidence` includes evidence simulator v2 with freshness, reviewer disposition, finding, corrective action, and resolved/reset state.
+6. Required route-specific OG previews shipped for `/pricing`, `/security`, `/demo`, `/platform/evidence`, and `/resources`.
+7. Regression checks: `npm run ci:validate`, `npm run qa`, `npm run qa:responsive-a11y`; live sitemap crawl covered 93 URLs.
+8. Production deploy: GitHub Actions run `32627169675`, deploy job `97164257002`, Cloudflare version `c4c58190-ad1c-49a7-9825-b5894d45a1d7`.
+
 ---
 
 ## 2. Deploy (only way to update certamaris.com)
@@ -107,15 +118,20 @@ Never re-bind `app.certamaris.com` to `certamaris-site`.
 
 ---
 
-## 4. Key code map (2026-08-16)
+## 4. Key code map (2026-08-23)
 
 | Concern | Path |
 |---|---|
 | Nav / footer / CTAs | `components/Nav.tsx`, `Footer.tsx`, `lib/constants.ts` |
 | Homepage hero | `components/HomeHero.tsx`, `app/page.tsx` |
+| Lifecycle teaser | `components/AssuranceLifecycleTeaser.tsx`, `lib/assurance-lifecycle.ts` |
 | Personas | `lib/personas.ts`, `components/PersonaEntry.tsx` |
 | Sample record | `lib/sample-record.ts`, `components/SampleRecordExplorer.tsx` |
+| Chain inspector | `components/ChainOfCustodyInspector.tsx`, `lib/sample-record.ts` |
 | Demo scrub | `lib/demo-scrub.ts`, `components/DemoScrubTour.tsx` |
+| Pricing calculator v2 | `components/PricingCalculator.tsx`, `lib/pricing-calculator.ts` |
+| Role record paths | `components/RoleRecordPath.tsx` |
+| Evidence simulator v2 | `components/EvidenceFreshnessSimulator.tsx` |
 | Custody strip band | `components/CustodyStripBand.tsx` |
 | Evidence chain | `components/EvidenceChain.tsx` |
 | Platform landing | `app/platform/page.tsx` |
@@ -126,7 +142,7 @@ Never re-bind `app.certamaris.com` to `certamaris-site`.
 | Worker contact + redirects | `worker/index.ts` |
 | Pixel Grid | `components/PixelGridBackground.tsx` |
 | Design tokens | `app/globals.css` |
-| QA routes | `scripts/qa/expected-routes.mjs` |
+| QA routes | `scripts/qa/expected-routes.mjs`, `scripts/qa/check-product-experience.mjs` |
 
 ---
 
@@ -172,7 +188,7 @@ Fallback addresses: `skyler@certamaris.com`, `sales@certamaris.com`.
 
 1. `git checkout main && git pull origin main`  
 2. Read **`docs/AGENT_MEMORY.md`** then this file  
-3. `npm run typecheck && npm run qa` (after `build:static` if needed; includes buyer-path QA)
+3. `npm run ci:validate && npm run qa` (after `build:static` if needed; includes product-experience and buyer-path QA)
 4. Confirm https://certamaris.com 200  
 5. Only then edit — feature branch `cursor/<name>-e469` unless owner says push main  
 6. Deploy only via `build:static` + `wrangler deploy --keep-vars` or CI on main  
@@ -188,4 +204,4 @@ Fallback addresses: `skyler@certamaris.com`, `sales@certamaris.com`.
 **Preserve valid work. Do not redesign from zero.**
 
 **Signed:** SuperGrok · 2026-08-01  
-**Countersigned / updated:** Cursor Cloud Agent · 2026-08-16
+**Countersigned / updated:** Codex · 2026-08-23

@@ -3,14 +3,29 @@
 **Signed:** Cursor Cloud Agent (Composer) · **Date:** 2026-08-16  
 **Run:** https://cursor.com/agents/bc-01a0088b-afcf-732b-9a58-c0e555d9e469  
 **Owner:** Skyler Brown (`skyler@certamaris.com`)  
-**Live SoT repo:** `marinerxcapital/certamaris-public-website` · branch **`main`** · latest UX merge **`8a633155`** / PR #14 / deploy run **`32556978238`**; prior conversion merge **`4f206e6`** / PR #12; link-preview code commit **`190533a`** (PR #9; prior feature content from **`df5f174`**)
-**Production:** https://certamaris.com · Worker `certamaris-site` · link-preview code deploy run **`32539507125`** (2026-08-21); records closeout PR #10 followed on `main`
+**Live SoT repo:** `marinerxcapital/certamaris-public-website` · branch **`main`** · product experience upgrade **`dfb009f`** · final main **`da501d5`** · deploy run **`32627169675`**; prior UX merge **`8a633155`** / PR #14; prior conversion merge **`4f206e6`** / PR #12; link-preview code commit **`190533a`** (PR #9)
+**Production:** https://certamaris.com · Worker `certamaris-site` · Cloudflare deployment version **`c4c58190-ad1c-49a7-9825-b5894d45a1d7`** (2026-08-23)
 
 > Future agentic sessions: **read this file first**, then the latest dated deployment note under `docs/`, then `docs/CODEX_MARKETING_TAKEOVER.md`. Do not invent customers, metrics, certifications, compliance guarantees, or contact-forward secrets.
 
 ---
 
-## 1. What shipped 2026-08-16 (this session)
+## 1. What shipped
+
+### 2026-08-23 product experience upgrade (`dfb009f` -> final main `da501d5`)
+
+| Item | Detail |
+|---|---|
+| Homepage lifecycle | Interactive `REQ -> APP -> CTL -> ASM -> EVD -> FND -> RSK -> CAP -> QA -> PKG` teaser with focus/touch/keyboard operability and `/demo#chain-inspector` CTA |
+| Chain inspector | `/demo` mounts `ChainOfCustodyInspector` backed by `lib/sample-record.ts`; sample/demo data is explicitly labeled |
+| Pricing calculator v2 | Canonical `lib/pricing-calculator.ts` supports total fleet, contracted vessels, `$6,000` remote QA reports, `$15,000` on-board assessments, travel exclusion, non-binding estimate copy, and shareable query state |
+| Persona paths | `/who-we-serve/*` renders tailored "Your path through the record" modules into relevant demo stages |
+| Evidence simulator v2 | `/platform/evidence` drills from evidence item to freshness, reviewer disposition, finding, corrective action, resolved/reset state |
+| OG previews | Route-specific 1200x630 PNGs for `/pricing`, `/security`, `/demo`, `/platform/evidence`, `/resources` |
+| Trust / claims | Implemented/planned/not-claimed discipline preserved; no invented customers, certifications, regulatory endorsement, telemetry, or integrations |
+| QA | `npm run ci:validate`, `npm run qa`, `npm run qa:responsive-a11y`; live sitemap crawl 93 URLs; live changed-route image/overflow/axe checks passed |
+| Production deploy | GitHub Actions run `32627169675`; validate job `97164170450`; deploy job `97164257002`; Cloudflare version `c4c58190-ad1c-49a7-9825-b5894d45a1d7` |
+| Deployment note | `docs/2026-08-23-product-experience-upgrade-deployment.md` |
 
 ### 2026-08-22 unreasonable excellence pass (merged PR #14 -> `8a633155`)
 
@@ -84,11 +99,17 @@
 | Demo scrub | `lib/demo-scrub.ts`, `components/DemoScrubTour.tsx`, `app/demo/page.tsx` |
 | Custody strip band | `components/CustodyStripBand.tsx` |
 | Evidence chain | `components/EvidenceChain.tsx` |
+| Lifecycle teaser | `components/AssuranceLifecycleTeaser.tsx`, `lib/assurance-lifecycle.ts` |
+| Chain inspector | `components/ChainOfCustodyInspector.tsx`, `lib/sample-record.ts` |
+| Pricing calculator v2 | `components/PricingCalculator.tsx`, `lib/pricing-calculator.ts`, `lib/pricing-calculator.test.ts` |
+| Role record paths | `components/RoleRecordPath.tsx` |
+| Evidence simulator v2 | `components/EvidenceFreshnessSimulator.tsx` |
 | Platform landing | `app/platform/page.tsx` |
 | Assurance leave-behind | `app/trust/assurance-model/page.tsx`, `components/PrintButton.tsx` |
 | Contact Worker | `worker/index.ts` (`CONTACT_FORWARD_ENDPOINT` + `CONTACT_FORWARD_SECRET`) |
 | Route QA inventory | `scripts/qa/expected-routes.mjs` |
 | Link-preview QA | `scripts/qa/check-link-preview.mjs` |
+| Product-experience QA | `scripts/qa/check-product-experience.mjs` |
 | Buyer-path QA | `scripts/qa/check-buyer-paths.mjs` |
 | Excellence-path QA | `scripts/qa/check-excellence-path.mjs` |
 | Design tokens | `app/globals.css`, `tailwind.config.ts` |
@@ -126,6 +147,7 @@ CHROMIUM_PATH=/usr/local/bin/google-chrome node scripts/qa/check-sample-record.m
 | `docs/2026-08-16-impressive-pass-deployment.md` | Full deployment / merge record for this pass |
 | `docs/2026-08-21-link-preview-branding-deployment.md` | Link-preview branding fix and production verification |
 | `docs/2026-08-22-conversion-trust-ux-deployment.md` | Conversion, trust packaging, buyer-path, and mobile-nav UX pass |
+| `docs/2026-08-23-product-experience-upgrade-deployment.md` | Product mini-experience, pricing v2, evidence v2, OG previews, live verification |
 | `docs/implementation/impressive-pass-20260816/` | Implementation folder (README, CHANGES, CONTACT) |
 | `docs/implementation/link-preview-branding-20260821/` | Implementation record for OG/Twitter preview remediation |
 | `docs/implementation/conversion-trust-ux-20260822/` | Screenshot-backed implementation record for the buyer-path UX pass |
