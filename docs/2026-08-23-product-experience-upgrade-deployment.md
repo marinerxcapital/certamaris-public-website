@@ -12,6 +12,7 @@ Status: **production verified** on `https://certamaris.com`.
 | Pricing keyboard-access closeout | `0084f5135328645b50cb0d911dca877358c83a94` |
 | Full-crawl closeout | `ee4267f8150be9b6b8dcfce8d6ac7985e70c235f` |
 | Workflow runtime closeout | `2d910695deb97635aebc36e5848e14933b857062` |
+| Fleet assurance workbench | `87b3b64bb7a6bc05e90011bb165eb9353c60bbf4` |
 | CI validation commit | `da501d5d92142d0a28ae49d849756cc7f9697f1b` |
 | Documentation sync commit | `ed632bbe112b3ba4f2efc4044806d9f0f5275a92` |
 | Product GitHub Actions run | `32627169675` |
@@ -24,13 +25,18 @@ Status: **production verified** on `https://certamaris.com`.
 | Workflow runtime GitHub Actions run | `32629618157` |
 | Workflow runtime validate job | `97170253355` |
 | Workflow runtime deploy job | `97170338326` |
+| Fleet workbench GitHub Actions run | `32635035960` |
+| Fleet workbench validate job | `97183390842` |
+| Fleet workbench deploy job | `97183484028` |
 | Cloudflare Worker | `certamaris-site` |
 | Workflow runtime Cloudflare deployment readback | `ad6dc837-6bf2-459e-81e2-6b882500a930` at 100% from `wrangler deployments list` |
+| Fleet workbench Cloudflare deployment readback | `d3ad7fc8-d4d9-4663-b273-8abb2890febf` at 100% from `wrangler deployments list` |
 | Production domain | `https://certamaris.com` |
 
 ## Product experience shipped
 
 - Homepage interactive `REQ -> APP -> CTL -> ASM -> EVD -> FND -> RSK -> CAP -> QA -> PKG` lifecycle teaser with hover, focus, click, touch, and `/demo#chain-inspector` CTA.
+- Homepage fleet assurance workbench showing sample vessels, package readiness, evidence freshness, open findings, next corrective action, maritime system scope, and chain state. The module is interactive by keyboard/touch/mouse, has reduced-motion fallback, and is explicitly labeled as sample/demo data with no customer records or vessel telemetry.
 - `/demo` chain-of-custody inspector using the approved `lib/sample-record.ts` fixture, with sample-data labeling and selectable requirement-to-package lineage.
 - `/pricing` calculator v2 using canonical `lib/pricing-calculator.ts` logic for total fleet, contracted vessels, optional remote QA-reviewed reports at `$6,000 / contracted vessel`, optional on-board assessments at `$15,000 / contracted vessel`, travel exclusion, non-binding estimate language, and shareable query state.
 - Role-specific "Your path through the record" modules across `/who-we-serve/*`, with tailored DPA, owner/fleet leadership, IT/OT, vessel, reviewer, insurer, and service-provider paths into relevant demo state.
@@ -55,6 +61,9 @@ Status: **production verified** on `https://certamaris.com`.
 | Final production smoke | Pass: sitemap count, homepage lifecycle, pricing share estimate, keyboard-focusable pricing table, demo chain query state, persona path, evidence simulator, evidence OG metadata |
 | Final live sitemap crawl | Pass: 93 sitemap routes, 143 internal assets, 115 internal links |
 | Final live responsive/Axe | Pass: 16 key routes x 8 viewports, console errors `0`, serious/critical Axe violations `0`, overflow `0`, broken images `0` |
+| Fleet workbench local validation | Pass: `npm run ci:validate`, `npm run qa`, `npm run qa:product-experience`, `npm run qa:responsive-a11y`; screenshot inspection at 1440, 768, 390, and 320 showed no overlap or overflow |
+| Fleet workbench production smoke | Pass: homepage workbench visible and interactive; `MV Pelagos` tab restored QA-review state; lifecycle, pricing, and evidence journeys still passed |
+| Fleet workbench live responsive | Pass: 320, 375, 390, 430, 768, 1024, 1280, and 1440 widths; workbench visible and page overflow `0` |
 
 Notes:
 
@@ -73,6 +82,7 @@ Production checks on `https://certamaris.com` after deployment:
 | `www` redirect behavior | Pass: `https://www.certamaris.com/` redirects to apex; pricing estimate query string is preserved |
 | Live sitemap crawl | Pass: 93 sitemap URLs, 143 internal assets, and 115 internal links returned non-error HTTP responses |
 | Live product journeys | Pass: homepage lifecycle to demo, chain inspector query state, pricing shared estimate, keyboard-focusable pricing table, persona CTA, evidence simulator lifecycle |
+| Live fleet workbench | Pass: `https://certamaris.com/` renders `data-qa="fleet-assurance-workbench"`; selecting `MV Pelagos` shows QA-review package state and `EVD-0994` next action |
 | Live OG metadata | Pass: route-specific `og:image` and `twitter:image` for required routes; image URLs returned PNG |
 | Live screenshots | Captured under ignored `audit/live-product-experience-20260823/` for desktop and mobile changed routes |
 | Live image checks | Pass: changed routes had no broken `<img>` assets |

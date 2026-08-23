@@ -3,7 +3,7 @@
 **Signed:** Cursor Cloud Agent (Composer) · **Date:** 2026-08-16  
 **Run:** https://cursor.com/agents/bc-01a0088b-afcf-732b-9a58-c0e555d9e469  
 **Owner:** Skyler Brown (`skyler@certamaris.com`)  
-**Live SoT repo:** `marinerxcapital/certamaris-public-website` · branch **`main`** · product experience upgrade **`dfb009f`** · pricing table keyboard-access closeout **`0084f51`**; product run **`32627169675`**; final accessibility deploy run **`32628481367`**; prior UX merge **`8a633155`** / PR #14; prior conversion merge **`4f206e6`** / PR #12; link-preview code commit **`190533a`** (PR #9)
+**Live SoT repo:** `marinerxcapital/certamaris-public-website` · branch **`main`** · fleet assurance workbench **`87b3b64`**; product experience upgrade **`dfb009f`** · pricing table keyboard-access closeout **`0084f51`**; latest workbench deploy run **`32635035960`**; product run **`32627169675`**; final accessibility deploy run **`32628481367`**; prior UX merge **`8a633155`** / PR #14; prior conversion merge **`4f206e6`** / PR #12; link-preview code commit **`190533a`** (PR #9)
 **Production:** https://certamaris.com · Worker `certamaris-site` · Cloudflare deployment readback verified on 2026-08-23
 
 > Future agentic sessions: **read this file first**, then the latest dated deployment note under `docs/`, then `docs/CODEX_MARKETING_TAKEOVER.md`. Do not invent customers, metrics, certifications, compliance guarantees, or contact-forward secrets.
@@ -11,6 +11,18 @@
 ---
 
 ## 1. What shipped
+
+### 2026-08-23 maritime software proof pass (`87b3b64`)
+
+| Item | Detail |
+|---|---|
+| Homepage fleet workbench | Added `FleetAssuranceWorkbench` immediately after the hero: sample vessels, readiness package state, evidence freshness, open finding, next corrective action, maritime system scope, and assurance-chain state. |
+| Motion / interaction | Framer Motion panel transitions plus CSS chart-route motion, keyboard tablist navigation, visible focus, and reduced-motion fallback. |
+| Truth boundary | Workbench copy explicitly says sample/demo data only and no customer records or vessel telemetry. No certification, regulatory endorsement, customer, or live operational claim was added. |
+| QA coverage | `scripts/qa/check-product-experience.mjs` now asserts the workbench switches to `MV Pelagos` and preserves homepage overflow. |
+| Validation | Local `npm run ci:validate`, `npm run qa`, `npm run qa:product-experience`, `npm run qa:responsive-a11y`, screenshot review at 1440/768/390/320, and production browser smoke passed. |
+| Production deploy | GitHub Actions run `32635035960`; validate job `97183390842`; deploy job `97183484028`; Cloudflare Worker version `d3ad7fc8-d4d9-4663-b273-8abb2890febf` at 100%. |
+| Status | Live on `https://certamaris.com`; final documentation sync used `[skip ci]` to avoid changing the already-verified product artifact. |
 
 ### 2026-08-23 product experience upgrade (`dfb009f`, accessibility closeout `0084f51`)
 
