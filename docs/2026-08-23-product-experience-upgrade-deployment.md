@@ -46,6 +46,7 @@ Status: **production verified** on `https://certamaris.com`.
 | Claims sweep | Pass: no generic hype phrases found; trust/future claims remained bounded |
 | Secrets sweep | Pass: no secret values found in changed source |
 | `node scripts/qa/audit-crawl.mjs final-product-experience --no-shots` | Pass: 93 routes, desktop/mobile, `pages with axe violations: 0`, `pages with horizontal overflow: 0`, console errors `0` |
+| Workflow maintenance | `actions/checkout` updated to `v7.0.1`; `actions/setup-node` updated to `v7.0.0` after live release to remove Node 20 action-runtime annotations |
 
 Notes:
 
