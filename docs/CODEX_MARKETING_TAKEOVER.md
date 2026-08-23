@@ -17,7 +17,7 @@
 | **Authenticated app (separate)** | https://app.certamaris.com — do **not** merge into this repo |
 | **GitHub** | https://github.com/marinerxcapital/certamaris-public-website |
 | **Branch** | **`main` only** for production |
-| **Latest UX pass (2026-08-23)** | Product experience upgrade `dfb009f` · final main `da501d5` · deploy run `32627169675` · note `docs/2026-08-23-product-experience-upgrade-deployment.md` |
+| **Latest UX pass (2026-08-23)** | Product experience upgrade `dfb009f` · CI/deploy source `da501d5` · deploy run `32627169675` · note `docs/2026-08-23-product-experience-upgrade-deployment.md` |
 | **Link-preview code commit (2026-08-21)** | **`190533a`** - PR #9 link-preview branding fix; prior PR #6 `df5f174` / PR #5 `660e5b4` |
 | **Worker name** | `certamaris-site` |
 | **Worker config** | `wrangler.jsonc` · assets `./out` · entry `worker/index.ts` |
@@ -77,7 +77,7 @@
 7. Production deploy: GitHub Actions run `32556978238`, validate job `96992622323`, deploy job `96992697549`; live root ETag `"82a210908a5433f9fdb216a2b0f5836e"`.
 8. Evidence: `docs/implementation/unreasonable-excellence-20260822/`.
 
-### Product experience upgrade (2026-08-23, final main `da501d5`)
+### Product experience upgrade (2026-08-23, CI/deploy source `da501d5`)
 
 1. Homepage now includes an accessible interactive `REQ -> APP -> CTL -> ASM -> EVD -> FND -> RSK -> CAP -> QA -> PKG` lifecycle teaser.
 2. `/demo` includes a chain-of-custody inspector backed by the approved `lib/sample-record.ts` fixture.

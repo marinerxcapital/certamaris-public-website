@@ -3,7 +3,7 @@
 **Signed:** Cursor Cloud Agent (Composer) · **Date:** 2026-08-16  
 **Run:** https://cursor.com/agents/bc-01a0088b-afcf-732b-9a58-c0e555d9e469  
 **Owner:** Skyler Brown (`skyler@certamaris.com`)  
-**Live SoT repo:** `marinerxcapital/certamaris-public-website` · branch **`main`** · product experience upgrade **`dfb009f`** · final main **`da501d5`** · deploy run **`32627169675`**; prior UX merge **`8a633155`** / PR #14; prior conversion merge **`4f206e6`** / PR #12; link-preview code commit **`190533a`** (PR #9)
+**Live SoT repo:** `marinerxcapital/certamaris-public-website` · branch **`main`** · product experience upgrade **`dfb009f`** · CI/deploy source **`da501d5`** · deploy run **`32627169675`**; prior UX merge **`8a633155`** / PR #14; prior conversion merge **`4f206e6`** / PR #12; link-preview code commit **`190533a`** (PR #9)
 **Production:** https://certamaris.com · Worker `certamaris-site` · Cloudflare deployment version **`c4c58190-ad1c-49a7-9825-b5894d45a1d7`** (2026-08-23)
 
 > Future agentic sessions: **read this file first**, then the latest dated deployment note under `docs/`, then `docs/CODEX_MARKETING_TAKEOVER.md`. Do not invent customers, metrics, certifications, compliance guarantees, or contact-forward secrets.
@@ -12,7 +12,7 @@
 
 ## 1. What shipped
 
-### 2026-08-23 product experience upgrade (`dfb009f` -> final main `da501d5`)
+### 2026-08-23 product experience upgrade (`dfb009f` -> CI/deploy source `da501d5`)
 
 | Item | Detail |
 |---|---|
