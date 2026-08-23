@@ -14,6 +14,7 @@ const config: Config = {
       },
       ocean: {
         DEFAULT: "#126FAA",
+        deep: "#0E5A8A",
         light: "#4FADE0",
         wash: "#E7F3FB",
       },

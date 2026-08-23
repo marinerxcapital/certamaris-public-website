@@ -122,7 +122,7 @@ export function CtaBand({
           {inverse ? (
             <LiquidGlass variant="dark" padding="lg">
               {eyebrow ? (
-                <p className="mb-3 font-mono text-[12px] uppercase tracking-[0.14em] text-ocean-light">{eyebrow}</p>
+                <p className="mb-3 font-mono text-[12px] uppercase tracking-[0.14em] text-white/80">{eyebrow}</p>
               ) : null}
               <h2 className="mb-4 text-[30px] leading-[1.08] text-white sm:text-[40px]">{title}</h2>
               {description ? (
@@ -133,7 +133,7 @@ export function CtaBand({
           ) : (
             <div>
               {eyebrow ? (
-                <p className="mb-3 font-mono text-[12px] uppercase tracking-[0.14em] text-ocean">{eyebrow}</p>
+                <p className="mb-3 font-mono text-[12px] uppercase tracking-[0.14em] text-ocean-deep">{eyebrow}</p>
               ) : null}
               <h2 className="mb-4 text-[30px] leading-[1.08] text-navy sm:text-[40px]">{title}</h2>
               {description ? (

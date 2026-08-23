@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BoundaryPanel } from "@/components/BoundaryPanel";
 import { Button } from "@/components/Button";
+import { EvidenceFreshnessSimulator } from "@/components/EvidenceFreshnessSimulator";
 import { FaqAccordion } from "@/components/FaqAccordion";
 import { PageHero } from "@/components/PageHero";
 import { ProductScreenFrame } from "@/components/ProductScreens";
@@ -78,6 +79,14 @@ export default async function PlatformModulePage({ params }: { params: Promise<{
           </Reveal>
         </div>
       </Section>
+
+      {mod.slug === "evidence" ? (
+        <Section surface="paper" spacing="compact">
+          <Reveal>
+            <EvidenceFreshnessSimulator />
+          </Reveal>
+        </Section>
+      ) : null}
 
       {mod.slug === "integrations" ? (
         <Section surface="paper" spacing="compact">

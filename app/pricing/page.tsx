@@ -3,6 +3,7 @@ import { Button } from "@/components/Button";
 import { BuyerDiligencePacket } from "@/components/BuyerDiligencePacket";
 import { PackageRecommender } from "@/components/PackageRecommender";
 import { PageHero } from "@/components/PageHero";
+import { PricingCalculator } from "@/components/PricingCalculator";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
 import { PRIMARY_CTA_LABEL } from "@/lib/constants";
@@ -203,6 +204,12 @@ export default function PricingPage() {
             The tier above sets the annual platform fee and per-vessel license. Assurance engagements are priced
             separately — see the published anchors below.
           </p>
+        </Reveal>
+      </Section>
+
+      <Section spacing="compact">
+        <Reveal>
+          <PricingCalculator />
         </Reveal>
       </Section>
 

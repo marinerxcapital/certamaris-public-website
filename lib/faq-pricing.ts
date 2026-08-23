@@ -90,6 +90,28 @@ export const pricingTiers: PricingTier[] = [
   },
 ];
 
+export type PricingCalculatorTier = {
+  id: PricingTier["id"];
+  name: PricingTier["name"];
+  maxVessels: number;
+  platformFeeUsd: number;
+  perVesselUsd: number;
+  minVessels: number;
+};
+
+export const pricingCalculatorTiers: PricingCalculatorTier[] = [
+  { id: "core", name: "Core", maxVessels: 9, platformFeeUsd: 15000, perVesselUsd: 3000, minVessels: 5 },
+  { id: "assurance", name: "Assurance", maxVessels: 24, platformFeeUsd: 24000, perVesselUsd: 3000, minVessels: 10 },
+  {
+    id: "enterprise",
+    name: "Enterprise",
+    maxVessels: Number.POSITIVE_INFINITY,
+    platformFeeUsd: 48000,
+    perVesselUsd: 2400,
+    minVessels: 25,
+  },
+];
+
 export const PRICE_ANCHORS: { label: string; value: string }[] = [
   { label: "Core minimum", value: "$30,000 ARR for five vessels" },
   { label: "Assurance minimum", value: "$54,000 ARR for ten vessels" },
