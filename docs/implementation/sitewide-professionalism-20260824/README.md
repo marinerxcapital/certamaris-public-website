@@ -1,7 +1,7 @@
 # CertaMaris Public Website Sitewide Professionalism Upgrade
 
 Date started: 2026-08-23 21:39 America/Los_Angeles  
-Deployment date: pending  
+Deployment date: 2026-08-24 05:43 UTC  
 Branch: `codex/sitewide-professionalism-upgrade-20260824`  
 Production repo: `marinerxcapital/certamaris-public-website`  
 Production Worker: `certamaris-site`  
@@ -36,7 +36,7 @@ Baseline screenshots are in `screenshots/baseline/`.
 
 After screenshots are in `screenshots/after/`.
 
-Production screenshots will be stored in `screenshots/production/` after deployment.
+Production screenshots are in `screenshots/production/`.
 
 ## Local Validation
 
@@ -55,12 +55,22 @@ Passed:
 
 ## Deployment
 
-Pending PR merge and production deployment.
+- Feature commit: `cfadbd2`
+- PR: #18
+- Merge commit: `04de3aad669575963f1474fbf671d3f5c5bddf0f`
+- PR validation run: `32694382473`, job `97333673180`, passed
+- Production deployment run: `32694451757`, validate job `97333862097`, deploy job `97333987041`, passed
+- Cloudflare Worker version: `7afb48f1-6659-43e4-ad1a-4807bc009b32`
 
 ## Production Verification
 
-Pending deployment.
+- Apex returned `200 OK` with root ETag `"0ecb575e694d6d307e58c79fec97e5e9"`.
+- `www` redirected `301` to the apex root.
+- Live CSS contains `--radius-glass:8px`, `opacity:.28`, `letter-spacing:0`, and `page-hero-copy`.
+- Live root metadata preserved `https://certamaris.com/og/certamaris-link-preview-2026-08-v2.png`.
+- Live route scan found zero `Corporate Control Plane`, `Internal Admin`, `Admin Dashboard`, or `certamaris-og.jpg` references on key production routes.
+- Live OG image returned `200 image/png`, `121623` bytes, `1200x630`.
 
 ## Status
 
-IN PROGRESS.
+RESOLVED.

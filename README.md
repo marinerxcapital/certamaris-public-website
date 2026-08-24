@@ -18,7 +18,7 @@ clearly labeled integration points.
 | **Agent memory (START HERE)** | [`docs/AGENT_MEMORY.md`](docs/AGENT_MEMORY.md) |
 | **Codex handoff** | [`docs/CODEX_MARKETING_TAKEOVER.md`](docs/CODEX_MARKETING_TAKEOVER.md) |
 | **Latest deploy note** | [`docs/2026-08-24-sitewide-professionalism-upgrade.md`](docs/2026-08-24-sitewide-professionalism-upgrade.md) |
-| **Latest production change** | Sitewide professionalism upgrade (PR pending); previous internal-admin marketing removal `5bc636f` (PR #16) |
+| **Latest production change** | Sitewide professionalism upgrade `04de3aa` (PR #18); previous internal-admin marketing removal `5bc636f` (PR #16) |
 | **Latest UX pass** | Product experience upgrade `dfb009f` plus pricing table keyboard-access closeout `0084f51` |
 | **Link-preview code commit** | `190533a` - link-preview branding fix (PR #9); prior feature content `df5f174` (PR #6) |
 

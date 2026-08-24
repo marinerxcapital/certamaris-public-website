@@ -30,6 +30,7 @@ No current public marketing page reintroduced Internal CertaMaris Admin Dashboar
 - `README.md`
 - `docs/AGENT_MEMORY.md`
 - `docs/CODEX_MARKETING_TAKEOVER.md`
+- `C:\Users\Skyler B. Brown\.codex\memories\extensions\ad_hoc\notes\2026-08-23T22-54-00-sitewide-professionalism-upgrade.md`
 
 ## Implementation
 
@@ -83,7 +84,24 @@ After screenshots:
 - `docs/implementation/sitewide-professionalism-20260824/screenshots/after/15-pricing-mobile.png`
 - `docs/implementation/sitewide-professionalism-20260824/screenshots/after/16-contact-mobile.png`
 
-Production screenshots will be added after deployment.
+Production screenshots:
+
+- `docs/implementation/sitewide-professionalism-20260824/screenshots/production/01-home-desktop.png`
+- `docs/implementation/sitewide-professionalism-20260824/screenshots/production/02-platform-desktop.png`
+- `docs/implementation/sitewide-professionalism-20260824/screenshots/production/03-demo-desktop.png`
+- `docs/implementation/sitewide-professionalism-20260824/screenshots/production/04-pricing-desktop.png`
+- `docs/implementation/sitewide-professionalism-20260824/screenshots/production/05-trust-desktop.png`
+- `docs/implementation/sitewide-professionalism-20260824/screenshots/production/06-procurement-desktop.png`
+- `docs/implementation/sitewide-professionalism-20260824/screenshots/production/07-contact-desktop.png`
+- `docs/implementation/sitewide-professionalism-20260824/screenshots/production/08-solutions-desktop.png`
+- `docs/implementation/sitewide-professionalism-20260824/screenshots/production/09-who-we-serve-desktop.png`
+- `docs/implementation/sitewide-professionalism-20260824/screenshots/production/10-resources-desktop.png`
+- `docs/implementation/sitewide-professionalism-20260824/screenshots/production/11-legal-desktop.png`
+- `docs/implementation/sitewide-professionalism-20260824/screenshots/production/12-404-desktop.png`
+- `docs/implementation/sitewide-professionalism-20260824/screenshots/production/13-home-mobile.png`
+- `docs/implementation/sitewide-professionalism-20260824/screenshots/production/14-platform-mobile.png`
+- `docs/implementation/sitewide-professionalism-20260824/screenshots/production/15-pricing-mobile.png`
+- `docs/implementation/sitewide-professionalism-20260824/screenshots/production/16-contact-mobile.png`
 
 ## Local Validation
 
@@ -116,12 +134,26 @@ Non-blocking notes:
 
 ## Deployment
 
-Pending PR merge and production deployment.
+- Feature commit: `cfadbd2`
+- PR: #18 (`https://github.com/marinerxcapital/certamaris-public-website/pull/18`)
+- Merge commit: `04de3aad669575963f1474fbf671d3f5c5bddf0f`
+- PR validation run: `32694382473`, validate job `97333673180`, passed
+- Production deployment run: `32694451757`, validate job `97333862097`, deploy job `97333987041`, passed
+- Production Worker: `certamaris-site`
+- Cloudflare Worker version: `7afb48f1-6659-43e4-ad1a-4807bc009b32`
+- Deploy log evidence: uploaded 535 files, 582 already uploaded; `Current Version ID: 7afb48f1-6659-43e4-ad1a-4807bc009b32`
 
 ## Production Verification
 
-Pending deployment.
+- `curl -I -L https://certamaris.com/`: final `200 OK`, `Content-Type: text/html`, `CF-Cache-Status: HIT`, `Cache-Control: public, max-age=0, s-maxage=300, stale-while-revalidate=86400`, ETag `"0ecb575e694d6d307e58c79fec97e5e9"`.
+- `curl -I -L https://www.certamaris.com/`: `301 Moved Permanently` to `https://certamaris.com/`, then `200 OK` with the same root ETag.
+- Live root HTML contains exactly the preserved versioned preview URL `https://certamaris.com/og/certamaris-link-preview-2026-08-v2.png`.
+- Live root HTML contains no `certamaris-og.jpg`, `Corporate Control Plane`, `Internal Admin`, or `Admin Dashboard` references.
+- Live CSS asset `/_next/static/chunks/3wwuxdiuzeis-.css` contains the deployed shell markers: `--radius-glass:8px`, `opacity:.28`, `letter-spacing:0`, `page-hero-copy`, `page-hero-polished:before`, and `0 8px 18px`.
+- Live route scan returned `200` and zero forbidden-term hits for `/`, `/platform`, `/demo`, `/pricing`, `/trust`, `/trust/procurement`, `/contact`, `/solutions`, `/who-we-serve`, `/resources`, and `/legal/privacy`; custom 404 route returned `404` with zero forbidden-term hits.
+- Live preview image `https://certamaris.com/og/certamaris-link-preview-2026-08-v2.png`: `200`, `Content-Type: image/png`, `121623` bytes, PNG signature `89504e470d0a1a0a`, dimensions `1200x630`.
+- Production screenshots captured in `docs/implementation/sitewide-professionalism-20260824/screenshots/production/`.
 
 ## Status
 
-IN PROGRESS until production deploy and live verification complete.
+RESOLVED.
