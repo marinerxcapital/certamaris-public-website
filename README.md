@@ -7,7 +7,7 @@ built to stand on its own and to later link out to the authenticated
 CertaMaris application (being built separately in Lovable) through four
 clearly labeled integration points.
 
-## Production source of truth (verified 2026-08-23)
+## Production source of truth (verified 2026-08-24)
 
 | Item | Value |
 |---|---|
@@ -17,8 +17,9 @@ clearly labeled integration points.
 | **App** | Separate: https://app.certamaris.com |
 | **Agent memory (START HERE)** | [`docs/AGENT_MEMORY.md`](docs/AGENT_MEMORY.md) |
 | **Codex handoff** | [`docs/CODEX_MARKETING_TAKEOVER.md`](docs/CODEX_MARKETING_TAKEOVER.md) |
-| **Latest deploy note** | [`docs/2026-08-23-product-experience-upgrade-deployment.md`](docs/2026-08-23-product-experience-upgrade-deployment.md) |
-| **Latest UX pass** | Product experience upgrade `dfb009f` plus pricing table keyboard-access closeout `0084f51`; deploy evidence in the latest note |
+| **Latest deploy note** | [`docs/2026-08-24-complete-legal-library-deployment.md`](docs/2026-08-24-complete-legal-library-deployment.md) |
+| **Latest production change** | Complete legal library deployment `e62e010`; deploy evidence in the latest note |
+| **Latest UX pass** | Product experience upgrade `dfb009f` plus pricing table keyboard-access closeout `0084f51` |
 | **Link-preview code commit** | `190533a` - link-preview branding fix (PR #9); prior feature content `df5f174` (PR #6) |
 
 **Signed:** Cursor Cloud Agent · **Date:** 2026-08-16 (supersedes SuperGrok 2026-08-01 tip line)
@@ -200,11 +201,11 @@ public/
   og/                     Versioned Open Graph social image
 ```
 
-The public marketing site includes native legal pages for Privacy, Business
-Terms, Cookie Notice, Acceptable Use, Accessibility, Subprocessors, and DPA.
-`/legal/library` exposes the complete PDF legal library with execution
-templates clearly labeled as unsigned templates. `/privacy` and `/terms`
-remain compatibility helpers for the canonical legal pages.
+The public marketing site includes complete native legal pages for Privacy,
+Business Terms, Cookie Notice, Acceptable Use, Accessibility, Subprocessors,
+and DPA. `/legal/library` exposes the complete PDF legal library with
+execution templates clearly labeled as unsigned templates. `/privacy` and
+`/terms` remain compatibility helpers for the canonical legal pages.
 
 ---
 
@@ -312,12 +313,13 @@ drift.
 
 ## 11. Owner decisions not invented
 
-The following are intentionally left as clearly-marked placeholders rather
-than fabricated, matching the source brief's instruction not to invent
-legal or organizational specifics:
+The following remain bounded rather than fabricated:
 
-- Legal entity name, registered address, governing law, and venue
-  (`app/legal/privacy/page.tsx`, `app/legal/terms/page.tsx`, `app/legal/dpa/page.tsx`).
+- Customer-specific parties, order terms, signatures, transaction-specific
+  transfer particulars, and similar execution fields are completed only when
+  the applicable enterprise template is executed. The public website labels
+  those documents as templates and does not represent them as signed
+  instruments.
 - Specific leadership names/credentials on `app/about/page.tsx`.
 - Formal third-party certifications (SOC 2, ISO 27001) — marked "Planned"
   on `app/security/page.tsx`, not claimed as current.
@@ -385,4 +387,4 @@ Required repository secrets:
 - `CLOUDFLARE_ACCOUNT_ID`
 - `CLOUDFLARE_API_TOKEN`
 
-As of 2026-07-25, `CLOUDFLARE_ACCOUNT_ID` is set on the repository. `CLOUDFLARE_API_TOKEN` still needs to be added using a scoped Cloudflare API token. Do not copy the local Wrangler OAuth credential into GitHub secrets.
+As of 2026-08-24, the GitHub Actions workflow can deploy to Cloudflare Workers from `main`. Do not print, copy, or replace repository secrets unless explicitly authorized.

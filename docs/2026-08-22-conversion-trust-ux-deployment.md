@@ -16,7 +16,7 @@ Qualified maritime buyers had the truthful product proof, pricing, trust, legal,
 
 ## Root Cause
 
-The site had strong individual pages, but no reusable buyer-diligence entry point tying together product proof, pricing, procurement, assurance model, Trust Center, AI/data policy, legal status, and contact. The mobile drawer intentionally used a highly translucent Liquid Glass surface; on the Pixel Grid hero this allowed background text to show through the sheet.
+The site had strong individual pages, but no reusable buyer-diligence entry point tying together product proof, pricing, procurement, assurance model, Trust Center, AI/data policy, legal document access, and contact. The mobile drawer intentionally used a highly translucent Liquid Glass surface; on the Pixel Grid hero this allowed background text to show through the sheet.
 
 ## Implementation
 
@@ -108,7 +108,7 @@ Results:
 - `npm run typecheck`: pass.
 - `npm run build:static`: pass, 107 generated pages; existing Next static-export header warning only.
 - `npm run build`: pass, 107 generated pages; existing custom Cache-Control warning only.
-- `npm run qa`: pass, 0 failed steps. Existing SEO warnings only for expected duplicate status pages.
+- `npm run qa`: pass, 0 failed steps. Existing SEO warnings only for expected duplicate legacy routes.
 - `npm run qa:responsive-a11y`: pass, 12 routes x 4 viewports, `issues=0`, `brokenImages=0`.
 - `npm run qa:link-preview`: pass, one `og:image`, one `twitter:image`, versioned preview path preserved.
 - `npm run qa:buyer-paths`: pass, 26 assertions.

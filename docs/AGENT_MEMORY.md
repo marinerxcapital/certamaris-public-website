@@ -3,14 +3,29 @@
 **Signed:** Cursor Cloud Agent (Composer) · **Date:** 2026-08-16  
 **Run:** https://cursor.com/agents/bc-01a0088b-afcf-732b-9a58-c0e555d9e469  
 **Owner:** Skyler Brown (`skyler@certamaris.com`)  
-**Live SoT repo:** `marinerxcapital/certamaris-public-website` · branch **`main`** · fleet assurance workbench **`87b3b64`**; product experience upgrade **`dfb009f`** · pricing table keyboard-access closeout **`0084f51`**; latest workbench deploy run **`32635035960`**; product run **`32627169675`**; final accessibility deploy run **`32628481367`**; prior UX merge **`8a633155`** / PR #14; prior conversion merge **`4f206e6`** / PR #12; link-preview code commit **`190533a`** (PR #9)
-**Production:** https://certamaris.com · Worker `certamaris-site` · Cloudflare deployment readback verified on 2026-08-23
+**Live SoT repo:** `marinerxcapital/certamaris-public-website` · branch **`main`** · complete legal library **`e62e010`**; fleet assurance workbench **`87b3b64`**; product experience upgrade **`dfb009f`** · pricing table keyboard-access closeout **`0084f51`**; latest legal deploy run **`32681492599`**; latest workbench deploy run **`32635035960`**; product run **`32627169675`**; final accessibility deploy run **`32628481367`**; prior UX merge **`8a633155`** / PR #14; prior conversion merge **`4f206e6`** / PR #12; link-preview code commit **`190533a`** (PR #9)
+**Production:** https://certamaris.com · Worker `certamaris-site` · Cloudflare deployment readback verified on 2026-08-24
 
 > Future agentic sessions: **read this file first**, then the latest dated deployment note under `docs/`, then `docs/CODEX_MARKETING_TAKEOVER.md`. Do not invent customers, metrics, certifications, compliance guarantees, or contact-forward secrets.
 
 ---
 
 ## 1. What shipped
+
+### 2026-08-24 complete legal library (`e62e010`)
+
+| Item | Detail |
+|---|---|
+| Source package | `CertaMaris_All_Legal_Web_Deployment_Package_v1.0.zip`; manifest SHA-256 verified after extraction outside `public/`. |
+| PDF library | 39 unique PDFs deployed: 7 public PDFs in `/legal/documents/public/`, 31 execution-template PDFs in `/legal/documents/enterprise-templates/`, and the master binder in `/legal/documents/master/`. Duplicate physical copies of the seven public PDFs were not deployed twice. |
+| Native HTML legal pages | `/legal/privacy`, `/legal/terms`, `/legal/cookies`, `/legal/acceptable-use`, `/accessibility`, `/legal/subprocessors`, and `/legal/dpa` render complete supplied legal text with PDF downloads. |
+| Library route | `/legal/library` exposes all 39 unique PDF links, labels enterprise files as execution templates, and is `noindex, nofollow`. |
+| SEO / headers | Seven public routes are in `sitemap.xml`; enterprise-template PDFs and master binder are served with `X-Robots-Tag: noindex` by `worker/index.ts`. |
+| Integration | Footer/legal navigation, buyer diligence, procurement, homepage trust links, security/trust subprocessor references, route inventory, and stale August 4 blocker records were updated. |
+| Validation | Package/PDF integrity, marker scans, `npm run typecheck`, `npm run build:static`, `npm run build`, pricing/contact/Worker tests, `npm run qa`, `npm run qa:responsive-a11y`, legal static verifier, live PDF SHA-256 downloads, and live responsive browser checks passed. |
+| Production deploy | GitHub Actions run `32681492599`; validate job `97298846724`; deploy job `97298956661`; Cloudflare Worker version `3ae144d2-8bdc-4018-b93e-c4b297b1195c`. |
+| Maintenance rule | Future legal changes must update both native HTML legal text and the matching downloadable PDF in the same change. |
+| Deployment note | `docs/2026-08-24-complete-legal-library-deployment.md` |
 
 ### 2026-08-23 maritime software proof pass (`87b3b64`)
 
@@ -65,7 +80,7 @@
 
 | Item | Detail |
 |---|---|
-| Buyer diligence packet | `components/BuyerDiligencePacket.tsx` links pricing, Trust Center, assurance model, procurement, AI/data policy, legal status, and contact intents |
+| Buyer diligence packet | `components/BuyerDiligencePacket.tsx` links pricing, Trust Center, assurance model, procurement, AI/data policy, legal documents, and contact intents |
 | Homepage routing | Above-fold quick path: inspect proof, compare packages, open diligence |
 | Pricing / Trust / Contact | Shared diligence packet added; Pricing hero includes comparison/procurement/contact aside |
 | Mobile nav | Drawer made more opaque over Pixel Grid hero to prevent background text bleed-through |
@@ -127,6 +142,7 @@
 | Platform landing | `app/platform/page.tsx` |
 | Assurance leave-behind | `app/trust/assurance-model/page.tsx`, `components/PrintButton.tsx` |
 | Contact Worker | `worker/index.ts` (`CONTACT_FORWARD_ENDPOINT` + `CONTACT_FORWARD_SECRET`) |
+| Legal documents | `lib/legal-documents.ts`, `components/LegalDocumentPage.tsx`, `components/LegalMarkdown.tsx`, `app/legal/*`, `app/accessibility/page.tsx`, `public/legal/documents/` |
 | Route QA inventory | `scripts/qa/expected-routes.mjs` |
 | Link-preview QA | `scripts/qa/check-link-preview.mjs` |
 | Product-experience QA | `scripts/qa/check-product-experience.mjs` |
@@ -141,7 +157,7 @@
 | Blocker | Status | Action |
 |---|---|---|
 | `CONTACT_FORWARD_ENDPOINT` + `CONTACT_FORWARD_SECRET` | **Not set** (fail-closed 503) | Owner: `wrangler secret put` on `certamaris-site`, redeploy with `--keep-vars`, E2E test `/contact` |
-| Legal entity / counsel OWNER_VERIFY fields | Deferred | See comments in `lib/trust-corporate.ts` |
+| Transaction-specific legal execution fields | Deferred to execution | Do not represent templates as signed instruments; update native HTML + PDF together for future legal changes |
 | Hub memory export PR | Historical | Hub PR #2 when GitHub allows |
 | Monorepo `apps/marketing` cutover | Not live | Do not deploy marketing from monorepo |
 
@@ -168,6 +184,7 @@ CHROMIUM_PATH=/usr/local/bin/google-chrome node scripts/qa/check-sample-record.m
 | `docs/2026-08-21-link-preview-branding-deployment.md` | Link-preview branding fix and production verification |
 | `docs/2026-08-22-conversion-trust-ux-deployment.md` | Conversion, trust packaging, buyer-path, and mobile-nav UX pass |
 | `docs/2026-08-23-product-experience-upgrade-deployment.md` | Product mini-experience, pricing v2, evidence v2, OG previews, live verification |
+| `docs/2026-08-24-complete-legal-library-deployment.md` | Complete legal PDF library, seven native legal pages, PDF noindex strategy, live verification |
 | `docs/implementation/impressive-pass-20260816/` | Implementation folder (README, CHANGES, CONTACT) |
 | `docs/implementation/link-preview-branding-20260821/` | Implementation record for OG/Twitter preview remediation |
 | `docs/implementation/conversion-trust-ux-20260822/` | Screenshot-backed implementation record for the buyer-path UX pass |

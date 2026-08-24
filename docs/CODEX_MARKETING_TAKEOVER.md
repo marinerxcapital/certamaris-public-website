@@ -1,7 +1,7 @@
 # CODEX TAKEOVER — CertaMaris Marketing Website
 
 **Prepared:** 2026-08-01 · SuperGrok  
-**Updated:** 2026-08-23 · Codex
+**Updated:** 2026-08-24 · Codex
 **Audience:** Codex / Cursor / any successor agent  
 **Status:** Live production site organized; **this repo is the only deploy SoT**
 
@@ -17,6 +17,7 @@
 | **Authenticated app (separate)** | https://app.certamaris.com — do **not** merge into this repo |
 | **GitHub** | https://github.com/marinerxcapital/certamaris-public-website |
 | **Branch** | **`main` only** for production |
+| **Latest production change (2026-08-24)** | Complete legal library `e62e010` · note `docs/2026-08-24-complete-legal-library-deployment.md` |
 | **Latest UX pass (2026-08-23)** | Product experience upgrade `dfb009f` · pricing table keyboard-access closeout `0084f51` · note `docs/2026-08-23-product-experience-upgrade-deployment.md` |
 | **Link-preview code commit (2026-08-21)** | **`190533a`** - PR #9 link-preview branding fix; prior PR #6 `df5f174` / PR #5 `660e5b4` |
 | **Worker name** | `certamaris-site` |
@@ -59,7 +60,7 @@
 
 ### Conversion, trust, and buyer-path UX pass (2026-08-22, PR #12 -> `4f206e6`)
 
-1. `components/BuyerDiligencePacket.tsx` packages pricing, Trust Center, assurance model, procurement, AI/data policy, legal status, and contact intent paths.
+1. `components/BuyerDiligencePacket.tsx` packages pricing, Trust Center, assurance model, procurement, AI/data policy, legal document, and contact intent paths.
 2. Homepage hero exposes proof, pricing, and diligence next actions above the fold.
 3. Pricing, Trust, and Contact include the shared diligence packet; Pricing has a compact hero buyer path.
 4. Mobile nav drawer opacity was increased so Pixel Grid/hero text does not bleed through the sheet.
@@ -92,6 +93,16 @@
 
 1. `/pricing` package-comparison table wrapper is now keyboard reachable as a named region: `role="region"`, `aria-label="Annual pricing tiers"`, `tabIndex={0}`.
 2. Production deploy: GitHub Actions run `32628481367`, validate job `97167459683`, deploy job `97167550885`; Cloudflare readback verified after deploy.
+
+### Complete legal library deployment (2026-08-24, `e62e010`)
+
+1. `CertaMaris_All_Legal_Web_Deployment_Package_v1.0.zip` is the controlling public legal source for the marketing site.
+2. The site deploys 39 unique PDFs: 7 public legal PDFs, 31 enterprise execution-template PDFs, and the complete populated master binder.
+3. Seven public legal routes render complete native HTML legal text with PDF downloads: `/legal/privacy`, `/legal/terms`, `/legal/cookies`, `/legal/acceptable-use`, `/accessibility`, `/legal/subprocessors`, and `/legal/dpa`.
+4. `/legal/library` exposes the complete PDF library, labels enterprise documents as execution templates, and is `noindex, nofollow`.
+5. Enterprise-template PDFs and the master binder are directly accessible but served by the Worker with `X-Robots-Tag: noindex`.
+6. Future legal changes must update both the native HTML source and the matching downloadable PDF in the same change.
+7. Production deploy: GitHub Actions run `32681492599`, validate job `97298846724`, deploy job `97298956661`; Cloudflare Worker version `3ae144d2-8bdc-4018-b93e-c4b297b1195c`.
 
 ---
 
@@ -144,6 +155,7 @@ Never re-bind `app.certamaris.com` to `certamaris-site`.
 | Founder | `lib/founder.ts`, `components/FounderPortrait.tsx` |
 | Contact form | `components/ContactForm.tsx` |
 | Buyer diligence packet | `components/BuyerDiligencePacket.tsx` |
+| Legal documents | `lib/legal-documents.ts`, `components/LegalDocumentPage.tsx`, `components/LegalMarkdown.tsx`, `app/legal/*`, `app/accessibility/page.tsx`, `public/legal/documents/` |
 | Worker contact + redirects | `worker/index.ts` |
 | Pixel Grid | `components/PixelGridBackground.tsx` |
 | Design tokens | `app/globals.css` |
@@ -183,9 +195,8 @@ Fallback addresses: `skyler@certamaris.com`, `sales@certamaris.com`.
 ## 7. Owner / external blockers
 
 1. Set contact forward secrets + E2E verify  
-2. Legal entity / counsel OWNER_VERIFY (`lib/trust-corporate.ts` comments)  
-3. Optional: monorepo marketing cutover decision  
-4. Hub memory PR when GitHub allows  
+2. Optional: monorepo marketing cutover decision
+3. Hub memory PR when GitHub allows
 
 ---
 

@@ -184,9 +184,9 @@ npx wrangler deploy --config wrangler.jsonc --keep-vars
 - Contact delivery is still not configured on the Worker.
 - The pricing page still intentionally omits the finalized dollar amounts.
   Publishing those numbers remains a GTM/business decision, not a bug fix.
-- The `/legal/*` pages intentionally remain status pages. The operative legal
-  text is not published because the source package still has unresolved legal,
-  commercial, privacy, security, and transfer fields.
+- The August 4 interim legal route pages are superseded by the 2026-08-24 complete
+  legal library deployment. The current site renders full native legal text
+  for the seven primary public documents and hosts the complete PDF library.
 - `npm install` reports `3` dependency audit findings (`2 moderate`, `1 high`);
   no forced breaking upgrade was applied during this production incident pass.
 - The working tree had unrelated pre-existing dirty files before this pass
