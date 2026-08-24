@@ -17,7 +17,7 @@
 | **Authenticated app (separate)** | https://app.certamaris.com — do **not** merge into this repo |
 | **GitHub** | https://github.com/marinerxcapital/certamaris-public-website |
 | **Branch** | **`main` only** for production |
-| **Latest production change (2026-08-24)** | Internal-admin marketing removal `5bc636f` / PR #16 · note `docs/2026-08-24-internal-admin-marketing-removal.md`; previous complete legal library `e62e010` |
+| **Latest production change (2026-08-24)** | Sitewide professionalism upgrade pending PR · note `docs/2026-08-24-sitewide-professionalism-upgrade.md`; previous internal-admin marketing removal `5bc636f` / PR #16 |
 | **Latest UX pass (2026-08-23)** | Product experience upgrade `dfb009f` · pricing table keyboard-access closeout `0084f51` · note `docs/2026-08-23-product-experience-upgrade-deployment.md` |
 | **Link-preview code commit (2026-08-21)** | **`190533a`** - PR #9 link-preview branding fix; prior PR #6 `df5f174` / PR #5 `660e5b4` |
 | **Worker name** | `certamaris-site` |
@@ -116,6 +116,17 @@
 8. Production deploy: GitHub Actions run `32689192150`, validate job `97319662825`, deploy job `97319790456`; Cloudflare Worker version `cebd0500-53d5-4ee3-9e75-5c13b8479950`.
 9. Live verification: apex 200, www 301 to apex, retired route 301 to `/platform/client-company-portal`, forbidden live-source scan clean, root OG image path unchanged and image returned `200 image/png` at `1200x630`.
 
+### Sitewide professionalism upgrade (2026-08-24, pending PR)
+
+1. The owner judged the complete site insufficiently professional; the issue was traced to shared visual chrome rather than missing product facts.
+2. `app/globals.css` now makes Pixel Grid a lower-noise background, tightens Liquid Glass to 8px radius, flattens glass surfaces, removes negative heading letter spacing, reduces oversized hero/button proportions, and strengthens product proof framing.
+3. `components/PageHero.tsx` no longer wraps primary route copy in a floating glass card; route heroes use unframed copy with a restrained left accent and contained aside proof.
+4. `components/Button.tsx`, `components/HomeHero.tsx`, `app/about/leadership/page.tsx`, and `app/not-found.tsx` were adjusted for tighter professional presentation.
+5. Preserved current OG path `/og/certamaris-link-preview-2026-08-v2.png`, contact fallback truth, public product boundary, internal-admin exclusion, legal/regulatory language, pricing facts, and proof assets.
+6. Screenshot evidence: `docs/implementation/sitewide-professionalism-20260824/`.
+7. Local validation passed: `npm run typecheck`, `npm run build:static`, `npm run build`, `npm run qa`, `npm run qa:responsive-a11y`, `npm run qa:link-preview`, `npm run qa:buyer-paths`, `npm run qa:excellence`, `npm run qa:public-product-boundary`, and `npm run qa:product-experience`.
+8. PR/deploy/live verification pending.
+
 ---
 
 ## 2. Deploy (only way to update certamaris.com)
@@ -171,6 +182,7 @@ Never re-bind `app.certamaris.com` to `certamaris-site`.
 | Worker contact + redirects | `worker/index.ts` |
 | Pixel Grid | `components/PixelGridBackground.tsx` |
 | Design tokens | `app/globals.css` |
+| Shared professional shell | `app/globals.css`, `components/PageHero.tsx`, `components/Button.tsx` |
 | QA routes | `scripts/qa/expected-routes.mjs`, `scripts/qa/check-product-experience.mjs` |
 | Public product boundary | `scripts/qa/check-public-product-boundary.mjs` |
 

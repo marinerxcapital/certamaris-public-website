@@ -3,7 +3,7 @@
 **Signed:** Cursor Cloud Agent (Composer) · **Date:** 2026-08-16  
 **Run:** https://cursor.com/agents/bc-01a0088b-afcf-732b-9a58-c0e555d9e469  
 **Owner:** Skyler Brown (`skyler@certamaris.com`)  
-**Live SoT repo:** `marinerxcapital/certamaris-public-website` · branch **`main`** · internal-admin marketing removal **`5bc636f`** / PR #16; complete legal library **`e62e010`**; fleet assurance workbench **`87b3b64`**; product experience upgrade **`dfb009f`** · pricing table keyboard-access closeout **`0084f51`**; latest internal-admin removal deploy run **`32689192150`**; latest legal deploy run **`32681492599`**; latest workbench deploy run **`32635035960`**; product run **`32627169675`**; final accessibility deploy run **`32628481367`**; prior UX merge **`8a633155`** / PR #14; prior conversion merge **`4f206e6`** / PR #12; link-preview code commit **`190533a`** (PR #9)
+**Live SoT repo:** `marinerxcapital/certamaris-public-website` · branch **`main`** · sitewide professionalism upgrade pending PR; internal-admin marketing removal **`5bc636f`** / PR #16; complete legal library **`e62e010`**; fleet assurance workbench **`87b3b64`**; product experience upgrade **`dfb009f`** · pricing table keyboard-access closeout **`0084f51`**; latest internal-admin removal deploy run **`32689192150`**; latest legal deploy run **`32681492599`**; latest workbench deploy run **`32635035960`**; product run **`32627169675`**; final accessibility deploy run **`32628481367`**; prior UX merge **`8a633155`** / PR #14; prior conversion merge **`4f206e6`** / PR #12; link-preview code commit **`190533a`** (PR #9)
 **Production:** https://certamaris.com · Worker `certamaris-site` · Cloudflare deployment readback verified on 2026-08-24
 
 > Future agentic sessions: **read this file first**, then the latest dated deployment note under `docs/`, then `docs/CODEX_MARKETING_TAKEOVER.md`. Do not invent customers, metrics, certifications, compliance guarantees, or contact-forward secrets.
@@ -11,6 +11,19 @@
 ---
 
 ## 1. What shipped
+
+### 2026-08-24 sitewide professionalism upgrade (pending PR)
+
+| Item | Detail |
+|---|---|
+| Problem | The full site had credible buyer content but the shared visual shell read too decorative/prototype-like: high-opacity Pixel Grid, card-contained page heroes, oversized translucent surfaces, large buttons, and negative heading letter spacing. |
+| Visual system | `app/globals.css` now uses lower-noise Pixel Grid, calmer page/section surfaces, 8px Liquid Glass radius, flatter glass backgrounds, subtler nav/dropdown/mobile sheet treatments, tighter buttons, no negative letter spacing, and a solid high-contrast footer. |
+| Page heroes | `components/PageHero.tsx` now presents primary route copy unframed with a restrained vertical accent, leaving side proof panels contained. |
+| Scope | Shared chrome affects home, platform, demo, pricing, trust, procurement, contact, solutions, who-we-serve, resources, legal/status pages, and 404 without changing product facts or route IA. |
+| Preserved | Root OG path `/og/certamaris-link-preview-2026-08-v2.png`, contact fallback truth, legal/regulatory boundaries, current proof assets, and the internal-admin exclusion. |
+| Evidence | `docs/implementation/sitewide-professionalism-20260824/` with 16 baseline and 16 after screenshots. |
+| Validation | `npm run typecheck`, `npm run build:static`, `npm run build`, `npm run qa`, `npm run qa:responsive-a11y`, `npm run qa:link-preview`, `npm run qa:buyer-paths`, `npm run qa:excellence`, `npm run qa:public-product-boundary`, `npm run qa:product-experience` passed locally. |
+| Status | IN PROGRESS until PR, deployment, production screenshots, and live verification complete. |
 
 ### 2026-08-24 internal-admin marketing removal (`5bc636f`, PR #16)
 
@@ -166,6 +179,7 @@
 | Product-experience QA | `scripts/qa/check-product-experience.mjs` |
 | Buyer-path QA | `scripts/qa/check-buyer-paths.mjs` |
 | Excellence-path QA | `scripts/qa/check-excellence-path.mjs` |
+| Professional visual shell | `app/globals.css`, `components/PageHero.tsx`, `components/Button.tsx` |
 | Design tokens | `app/globals.css`, `tailwind.config.ts` |
 
 ---
@@ -204,10 +218,12 @@ CHROMIUM_PATH=/usr/local/bin/google-chrome node scripts/qa/check-sample-record.m
 | `docs/2026-08-23-product-experience-upgrade-deployment.md` | Product mini-experience, pricing v2, evidence v2, OG previews, live verification |
 | `docs/2026-08-24-complete-legal-library-deployment.md` | Complete legal PDF library, seven native legal pages, PDF noindex strategy, live verification |
 | `docs/2026-08-24-internal-admin-marketing-removal.md` | Public product-boundary fix removing internal admin / Corporate Control Plane marketing |
+| `docs/2026-08-24-sitewide-professionalism-upgrade.md` | Sitewide professional visual shell upgrade and screenshot-backed validation |
 | `docs/implementation/impressive-pass-20260816/` | Implementation folder (README, CHANGES, CONTACT) |
 | `docs/implementation/link-preview-branding-20260821/` | Implementation record for OG/Twitter preview remediation |
 | `docs/implementation/conversion-trust-ux-20260822/` | Screenshot-backed implementation record for the buyer-path UX pass |
 | `docs/implementation/remove-internal-admin-marketing-20260823/` | Screenshot-backed implementation record for internal-admin marketing removal |
+| `docs/implementation/sitewide-professionalism-20260824/` | Screenshot-backed implementation record for the professional visual shell upgrade |
 | `docs/CODEX_MARKETING_TAKEOVER.md` | Codex/agent takeover (updated tip + features) |
 | `docs/2026-08-12-truth-reconciliation-deployment.md` | Prior truth/polish deploy |
 | `design/redesign-plan.md` | Design SoT + owner deviations (Pixel Grid) |

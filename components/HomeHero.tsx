@@ -35,7 +35,7 @@ export function HomeHero() {
           <h1 id="hero-title" className="hero-display mx-auto mt-4 max-w-[22ch]">
             {copy.headline}
           </h1>
-          <p className="mx-auto mt-5 max-w-[36rem] text-[17px] font-medium leading-[1.55] tracking-[-0.01em] text-navy/82 sm:text-[18px]">
+          <p className="mx-auto mt-5 max-w-[36rem] text-[17px] font-medium leading-[1.55] text-navy/82 sm:text-[18px]">
             {copy.support}
           </p>
           <div className="mt-7 flex flex-wrap items-center justify-center gap-3 sm:gap-4">

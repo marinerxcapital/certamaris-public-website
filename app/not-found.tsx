@@ -14,7 +14,7 @@ export default function NotFound() {
     <Section className="min-h-[62vh] flex items-center" spacing="standard">
       <div className="liquid-glass liquid-glass--strong lg-pad-lg max-w-xl">
         <Eyebrow>404 · Off chart</Eyebrow>
-        <h1 className="text-[32px] sm:text-[40px] leading-[1.08] tracking-[-0.01em] mb-4">
+        <h1 className="text-[32px] sm:text-[40px] leading-[1.08] mb-4">
           This page isn&apos;t on the chart.
         </h1>
         <p className="text-[15.5px] text-structural leading-relaxed mb-8 max-w-lg">
