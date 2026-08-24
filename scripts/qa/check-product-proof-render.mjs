@@ -28,7 +28,6 @@ const routes = [
   "/compliance",
   "/security",
   "/resources",
-  "/platform/corporate-control-plane",
   "/platform/client-company-portal",
   "/platform/fleet-management",
   "/platform/vessel-portal",
@@ -142,7 +141,7 @@ try {
         failures += 1;
       }
       if (report.visibleProductImages.length === 0) {
-        console.error(`${viewport.width} ${route}: no Dashboard V2 product images rendered`);
+        console.error(`${viewport.width} ${route}: no product proof images rendered`);
         failures += 1;
       }
       if (report.fullResolutionLinks < report.visibleProductImages.length) {
@@ -156,7 +155,7 @@ try {
         }
       }
       console.log(
-        `${viewport.width} ${route}: ${report.visibleProductImages.length}/${report.productImages.length} visible Dashboard V2 image(s), overflow ${report.overflowX}px`
+        `${viewport.width} ${route}: ${report.visibleProductImages.length}/${report.productImages.length} visible product proof image(s), overflow ${report.overflowX}px`
       );
     }
     await context.close();

@@ -1188,7 +1188,7 @@ export const audiencePages: AudiencePage[] = [
     howSupports: [
       "Role-scoped contribution into the operator tenant",
       "Evidence and findings with provenance",
-      "Support access patterns that are audited and time-bound when CertaMaris staff assist",
+      "Customer-authorized assistance patterns that are audited and time-bound when CertaMaris helps",
       "Operator remains system of record",
     ],
     canSee: [

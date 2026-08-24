@@ -1,6 +1,6 @@
 /**
  * Cinematic /demo scrub-tour beats.
- * Each beat pairs a real chain code with a sanitized Dashboard V2 screen.
+ * Each beat pairs a real chain code with a sanitized client-facing product screen.
  * No invented metrics or compliance outcomes.
  */
 

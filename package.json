@@ -16,6 +16,7 @@
     "qa:product-experience": "node scripts/qa/check-product-experience.mjs",
     "qa:buyer-paths": "node scripts/qa/check-buyer-paths.mjs",
     "qa:excellence": "node scripts/qa/check-excellence-path.mjs",
+    "qa:public-product-boundary": "node scripts/qa/check-public-product-boundary.mjs",
     "qa:routes": "node scripts/qa/check-routes.mjs --out --include-planned",
     "qa:seo": "node scripts/qa/check-seo.mjs",
     "qa:link-preview": "node scripts/qa/check-link-preview.mjs",

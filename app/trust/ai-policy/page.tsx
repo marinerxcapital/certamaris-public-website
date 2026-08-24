@@ -40,7 +40,7 @@ const classificationRows = [
 
 const workflowRows = [
   ["Public help, marketing, or framework explanations", "PUBLIC", "Required before publication"],
-  ["Internal administrative summaries and support assistance", "INTERNAL", "Optional"],
+  ["Operational summaries and assistance", "INTERNAL", "Optional"],
   ["Framework and control mapping", "INTERNAL", "Required before modifying authoritative mappings"],
   ["Evidence summarization and structured extraction", "CONFIDENTIAL", "Required"],
   ["Gap and risk analysis", "CONFIDENTIAL", "Required"],
@@ -274,7 +274,7 @@ export default function AiPolicyPage() {
           <p className="text-[14.5px] text-structural leading-relaxed">
             Human review is required for every AI output that can reach a client or influence a client-visible
             finding, risk rating, corrective action, Cyber Resilience Twin score, or assurance report. The only
-            exceptions are low-risk internal operations that do not create or modify compliance conclusions:
+            exceptions are low-risk operational tasks that do not create or modify compliance conclusions:
           </p>
         </Reveal>
         <Reveal>

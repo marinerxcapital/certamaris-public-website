@@ -103,19 +103,6 @@ export const TRACEABILITY_CHAIN: TraceStep[] = [
 
 export const PLATFORM_HIERARCHY: HierarchyLevel[] = [
   {
-    id: "corporate",
-    title: "CertaMaris Corporate Administration",
-    summary:
-      "Internal control plane for client provisioning, portfolio visibility, support access, and platform operations — not a customer-facing workspace.",
-    href: "/platform/corporate-control-plane",
-    bullets: [
-      "Cross-client portfolio and engagement visibility",
-      "Client and vessel provisioning workflows",
-      "Time-bound, audited support access sessions",
-      "Role boundaries between CertaMaris staff and customer tenants",
-    ],
-  },
-  {
     id: "client",
     title: "Client Company / Fleet Portal",
     summary:
@@ -286,89 +273,6 @@ export const integrationsCatalogue: IntegrationEntry[] = [
 ];
 
 export const productModules: ProductModule[] = [
-  {
-    slug: "corporate-control-plane",
-    title: "Corporate Control Plane",
-    eyebrow: "Platform · Corporate",
-    headline: "Internal administration across clients, vessels, and support access.",
-    intro:
-      "The Corporate Control Plane supports portfolio visibility, client and vessel provisioning, assurance delivery, and audited support sessions.",
-    maturity: "current",
-    buyer: "CertaMaris internal operators, delivery leads, and platform administrators",
-    problem:
-      "Multi-client maritime assurance programs need controlled provisioning and support access without mixing tenant data or relying on ad-hoc admin shortcuts.",
-    workflow: [
-      "Review cross-client portfolio and engagement state",
-      "Provision client company workspaces and vessel records",
-      "Assign internal delivery roles within policy boundaries",
-      "Open time-bound, audited support access when a customer authorizes help",
-      "Track platform health signals relevant to delivery operations",
-    ],
-    capabilities: [
-      {
-        title: "Client portfolio overview",
-        body: "Internal view of client companies and high-level engagement state without collapsing tenant isolation.",
-        maturity: "current",
-      },
-      {
-        title: "Client and vessel provisioning",
-        body: "Create and maintain client organizations and vessel records that feed the customer hierarchy.",
-        maturity: "current",
-      },
-      {
-        title: "Support access sessions",
-        body: "Time-bound, audited support sessions — no silent impersonation and no permanent shared credentials.",
-        maturity: "current",
-      },
-      {
-        title: "Commercial visibility",
-        body: "Engagement-oriented commercial fields where configured; not a full ERP or billing system.",
-        maturity: "configurable",
-      },
-      {
-        title: "Platform health signals",
-        body: "Operational signals useful to delivery teams. Public status pages are separate from this internal plane.",
-        maturity: "preview",
-      },
-    ],
-    inputs: [
-      "Authorized internal operators",
-      "Client company and vessel particulars",
-      "Engagement and delivery assignments",
-      "Customer authorization for support access",
-    ],
-    outputs: [
-      "Provisioned client workspaces",
-      "Vessel records ready for fleet membership",
-      "Audited support-session history",
-      "Internal portfolio visibility for delivery",
-    ],
-    limitations: [
-      "Does not grant CertaMaris unrestricted access to customer evidence without policy and session controls",
-      "Does not replace customer company administration or SMS ownership",
-      "Does not publish private multi-tenant internals on the marketing site",
-      "Not a substitute for production monitoring status pages",
-    ],
-    faqs: [
-      {
-        question: "Can customers log into the Corporate Control Plane?",
-        answer:
-          "No. The corporate plane is for authorized CertaMaris staff. Customers work in the client company and vessel portals.",
-      },
-      {
-        question: "How does support access work?",
-        answer:
-          "Support access is session-based, time-bound, and audited. It is not a shared vessel password and is not silent impersonation.",
-      },
-    ],
-    related: [
-      { href: "/platform/client-company-portal", label: "Client Company Portal" },
-      { href: "/platform/vessel-portal", label: "Vessel Portal" },
-      { href: "/security", label: "Security & Trust" },
-      { href: "/implementation", label: "Implementation" },
-    ],
-    screenKey: "corporateControlPlane",
-  },
   {
     slug: "client-company-portal",
     title: "Client Company Portal",
@@ -1207,7 +1111,7 @@ export const platformOverview = {
   title: "Platform",
   headline: "Maritime cyber compliance across company, fleet, vessel, and controlled work products.",
   intro:
-    "CertaMaris is evidence-first maritime assurance software: corporate administration, client company and fleet portals, vessel portals, and the traceability chain from requirement to released readiness package — with individual auditable identities and honest product maturity labels.",
+    "CertaMaris is evidence-first maritime assurance software: client company and fleet portals, vessel portals, and the traceability chain from requirement to released readiness package — with individual auditable identities and honest product maturity labels.",
   workProducts: [
     {
       title: "Applicability & scope record",

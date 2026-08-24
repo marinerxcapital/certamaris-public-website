@@ -17,8 +17,8 @@ clearly labeled integration points.
 | **App** | Separate: https://app.certamaris.com |
 | **Agent memory (START HERE)** | [`docs/AGENT_MEMORY.md`](docs/AGENT_MEMORY.md) |
 | **Codex handoff** | [`docs/CODEX_MARKETING_TAKEOVER.md`](docs/CODEX_MARKETING_TAKEOVER.md) |
-| **Latest deploy note** | [`docs/2026-08-24-complete-legal-library-deployment.md`](docs/2026-08-24-complete-legal-library-deployment.md) |
-| **Latest production change** | Complete legal library deployment `e62e010`; deploy evidence in the latest note |
+| **Latest deploy note** | [`docs/2026-08-24-internal-admin-marketing-removal.md`](docs/2026-08-24-internal-admin-marketing-removal.md) |
+| **Latest production change** | Internal-admin marketing removal pending deploy; previous complete legal library deployment `e62e010` |
 | **Latest UX pass** | Product experience upgrade `dfb009f` plus pricing table keyboard-access closeout `0084f51` |
 | **Link-preview code commit** | `190533a` - link-preview branding fix (PR #9); prior feature content `df5f174` (PR #6) |
 
@@ -72,6 +72,7 @@ npm run start        # serve the production build locally
 npm run qa:buyer-paths # static-export guard for the buyer diligence path
 npm run qa:excellence # static-export guard for high-intent buyer readiness surfaces
 npm run qa:product-experience # browser guard for lifecycle, chain, pricing, persona, and evidence journeys
+npm run qa:public-product-boundary # generated-HTML guard against internal admin marketing leaks
 ```
 
 ---
@@ -200,6 +201,8 @@ public/
   legal/documents/        Public PDFs, execution templates, and master binder
   og/                     Versioned Open Graph social image
 ```
+
+Internal CertaMaris employee/admin tooling is not a client-facing public product module. Public product IA must stay focused on client company, fleet, vessel, evidence, findings, corrective actions, cybersecurity plans, reports/readiness, trust, procurement, legal, and contact workflows. Do not restore `/platform/corporate-control-plane` as public marketing content.
 
 The public marketing site includes complete native legal pages for Privacy,
 Business Terms, Cookie Notice, Acceptable Use, Accessibility, Subprocessors,

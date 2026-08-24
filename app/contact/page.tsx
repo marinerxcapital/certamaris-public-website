@@ -23,7 +23,7 @@ const expectations = [
   },
   {
     title: "Intent-based routing",
-    body: "Choose demo, readiness, procurement, security, privacy, support, partnership, press, careers, or disclosure. Each path is tagged so the right internal owner responds.",
+    body: "Choose demo, readiness, procurement, security, privacy, support, partnership, press, careers, or disclosure. Each path is tagged so the right CertaMaris contact can respond.",
   },
   {
     title: "What to prepare",

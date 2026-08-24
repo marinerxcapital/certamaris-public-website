@@ -64,7 +64,7 @@ export const trustCenterOverview = {
   architectureSummary:
     "CertaMaris is a multi-tenant SaaS application for maritime cyber compliance and assurance workflows. Customers authenticate into a tenant-scoped product environment. Logical isolation and role-based access control constrain what each user can see and change. The public marketing site does not host customer compliance records.",
   dataFlowSummary:
-    "Authorized users submit and maintain operational compliance content (scope, mappings, evidence metadata, findings, and related workflow state). The application stores that content in a managed cloud database, serves it over TLS to authenticated clients, and retains version/review history for controlled records. Support access, where used, is intended to be controlled rather than unrestricted standing access.",
+    "Authorized users submit and maintain operational compliance content (scope, mappings, evidence metadata, findings, and related workflow state). The application stores that content in a managed cloud database, serves it over TLS to authenticated clients, and retains version/review history for controlled records. Operational assistance, where required, is controlled rather than unrestricted standing access.",
   hostingSummary:
     "The product is cloud-hosted. The public website is delivered on separate edge infrastructure from the authenticated application. This page does not publish a guaranteed production region, residency commitment, or complete provider inventory as an open claim.",
   accessControlSummary:
@@ -497,7 +497,7 @@ export const accessibilityContent = {
   eyebrow: "Legal",
   title: "Accessibility Statement",
   intro:
-    "What this public site does today to support access, and how to report a barrier. This is not a formal conformance certification.",
+    "What this public site does today for accessibility, and how to report a barrier. This is not a formal conformance certification.",
   target:
     "CertaMaris targets WCAG 2.2 Level AA for the public marketing website as a design and engineering goal. We have not published a third-party accessibility audit on this page, so we do not claim formal WCAG conformance.",
   methods: [

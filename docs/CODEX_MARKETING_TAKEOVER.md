@@ -17,7 +17,7 @@
 | **Authenticated app (separate)** | https://app.certamaris.com — do **not** merge into this repo |
 | **GitHub** | https://github.com/marinerxcapital/certamaris-public-website |
 | **Branch** | **`main` only** for production |
-| **Latest production change (2026-08-24)** | Complete legal library `e62e010` · note `docs/2026-08-24-complete-legal-library-deployment.md` |
+| **Latest production change (2026-08-24)** | Internal-admin marketing removal pending deploy · note `docs/2026-08-24-internal-admin-marketing-removal.md`; previous complete legal library `e62e010` |
 | **Latest UX pass (2026-08-23)** | Product experience upgrade `dfb009f` · pricing table keyboard-access closeout `0084f51` · note `docs/2026-08-23-product-experience-upgrade-deployment.md` |
 | **Link-preview code commit (2026-08-21)** | **`190533a`** - PR #9 link-preview branding fix; prior PR #6 `df5f174` / PR #5 `660e5b4` |
 | **Worker name** | `certamaris-site` |
@@ -104,6 +104,16 @@
 6. Future legal changes must update both the native HTML source and the matching downloadable PDF in the same change.
 7. Production deploy: GitHub Actions run `32681492599`, validate job `97298846724`, deploy job `97298956661`; Cloudflare Worker version `3ae144d2-8bdc-4018-b93e-c4b297b1195c`.
 
+### Internal-admin marketing removal (2026-08-24, pending deploy)
+
+1. The Internal CertaMaris Admin Dashboard / Corporate Control Plane is employee-only and is not a customer module.
+2. Public product IA must not market employee-only admin, internal operations, internal support access, or internal dashboard screenshots as buyer value.
+3. `/platform/corporate-control-plane` is removed from generated static routes and redirected by the Worker to `/platform/client-company-portal`.
+4. Active public `corporate-control-plane` product proof screenshots were deleted.
+5. Public product proof now stays on client company/fleet/vessel, evidence, findings/CAPA, cybersecurity plans, reports/readiness, trust/procurement, and contact workflows.
+6. Regression check: `npm run qa:public-product-boundary`, also included in `npm run qa`.
+7. Preserve root OG/social path `/og/certamaris-link-preview-2026-08-v2.png`.
+
 ---
 
 ## 2. Deploy (only way to update certamaris.com)
@@ -160,6 +170,7 @@ Never re-bind `app.certamaris.com` to `certamaris-site`.
 | Pixel Grid | `components/PixelGridBackground.tsx` |
 | Design tokens | `app/globals.css` |
 | QA routes | `scripts/qa/expected-routes.mjs`, `scripts/qa/check-product-experience.mjs` |
+| Public product boundary | `scripts/qa/check-public-product-boundary.mjs` |
 
 ---
 
@@ -215,6 +226,7 @@ Fallback addresses: `skyler@certamaris.com`, `sales@certamaris.com`.
 
 - Pixel Grid sitewide — do not reintroduce opaque hero bands without owner direction (`design/redesign-plan.md`)  
 - No fake logos/metrics/certifications/survey guarantees  
+- No internal admin / Corporate Control Plane as public product marketing  
 - Reduced motion: near-opaque floors; `usePrefersReducedMotion()` from `lib/`  
 
 **Preserve valid work. Do not redesign from zero.**
