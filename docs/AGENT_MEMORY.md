@@ -3,7 +3,7 @@
 **Signed:** Cursor Cloud Agent (Composer) · **Date:** 2026-08-16  
 **Run:** https://cursor.com/agents/bc-01a0088b-afcf-732b-9a58-c0e555d9e469  
 **Owner:** Skyler Brown (`skyler@certamaris.com`)  
-**Live SoT repo:** `marinerxcapital/certamaris-public-website` · branch **`main`** · sitewide professionalism upgrade pending PR; internal-admin marketing removal **`5bc636f`** / PR #16; complete legal library **`e62e010`**; fleet assurance workbench **`87b3b64`**; product experience upgrade **`dfb009f`** · pricing table keyboard-access closeout **`0084f51`**; latest internal-admin removal deploy run **`32689192150`**; latest legal deploy run **`32681492599`**; latest workbench deploy run **`32635035960`**; product run **`32627169675`**; final accessibility deploy run **`32628481367`**; prior UX merge **`8a633155`** / PR #14; prior conversion merge **`4f206e6`** / PR #12; link-preview code commit **`190533a`** (PR #9)
+**Live SoT repo:** `marinerxcapital/certamaris-public-website` · branch **`main`** · sitewide professionalism upgrade **`04de3aa`** / PR #18; internal-admin marketing removal **`5bc636f`** / PR #16; complete legal library **`e62e010`**; fleet assurance workbench **`87b3b64`**; product experience upgrade **`dfb009f`** · pricing table keyboard-access closeout **`0084f51`**; latest professionalism deploy run **`32694451757`**; latest internal-admin removal deploy run **`32689192150`**; latest legal deploy run **`32681492599`**; latest workbench deploy run **`32635035960`**; product run **`32627169675`**; final accessibility deploy run **`32628481367`**; prior UX merge **`8a633155`** / PR #14; prior conversion merge **`4f206e6`** / PR #12; link-preview code commit **`190533a`** (PR #9)
 **Production:** https://certamaris.com · Worker `certamaris-site` · Cloudflare deployment readback verified on 2026-08-24
 
 > Future agentic sessions: **read this file first**, then the latest dated deployment note under `docs/`, then `docs/CODEX_MARKETING_TAKEOVER.md`. Do not invent customers, metrics, certifications, compliance guarantees, or contact-forward secrets.
@@ -12,7 +12,7 @@
 
 ## 1. What shipped
 
-### 2026-08-24 sitewide professionalism upgrade (pending PR)
+### 2026-08-24 sitewide professionalism upgrade (`04de3aa`, PR #18)
 
 | Item | Detail |
 |---|---|
@@ -21,9 +21,11 @@
 | Page heroes | `components/PageHero.tsx` now presents primary route copy unframed with a restrained vertical accent, leaving side proof panels contained. |
 | Scope | Shared chrome affects home, platform, demo, pricing, trust, procurement, contact, solutions, who-we-serve, resources, legal/status pages, and 404 without changing product facts or route IA. |
 | Preserved | Root OG path `/og/certamaris-link-preview-2026-08-v2.png`, contact fallback truth, legal/regulatory boundaries, current proof assets, and the internal-admin exclusion. |
-| Evidence | `docs/implementation/sitewide-professionalism-20260824/` with 16 baseline and 16 after screenshots. |
+| Evidence | `docs/implementation/sitewide-professionalism-20260824/` with 16 baseline, 16 after, and 16 production screenshots. |
 | Validation | `npm run typecheck`, `npm run build:static`, `npm run build`, `npm run qa`, `npm run qa:responsive-a11y`, `npm run qa:link-preview`, `npm run qa:buyer-paths`, `npm run qa:excellence`, `npm run qa:public-product-boundary`, `npm run qa:product-experience` passed locally. |
-| Status | IN PROGRESS until PR, deployment, production screenshots, and live verification complete. |
+| Production deploy | GitHub Actions run `32694451757`; validate job `97333862097`; deploy job `97333987041`; Cloudflare Worker version `7afb48f1-6659-43e4-ad1a-4807bc009b32`. |
+| Live verification | Apex 200, www 301 -> apex, root ETag `"0ecb575e694d6d307e58c79fec97e5e9"`; live CSS contains `--radius-glass:8px`, `opacity:.28`, `letter-spacing:0`, and `page-hero-copy`; key route forbidden-term scan clean; OG image `200 image/png` 1200x630. |
+| Status | RESOLVED. |
 
 ### 2026-08-24 internal-admin marketing removal (`5bc636f`, PR #16)
 
