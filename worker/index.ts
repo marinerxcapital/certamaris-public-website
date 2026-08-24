@@ -76,6 +76,12 @@ export default {
       return withHeaders(Response.redirect(url.toString(), 301), request);
     }
 
+    // Permanent redirect: former internal-only product page is not a customer-facing module.
+    if (url.pathname === "/platform/corporate-control-plane" || url.pathname === "/platform/corporate-control-plane/") {
+      url.pathname = "/platform/client-company-portal";
+      return withHeaders(Response.redirect(url.toString(), 301), request);
+    }
+
     if (url.pathname === "/api/contact") {
       if (request.method !== "POST") {
         const response = json({ error: "Method not allowed." }, 405);

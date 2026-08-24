@@ -266,7 +266,7 @@ export const categorizedFaqItems: FaqItem[] = [
     category: "procurement",
     question: "Who should we contact for press, partnership, or careers?",
     answer:
-      "Use the contact form with the matching intent (press, partnership, or careers). Those paths route separately from sales demos so the right internal owner can respond.",
+      "Use the contact form with the matching intent (press, partnership, or careers). Those paths route separately from sales demos so the right CertaMaris contact can respond.",
   },
 ];
 

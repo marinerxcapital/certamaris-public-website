@@ -3,7 +3,7 @@
 **Signed:** Cursor Cloud Agent (Composer) · **Date:** 2026-08-16  
 **Run:** https://cursor.com/agents/bc-01a0088b-afcf-732b-9a58-c0e555d9e469  
 **Owner:** Skyler Brown (`skyler@certamaris.com`)  
-**Live SoT repo:** `marinerxcapital/certamaris-public-website` · branch **`main`** · complete legal library **`e62e010`**; fleet assurance workbench **`87b3b64`**; product experience upgrade **`dfb009f`** · pricing table keyboard-access closeout **`0084f51`**; latest legal deploy run **`32681492599`**; latest workbench deploy run **`32635035960`**; product run **`32627169675`**; final accessibility deploy run **`32628481367`**; prior UX merge **`8a633155`** / PR #14; prior conversion merge **`4f206e6`** / PR #12; link-preview code commit **`190533a`** (PR #9)
+**Live SoT repo:** `marinerxcapital/certamaris-public-website` · branch **`main`** · internal-admin marketing removal **pending deploy**; complete legal library **`e62e010`**; fleet assurance workbench **`87b3b64`**; product experience upgrade **`dfb009f`** · pricing table keyboard-access closeout **`0084f51`**; latest legal deploy run **`32681492599`**; latest workbench deploy run **`32635035960`**; product run **`32627169675`**; final accessibility deploy run **`32628481367`**; prior UX merge **`8a633155`** / PR #14; prior conversion merge **`4f206e6`** / PR #12; link-preview code commit **`190533a`** (PR #9)
 **Production:** https://certamaris.com · Worker `certamaris-site` · Cloudflare deployment readback verified on 2026-08-24
 
 > Future agentic sessions: **read this file first**, then the latest dated deployment note under `docs/`, then `docs/CODEX_MARKETING_TAKEOVER.md`. Do not invent customers, metrics, certifications, compliance guarantees, or contact-forward secrets.
@@ -11,6 +11,19 @@
 ---
 
 ## 1. What shipped
+
+### 2026-08-24 internal-admin marketing removal (pending deploy)
+
+| Item | Detail |
+|---|---|
+| Problem | Public product navigation/content exposed Internal Admin / Corporate Control Plane / Dashboard V2 framing as if it were client-facing buyer value. |
+| Boundary | Internal CertaMaris employee/admin tooling is not sold to clients and must not be marketed as a customer module. |
+| Product IA | Public modules now begin with Client Company Portal, Fleet Management, Vessel Portal, Assessments, Evidence, Findings & Corrective Actions, Cybersecurity Plans, Regulatory Intelligence, Continuous Assurance, Reports & Readiness, and Integrations. |
+| Removed route | `/platform/corporate-control-plane` is no longer generated; Worker redirects it to `/platform/client-company-portal`. |
+| Removed assets | Active public `corporate-control-plane` PNG/WebP screenshots were deleted. |
+| QA | Added `npm run qa:public-product-boundary`; included in `npm run qa`; generated HTML/XML guard preserves the OG path `/og/certamaris-link-preview-2026-08-v2.png`. |
+| Evidence | `docs/implementation/remove-internal-admin-marketing-20260823/`; deployment note `docs/2026-08-24-internal-admin-marketing-removal.md`. |
+| Status | Pending PR merge, production deployment, live verification, and final docs sync. |
 
 ### 2026-08-24 complete legal library (`e62e010`)
 
@@ -121,6 +134,7 @@
 7. **Deploy:** `npm run build:static` then `npx wrangler deploy --config wrangler.jsonc --keep-vars`.
 8. **Reduced motion:** never animate from opacity 0; use `usePrefersReducedMotion()` from `lib/`, not framer’s hook alone.
 9. **Root link preview:** active metadata must use `/og/certamaris-link-preview-2026-08-v2.png`; do not restore `/og/certamaris-og.jpg` to `og:image` or `twitter:image`.
+10. **Internal admin boundary:** the Internal CertaMaris Admin Dashboard / Corporate Control Plane / employee-only operating tooling is not a client-facing product feature. Do not restore it to public nav, platform modules, demo copy, pricing, trust/procurement, screenshots, sitemap, or generated HTML.
 
 ---
 
@@ -145,6 +159,7 @@
 | Legal documents | `lib/legal-documents.ts`, `components/LegalDocumentPage.tsx`, `components/LegalMarkdown.tsx`, `app/legal/*`, `app/accessibility/page.tsx`, `public/legal/documents/` |
 | Route QA inventory | `scripts/qa/expected-routes.mjs` |
 | Link-preview QA | `scripts/qa/check-link-preview.mjs` |
+| Public product-boundary QA | `scripts/qa/check-public-product-boundary.mjs` |
 | Product-experience QA | `scripts/qa/check-product-experience.mjs` |
 | Buyer-path QA | `scripts/qa/check-buyer-paths.mjs` |
 | Excellence-path QA | `scripts/qa/check-excellence-path.mjs` |
@@ -185,9 +200,11 @@ CHROMIUM_PATH=/usr/local/bin/google-chrome node scripts/qa/check-sample-record.m
 | `docs/2026-08-22-conversion-trust-ux-deployment.md` | Conversion, trust packaging, buyer-path, and mobile-nav UX pass |
 | `docs/2026-08-23-product-experience-upgrade-deployment.md` | Product mini-experience, pricing v2, evidence v2, OG previews, live verification |
 | `docs/2026-08-24-complete-legal-library-deployment.md` | Complete legal PDF library, seven native legal pages, PDF noindex strategy, live verification |
+| `docs/2026-08-24-internal-admin-marketing-removal.md` | Public product-boundary fix removing internal admin / Corporate Control Plane marketing |
 | `docs/implementation/impressive-pass-20260816/` | Implementation folder (README, CHANGES, CONTACT) |
 | `docs/implementation/link-preview-branding-20260821/` | Implementation record for OG/Twitter preview remediation |
 | `docs/implementation/conversion-trust-ux-20260822/` | Screenshot-backed implementation record for the buyer-path UX pass |
+| `docs/implementation/remove-internal-admin-marketing-20260823/` | Screenshot-backed implementation record for internal-admin marketing removal |
 | `docs/CODEX_MARKETING_TAKEOVER.md` | Codex/agent takeover (updated tip + features) |
 | `docs/2026-08-12-truth-reconciliation-deployment.md` | Prior truth/polish deploy |
 | `design/redesign-plan.md` | Design SoT + owner deviations (Pixel Grid) |

@@ -89,7 +89,7 @@ export default function PlatformPage() {
         <Reveal className="mb-10 max-w-2xl">
           <Eyebrow>Platform hierarchy</Eyebrow>
           <h2 className="section-h2 section-h2--lg">
-            Corporate administration → company & fleet → vessel → controlled work objects.
+            Company & fleet → vessel → controlled work objects.
           </h2>
           <p className="mt-4 text-[15px] leading-relaxed text-structural">
             Human users receive individual auditable identities. CertaMaris does not advertise a shared
@@ -139,7 +139,7 @@ export default function PlatformPage() {
             Four moments that prove the chain is real.
           </h2>
           <p className="mt-4 text-[15px] leading-relaxed text-structural">
-            Sanitized Dashboard V2 captures — illustrative, not customer data or outcome guarantees.
+            Sanitized product captures — illustrative, not customer data or outcome guarantees.
           </p>
         </Reveal>
         <div className="grid gap-8 lg:grid-cols-2">

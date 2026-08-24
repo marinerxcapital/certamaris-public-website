@@ -12,7 +12,7 @@ import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata(
   "Product Demo",
-  "Cinematic scrub tour of CertaMaris — requirement to readiness package with sanitized Dashboard V2 product screens.",
+  "Cinematic scrub tour of CertaMaris — requirement to readiness package with sanitized product screens.",
   "/demo",
   { image: "/og/certamaris-demo-2026-08-product-experience.png" }
 );

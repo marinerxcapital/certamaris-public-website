@@ -80,7 +80,6 @@ export type NavMenuGroup = {
 
 export const PRODUCT_LINKS: SiteLink[] = [
   { label: "Platform Overview", href: "/platform" },
-  { label: "Corporate Control Plane", href: "/platform/corporate-control-plane" },
   { label: "Client Company Portal", href: "/platform/client-company-portal" },
   { label: "Fleet Management", href: "/platform/fleet-management" },
   { label: "Vessel Portal", href: "/platform/vessel-portal" },
@@ -290,7 +289,7 @@ export const FOOTER_GROUPS: { title: string; links: [string, string][] }[] = [
     title: "Product",
     links: [
       ["Platform Overview", "/platform"],
-      ["Corporate Control Plane", "/platform/corporate-control-plane"],
+      ["Client Company Portal", "/platform/client-company-portal"],
       ["Fleet Management", "/platform/fleet-management"],
       ["Vessel Portal", "/platform/vessel-portal"],
       ["Assessments", "/platform/assessments"],

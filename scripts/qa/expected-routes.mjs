@@ -9,7 +9,6 @@ export const PREVIEW_ORIGIN_DEFAULT = "http://127.0.0.1:4173";
 export const CURRENT_STATIC_ROUTES = [
   "/",
   "/platform",
-  "/platform/corporate-control-plane",
   "/platform/client-company-portal",
   "/platform/fleet-management",
   "/platform/vessel-portal",

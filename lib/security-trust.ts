@@ -103,7 +103,7 @@ export const securityTrustControls: TrustControl[] = [
     category: "Access",
     title: "Privileged access to production",
     summary:
-      "Production access is limited to authorized personnel for operational support. Customer support access, where used, is intended to be controlled and time-bounded rather than standing unrestricted access.",
+      "Production access is limited to authorized personnel for operational support. Customer-authorized assistance, where required, is controlled and time-bounded rather than standing unrestricted access.",
     status: "current",
     last_verified: "2026-07-31",
   },

@@ -42,11 +42,11 @@ export const productProofScreens = {
     width: 1440,
     height: 2048,
     alt:
-      "CertaMaris Dashboard V2 executive readiness dashboard showing demo-data readiness signal, open findings, evidence requests, corrective actions, and assurance record traceability.",
-    label: "Dashboard V2 · Executive readiness",
+      "CertaMaris executive readiness screen showing demo-data readiness signal, open findings, evidence requests, corrective actions, and assurance record traceability.",
+    label: "Product proof · Executive readiness",
     title: "Executive readiness from the controlled record",
     body:
-      "Give leadership a qualified demo-data view of readiness, evidence freshness, findings, risks, actions, and report-package state from Dashboard V2.",
+      "Give leadership a qualified demo-data view of readiness, evidence freshness, findings, risks, actions, and report-package state from the controlled record.",
     galleryOrder: 1,
     annotations: [
       { id: "er-demo", label: "Demo-data boundary visible", x: 48, y: 4 },
@@ -58,8 +58,8 @@ export const productProofScreens = {
     width: 1440,
     height: 900,
     alt:
-      "CertaMaris Dashboard V2 requirement mapping workspace showing demo findings, evidence, engagements, and program targets available for mapping.",
-    label: "Dashboard V2 · Requirement mapping",
+      "CertaMaris requirement mapping workspace showing demo findings, evidence, engagements, and program targets available for mapping.",
+    label: "Product proof · Requirement mapping",
     title: "Requirement mapping with product context",
     body:
       "Map findings and evidence to program targets while keeping the demo-data boundary and mapping service status visible.",
@@ -74,8 +74,8 @@ export const productProofScreens = {
     width: 1440,
     height: 958,
     alt:
-      "CertaMaris Dashboard V2 evidence coverage workspace showing sufficiency, freshness, evidence requests, and control coverage in demo data.",
-    label: "Dashboard V2 · Evidence coverage",
+      "CertaMaris evidence coverage workspace showing sufficiency, freshness, evidence requests, and control coverage in demo data.",
+    label: "Product proof · Evidence coverage",
     title: "Evidence coverage and freshness",
     body:
       "See sufficiency, freshness, gaps, and evidence requests at control level before review work becomes a document chase.",
@@ -90,11 +90,11 @@ export const productProofScreens = {
     width: 1440,
     height: 1141,
     alt:
-      "CertaMaris Dashboard V2 findings and risks register showing owned findings, severity, aging, risk context, and linked corrective-action workflow.",
-    label: "Dashboard V2 · Findings register",
+      "CertaMaris findings and risks register showing owned findings, severity, aging, risk context, and linked corrective-action workflow.",
+    label: "Product proof · Findings register",
     title: "Findings with risk and control context",
     body:
-      "Connect condition, severity, ownership, risk context, and follow-up workflow in one reviewable Dashboard V2 register.",
+      "Connect condition, severity, ownership, risk context, and follow-up workflow in one reviewable register.",
     galleryOrder: 4,
     annotations: [
       { id: "fr-register", label: "Findings retained as records", x: 32, y: 38 },
@@ -106,8 +106,8 @@ export const productProofScreens = {
     width: 1440,
     height: 960,
     alt:
-      "CertaMaris Dashboard V2 corrective actions register showing owners, priorities, due dates, status, and verification-oriented action records.",
-    label: "Dashboard V2 · Corrective actions",
+      "CertaMaris corrective actions register showing owners, priorities, due dates, status, and verification-oriented action records.",
+    label: "Product proof · Corrective actions",
     title: "Remediation that can be verified",
     body:
       "Keep remediation owned, prioritized, dated, and connected to verification before closure is treated as complete.",
@@ -122,8 +122,8 @@ export const productProofScreens = {
     width: 1440,
     height: 900,
     alt:
-      "CertaMaris Dashboard V2 reports and deliverables library showing controlled readiness packages, package status, release context, and export-oriented deliverables.",
-    label: "Dashboard V2 · Readiness packages",
+      "CertaMaris reports and deliverables library showing controlled readiness packages, package status, release context, and export-oriented deliverables.",
+    label: "Product proof · Readiness packages",
     title: "Readiness package preparation",
     body:
       "Prepare controlled deliverables with package status, source context, and review visibility without claiming audit outcomes.",
@@ -138,8 +138,8 @@ export const productProofScreens = {
     width: 1440,
     height: 900,
     alt:
-      "CertaMaris Dashboard V2 controlled release center showing package release state, approval queues, exceptions, and controlled export workflow.",
-    label: "Dashboard V2 · Controlled release",
+      "CertaMaris controlled release center showing package release state, approval queues, exceptions, and controlled export workflow.",
+    label: "Product proof · Controlled release",
     title: "Controlled release workflow",
     body:
       "Track release state, approvals, exceptions, and package controls before readiness material is shared.",
@@ -149,8 +149,8 @@ export const productProofScreens = {
     width: 1440,
     height: 900,
     alt:
-      "CertaMaris Dashboard V2 fleet and facilities inventory showing vessels, facilities, operating regions, status, criticality, and review cadence.",
-    label: "Dashboard V2 · Fleet and facilities",
+      "CertaMaris fleet and facilities inventory showing vessels, facilities, operating regions, status, criticality, and review cadence.",
+    label: "Product proof · Fleet and facilities",
     title: "Fleet scope and review cadence",
     body:
       "Keep vessels, facilities, operating regions, status, criticality, and review cadence visible before readiness work is assembled.",
@@ -165,8 +165,8 @@ export const productProofScreens = {
     width: 1440,
     height: 900,
     alt:
-      "CertaMaris Dashboard V2 cybersecurity plan builder showing plan sections, review state, linked authorities, and controlled plan workflow.",
-    label: "Dashboard V2 · Cybersecurity plans",
+      "CertaMaris cybersecurity plan builder showing plan sections, review state, linked authorities, and controlled plan workflow.",
+    label: "Product proof · Cybersecurity plans",
     title: "Cybersecurity plans with review state",
     body:
       "Keep plan sections, review state, linked authorities, and controlled workflow visible through preparation and release.",
@@ -177,23 +177,12 @@ export const productProofScreens = {
       { id: "cp-authority", label: "Authority links retained", x: 72, y: 66 },
     ],
   }),
-  corporateControlPlane: dashboardV2Screen("corporate-control-plane.png", {
-    width: 1440,
-    height: 1291,
-    alt:
-      "CertaMaris Dashboard V2 internal corporate control plane showing portfolio oversight, client workspace context, support queues, and operational administration.",
-    label: "Dashboard V2 · Corporate control plane",
-    title: "Corporate control plane",
-    body:
-      "Show the internal portfolio and support workspace without exposing customer data or implying unrestricted tenant access.",
-    galleryOrder: 10,
-  }),
   clientCompanyPortal: dashboardV2Screen("client-company-portal.png", {
     width: 1440,
     height: 1010,
     alt:
-      "CertaMaris Dashboard V2 organization workspace showing tenant organization context, engagement state, and company administration in demo data.",
-    label: "Dashboard V2 · Client company portal",
+      "CertaMaris organization workspace showing tenant organization context, engagement state, and company administration in demo data.",
+    label: "Product proof · Client company portal",
     title: "Client company portal",
     body:
       "Represent the company-level tenant workspace for organization context, role-scoped administration, and engagement state.",
@@ -203,8 +192,8 @@ export const productProofScreens = {
     width: 1440,
     height: 1123,
     alt:
-      "CertaMaris Dashboard V2 client fleet dashboard showing fleet readiness, vessel roll-up, open work, and evidence posture in demo data.",
-    label: "Dashboard V2 · Client fleet",
+      "CertaMaris client fleet view showing fleet readiness, vessel roll-up, open work, and evidence posture in demo data.",
+    label: "Product proof · Client fleet",
     title: "Client fleet roll-up",
     body:
       "Summarize fleet readiness, vessel roll-up, evidence state, findings, and actions for company users.",
@@ -214,8 +203,8 @@ export const productProofScreens = {
     width: 1440,
     height: 1377,
     alt:
-      "CertaMaris Dashboard V2 vessel portal showing vessel-scoped evidence, findings, systems, plans, and action context for a demo vessel.",
-    label: "Dashboard V2 · Vessel portal",
+      "CertaMaris vessel portal showing vessel-scoped evidence, findings, systems, plans, and action context for a demo vessel.",
+    label: "Product proof · Vessel portal",
     title: "Vessel-scoped assurance work",
     body:
       "Show how vessel context, systems, evidence, findings, and actions remain scoped to named users and vessel membership.",
@@ -225,8 +214,8 @@ export const productProofScreens = {
     width: 1440,
     height: 1613,
     alt:
-      "CertaMaris Dashboard V2 assessments workspace showing assessments, controls, questionnaire work, and review status in demo data.",
-    label: "Dashboard V2 · Assessments",
+      "CertaMaris assessments workspace showing assessments, controls, questionnaire work, and review status in demo data.",
+    label: "Product proof · Assessments",
     title: "Assessment workspace",
     body:
       "Plan and review assessment work while keeping controls, questionnaires, evidence, and results connected.",
@@ -236,8 +225,8 @@ export const productProofScreens = {
     width: 1440,
     height: 900,
     alt:
-      "CertaMaris Dashboard V2 integrations workspace showing configured integration categories, availability status, and implementation boundaries.",
-    label: "Dashboard V2 · Integrations",
+      "CertaMaris integrations workspace showing configured integration categories, availability status, and implementation boundaries.",
+    label: "Product proof · Integrations",
     title: "Integrations with availability boundaries",
     body:
       "Show identity, storage, API, import, SBOM, and export integration categories with availability labeled honestly.",
@@ -247,8 +236,8 @@ export const productProofScreens = {
     width: 1440,
     height: 2324,
     alt:
-      "CertaMaris Dashboard V2 continuous assurance dashboard showing evidence freshness, control drift, assurance posture, and review queues.",
-    label: "Dashboard V2 · Continuous assurance",
+      "CertaMaris continuous assurance view showing evidence freshness, control drift, assurance posture, and review queues.",
+    label: "Product proof · Continuous assurance",
     title: "Continuous assurance signals",
     body:
       "Track evidence freshness, control drift, exceptions, and review queues between assessment cycles.",
@@ -258,8 +247,8 @@ export const productProofScreens = {
     width: 1440,
     height: 2679,
     alt:
-      "CertaMaris Dashboard V2 SBOM and supplier assurance dashboard showing supplier context, software bill of materials, and vulnerability review workflow.",
-    label: "Dashboard V2 · SBOM assurance",
+      "CertaMaris SBOM and supplier assurance view showing supplier context, software bill of materials, and vulnerability review workflow.",
+    label: "Product proof · SBOM assurance",
     title: "SBOM and vulnerability assurance",
     body:
       "Represent configurable supplier, SBOM, and vulnerability assurance workflows without claiming universal live telemetry.",

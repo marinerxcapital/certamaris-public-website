@@ -30,10 +30,10 @@ type DemoTab = {
 const tabs: DemoTab[] = [
   {
     id: "owner-corporate",
-    label: "Owner / Corporate",
-    eyebrow: "Owner / corporate",
-    title: "Corporate control plane",
-    body: "Multi-entity structure, governance posture, and decisions that need attention, without treating a dashboard screenshot as a live customer metric.",
+    label: "Owner / Governance",
+    eyebrow: "Owner / governance",
+    title: "Fleet governance view",
+    body: "Multi-entity structure, governance posture, and decisions that need attention, without treating a product screenshot as a live customer metric.",
     status: "ok",
     statusLabel: "Governance view",
     screen: productProofScreens.executiveReporting,
@@ -43,7 +43,7 @@ const tabs: DemoTab[] = [
     label: "Client Admin",
     eyebrow: "Client admin",
     title: "Organization and access administration",
-    body: "Configure organizations, roles, and the boundary between corporate oversight and day-to-day fleet work, with role-based access and no claim of specific SSO configurations.",
+    body: "Configure customer organizations, roles, and the boundary between company oversight and day-to-day fleet work, with role-based access and no claim of specific SSO configurations.",
     status: "caution",
     statusLabel: "Admin workflow",
     screen: productProofScreens.fleetInventory,
