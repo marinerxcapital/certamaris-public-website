@@ -32,8 +32,8 @@ const diligenceLinks = [
   },
   {
     href: "/legal/privacy",
-    title: "Legal status",
-    body: "Privacy, terms, DPA status, and owner-verification notes for legal review.",
+    title: "Legal documents",
+    body: "Privacy, terms, DPA, cookies, AUP, subprocessors, accessibility, and the PDF library.",
   },
 ];
 
@@ -51,7 +51,7 @@ const reviewSteps = [
   {
     href: "/trust/procurement",
     title: "Review diligence",
-    body: "Open procurement, security, legal-status, and AI/data boundaries.",
+    body: "Open procurement, security, legal documents, and AI/data boundaries.",
   },
   {
     href: "/contact?intent=procurement",
@@ -80,7 +80,7 @@ export function BuyerDiligencePacket({ compact = false, className = "" }: BuyerD
             Open the packet buyers usually need before the demo.
           </h2>
           <p className="mt-4 text-[15px] leading-7 text-structural">
-            Pricing, security, assurance model, procurement, legal-status, and AI/data boundaries stay one click
+            Pricing, security, assurance model, procurement, legal documents, and AI/data boundaries stay one click
             away so fleet, IT/OT, DPA, and procurement reviewers can diligence CertaMaris quickly.
           </p>
           <p className="mt-4 rounded-md border border-ocean/15 bg-ocean/5 px-3 py-2 text-[13px] leading-6 text-structural">

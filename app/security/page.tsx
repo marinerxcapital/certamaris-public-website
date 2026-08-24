@@ -131,7 +131,7 @@ export default function SecurityPage() {
           </p>
           <p className="text-[15px] text-structural leading-relaxed">
             Product subprocessors are available on request. See{" "}
-            <Link href="/trust/subprocessors" className="font-medium text-ocean hover:underline">
+            <Link href="/legal/subprocessors" className="font-medium text-ocean hover:underline">
               Subprocessors
             </Link>
             .

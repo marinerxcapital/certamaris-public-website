@@ -93,6 +93,13 @@ export const CURRENT_STATIC_ROUTES = [
   "/privacy",
   "/terms",
   "/accessibility",
+  "/legal/privacy",
+  "/legal/terms",
+  "/legal/cookies",
+  "/legal/acceptable-use",
+  "/legal/subprocessors",
+  "/legal/dpa",
+  "/legal/library",
 ];
 
 export const CURRENT_RESOURCE_ROUTES = [

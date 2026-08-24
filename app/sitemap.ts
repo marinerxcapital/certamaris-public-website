@@ -48,7 +48,6 @@ const coreRoutes: Entry[] = [
   { path: "/trust", priority: 0.8, changeFrequency: "monthly" },
   { path: "/trust/procurement", priority: 0.7, changeFrequency: "monthly" },
   { path: "/trust/assurance-model", priority: 0.75, changeFrequency: "monthly" },
-  { path: "/trust/subprocessors", priority: 0.65, changeFrequency: "monthly" },
   { path: "/trust/responsible-disclosure", priority: 0.65, changeFrequency: "monthly" },
   { path: "/trust/status", priority: 0.6, changeFrequency: "weekly" },
   { path: "/trust/ai-policy", priority: 0.65, changeFrequency: "monthly" },
@@ -58,9 +57,12 @@ const coreRoutes: Entry[] = [
 ];
 
 const legalRoutes: Entry[] = [
-  { path: "/legal/privacy", priority: 0.4, changeFrequency: "yearly" },
-  { path: "/legal/terms", priority: 0.4, changeFrequency: "yearly" },
-  { path: "/legal/dpa", priority: 0.4, changeFrequency: "yearly" },
+  { path: "/legal/privacy", priority: 0.55, changeFrequency: "yearly" },
+  { path: "/legal/terms", priority: 0.55, changeFrequency: "yearly" },
+  { path: "/legal/cookies", priority: 0.45, changeFrequency: "yearly" },
+  { path: "/legal/acceptable-use", priority: 0.45, changeFrequency: "yearly" },
+  { path: "/legal/subprocessors", priority: 0.45, changeFrequency: "yearly" },
+  { path: "/legal/dpa", priority: 0.55, changeFrequency: "yearly" },
 ];
 
 function toSitemapEntry(
@@ -79,7 +81,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Deterministic: the global accessibility, security, navigation, and brand-asset
   // remediation materially changed every generated marketing page on this date.
   const remediationDate = new Date("2026-08-01T00:00:00.000Z");
-  const legalStatusDate = new Date("2026-08-04T00:00:00.000Z");
+  const legalPublicationDate = new Date("2026-08-23T00:00:00.000Z");
 
   const platformRoutes = productModules.map((mod) =>
     toSitemapEntry({ path: `/platform/${mod.slug}`, priority: 0.8, changeFrequency: "monthly" }, remediationDate)
@@ -106,7 +108,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     ...coreRoutes.map((r) => toSitemapEntry(r, remediationDate)),
-    ...legalRoutes.map((r) => toSitemapEntry(r, legalStatusDate)),
+    ...legalRoutes.map((r) => toSitemapEntry(r, legalPublicationDate)),
     ...platformRoutes,
     ...solutionRoutes,
     ...audienceRoutes,

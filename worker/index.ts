@@ -128,6 +128,9 @@ async function withHeaders(response: Response, request: Request): Promise<Respon
     headers.set("Cache-Control", IMMUTABLE_CACHE);
   } else if (isStableAsset(url.pathname)) {
     headers.set("Cache-Control", ONE_WEEK_CACHE);
+    if (isNoIndexLegalPdf(url.pathname)) {
+      headers.set("X-Robots-Tag", "noindex");
+    }
   } else if (url.pathname === "/api/contact") {
     headers.set("Cache-Control", "no-store");
   } else if (url.pathname === "/api/status") {
@@ -146,11 +149,19 @@ async function withHeaders(response: Response, request: Request): Promise<Respon
 function isStableAsset(pathname: string): boolean {
   return (
     pathname.startsWith("/brand/") ||
+    pathname.startsWith("/legal/documents/") ||
     pathname.startsWith("/product/") ||
     pathname.startsWith("/og/") ||
     pathname === "/favicon.ico" ||
     pathname === "/icon.png" ||
     pathname === "/apple-icon.png"
+  );
+}
+
+function isNoIndexLegalPdf(pathname: string): boolean {
+  return (
+    pathname.startsWith("/legal/documents/enterprise-templates/") ||
+    pathname.startsWith("/legal/documents/master/")
   );
 }
 

@@ -1,11 +1,11 @@
-import { LegalStatusPage } from "@/components/LegalStatusPage";
-import { legalDocuments } from "@/lib/legal-documents";
+import { LegalDocumentPage } from "@/components/LegalDocumentPage";
+import { publicLegalDocumentsBySlug } from "@/lib/legal-documents";
 import { pageMetadata } from "@/lib/metadata";
 
-const document = legalDocuments.privacy;
+const document = publicLegalDocumentsBySlug.privacy;
 
-export const metadata = pageMetadata(document.title, document.description, document.path);
+export const metadata = pageMetadata(document.title, document.description, document.route);
 
 export default function LegalPrivacyPage() {
-  return <LegalStatusPage document={document} />;
+  return <LegalDocumentPage document={document} />;
 }

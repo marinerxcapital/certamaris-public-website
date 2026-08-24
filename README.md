@@ -178,7 +178,8 @@ app/
   compliance/             IMO / IACS UR E26 & E27 plain-language overview
   resources/              Article index + [slug] detail pages (6 launch articles)
   about/  contact/  security/  pricing/  faq/
-  legal/privacy/  legal/terms/  legal/dpa/
+  legal/privacy/  legal/terms/  legal/cookies/  legal/acceptable-use/
+  legal/subprocessors/  legal/dpa/  legal/library/
   privacy/  terms/  accessibility/
   not-found.tsx           Custom 404
   sitemap.ts  robots.ts
@@ -195,13 +196,15 @@ lib/                      constants.ts, content.ts, solutions-industries.ts,
 public/
   brand/                  Logo mark, full lockup, favicons (derived from
                            the approved CertaMaris brand assets)
+  legal/documents/        Public PDFs, execution templates, and master binder
   og/                     Versioned Open Graph social image
 ```
 
-The public marketing site now includes canonical legal-status routes at
-`/legal/privacy`, `/legal/terms`, and `/legal/dpa`, plus compatibility
-helpers at `/privacy` and `/terms` that point to the same current-status
-content.
+The public marketing site includes native legal pages for Privacy, Business
+Terms, Cookie Notice, Acceptable Use, Accessibility, Subprocessors, and DPA.
+`/legal/library` exposes the complete PDF legal library with execution
+templates clearly labeled as unsigned templates. `/privacy` and `/terms`
+remain compatibility helpers for the canonical legal pages.
 
 ---
 
@@ -299,11 +302,11 @@ explicit, reusable disclaimer (`components/BoundaryPanel.tsx`) on every
 page that references them — this is not legal or regulatory advice, and
 qualified human review is required for applicability determinations.
 
-The Tuesday, August 4, 2026 legal package is treated as a controlling
-source. Because that package still marks the Privacy Policy, Business Terms,
-and DPA as configuration incomplete, the public `/legal/*` routes publish
-source-backed status pages rather than incomplete operative legal text or
-public PDF downloads.
+The August 23, 2026 `CertaMaris_All_Legal_Web_Deployment_Package_v1.0.zip`
+is the controlling legal publication source for the public website. Future
+legal changes must update both the native HTML route text and the matching
+downloadable PDF in `public/legal/documents/` so the two surfaces do not
+drift.
 
 ---
 

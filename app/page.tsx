@@ -66,7 +66,11 @@ const trustLinks: [string, string][] = [
   ["/security", "Security"],
   ["/legal/privacy", "Privacy Policy"],
   ["/legal/terms", "Business Terms"],
+  ["/legal/cookies", "Cookie Notice"],
+  ["/legal/acceptable-use", "Acceptable Use"],
+  ["/legal/subprocessors", "Subprocessors"],
   ["/legal/dpa", "Data Processing Agreement"],
+  ["/legal/library", "Legal Library"],
 ];
 
 const homepageDifferentiation = differentiationModels.slice(0, 3);

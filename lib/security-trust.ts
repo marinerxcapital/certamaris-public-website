@@ -252,7 +252,7 @@ export const TRUST_CENTER_LINKS: { href: string; title: string; description: str
     description: "Current, planned, configurable, and not-claimed platform controls with status labels.",
   },
   {
-    href: "/trust/subprocessors",
+    href: "/legal/subprocessors",
     title: "Subprocessors",
     description: "How infrastructure categories are described and how to request the product subprocessor list.",
   },

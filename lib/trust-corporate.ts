@@ -378,7 +378,11 @@ export const corporateInformationContent = {
   related: [
     { href: "/legal/privacy", label: "Privacy Policy" },
     { href: "/legal/terms", label: "Business Terms of Service" },
+    { href: "/legal/cookies", label: "Cookie Notice" },
+    { href: "/legal/acceptable-use", label: "Acceptable Use Policy" },
+    { href: "/legal/subprocessors", label: "Subprocessors" },
     { href: "/legal/dpa", label: "Data Processing Agreement" },
+    { href: "/legal/library", label: "Legal Library" },
     { href: "/trust/procurement", label: "Procurement" },
     { href: "/contact", label: "Contact" },
   ],

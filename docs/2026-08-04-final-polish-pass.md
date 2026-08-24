@@ -30,8 +30,8 @@ at 2026-08-04T23:50:13Z after CDN propagation settled.
 - Redeployed the canonical static export to `certamaris-site`.
 - Fixed the SEO regression found during QA by giving legacy compatibility
   routes distinct metadata:
-  - `/privacy` now uses `Privacy Policy Status`.
-  - `/terms` now uses `Business Terms Status`.
+  - `/privacy` used distinct privacy metadata in that interim release.
+  - `/terms` used distinct business-terms metadata in that interim release.
 - Hardened `scripts/qa/audit-crawl.mjs` so the documented full-route crawl is
   reproducible after a clean install:
   - declared `playwright-core` and `axe-core` as dev dependencies;
@@ -55,7 +55,7 @@ at 2026-08-04T23:50:13Z after CDN propagation settled.
   - content QA: `112` files clean;
   - route export check: `96` pass, `0` fail;
   - SEO check: `99` pages pass; expected warnings only for shared 404 and
-    legacy legal-status H1 compatibility pages;
+    legacy legal H1 compatibility pages;
   - internal link check: `7,553` internal hrefs resolved;
   - founder QA: `11/11` pass.
 
@@ -126,7 +126,7 @@ Styled 404 check:
 
 ### Craft and interaction checks
 
-- Live screenshot review covered homepage, demo, contact, and legal-status
+- Live screenshot review covered homepage, demo, contact, and legal
   pages at desktop, `390px`, and `375px`.
 - `node scripts/qa/check-demo-images.mjs --base https://certamaris.com ...`
   verified all sampled homepage/demo/platform/solution/resource/leadership

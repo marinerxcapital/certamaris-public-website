@@ -1,7 +1,9 @@
-import { legalDocuments } from "@/lib/legal-documents";
+import { publicLegalDocumentsBySlug } from "@/lib/legal-documents";
 import { pageMetadata } from "@/lib/metadata";
 
-const document = legalDocuments.privacy;
+const document = publicLegalDocumentsBySlug.privacy;
 
-export const metadata = pageMetadata("Privacy Policy Status", document.description, "/privacy");
+export const metadata = pageMetadata("Privacy Policy - legacy route", document.description, "/privacy", {
+  noIndex: true,
+});
 export { default } from "../legal/privacy/page";
