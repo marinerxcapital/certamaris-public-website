@@ -1,6 +1,6 @@
 # 2026-08-24 Internal Admin Marketing Removal
 
-**Status:** Pre-deployment validation complete; production verification pending.  
+**Status:** RESOLVED.  
 **Production site:** https://certamaris.com  
 **Worker:** `certamaris-site`  
 **Repo:** `marinerxcapital/certamaris-public-website`
@@ -85,13 +85,38 @@ Generated source evidence:
 
 ## Deployment
 
-Pending PR, CI, merge, production deployment, and live verification.
+| Item | Value |
+|---|---|
+| PR | #16 |
+| Implementation commit | `55b969d` |
+| Merge commit | `5bc636f3bfa1cd121370bdfe45ae395f18771a3b` |
+| PR merged | 2026-08-24T04:13:19Z |
+| GitHub Actions run | `32689192150` |
+| Validate job | `97319662825` |
+| Deploy job | `97319790456` |
+| Cloudflare Worker version | `cebd0500-53d5-4ee3-9e75-5c13b8479950` |
+| Deployment result | Success |
 
 ## Production Verification
 
-Pending.
+Completed 2026-08-24T04:15Z.
+
+| Check | Result |
+|---|---|
+| `curl -I -L https://certamaris.com/` | `200 OK`, `Content-Type: text/html`, `CF-Cache-Status: HIT`, ETag `"e8c1921b620c1206bd851f2dcaf96512"` |
+| `curl -I -L https://www.certamaris.com/` | `301` to `https://certamaris.com/`, then `200 OK` |
+| `curl -I -L https://certamaris.com/platform/corporate-control-plane` | `301` to `https://certamaris.com/platform/client-company-portal`, then `200 OK` |
+| Live route source scan | `/`, `/platform`, `/demo`, `/pricing`, `/trust`, `/trust/procurement`, and `/contact` clean for forbidden internal-admin phrases |
+| Crawler-style source scan | Same routes clean with `facebookexternalhit/1.1` user agent |
+| Root metadata | Canonical `https://certamaris.com`; `og:image` and `twitter:image` both `https://certamaris.com/og/certamaris-link-preview-2026-08-v2.png` |
+| Preview image | `200 OK`, `Content-Type: image/png`, `121623` bytes, `1200x630` |
+| Production screenshots | `docs/implementation/remove-internal-admin-marketing-20260823/screenshots/production/` |
 
 ## Residual Risks
 
 - Historical implementation docs may still mention prior internal-admin terminology as history. They are not active production marketing copy.
 - Third-party caches may retain old page snapshots independently, but the production HTML source will be verified after deployment.
+
+## Final Status
+
+RESOLVED.

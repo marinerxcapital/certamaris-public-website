@@ -17,7 +17,7 @@
 | **Authenticated app (separate)** | https://app.certamaris.com — do **not** merge into this repo |
 | **GitHub** | https://github.com/marinerxcapital/certamaris-public-website |
 | **Branch** | **`main` only** for production |
-| **Latest production change (2026-08-24)** | Internal-admin marketing removal pending deploy · note `docs/2026-08-24-internal-admin-marketing-removal.md`; previous complete legal library `e62e010` |
+| **Latest production change (2026-08-24)** | Internal-admin marketing removal `5bc636f` / PR #16 · note `docs/2026-08-24-internal-admin-marketing-removal.md`; previous complete legal library `e62e010` |
 | **Latest UX pass (2026-08-23)** | Product experience upgrade `dfb009f` · pricing table keyboard-access closeout `0084f51` · note `docs/2026-08-23-product-experience-upgrade-deployment.md` |
 | **Link-preview code commit (2026-08-21)** | **`190533a`** - PR #9 link-preview branding fix; prior PR #6 `df5f174` / PR #5 `660e5b4` |
 | **Worker name** | `certamaris-site` |
@@ -104,7 +104,7 @@
 6. Future legal changes must update both the native HTML source and the matching downloadable PDF in the same change.
 7. Production deploy: GitHub Actions run `32681492599`, validate job `97298846724`, deploy job `97298956661`; Cloudflare Worker version `3ae144d2-8bdc-4018-b93e-c4b297b1195c`.
 
-### Internal-admin marketing removal (2026-08-24, pending deploy)
+### Internal-admin marketing removal (2026-08-24, PR #16 -> `5bc636f`)
 
 1. The Internal CertaMaris Admin Dashboard / Corporate Control Plane is employee-only and is not a customer module.
 2. Public product IA must not market employee-only admin, internal operations, internal support access, or internal dashboard screenshots as buyer value.
@@ -113,6 +113,8 @@
 5. Public product proof now stays on client company/fleet/vessel, evidence, findings/CAPA, cybersecurity plans, reports/readiness, trust/procurement, and contact workflows.
 6. Regression check: `npm run qa:public-product-boundary`, also included in `npm run qa`.
 7. Preserve root OG/social path `/og/certamaris-link-preview-2026-08-v2.png`.
+8. Production deploy: GitHub Actions run `32689192150`, validate job `97319662825`, deploy job `97319790456`; Cloudflare Worker version `cebd0500-53d5-4ee3-9e75-5c13b8479950`.
+9. Live verification: apex 200, www 301 to apex, retired route 301 to `/platform/client-company-portal`, forbidden live-source scan clean, root OG image path unchanged and image returned `200 image/png` at `1200x630`.
 
 ---
 

@@ -1,6 +1,6 @@
 # Remove internal admin marketing from public website
 
-**Status:** Pre-deployment validation complete; production verification pending PR/merge/deploy.  
+**Status:** RESOLVED.  
 **Date:** 2026-08-24  
 **Repo:** `marinerxcapital/certamaris-public-website`  
 **Branch:** `codex/remove-internal-admin-marketing-20260823`  
@@ -89,7 +89,18 @@ After screenshots:
 - `screenshots/after/09-platform-mobile.png`
 - `screenshots/after/10-mobile-menu.png`
 
-Production screenshots will be added after deployment.
+Production screenshots:
+
+- `screenshots/production/01-home-desktop.png`
+- `screenshots/production/02-platform-desktop.png`
+- `screenshots/production/03-demo-desktop.png`
+- `screenshots/production/04-pricing-desktop.png`
+- `screenshots/production/05-trust-desktop.png`
+- `screenshots/production/06-procurement-desktop.png`
+- `screenshots/production/07-contact-desktop.png`
+- `screenshots/production/08-home-mobile.png`
+- `screenshots/production/09-platform-mobile.png`
+- `screenshots/production/10-mobile-menu.png`
 
 ## Local Validation
 
@@ -118,13 +129,27 @@ Known non-blocking warnings:
 
 | Item | Value |
 |---|---|
-| PR | Pending |
-| Commit | Pending |
-| GitHub Actions validate run/job | Pending |
-| GitHub Actions deploy run/job | Pending |
-| Cloudflare Worker version | Pending |
-| Live verification | Pending |
+| PR | #16, merged 2026-08-24T04:13:19Z |
+| Implementation commit | `55b969d` |
+| Merge commit | `5bc636f3bfa1cd121370bdfe45ae395f18771a3b` |
+| GitHub Actions validate run/job | Run `32689192150`, job `97319662825` |
+| GitHub Actions deploy run/job | Run `32689192150`, job `97319790456` |
+| Cloudflare Worker version | `cebd0500-53d5-4ee3-9e75-5c13b8479950` |
+| Live verification | Passed 2026-08-24T04:15Z |
 
 ## Final Status
 
-Pending production deployment and live verification.
+RESOLVED. Live public marketing HTML no longer advertises internal-only admin tooling as a client-facing product feature.
+
+## Production Verification
+
+| Check | Result |
+|---|---|
+| Apex headers | `https://certamaris.com/` returned `200 OK`, `Content-Type: text/html`, `CF-Cache-Status: HIT`, ETag `"e8c1921b620c1206bd851f2dcaf96512"` |
+| www behavior | `https://www.certamaris.com/` returned `301` to `https://certamaris.com/`, then `200 OK` |
+| Retired route | `https://certamaris.com/platform/corporate-control-plane` returned `301` to `https://certamaris.com/platform/client-company-portal`, then `200 OK` |
+| Live route source scan | `/`, `/platform`, `/demo`, `/pricing`, `/trust`, `/trust/procurement`, `/contact` returned no forbidden phrase hits |
+| Crawler-style source scan | Same seven routes clean with `facebookexternalhit/1.1` user agent |
+| Root metadata | `canonical=https://certamaris.com`; one `og:image` and one `twitter:image`, both `https://certamaris.com/og/certamaris-link-preview-2026-08-v2.png` |
+| Preview image | `200 OK`, `Content-Type: image/png`, `121623` bytes, `1200x630` |
+| Production screenshots | Captured under `screenshots/production/` |
