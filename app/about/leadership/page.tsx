@@ -71,7 +71,7 @@ export default function LeadershipPage() {
 
           <Reveal delay={0.05} className="min-w-0">
             <Eyebrow>Founder</Eyebrow>
-            <h2 className="mb-2 text-[28px] leading-[1.12] tracking-[-0.01em] sm:text-[34px]">
+            <h2 className="mb-2 text-[28px] leading-[1.12] sm:text-[34px]">
               {FOUNDER_NAME}
             </h2>
             <p className="mb-6 text-[15px] font-medium text-ocean">
