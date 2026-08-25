@@ -1,7 +1,6 @@
 import { Suspense } from "react";
 import { BoundaryPanel } from "@/components/BoundaryPanel";
 import { Button } from "@/components/Button";
-import { BuyerDiligencePacket } from "@/components/BuyerDiligencePacket";
 import { ContactForm } from "@/components/ContactForm";
 import { PageHero } from "@/components/PageHero";
 import { Reveal } from "@/components/Reveal";
@@ -76,8 +75,24 @@ export default function ContactPage() {
       </Section>
 
       <Section spacing="compact">
-        <Reveal>
-          <BuyerDiligencePacket compact />
+        <Reveal className="max-w-3xl">
+          <div className="rounded-md border border-ocean/15 bg-ocean/5 p-5">
+            <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-ocean">
+              Need diligence material?
+            </p>
+            <p className="mt-2 text-[14.5px] leading-relaxed text-structural">
+              The full buyer packet is maintained in the Trust Center. Use this page to route a request or open the
+              procurement materials path directly.
+            </p>
+            <div className="mt-4 flex flex-wrap gap-3">
+              <Button href="/trust" variant="secondary">
+                Open Trust Center
+              </Button>
+              <Button href="/trust/procurement" variant="ghost">
+                Procurement path
+              </Button>
+            </div>
+          </div>
         </Reveal>
       </Section>
 

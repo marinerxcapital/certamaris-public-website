@@ -61,8 +61,25 @@
 
 html {
   scroll-behavior: auto;
+  scroll-padding-top: 108px;
   /* Fallback base before the Pixel Grid canvas paints its first frame */
   background: #f6f9fc;
+}
+
+[id],
+[data-qa] {
+  scroll-margin-top: 108px;
+}
+
+@media (min-width: 1024px) {
+  html {
+    scroll-padding-top: 116px;
+  }
+
+  [id],
+  [data-qa] {
+    scroll-margin-top: 116px;
+  }
 }
 
 body {
@@ -1363,6 +1380,94 @@ figure.product-showcase-frame > div:first-child {
    ========================================================================== */
 
 /* ---------- Exhibit callouts: pins set once, captions link to pins ---------- */
+.reveal {
+  opacity: 1;
+  transform: none;
+}
+
+.js .reveal:not(.reveal--shown) {
+  opacity: 0.98;
+  transform: translateY(6px);
+}
+
+.js .reveal {
+  transition:
+    opacity 0.28s ease,
+    transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-group-item {
+  opacity: 1;
+  transform: none;
+}
+
+.js .reveal-group:not(.reveal-group--shown) .reveal-group-item {
+  opacity: 0.98;
+  transform: translateY(6px);
+}
+
+.js .reveal-group .reveal-group-item {
+  transition:
+    opacity 0.26s ease,
+    transform 0.26s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.js .reveal-group .reveal-group-item:nth-child(2) {
+  transition-delay: 50ms;
+}
+
+.js .reveal-group .reveal-group-item:nth-child(3) {
+  transition-delay: 100ms;
+}
+
+.js .reveal-group .reveal-group-item:nth-child(4) {
+  transition-delay: 150ms;
+}
+
+.js .reveal-group .reveal-group-item:nth-child(5) {
+  transition-delay: 200ms;
+}
+
+.exhibit-pins {
+  overflow: visible;
+}
+
+.exhibit-pin-g {
+  pointer-events: auto;
+  cursor: default;
+  transition:
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.3s ease;
+}
+
+.exhibit-pin-halo {
+  fill: rgba(255, 255, 255, 0.96);
+  stroke: rgba(11, 42, 74, 0.22);
+  stroke-width: 0.18;
+  vector-effect: non-scaling-stroke;
+  filter: drop-shadow(0 2px 5px rgba(11, 42, 74, 0.18));
+}
+
+.exhibit-pin-dot {
+  fill: #ffffff;
+  stroke: rgba(18, 111, 170, 0.72);
+  stroke-width: 0.18;
+  vector-effect: non-scaling-stroke;
+}
+
+.exhibit-pin-text {
+  fill: #0e5a8a;
+  font-family: var(--font-mono), Consolas, monospace;
+  font-size: 2.2px;
+  font-weight: 700;
+  pointer-events: none;
+}
+
+.exhibit-pin-g--hot .exhibit-pin-halo,
+.exhibit-pin-g--hot .exhibit-pin-dot {
+  stroke: rgba(18, 111, 170, 0.9);
+}
+
 .exhibit-pin {
   transition:
     transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
@@ -1382,7 +1487,17 @@ figure.product-showcase-frame > div:first-child {
   transform: translateY(-4px);
 }
 
+.exhibit-pins--pending .exhibit-pin-g {
+  opacity: 0.96;
+  transform: translateY(-4px);
+}
+
 .exhibit-pins--set .exhibit-pin {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.exhibit-pins--set .exhibit-pin-g {
   opacity: 1;
   transform: translateY(0);
 }
@@ -1438,6 +1553,14 @@ figure.product-showcase-frame > div:first-child {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-group-item,
+  .exhibit-pin-g {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
   .tab-ping,
   .custody-flight {
     display: none;

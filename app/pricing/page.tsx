@@ -1,6 +1,5 @@
 import { BoundaryPanel } from "@/components/BoundaryPanel";
 import { Button } from "@/components/Button";
-import { BuyerDiligencePacket } from "@/components/BuyerDiligencePacket";
 import { PackageRecommender } from "@/components/PackageRecommender";
 import { PageHero } from "@/components/PageHero";
 import { PricingCalculator } from "@/components/PricingCalculator";
@@ -215,8 +214,19 @@ export default function PricingPage() {
       </Section>
 
       <Section spacing="compact">
-        <Reveal>
-          <BuyerDiligencePacket compact />
+        <Reveal className="max-w-3xl">
+          <div className="rounded-md border border-ocean/15 bg-ocean/5 p-5">
+            <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-ocean">
+              Procurement review
+            </p>
+            <p className="mt-2 text-[14.5px] leading-relaxed text-structural">
+              Security, procurement, legal, and AI/data boundaries live in the Trust Center so pricing stays focused
+              on estimate scope and package fit.
+            </p>
+            <Button href="/trust" variant="secondary" className="mt-4">
+              Open Trust Center
+            </Button>
+          </div>
         </Reveal>
       </Section>
 

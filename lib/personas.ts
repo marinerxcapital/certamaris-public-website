@@ -55,7 +55,7 @@ export const PERSONAS: Persona[] = [
       "Inspect how company, fleet, and vessel work stay linked — then follow one sample record end to end.",
     ctaHint: "Request a fleet demo",
     sampleRecordId: "PKG-0067",
-    demoBeatId: "fleet",
+    demoBeatId: "risk",
     audienceHref: "/who-we-serve/ship-owners",
   },
   {

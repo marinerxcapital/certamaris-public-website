@@ -57,7 +57,8 @@ const routeChecks = [
       "Fastest useful request",
       "Fleet size and vessel types in scope",
       "Documents needed, if this is a procurement or security request",
-      "Forwardable review route",
+      "Need diligence material?",
+      "/trust/procurement",
     ],
   },
 ];

@@ -32,6 +32,12 @@ export type AudiencePage = {
   eyebrow: string;
   headline: string;
   intro: string;
+  roleArtifact: {
+    eyebrow: string;
+    title: string;
+    body: string;
+    details: string[];
+  };
   responsibilities: string[];
   problems: string[];
   howSupports: string[];
@@ -793,6 +799,16 @@ export const audiencePages: AudiencePage[] = [
     headline: "Fleet-wide cyber assurance visibility without chasing every vessel.",
     intro:
       "CertaMaris gives ship owners a controlled fleet view of readiness, findings, and decisions needing leadership attention.",
+    roleArtifact: {
+      eyebrow: "Owner artifact",
+      title: "Fleet readiness brief",
+      body: "A leadership-facing brief starts with package state and unresolved exposure, then keeps drill-down available for the DPA or technical manager.",
+      details: [
+        "Fleet roll-up tied to source records",
+        "Open findings and corrective actions by accountable owner",
+        "Released package state without survey-outcome claims",
+      ],
+    },
     responsibilities: [
       "Oversight of fleet cyber-risk posture",
       "Support for board, insurer, and charterer conversations",
@@ -849,6 +865,16 @@ export const audiencePages: AudiencePage[] = [
     headline: "Operate the company workspace that holds fleet cyber assurance work.",
     intro:
       "Operators run the day-to-day company portal: users, vessels, engagements, evidence programs, and released deliverables — isolated from other tenants.",
+    roleArtifact: {
+      eyebrow: "Operator artifact",
+      title: "Engagement launch checklist",
+      body: "The operator view starts with tenant setup, vessel membership, evidence cadence, and release authority rather than a generic feature tour.",
+      details: [
+        "Company workspace and role scope",
+        "Pilot vessels and engagement sequence",
+        "Readiness package owner before release",
+      ],
+    },
     responsibilities: [
       "Company administration and access control",
       "Fleet operations coordination",
@@ -905,6 +931,16 @@ export const audiencePages: AudiencePage[] = [
     headline: "One system of record for the SMS cyber work you already own.",
     intro:
       "CertaMaris centralizes evidence, findings, plans, and readiness work for technical managers and DPAs under the SMS.",
+    roleArtifact: {
+      eyebrow: "DPA artifact",
+      title: "CAPA verification packet",
+      body: "The DPA path centers on evidence, findings, corrective actions, QA review, and package readiness under accountable review.",
+      details: [
+        "Evidence sufficiency and freshness state",
+        "Finding-to-CAPA linkage with owner and due state",
+        "QA review notes before controlled release",
+      ],
+    },
     responsibilities: [
       "SMS cyber-risk procedures and oversight",
       "Coordination across vessels, surveyors, and IT/OT",
@@ -961,6 +997,16 @@ export const audiencePages: AudiencePage[] = [
     headline: "Control mapping that respects the IT/OT boundary.",
     intro:
       "CertaMaris keeps shipboard OT and shoreside IT mappings distinct while linking both to shared requirements and evidence.",
+    roleArtifact: {
+      eyebrow: "IT/OT artifact",
+      title: "Control evidence crosswalk",
+      body: "Technical stakeholders need the control, system boundary, evidence, and review decision in one inspectable path.",
+      details: [
+        "Control ownership and implementation context",
+        "System-scoped evidence with custodian and version",
+        "Configurable SBOM or vulnerability context only where enabled",
+      ],
+    },
     responsibilities: [
       "Technical control implementation",
       "System inventory and change context",
@@ -1017,6 +1063,16 @@ export const audiencePages: AudiencePage[] = [
     headline: "Vessel work with named users — not a shared password.",
     intro:
       "Masters and officers get a practical vessel portal for systems context, evidence submission, findings, and action ownership.",
+    roleArtifact: {
+      eyebrow: "Vessel artifact",
+      title: "Shipboard evidence request",
+      body: "The vessel page emphasizes what the crew can see and submit under individual identity, with shore review still visible.",
+      details: [
+        "Assigned vessel-scoped request",
+        "Evidence submission with custodian identity",
+        "Corrective-action update that shore can review",
+      ],
+    },
     responsibilities: [
       "Onboard cyber hygiene and procedure execution",
       "Evidence submission for vessel systems",
@@ -1073,6 +1129,16 @@ export const audiencePages: AudiencePage[] = [
     headline: "A reviewable trail structured around what a survey verifies.",
     intro:
       "With operator authorization, survey stakeholders can inspect requirement-mapped evidence with provenance rather than a document dump.",
+    roleArtifact: {
+      eyebrow: "Survey artifact",
+      title: "Authorized package review",
+      body: "Survey-facing material should read as operator-authorized evidence lineage, not a claim that CertaMaris determines the outcome.",
+      details: [
+        "Requirement and control context in the package",
+        "Evidence provenance and version state",
+        "Observations returned to the operator process",
+      ],
+    },
     responsibilities: [
       "Verify requirements under the applicable survey scope",
       "Review evidence sufficiency and currency",
@@ -1125,6 +1191,16 @@ export const audiencePages: AudiencePage[] = [
     headline: "Structured visibility when a member chooses to share it.",
     intro:
       "When a member operator authorizes sharing, CertaMaris can present structured control coverage and readiness summaries for underwriting conversations.",
+    roleArtifact: {
+      eyebrow: "Insurance artifact",
+      title: "Member-authorized posture summary",
+      body: "Insurance and P&I stakeholders receive only authorized summaries that support risk conversations without replacing underwriting judgment.",
+      details: [
+        "Shared scope controlled by the member operator",
+        "Summary view rather than raw private workspace by default",
+        "No insurer endorsement or policy-outcome claim",
+      ],
+    },
     responsibilities: [
       "Inform underwriting and risk conversations",
       "Evaluate member-provided cyber posture information",
@@ -1175,6 +1251,16 @@ export const audiencePages: AudiencePage[] = [
     headline: "Support delivery without becoming the operator's system of record.",
     intro:
       "CertaMaris lets consultancies and cyber service providers contribute evidence and findings under role scope while the operator keeps the controlled record.",
+    roleArtifact: {
+      eyebrow: "Service-provider artifact",
+      title: "Scoped contribution record",
+      body: "Service providers contribute work into the operator-controlled record so the trail remains useful after the engagement ends.",
+      details: [
+        "Operator-granted role scope",
+        "Evidence and findings contributed with provenance",
+        "Time-bound support or assistance where used",
+      ],
+    },
     responsibilities: [
       "Deliver assessment or remediation services under contract",
       "Submit evidence and technical findings as authorized",

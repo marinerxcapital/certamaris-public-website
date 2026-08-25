@@ -150,6 +150,8 @@ export function EvidenceFreshnessSimulator() {
               min={0}
               max={365}
               value={globalDay}
+              aria-valuenow={globalDay}
+              aria-valuetext={`Day ${globalDay} of 365`}
               className="w-full accent-[#1478B8]"
               onChange={(event) => setGlobalDay(Number(event.target.value))}
             />

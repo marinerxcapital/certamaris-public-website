@@ -29,6 +29,19 @@ export type SampleRecordObject = {
 };
 
 export const SAMPLE_RECORD_VESSEL = "MV Certa Maris";
+const SAMPLE_DAY = {
+  requirementCaptured: "Demo day -118",
+  applicabilityDecided: "Demo day -102",
+  controlReviewed: "Demo day -84",
+  assessmentPerformed: "Demo day -48",
+  findingRaised: "Demo day -47",
+  riskDecided: "Demo day -43",
+  actionStarted: "Demo day -9",
+  actionDue: "Demo day +21",
+  evidenceRefreshDue: "Demo day +38",
+  qaReviewed: "Demo day -1",
+  packageReleased: "Demo day 0",
+} as const;
 
 export const SAMPLE_RECORD: SampleRecordObject[] = [
   {
@@ -39,7 +52,7 @@ export const SAMPLE_RECORD: SampleRecordObject[] = [
     status: "ok",
     statusLabel: "Versioned",
     owner: "Compliance lead",
-    updated: "2026-04-02",
+    updated: SAMPLE_DAY.requirementCaptured,
     summary:
       "The obligation text is captured as a versioned record, kept distinct from interpretation. Official texts control — this record points at them, it does not restate them.",
     fields: [
@@ -58,7 +71,7 @@ export const SAMPLE_RECORD: SampleRecordObject[] = [
     status: "ok",
     statusLabel: "Decided",
     owner: "Technical manager",
-    updated: "2026-04-18",
+    updated: SAMPLE_DAY.applicabilityDecided,
     summary:
       "A human decided which systems on this vessel the requirement touches, and recorded the basis for that decision. Applicability is never auto-assigned.",
     fields: [
@@ -77,7 +90,7 @@ export const SAMPLE_RECORD: SampleRecordObject[] = [
     status: "ok",
     statusLabel: "Implemented",
     owner: "Fleet IT/OT",
-    updated: "2026-05-06",
+    updated: SAMPLE_DAY.controlReviewed,
     summary:
       "The implemented safeguard that answers the requirement on this vessel, with ownership and review cadence on the record.",
     fields: [
@@ -92,17 +105,17 @@ export const SAMPLE_RECORD: SampleRecordObject[] = [
     id: "ASM-0512",
     code: "ASM",
     step: "Assessment",
-    title: "Q2 onboard review — segmentation controls",
+    title: "Sample onboard review — segmentation controls",
     status: "ok",
     statusLabel: "Performed",
     owner: "Reviewer",
-    updated: "2026-06-11",
+    updated: SAMPLE_DAY.assessmentPerformed,
     summary:
       "Planned and performed review work against the mapped control. The result feeds findings directly — nothing is re-typed into a spreadsheet.",
     fields: [
       ["Scope", `CTL-0389 on ${SAMPLE_RECORD_VESSEL}`],
       ["Method", "Configuration inspection + crew walkthrough"],
-      ["Performed", "2026-06-11"],
+      ["Performed", SAMPLE_DAY.assessmentPerformed],
       ["Result", "One finding raised (FND-0130)"],
     ],
     links: ["CTL-0389", "EVD-0847", "FND-0130"],
@@ -115,14 +128,14 @@ export const SAMPLE_RECORD: SampleRecordObject[] = [
     status: "caution",
     statusLabel: "Freshness watch",
     owner: "Vessel custodian",
-    updated: "2026-06-11",
+    updated: SAMPLE_DAY.assessmentPerformed,
     summary:
       "Artifacts with a named custodian, version history, a sufficiency decision, and a freshness state — not files aging quietly in a shared drive.",
     fields: [
       ["Artifacts", "2 files, versioned"],
       ["Custodian", "Named vessel user — not a shared login"],
       ["Sufficiency", "Accepted for the Q2 review"],
-      ["Freshness", "Refresh due 2026-09-01"],
+      ["Freshness", `Refresh due ${SAMPLE_DAY.evidenceRefreshDue}`],
     ],
     links: ["CTL-0389", "ASM-0512", "FND-0130"],
   },
@@ -134,7 +147,7 @@ export const SAMPLE_RECORD: SampleRecordObject[] = [
     status: "caution",
     statusLabel: "Open",
     owner: "Reviewer → action owner",
-    updated: "2026-06-12",
+    updated: SAMPLE_DAY.findingRaised,
     summary:
       "The observed condition stays tied to its criterion, its evidence, and its consequence — so it is still explainable at survey time.",
     fields: [
@@ -153,7 +166,7 @@ export const SAMPLE_RECORD: SampleRecordObject[] = [
     status: "ok",
     statusLabel: "Decided",
     owner: "DPA + technical manager",
-    updated: "2026-06-16",
+    updated: SAMPLE_DAY.riskDecided,
     summary:
       "A treatment-or-acceptance decision with authority, rationale, and a review point. Acceptance without a name and a date does not exist in this model.",
     fields: [
@@ -172,14 +185,14 @@ export const SAMPLE_RECORD: SampleRecordObject[] = [
     status: "caution",
     statusLabel: "In progress",
     owner: "Fleet IT/OT",
-    updated: "2026-07-20",
+    updated: SAMPLE_DAY.actionStarted,
     summary:
       "Owned remediation with a due date and a verification requirement — closure needs evidence, not an email saying it is done.",
     fields: [
-      ["Due", "2026-08-15"],
+      ["Due", SAMPLE_DAY.actionDue],
       ["Verification required", "Updated rule-review log attached as evidence"],
       ["Dependencies", "None"],
-      ["Progress", "Work started 2026-07-20"],
+      ["Progress", `Work started ${SAMPLE_DAY.actionStarted}`],
     ],
     links: ["RSK-0072", "QA-0290"],
   },
@@ -191,14 +204,14 @@ export const SAMPLE_RECORD: SampleRecordObject[] = [
     status: "ok",
     statusLabel: "Passed",
     owner: "Independent reviewer",
-    updated: "2026-07-28",
+    updated: SAMPLE_DAY.qaReviewed,
     summary:
       "Independent review of the whole thread before controlled release. Open items are disclosed, not hidden.",
     fields: [
       ["Reviewer", "Independent of the action owner"],
       ["Checked", "Chain complete REQ → CAP; evidence current or excepted"],
       ["Exceptions", "CAP-0455 open — disclosed in the package"],
-      ["Date", "2026-07-28"],
+      ["Date", SAMPLE_DAY.qaReviewed],
     ],
     links: ["CAP-0455", "PKG-0067"],
   },
@@ -206,11 +219,11 @@ export const SAMPLE_RECORD: SampleRecordObject[] = [
     id: "PKG-0067",
     code: "PKG",
     step: "Released package",
-    title: `Q2 readiness package — ${SAMPLE_RECORD_VESSEL}`,
+    title: `Sample readiness package — ${SAMPLE_RECORD_VESSEL}`,
     status: "ok",
     statusLabel: "Released",
     owner: "Accountable reviewer",
-    updated: "2026-07-30",
+    updated: SAMPLE_DAY.packageReleased,
     summary:
       "The released, versioned deliverable assembled from the controlled records you just clicked through — not from a document scramble the week before survey.",
     fields: [

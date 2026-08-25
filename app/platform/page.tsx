@@ -7,9 +7,7 @@ import { PageHero } from "@/components/PageHero";
 import { ProductScreenFrame } from "@/components/ProductScreens";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
-import { StatusBadge } from "@/components/StatusBadge";
 import {
-  MATURITY_BADGE,
   PLATFORM_HIERARCHY,
   platformOverview,
   productModules,
@@ -53,7 +51,6 @@ const showcaseBeats = [
 const moduleNav = productModules.map((m) => ({
   href: `/platform/${m.slug}`,
   title: m.title,
-  maturity: m.maturity,
   summary: m.headline,
 }));
 
@@ -178,32 +175,43 @@ export default function PlatformPage() {
           <Eyebrow>Modules</Eyebrow>
           <h2 className="section-h2 section-h2--lg">Explore every platform surface.</h2>
           <p className="mt-4 text-[15px] leading-relaxed text-structural">
-            Maturity labels are honest: Current, Configurable, Planned, or Preview.
+            Module pages describe the operating surface. Security and procurement pages carry the detailed
+            maturity, configuration, and NDA material labels.
+          </p>
+          <p className="mt-3 text-[13.5px] leading-relaxed text-structural">
+            Review current control status in{" "}
+            <Link href="/security" className="font-semibold text-ocean hover:underline">
+              Security
+            </Link>{" "}
+            and procurement material boundaries in{" "}
+            <Link href="/trust/procurement" className="font-semibold text-ocean hover:underline">
+              Procurement
+            </Link>
+            .
           </p>
         </Reveal>
         <ul className="platform-module-index">
-          {moduleNav.map((item) => {
-            const badge = MATURITY_BADGE[item.maturity];
-            return (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  prefetch={false}
-                  className="platform-module-row group"
-                >
-                  <span className="min-w-0">
-                    <span className="block text-[15.5px] font-semibold text-navy group-hover:text-ocean">
-                      {item.title}
-                    </span>
-                    <span className="mt-1 block text-[13.5px] leading-relaxed text-structural">
-                      {item.summary}
-                    </span>
+          {moduleNav.map((item) => (
+            <li key={item.href}>
+              <Link
+                href={item.href}
+                prefetch={false}
+                className="platform-module-row group"
+              >
+                <span className="min-w-0">
+                  <span className="block text-[15.5px] font-semibold text-navy group-hover:text-ocean">
+                    {item.title}
                   </span>
-                  <StatusBadge status={badge.badgeStatus} label={badge.label} />
-                </Link>
-              </li>
-            );
-          })}
+                  <span className="mt-1 block text-[13.5px] leading-relaxed text-structural">
+                    {item.summary}
+                  </span>
+                </span>
+                <span className="shrink-0 font-mono text-[11px] font-semibold uppercase tracking-[0.08em] text-ocean">
+                  Open
+                </span>
+              </Link>
+            </li>
+          ))}
         </ul>
       </Section>
 

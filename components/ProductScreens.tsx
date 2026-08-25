@@ -160,32 +160,29 @@ function ProductScreenExhibit({
             className="h-auto w-full object-contain object-top"
           />
           {visibleAnnotations.length > 0 ? (
-            <span
-              className={`pointer-events-none absolute inset-0 hidden md:block exhibit-pins exhibit-pins--${pinPhase}`}
+            <svg
+              className={`pointer-events-none absolute inset-0 hidden h-full w-full md:block exhibit-pins exhibit-pins--${pinPhase}`}
+              viewBox="0 0 100 100"
+              preserveAspectRatio="none"
               aria-hidden="true"
             >
               {visibleAnnotations.map((annotation, index) => (
-                <span
+                <g
                   key={annotation.id}
-                  className="absolute max-w-[11rem] -translate-x-1/2 -translate-y-1/2"
-                  style={{ left: `${annotation.x}%`, top: `${annotation.y}%` }}
+                  className={`exhibit-pin-g${hoveredId === annotation.id ? " exhibit-pin-g--hot" : ""}`}
+                  transform={`translate(${annotation.x} ${annotation.y})`}
+                  onMouseEnter={() => setHoveredId(annotation.id)}
+                  onMouseLeave={() => setHoveredId(null)}
                 >
-                  <span
-                    className={`exhibit-pin pointer-events-auto inline-flex max-w-full items-center gap-1.5 rounded border bg-white/95 px-1.5 py-0.5 shadow-sm ${
-                      hoveredId === annotation.id ? "exhibit-pin--hot" : "border-navy/20"
-                    }`}
-                    style={{ transitionDelay: pinPhase === "set" ? `${index * 120}ms` : undefined }}
-                    onMouseEnter={() => setHoveredId(annotation.id)}
-                    onMouseLeave={() => setHoveredId(null)}
-                  >
-                    <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-ocean/45 bg-white font-mono text-[9px] font-semibold leading-none text-ocean">
-                      {index + 1}
-                    </span>
-                    <span className="truncate text-[10px] font-medium leading-tight text-navy">{annotation.label}</span>
-                  </span>
-                </span>
+                  <title>{annotation.label}</title>
+                  <circle className="exhibit-pin-halo" cx="0" cy="0" r="3.1" />
+                  <circle className="exhibit-pin-dot" cx="0" cy="0" r="2.05" />
+                  <text className="exhibit-pin-text" x="0" y="0.1" textAnchor="middle" dominantBaseline="central">
+                    {index + 1}
+                  </text>
+                </g>
               ))}
-            </span>
+            </svg>
           ) : null}
         </div>
       </div>

@@ -80,6 +80,30 @@ export default async function AudienceDetailPage({ params }: { params: Promise<{
         </Reveal>
       </Section>
 
+      <Section spacing="compact">
+        <Reveal>
+          <div className="liquid-glass liquid-glass--strong lg-pad-md grid gap-6 md:grid-cols-[minmax(0,0.72fr)_minmax(0,1fr)] md:items-start">
+            <div>
+              <Eyebrow>{page.roleArtifact.eyebrow}</Eyebrow>
+              <h2 className="mt-3 text-[24px] leading-[1.14] text-navy sm:text-[28px]">
+                {page.roleArtifact.title}
+              </h2>
+              <p className="mt-3 text-[14.5px] leading-relaxed text-structural">{page.roleArtifact.body}</p>
+            </div>
+            <ul className="grid gap-3">
+              {page.roleArtifact.details.map((item, index) => (
+                <li key={item} className="rounded-md border border-navy/10 bg-white/74 p-4">
+                  <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.1em] text-ocean">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <p className="mt-1 text-[14px] leading-relaxed text-structural">{item}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Reveal>
+      </Section>
+
       <Section surface="paper" spacing="compact">
         <div className="grid md:grid-cols-2 gap-10">
           <Reveal>

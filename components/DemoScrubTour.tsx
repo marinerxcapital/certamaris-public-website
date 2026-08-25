@@ -147,6 +147,7 @@ export function DemoScrubTour() {
           step={1}
           value={index}
           aria-label="Scrub product tour beats"
+          aria-valuenow={index}
           aria-valuetext={`${beat.index} ${beat.title}`}
           onChange={(event) => {
             setPlaying(false);

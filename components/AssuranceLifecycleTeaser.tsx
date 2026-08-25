@@ -8,6 +8,9 @@ export function AssuranceLifecycleTeaser() {
   const [activeIndex, setActiveIndex] = useState(0);
   const panelId = useId();
   const active = assuranceStages[activeIndex] ?? assuranceStages[0];
+  const goTo = (index: number) => {
+    setActiveIndex(Math.max(0, Math.min(assuranceStages.length - 1, index)));
+  };
 
   return (
     <div className="liquid-glass liquid-glass--strong lg-pad-md" data-qa="assurance-lifecycle-teaser">
@@ -36,9 +39,24 @@ export function AssuranceLifecycleTeaser() {
                   aria-pressed={activeStage}
                   aria-describedby={activeStage ? panelId : undefined}
                   className={`lifecycle-teaser-button${activeStage ? " is-active" : ""}`}
-                  onMouseEnter={() => setActiveIndex(index)}
-                  onFocus={() => setActiveIndex(index)}
-                  onClick={() => setActiveIndex(index)}
+                  onMouseEnter={() => goTo(index)}
+                  onFocus={() => goTo(index)}
+                  onClick={() => goTo(index)}
+                  onKeyDown={(event) => {
+                    if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+                      event.preventDefault();
+                      goTo(index + 1);
+                    } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+                      event.preventDefault();
+                      goTo(index - 1);
+                    } else if (event.key === "Home") {
+                      event.preventDefault();
+                      goTo(0);
+                    } else if (event.key === "End") {
+                      event.preventDefault();
+                      goTo(assuranceStages.length - 1);
+                    }
+                  }}
                 >
                   <span className="font-mono text-[11px] font-semibold text-ocean-deep">
                     {String(index + 1).padStart(2, "0")}

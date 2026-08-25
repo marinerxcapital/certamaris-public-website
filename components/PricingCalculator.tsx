@@ -201,6 +201,7 @@ function VesselInput({
           max={PRICING_RANGE_MAX_VESSELS}
           value={rangeValue}
           step={1}
+          aria-valuenow={rangeValue}
           aria-valuetext={value >= PRICING_RANGE_MAX_VESSELS ? `${value} vessels, range at 60 plus` : `${value} vessels`}
           className="w-full accent-[#1478B8]"
           onChange={(event) => onChange(clampVesselCount(Number(event.target.value)))}

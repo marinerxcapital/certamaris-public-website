@@ -38,7 +38,7 @@ const pages = [
   {
     route: "/contact",
     candidates: [path.join("contact", "index.html"), "contact.html"],
-    required: ["Buyer diligence", "/pricing", "/trust/procurement", "/contact?intent=procurement"],
+    required: ["Need diligence material?", "/trust", "/trust/procurement", "/pricing", "/contact?intent=procurement"],
   },
 ];
 
