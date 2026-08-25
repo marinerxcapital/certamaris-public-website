@@ -17,9 +17,9 @@ clearly labeled integration points.
 | **App** | Separate: https://app.certamaris.com |
 | **Agent memory (START HERE)** | [`docs/AGENT_MEMORY.md`](docs/AGENT_MEMORY.md) |
 | **Codex handoff** | [`docs/CODEX_MARKETING_TAKEOVER.md`](docs/CODEX_MARKETING_TAKEOVER.md) |
-| **Latest deploy note** | [`docs/2026-08-24-sitewide-professionalism-upgrade.md`](docs/2026-08-24-sitewide-professionalism-upgrade.md) |
-| **Latest production change** | Sitewide professionalism upgrade `04de3aa` (PR #18); previous internal-admin marketing removal `5bc636f` (PR #16) |
-| **Latest UX pass** | Product experience upgrade `dfb009f` plus pricing table keyboard-access closeout `0084f51` |
+| **Latest deploy note** | [`docs/2026-08-24-ux-accessibility-audit-fix-deployment.md`](docs/2026-08-24-ux-accessibility-audit-fix-deployment.md) |
+| **Latest production change** | UX/accessibility audit fix `46f0370`; previous sitewide professionalism upgrade `04de3aa` (PR #18) |
+| **Latest UX pass** | UX/accessibility audit fix `46f0370`; previous product experience upgrade `dfb009f` plus pricing table keyboard-access closeout `0084f51` |
 | **Link-preview code commit** | `190533a` - link-preview branding fix (PR #9); prior feature content `df5f174` (PR #6) |
 
 **Signed:** Cursor Cloud Agent · **Date:** 2026-08-16 (supersedes SuperGrok 2026-08-01 tip line)
@@ -43,7 +43,7 @@ Canonical product monorepo (SPA/API, not live marketing): https://github.com/mar
 | UI | React 19 |
 | Language | TypeScript 5.7 (strict mode) |
 | Styling | Tailwind CSS 3.4, custom design tokens in `app/globals.css` |
-| Foreground motion | Framer Motion 12 for reveals and product-adjacent microinteractions |
+| Foreground motion | CSP-safe CSS/React class reveals plus restrained product-adjacent microinteractions |
 | Background treatment | AI Designer Pixel Grid runtime loaded once from `app/layout.tsx` |
 | Fonts | Space Grotesk (display), Inter (body), IBM Plex Mono (data/labels) — via `next/font/google` |
 | Hosting target | Cloudflare Workers with static assets through `wrangler.jsonc` |
@@ -73,6 +73,8 @@ npm run qa:buyer-paths # static-export guard for the buyer diligence path
 npm run qa:excellence # static-export guard for high-intent buyer readiness surfaces
 npm run qa:product-experience # browser guard for lifecycle, chain, pricing, persona, and evidence journeys
 npm run qa:public-product-boundary # generated-HTML guard against internal admin marketing leaks
+npm run qa:ux-audit # browser guard for CSP, anchors, overflow, product exhibits, and axe
+npm run qa:lighthouse # Lighthouse smoke for key marketing routes
 ```
 
 ---
@@ -190,10 +192,13 @@ app/
 components/               Nav, Footer, Button, Section, PageHero, Reveal,
                            AssuranceGraph, PixelGridBackground, CapabilityCard,
                            PersonaCard, ProcessStepList, StatusBadge, Counter,
-                           FaqAccordion, ArticleCard, ContactForm, BoundaryPanel
+                           FaqAccordion, ArticleCard, ContactForm, BoundaryPanel,
+                           PricingCalculator, ChainOfCustodyInspector,
+                           EvidenceFreshnessSimulator
 
 lib/                      constants.ts, content.ts, solutions-industries.ts,
-                           resources.ts, metadata.ts, use-prefers-reduced-motion.ts
+                           resources.ts, metadata.ts, pricing-calculator.ts,
+                           sample-record.ts, use-prefers-reduced-motion.ts
 
 public/
   brand/                  Logo mark, full lockup, favicons (derived from
@@ -265,9 +270,22 @@ If you extend the motion system further, use
 `usePrefersReducedMotion()` from `lib/use-prefers-reduced-motion.ts` rather
 than reaching for framer-motion's own hook again.
 
+**2026-08-24 CSP audit update:** production CSP blocks inline styles. The
+current `Reveal` / `RevealGroup`, product exhibit annotations, and evidence
+chain motion are class-driven and do not depend on Framer inline transform or
+opacity styles. Preserve that pattern for public pages.
+
 ---
 
 ## 9. QA performed
+
+Latest production UX/accessibility audit fix (`46f0370`) was validated with
+`npm run typecheck`, `npm run test:pricing`, `npm run build:static`,
+`npm run qa`, `npm run ci:validate`, `npm run qa:responsive-a11y`,
+`npm run qa:ux-audit`, `npm run qa:lighthouse`, static route checks,
+wrangler dry-run, production browser QA, production route crawl, and live
+sitemap crawl. See
+`docs/2026-08-24-ux-accessibility-audit-fix-deployment.md`.
 
 - `tsc --noEmit` — clean.
 - `next build` (Node target) — clean, all 15 top-level routes + 6 resource

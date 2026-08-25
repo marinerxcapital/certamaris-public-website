@@ -3,7 +3,7 @@
 **Signed:** Cursor Cloud Agent (Composer) · **Date:** 2026-08-16  
 **Run:** https://cursor.com/agents/bc-01a0088b-afcf-732b-9a58-c0e555d9e469  
 **Owner:** Skyler Brown (`skyler@certamaris.com`)  
-**Live SoT repo:** `marinerxcapital/certamaris-public-website` · branch **`main`** · sitewide professionalism upgrade **`04de3aa`** / PR #18; internal-admin marketing removal **`5bc636f`** / PR #16; complete legal library **`e62e010`**; fleet assurance workbench **`87b3b64`**; product experience upgrade **`dfb009f`** · pricing table keyboard-access closeout **`0084f51`**; latest professionalism deploy run **`32694451757`**; latest internal-admin removal deploy run **`32689192150`**; latest legal deploy run **`32681492599`**; latest workbench deploy run **`32635035960`**; product run **`32627169675`**; final accessibility deploy run **`32628481367`**; prior UX merge **`8a633155`** / PR #14; prior conversion merge **`4f206e6`** / PR #12; link-preview code commit **`190533a`** (PR #9)
+**Live SoT repo:** `marinerxcapital/certamaris-public-website` · branch **`main`** · UX/accessibility audit fix **`46f0370`**; sitewide professionalism upgrade **`04de3aa`** / PR #18; internal-admin marketing removal **`5bc636f`** / PR #16; complete legal library **`e62e010`**; fleet assurance workbench **`87b3b64`**; product experience upgrade **`dfb009f`** · pricing table keyboard-access closeout **`0084f51`**; latest UX/a11y audit deploy run **`32808497558`**; latest professionalism deploy run **`32694451757`**; latest internal-admin removal deploy run **`32689192150`**; latest legal deploy run **`32681492599`**; latest workbench deploy run **`32635035960`**; product run **`32627169675`**; final accessibility deploy run **`32628481367`**; prior UX merge **`8a633155`** / PR #14; prior conversion merge **`4f206e6`** / PR #12; link-preview code commit **`190533a`** (PR #9)
 **Production:** https://certamaris.com · Worker `certamaris-site` · Cloudflare deployment readback verified on 2026-08-24
 
 > Future agentic sessions: **read this file first**, then the latest dated deployment note under `docs/`, then `docs/CODEX_MARKETING_TAKEOVER.md`. Do not invent customers, metrics, certifications, compliance guarantees, or contact-forward secrets.
@@ -11,6 +11,23 @@
 ---
 
 ## 1. What shipped
+
+### 2026-08-24 UX/accessibility audit fix (`46f0370`)
+
+| Item | Detail |
+|---|---|
+| Problem | The 2026-08-24 screenshot audit found CSP-blocked inline reveal styles, anchor/header overlap, platform maturity-label ambiguity, undocumented demo codes, homepage lifecycle state drift, repeated diligence boilerplate, overly templated persona modules, and stale fixed sample dates. |
+| CSP / product exhibits | `components/Reveal.tsx`, `components/ProductScreens.tsx`, and `components/EvidenceChain.tsx` now use class-driven motion and SVG annotations instead of inline Framer opacity/transform styles on the public surfaces checked by the audit. |
+| Anchors | `app/globals.css` now sets sitewide `scroll-padding-top` plus `[id]` and `[data-qa]` `scroll-margin-top`; live checks passed for evidence, demo chain inspector, resources, and security anchors. |
+| Platform labels | `/platform` no longer applies uniform maturity chips to every module; maturity/configuration/NDA context is pointed to `/security` and `/trust/procurement`. |
+| Demo language | `lib/demo-scrub.ts` now stays inside the documented assurance-record subset: REQ, CTL, EVD, FND, RSK, CAP, QA, PKG. |
+| Lifecycle / pricing / contact | `AssuranceLifecycleTeaser` uses one clamped state path for hover/focus/click/keyboard; `/pricing` and `/contact` use shorter Trust Center/procurement pointers instead of repeating the full diligence packet. |
+| Personas / sample dates | All eight `/who-we-serve/*` routes have role-specific sample artifact modules; `lib/sample-record.ts` uses rolling `Demo day` labels instead of fixed 2026 dates. |
+| QA added | `npm run qa:ux-audit` and `npm run qa:lighthouse`. |
+| Validation | `npm run typecheck`, `npm run test:pricing`, `npm run build:static`, `npm run qa`, `npm run ci:validate`, `npm run qa:responsive-a11y`, `npm run qa:ux-audit`, `npm run qa:lighthouse`, local static route crawl, and `wrangler deploy --dry-run` passed. |
+| Production deploy | GitHub Actions run `32808497558`; validate job `97683211841`; deploy job `97683361549`; Cloudflare deployment `d6b71100-fcb6-44a6-9d97-d7498cd0d069`; Worker version `e7253dff-1989-4d63-bc20-c847c38b828d` at 100%. |
+| Live verification | `https://certamaris.com` browser QA passed across 21 routes and five focused feature captures with `CSP_MESSAGES=0`, `ROUTE_PAGE_ERRORS=0`, `OVERFLOW_ROUTES=0`, `OVERFLOW_FEATURES=0`, and `AXE_VIOLATIONS=0`; live route crawl covered 103 routes/assets; live sitemap crawl covered 94 URLs. |
+| Status | RESOLVED and live-verified. |
 
 ### 2026-08-24 sitewide professionalism upgrade (`04de3aa`, PR #18)
 
@@ -150,13 +167,13 @@
 5. **Founder:** Skyler Brown · Founder only · Third Mate, Unlimited Tonnage, Oceans · B.S. Marine Transportation 2025.
 6. **Marketing vs app:** `certamaris.com` ≠ `app.certamaris.com` — never rebind.
 7. **Deploy:** `npm run build:static` then `npx wrangler deploy --config wrangler.jsonc --keep-vars`.
-8. **Reduced motion:** never animate from opacity 0; use `usePrefersReducedMotion()` from `lib/`, not framer’s hook alone.
+8. **Reduced motion and CSP:** never animate from opacity 0; use `usePrefersReducedMotion()` from `lib/`, not framer’s hook alone. Public-page reveal/product-exhibit motion must remain class-driven under the Worker CSP; do not reintroduce inline opacity/transform styles for these audited surfaces.
 9. **Root link preview:** active metadata must use `/og/certamaris-link-preview-2026-08-v2.png`; do not restore `/og/certamaris-og.jpg` to `og:image` or `twitter:image`.
 10. **Internal admin boundary:** the Internal CertaMaris Admin Dashboard / Corporate Control Plane / employee-only operating tooling is not a client-facing product feature. Do not restore it to public nav, platform modules, demo copy, pricing, trust/procurement, screenshots, sitemap, or generated HTML.
 
 ---
 
-## 3. Key code map (updated 2026-08-16)
+## 3. Key code map (updated 2026-08-24)
 
 | Concern | Path |
 |---|---|
@@ -181,6 +198,8 @@
 | Product-experience QA | `scripts/qa/check-product-experience.mjs` |
 | Buyer-path QA | `scripts/qa/check-buyer-paths.mjs` |
 | Excellence-path QA | `scripts/qa/check-excellence-path.mjs` |
+| UX/a11y audit browser QA | `scripts/qa/ux-audit-browser-qa.mjs` |
+| Lighthouse performance smoke | `scripts/qa/lighthouse-performance.mjs` |
 | Professional visual shell | `app/globals.css`, `components/PageHero.tsx`, `components/Button.tsx` |
 | Design tokens | `app/globals.css`, `tailwind.config.ts` |
 
@@ -205,6 +224,8 @@ npm run typecheck
 npm run build:static
 npm run qa
 npm run ci:validate
+npm run qa:ux-audit
+npm run qa:lighthouse
 CHROMIUM_PATH=/usr/local/bin/google-chrome node scripts/qa/check-sample-record.mjs
 ```
 
@@ -221,6 +242,7 @@ CHROMIUM_PATH=/usr/local/bin/google-chrome node scripts/qa/check-sample-record.m
 | `docs/2026-08-24-complete-legal-library-deployment.md` | Complete legal PDF library, seven native legal pages, PDF noindex strategy, live verification |
 | `docs/2026-08-24-internal-admin-marketing-removal.md` | Public product-boundary fix removing internal admin / Corporate Control Plane marketing |
 | `docs/2026-08-24-sitewide-professionalism-upgrade.md` | Sitewide professional visual shell upgrade and screenshot-backed validation |
+| `docs/2026-08-24-ux-accessibility-audit-fix-deployment.md` | UX/a11y audit fixes, CSP-safe motion, browser QA, production deployment, and live crawl verification |
 | `docs/implementation/impressive-pass-20260816/` | Implementation folder (README, CHANGES, CONTACT) |
 | `docs/implementation/link-preview-branding-20260821/` | Implementation record for OG/Twitter preview remediation |
 | `docs/implementation/conversion-trust-ux-20260822/` | Screenshot-backed implementation record for the buyer-path UX pass |

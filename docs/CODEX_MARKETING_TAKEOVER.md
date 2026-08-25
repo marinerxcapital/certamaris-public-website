@@ -17,8 +17,8 @@
 | **Authenticated app (separate)** | https://app.certamaris.com — do **not** merge into this repo |
 | **GitHub** | https://github.com/marinerxcapital/certamaris-public-website |
 | **Branch** | **`main` only** for production |
-| **Latest production change (2026-08-24)** | Sitewide professionalism upgrade `04de3aa` / PR #18 · note `docs/2026-08-24-sitewide-professionalism-upgrade.md`; previous internal-admin marketing removal `5bc636f` / PR #16 |
-| **Latest UX pass (2026-08-23)** | Product experience upgrade `dfb009f` · pricing table keyboard-access closeout `0084f51` · note `docs/2026-08-23-product-experience-upgrade-deployment.md` |
+| **Latest production change (2026-08-24)** | UX/accessibility audit fix `46f0370` · note `docs/2026-08-24-ux-accessibility-audit-fix-deployment.md`; previous sitewide professionalism upgrade `04de3aa` / PR #18 |
+| **Latest UX pass (2026-08-24)** | UX/accessibility audit fix `46f0370`; previous product experience upgrade `dfb009f` · pricing table keyboard-access closeout `0084f51` |
 | **Link-preview code commit (2026-08-21)** | **`190533a`** - PR #9 link-preview branding fix; prior PR #6 `df5f174` / PR #5 `660e5b4` |
 | **Worker name** | `certamaris-site` |
 | **Worker config** | `wrangler.jsonc` · assets `./out` · entry `worker/index.ts` |
@@ -128,6 +128,19 @@
 8. Production deploy: GitHub Actions run `32694451757`, validate job `97333862097`, deploy job `97333987041`; Cloudflare Worker version `7afb48f1-6659-43e4-ad1a-4807bc009b32`.
 9. Live verification: apex 200, www 301 to apex, root ETag `"0ecb575e694d6d307e58c79fec97e5e9"`, live CSS contains the new shell markers, key route forbidden-term scan clean, and OG image remains `200 image/png` at `1200x630`.
 
+### UX/accessibility audit fix (2026-08-24 -> `46f0370`)
+
+1. CSP-safe public motion: `Reveal` / `RevealGroup`, product-exhibit annotations, and evidence chain motion are class-driven and no longer depend on inline Framer opacity/transform styles for the audited surfaces.
+2. Sticky-header anchor overlap fixed with sitewide `scroll-padding-top` and `[id]` / `[data-qa]` `scroll-margin-top`.
+3. `/platform` removed blanket module maturity chips and points buyers to `/security` and `/trust/procurement` for status/configuration/NDA context.
+4. Demo scrub codes now remain inside the documented assurance-record subset: REQ, CTL, EVD, FND, RSK, CAP, QA, PKG.
+5. Homepage lifecycle state is clamped and shared across hover, focus, click, and keyboard navigation.
+6. `/pricing` and `/contact` now use compact Trust Center/procurement pointers instead of repeating the full buyer diligence packet.
+7. All eight `/who-we-serve/*` pages include role-specific sample artifact modules; sample chain dates are rolling `Demo day` labels.
+8. QA added: `npm run qa:ux-audit` and `npm run qa:lighthouse`.
+9. Production deploy: GitHub Actions run `32808497558`, validate job `97683211841`, deploy job `97683361549`; Cloudflare deployment `d6b71100-fcb6-44a6-9d97-d7498cd0d069`; Worker version `e7253dff-1989-4d63-bc20-c847c38b828d` at 100%.
+10. Live verification: production browser QA covered 21 routes plus five focused feature captures with zero CSP messages, route page errors, overflow failures, and serious/critical axe violations; live route crawl covered 103 routes/assets; live sitemap crawl covered 94 URLs.
+
 ---
 
 ## 2. Deploy (only way to update certamaris.com)
@@ -158,7 +171,7 @@ Never re-bind `app.certamaris.com` to `certamaris-site`.
 
 ---
 
-## 4. Key code map (2026-08-23)
+## 4. Key code map (2026-08-24)
 
 | Concern | Path |
 |---|---|
@@ -186,6 +199,8 @@ Never re-bind `app.certamaris.com` to `certamaris-site`.
 | Shared professional shell | `app/globals.css`, `components/PageHero.tsx`, `components/Button.tsx` |
 | QA routes | `scripts/qa/expected-routes.mjs`, `scripts/qa/check-product-experience.mjs` |
 | Public product boundary | `scripts/qa/check-public-product-boundary.mjs` |
+| UX/a11y audit browser QA | `scripts/qa/ux-audit-browser-qa.mjs` |
+| Lighthouse performance smoke | `scripts/qa/lighthouse-performance.mjs` |
 
 ---
 
@@ -230,7 +245,7 @@ Fallback addresses: `skyler@certamaris.com`, `sales@certamaris.com`.
 
 1. `git checkout main && git pull origin main`  
 2. Read **`docs/AGENT_MEMORY.md`** then this file  
-3. `npm run ci:validate && npm run qa` (after `build:static` if needed; includes product-experience and buyer-path QA)
+3. `npm run ci:validate && npm run qa && npm run qa:ux-audit` (after `build:static` if needed; includes product-experience, buyer-path, and UX/a11y browser QA)
 4. Confirm https://certamaris.com 200  
 5. Only then edit — feature branch `cursor/<name>-e469` unless owner says push main  
 6. Deploy only via `build:static` + `wrangler deploy --keep-vars` or CI on main  
@@ -242,9 +257,9 @@ Fallback addresses: `skyler@certamaris.com`, `sales@certamaris.com`.
 - Pixel Grid sitewide — do not reintroduce opaque hero bands without owner direction (`design/redesign-plan.md`)  
 - No fake logos/metrics/certifications/survey guarantees  
 - No internal admin / Corporate Control Plane as public product marketing  
-- Reduced motion: near-opaque floors; `usePrefersReducedMotion()` from `lib/`  
+- Reduced motion/CSP: near-opaque floors; `usePrefersReducedMotion()` from `lib/`; keep public-page reveals and product-exhibit motion class-driven under Worker CSP
 
 **Preserve valid work. Do not redesign from zero.**
 
 **Signed:** SuperGrok · 2026-08-01  
-**Countersigned / updated:** Codex · 2026-08-23
+**Countersigned / updated:** Codex · 2026-08-24
