@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { AssuranceLifecycleTeaser } from "@/components/AssuranceLifecycleTeaser";
+import { BeforeAfterComparison } from "@/components/BeforeAfterComparison";
 import { Button } from "@/components/Button";
 import { BuyerDiligencePacket } from "@/components/BuyerDiligencePacket";
 import { EvidenceChain } from "@/components/EvidenceChain";
 import { FleetAssuranceWorkbench } from "@/components/FleetAssuranceWorkbench";
+import { FleetHierarchy } from "@/components/FleetHierarchy";
 import { FounderPortrait } from "@/components/FounderPortrait";
 import { HomeHero } from "@/components/HomeHero";
 import { HomepageProductShowcase } from "@/components/HomepageProductShowcase";
@@ -11,6 +13,7 @@ import { LiquidGlass } from "@/components/LiquidGlass";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
 import { APP_SIGN_IN_URL, REGULATORY_BOUNDARY } from "@/lib/constants";
+import { pricingTiers } from "@/lib/faq-pricing";
 import { productProofScreens } from "@/lib/product-screens";
 import { differentiationModels } from "@/lib/solutions-audience";
 
@@ -64,47 +67,75 @@ const audienceLinks = [
 
 const trustLinks: [string, string][] = [
   ["/security", "Security"],
+  ["/trust", "Trust Center"],
   ["/legal/privacy", "Privacy Policy"],
   ["/legal/terms", "Business Terms"],
-  ["/legal/cookies", "Cookie Notice"],
-  ["/legal/acceptable-use", "Acceptable Use"],
-  ["/legal/subprocessors", "Subprocessors"],
-  ["/legal/dpa", "Data Processing Agreement"],
   ["/legal/library", "Legal Library"],
 ];
 
 const homepageDifferentiation = differentiationModels.slice(0, 3);
+const pricingTeaserTiers = pricingTiers.map((tier) => ({
+  name: tier.name,
+  audience: tier.audience,
+  platformFee: tier.platformFee,
+  vesselPrice: tier.vesselPrice,
+  minimumNote: tier.minimumNote,
+}));
 
 export default function HomePage() {
   return (
     <>
       <HomeHero />
 
-      <Section id="fleet-workbench" surface="paper" spacing="compact">
+      <Section id="regulatory-strip" spacing="tight" surface="paper">
+        <Reveal>
+          <div className="regulatory-credibility-strip">
+            <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-ocean">
+              Regulatory orientation
+            </p>
+            <p className="mt-2 max-w-4xl text-[15px] leading-relaxed text-navy/85">
+              Supports workflows aligned to{" "}
+              <Link href="/compliance/imo" className="font-semibold text-ocean hover:underline">
+                IMO MSC.428(98)
+              </Link>{" "}
+              and{" "}
+              <Link href="/compliance/iacs" className="font-semibold text-ocean hover:underline">
+                IACS UR E26/E27
+              </Link>
+              . Official texts control. CertaMaris does not certify compliance or replace qualified reviewers,
+              class, or flag.
+            </p>
+          </div>
+        </Reveal>
+      </Section>
+
+      <Section id="fleet-workbench" spacing="compact">
         <Reveal className="mb-10 max-w-3xl">
-          <Eyebrow>Maritime software proof</Eyebrow>
+          <Eyebrow>Fleet hierarchy &amp; workbench</Eyebrow>
           <h2 className="section-h2 section-h2--lg">
-            A fleet assurance workbench, not a brochure diagram.
+            See how company, fleet, and vessel work stay connected.
           </h2>
           <p className="mt-4 max-w-2xl text-[15.5px] leading-relaxed text-structural">
-            Use this sample workspace to see how vessel scope, evidence, findings, corrective
-            actions, and readiness packages stay in one inspectable record.
+            Start with the operating hierarchy, then open the sample workbench — vessel scope, evidence,
+            findings, actions, and package state in one inspectable surface.
           </p>
+        </Reveal>
+        <Reveal className="mb-8">
+          <FleetHierarchy />
         </Reveal>
         <Reveal>
           <FleetAssuranceWorkbench />
         </Reveal>
       </Section>
 
-      <Section id="evidence-chain">
+      <Section id="evidence-chain" surface="paper" spacing="compact">
         <Reveal className="mb-12 max-w-3xl">
-          <Eyebrow>Chain of custody</Eyebrow>
+          <Eyebrow>Signature assurance chain</Eyebrow>
           <h2 className="section-h2 section-h2--lg">
             One unbroken record from requirement to released readiness package.
           </h2>
           <p className="mt-4 max-w-2xl text-[15.5px] leading-relaxed text-structural">
-            Every step below is a controlled object in the platform — owned, versioned, and
-            inspectable. This chain is the product&apos;s operating unit, not a marketing diagram.
+            Every step below is a controlled object in the platform — owned, versioned, and inspectable.
           </p>
         </Reveal>
         <Reveal className="mb-8">
@@ -119,23 +150,28 @@ export default function HomePage() {
         </div>
       </Section>
 
-      <Section id="product-dashboard" surface="paper" spacing="compact">
+      <Section id="product-dashboard" spacing="compact">
         <Reveal className="mb-12 max-w-3xl">
-          <Eyebrow>Product in action</Eyebrow>
+          <Eyebrow>Product storytelling</Eyebrow>
           <h2 className="section-h2 section-h2--lg">
             One connected workflow from requirement to readiness package.
           </h2>
           <p className="mt-4 max-w-2xl text-[15.5px] leading-relaxed text-structural">
-            Select a stage to keep the product view and the operating explanation together. For the
-            full cinematic scrub, open the product tour.
+            Select a stage to keep the product view and the operating explanation together.
           </p>
         </Reveal>
         <HomepageProductShowcase steps={showcaseSteps} />
       </Section>
 
-      <Section id="buyer-diligence" spacing="compact">
+      <Section id="before-after" surface="paper" spacing="compact">
+        <Reveal className="mb-10 max-w-3xl">
+          <Eyebrow>Before / with</Eyebrow>
+          <h2 className="section-h2 section-h2--lg">
+            Keep the work you already do — connect the record so it survives review.
+          </h2>
+        </Reveal>
         <Reveal>
-          <BuyerDiligencePacket />
+          <BeforeAfterComparison />
         </Reveal>
       </Section>
 
@@ -176,23 +212,74 @@ export default function HomePage() {
             Maritime-native — not another spreadsheet or generic GRC shell.
           </h2>
         </Reveal>
-        <div className="grid gap-3 sm:grid-cols-3">
+        <div className="grid gap-6">
           {homepageDifferentiation.map((model) => (
-            <LiquidGlass key={model.id} as="article" variant="subtle" padding="md">
-              <h3 className="mb-2 text-[15.5px] font-semibold">{model.title}</h3>
-              <p className="mb-2 text-[13.5px] leading-relaxed text-structural">{model.weakness}</p>
-              <p className="text-[13.5px] leading-relaxed text-navy/85">
-                <span className="font-semibold text-ocean">CertaMaris: </span>
-                {model.certamaris}
-              </p>
-            </LiquidGlass>
+            <Reveal key={model.id}>
+              <article className="grid gap-2 border-l-2 border-ocean/30 pl-4 md:grid-cols-[0.85fr_1.15fr] md:gap-8">
+                <div>
+                  <h3 className="text-[16px] font-semibold text-navy">{model.title}</h3>
+                  <p className="mt-1.5 text-[14px] leading-relaxed text-structural">{model.weakness}</p>
+                </div>
+                <p className="text-[14.5px] leading-relaxed text-navy/85">
+                  <span className="font-semibold text-ocean">CertaMaris: </span>
+                  {model.certamaris}
+                </p>
+              </article>
+            </Reveal>
           ))}
         </div>
-        <div className="mt-6">
+        <div className="mt-8">
           <Link href="/why-certamaris" className="text-[14px] font-semibold text-ocean hover:underline">
             Why CertaMaris — full comparison
           </Link>
         </div>
+      </Section>
+
+      <Section id="trust-pricing" spacing="compact">
+        <div className="grid gap-10 lg:grid-cols-2 lg:items-start">
+          <Reveal>
+            <Eyebrow>Trust &amp; security</Eyebrow>
+            <h2 className="section-h2">Security posture and diligence paths, without invented claims.</h2>
+            <p className="mt-4 text-[15px] leading-relaxed text-structural">
+              Review public security controls, procurement paths, and legal documents before the demo.
+            </p>
+            <div className="mt-5 flex flex-wrap gap-4">
+              {trustLinks.map(([href, label]) => (
+                <Link key={href} href={href} className="text-[14px] font-semibold text-ocean hover:underline">
+                  {label}
+                </Link>
+              ))}
+            </div>
+          </Reveal>
+          <Reveal delay={0.04}>
+            <Eyebrow>Pricing</Eyebrow>
+            <h2 className="section-h2">Honest packages — Core, Assurance, Enterprise.</h2>
+            <p className="mt-4 text-[15px] leading-relaxed text-structural">
+              Annual platform fee plus contracted vessels. No fake &quot;Most Popular&quot; badge — fit depends on
+              fleet scope and review depth.
+            </p>
+            <ul className="mt-5 grid gap-3">
+              {pricingTeaserTiers.map((tier) => (
+                <li key={tier.name} className="border-b border-navy/10 pb-3">
+                  <p className="text-[15px] font-semibold text-navy">{tier.name}</p>
+                  <p className="mt-1 text-[13px] text-structural">
+                    {tier.audience} · {tier.platformFee} · {tier.vesselPrice}
+                  </p>
+                  <p className="mt-1 text-[12.5px] text-navy/65">{tier.minimumNote}</p>
+                </li>
+              ))}
+            </ul>
+            <Link href="/pricing" className="mt-5 inline-block text-[14px] font-semibold text-ocean hover:underline">
+              Full pricing and package comparison
+            </Link>
+          </Reveal>
+        </div>
+      </Section>
+
+      <Section id="buyer-diligence" spacing="compact" surface="paper">
+        <Reveal>
+          <BuyerDiligencePacket />
+        </Reveal>
       </Section>
 
       <Section spacing="compact">
@@ -202,22 +289,12 @@ export default function HomePage() {
             <div className="max-w-2xl">
               <Eyebrow>From the founder</Eyebrow>
               <h2 className="section-h2">Why I built this.</h2>
-              <div className="mt-4 grid gap-4 text-[15px] leading-relaxed text-structural">
-                <p>
-                  I came to this problem from the deck side. I hold a U.S. Merchant Mariner credential —
-                  Third Mate, Unlimited Tonnage, Oceans — and I know how shipboard work actually gets
-                  documented: safety-management systems, inspections, records that have to hold up when
-                  someone official asks for them.
-                </p>
-                <p>
-                  Cyber compliance kept breaking the same way. The requirement lived in one place and the
-                  proof in another — spreadsheets, shared drives, inboxes, consultant reports — and by
-                  survey week nobody could show how any of it connected. CertaMaris exists to keep that
-                  chain connected: requirement to control to evidence to finding to corrective action to a
-                  package you can hand over.
-                </p>
-              </div>
-              <div className="mt-6 border-t border-navy/10 pt-4">
+              <p className="mt-4 text-[15px] leading-relaxed text-structural">
+                I came to this from the deck side — Third Mate, Unlimited Tonnage, Oceans — watching cyber
+                compliance break when requirements, proof, and ownership lived in different places.
+                CertaMaris keeps that chain connected through to a package you can hand over.
+              </p>
+              <div className="mt-5 border-t border-navy/10 pt-4">
                 <p className="text-[16px] font-semibold text-navy">Skyler Brown</p>
                 <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.12em] text-structural">
                   Founder, CertaMaris · Third Mate, Unlimited Tonnage, Oceans
@@ -238,7 +315,7 @@ export default function HomePage() {
         <Reveal className="mx-auto max-w-4xl">
           <LiquidGlass variant="strong" padding="lg" className="trust-note">
             <p className="mb-2 font-mono text-[11px] uppercase tracking-[0.14em] text-ocean">
-              Trust & regulatory boundary
+              Trust &amp; regulatory boundary
             </p>
             <p className="mb-4 text-[15px] leading-relaxed text-navy/78">{REGULATORY_BOUNDARY}</p>
             <div className="flex flex-wrap gap-4">

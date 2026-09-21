@@ -66,12 +66,25 @@ export type SiteLink = {
   description?: string;
 };
 
+export type NavMenuSection = {
+  title: string;
+  links: SiteLink[];
+};
+
 export type NavMenuGroup = {
   id: string;
   label: string;
   /** Overview / parent route when the group itself is a section hub. */
   href?: string;
+  /**
+   * When true, render as a top-level link (no mega dropdown).
+   * Also auto-detected when children are empty or hub-only — see isDirectNavGroup.
+   */
+  direct?: boolean;
+  /** Flat link list for command palette, mobile, and mega fallback. */
   children: SiteLink[];
+  /** Optional mega-menu column grouping. When set, MegaPanel prefers sections over a flat grid. */
+  sections?: NavMenuSection[];
 };
 
 /* -------------------------------------------------------------------------- */
@@ -174,6 +187,20 @@ export const TRUST_LINKS: SiteLink[] = [
   { label: "System Status", href: "/trust/status" },
   { label: "Procurement", href: "/trust/procurement" },
   { label: "Assurance Model", href: "/trust/assurance-model" },
+  { label: "AI Policy", href: "/trust/ai-policy" },
+];
+
+/** Curated Trust mega — diligence destinations without full legal-library bloat. */
+export const TRUST_NAV_LINKS: SiteLink[] = [
+  { label: "Security", href: "/security" },
+  { label: "Trust Center", href: "/trust" },
+  { label: "Privacy", href: "/legal/privacy" },
+  { label: "Procurement", href: "/trust/procurement" },
+  { label: "Status", href: "/trust/status" },
+  { label: "Responsible Disclosure", href: "/trust/responsible-disclosure" },
+  { label: "Assurance Model", href: "/trust/assurance-model" },
+  { label: "AI Policy", href: "/trust/ai-policy" },
+  { label: "Accessibility", href: "/accessibility" },
 ];
 
 /* -------------------------------------------------------------------------- */
@@ -199,51 +226,145 @@ export const UTILITY_LINKS: SiteLink[] = [
   { label: "Contact", href: "/contact" },
 ];
 
+/** Product mega — platform capabilities vs operational workflows. */
+export const PRODUCT_NAV_SECTIONS: NavMenuSection[] = [
+  {
+    title: "Platform",
+    links: [
+      { label: "Platform Overview", href: "/platform" },
+      { label: "Client Company Portal", href: "/platform/client-company-portal" },
+      { label: "Regulatory Intelligence", href: "/platform/regulatory-intelligence" },
+      { label: "Continuous Assurance", href: "/platform/continuous-assurance" },
+      { label: "Integrations", href: "/platform/integrations" },
+    ],
+  },
+  {
+    title: "Workflows",
+    links: [
+      { label: "Assessments", href: "/platform/assessments" },
+      { label: "Evidence Management", href: "/platform/evidence" },
+      { label: "Findings and Corrective Actions", href: "/platform/findings-corrective-actions" },
+      { label: "Cybersecurity Plans", href: "/platform/cybersecurity-plans" },
+      { label: "Fleet Management", href: "/platform/fleet-management" },
+      { label: "Vessel Portal", href: "/platform/vessel-portal" },
+      { label: "Reports and Readiness", href: "/platform/reports-readiness" },
+    ],
+  },
+];
+
+/** Solutions mega — audiences, solution plays, and compliance hubs (curated). */
+export const SOLUTIONS_NAV_SECTIONS: NavMenuSection[] = [
+  {
+    title: "Who We Serve",
+    links: [
+      { label: "Who We Serve Overview", href: "/who-we-serve" },
+      { label: "Ship Owners", href: "/who-we-serve/ship-owners" },
+      { label: "Operators", href: "/who-we-serve/operators" },
+      { label: "Technical Managers & DPAs", href: "/who-we-serve/technical-managers-dpas" },
+      { label: "Maritime IT/OT", href: "/who-we-serve/maritime-it-ot" },
+    ],
+  },
+  {
+    title: "Solutions",
+    links: [
+      { label: "Solutions Overview", href: "/solutions" },
+      { label: "Fleet Cyber Compliance", href: "/solutions/fleet-cyber-compliance" },
+      { label: "Audit & Survey Readiness", href: "/solutions/audit-survey-readiness" },
+      { label: "IMO MSC.428(98)", href: "/solutions/imo-msc-428-98" },
+      { label: "IACS UR E26", href: "/solutions/iacs-ur-e26" },
+      { label: "IACS UR E27", href: "/solutions/iacs-ur-e27" },
+      { label: "Executive & Board Reporting", href: "/solutions/executive-board-reporting" },
+    ],
+  },
+  {
+    title: "Compliance",
+    links: [
+      { label: "Compliance Overview", href: "/compliance" },
+      { label: "IMO", href: "/compliance/imo" },
+      { label: "IACS", href: "/compliance/iacs" },
+      { label: "Update Center", href: "/compliance/update-center" },
+      { label: "Official Sources", href: "/compliance/official-sources" },
+    ],
+  },
+];
+
+/** Resources mega — content library plus company/decision discoverability. */
+export const RESOURCES_NAV_SECTIONS: NavMenuSection[] = [
+  {
+    title: "Library",
+    links: [
+      { label: "All Resources", href: "/resources" },
+      { label: "Guides", href: "/resources?tag=guides" },
+      { label: "Checklists", href: "/resources?tag=checklists" },
+      { label: "Templates", href: "/resources?tag=templates" },
+      { label: "Glossary", href: "/glossary" },
+    ],
+  },
+  {
+    title: "Company",
+    links: [
+      { label: "About", href: "/about" },
+      { label: "Why CertaMaris", href: "/why-certamaris" },
+      { label: "Implementation", href: "/implementation" },
+      { label: "FAQ", href: "/faq" },
+      { label: DEMO_TOUR_LABEL, href: DEMO_TOUR_HREF },
+      { label: "Contact", href: "/contact" },
+    ],
+  },
+];
+
+function flattenNavSections(sections: NavMenuSection[]): SiteLink[] {
+  const seen = new Set<string>();
+  const links: SiteLink[] = [];
+  for (const section of sections) {
+    for (const link of section.links) {
+      if (seen.has(link.href)) continue;
+      seen.add(link.href);
+      links.push(link);
+    }
+  }
+  return links;
+}
+
 /**
- * Desktop primary navigation groups (mega / dropdown menus).
- * Order is intentional for top-bar density.
+ * Desktop primary navigation — premium enterprise IA.
+ * Top-level: Product, Solutions, Resources, Pricing, Trust.
+ * Who We Serve + Compliance live under Solutions; Company under Resources + Footer.
  */
 export const NAV_PRIMARY: NavMenuGroup[] = [
   {
     id: "product",
     label: "Product",
     href: "/platform",
-    children: PRODUCT_LINKS,
+    sections: PRODUCT_NAV_SECTIONS,
+    children: flattenNavSections(PRODUCT_NAV_SECTIONS),
   },
   {
     id: "solutions",
     label: "Solutions",
     href: "/solutions",
-    children: SOLUTIONS_LINKS,
-  },
-  {
-    id: "who-we-serve",
-    label: "Who We Serve",
-    href: "/who-we-serve",
-    children: WHO_WE_SERVE_LINKS,
-  },
-  {
-    id: "compliance",
-    label: "Compliance",
-    href: "/compliance",
-    children: COMPLIANCE_LINKS,
+    sections: SOLUTIONS_NAV_SECTIONS,
+    children: flattenNavSections(SOLUTIONS_NAV_SECTIONS),
   },
   {
     id: "resources",
     label: "Resources",
     href: "/resources",
-    children: RESOURCES_LINKS,
+    sections: RESOURCES_NAV_SECTIONS,
+    children: flattenNavSections(RESOURCES_NAV_SECTIONS),
   },
   {
-    id: "company",
-    label: "Company",
-    href: "/about",
-    children: [
-      ...COMPANY_LINKS,
-      ...UTILITY_LINKS,
-      { label: "Security", href: "/security" },
-      { label: "Trust Center", href: "/trust" },
-    ],
+    id: "pricing",
+    label: "Pricing",
+    href: "/pricing",
+    direct: true,
+    children: [{ label: "Pricing", href: "/pricing" }],
+  },
+  {
+    id: "trust",
+    label: "Trust",
+    href: "/trust",
+    children: TRUST_NAV_LINKS,
   },
 ];
 
@@ -258,42 +379,46 @@ export const NAV_GROUPS: { title: string; links: [string, string][] }[] = [
   },
   {
     title: "Solutions",
-    links: SOLUTIONS_LINKS.map((l) => [l.label, l.href] as [string, string]),
-  },
-  {
-    title: "Who We Serve",
-    links: WHO_WE_SERVE_LINKS.map((l) => [l.label, l.href] as [string, string]),
-  },
-  {
-    title: "Company",
     links: [
-      ...COMPANY_LINKS.slice(0, 4).map((l) => [l.label, l.href] as [string, string]),
-      ["Pricing", "/pricing"],
-      ["Security", "/security"],
+      ...SOLUTIONS_LINKS.slice(0, 6).map((l) => [l.label, l.href] as [string, string]),
+      ["Who We Serve", "/who-we-serve"],
+      ["Compliance", "/compliance"],
     ],
+  },
+  {
+    title: "Resources",
+    links: [
+      ...RESOURCES_LINKS.map((l) => [l.label, l.href] as [string, string]),
+      ["Pricing", "/pricing"],
+      ["About", "/about"],
+    ],
+  },
+  {
+    title: "Trust",
+    links: TRUST_NAV_LINKS.map((l) => [l.label, l.href] as [string, string]),
   },
 ];
 
 /**
- * Footer column groups — scannable, not exhaustive of every deep page.
+ * Footer column groups — premium enterprise footer.
+ * Product · Solutions · Resources · Company · Trust/Legal
  *
  * NOTE: this array is hand-maintained separately from NAV_PRIMARY and the
  * individual *_LINKS sources above. When a new page is added, its footer
  * exposure must be added here by hand or it silently becomes crawl-orphaned.
- * A single-source-of-truth refactor (derive FOOTER_GROUPS from the *_LINKS
- * collections plus an explicit "featured" curation) would remove this drift
- * risk. Flagged for follow-up rather than expanded inline here.
  */
 export const FOOTER_GROUPS: { title: string; links: [string, string][] }[] = [
   {
     title: "Product",
     links: [
       ["Platform Overview", "/platform"],
-      ["Client Company Portal", "/platform/client-company-portal"],
-      ["Fleet Management", "/platform/fleet-management"],
-      ["Vessel Portal", "/platform/vessel-portal"],
       ["Assessments", "/platform/assessments"],
       ["Evidence Management", "/platform/evidence"],
+      ["Findings & Actions", "/platform/findings-corrective-actions"],
+      ["Cybersecurity Plans", "/platform/cybersecurity-plans"],
+      ["Fleet Management", "/platform/fleet-management"],
+      ["Vessel Portal", "/platform/vessel-portal"],
+      ["Reports and Readiness", "/platform/reports-readiness"],
       ["Integrations", "/platform/integrations"],
     ],
   },
@@ -304,35 +429,10 @@ export const FOOTER_GROUPS: { title: string; links: [string, string][] }[] = [
       ["Fleet Cyber Compliance", "/solutions/fleet-cyber-compliance"],
       ["Audit & Survey Readiness", "/solutions/audit-survey-readiness"],
       ["IMO MSC.428(98)", "/solutions/imo-msc-428-98"],
-      ["IACS UR E26", "/solutions/iacs-ur-e26"],
-      ["IACS UR E27", "/solutions/iacs-ur-e27"],
-      ["Regulatory Change", "/solutions/regulatory-change-management"],
-    ],
-  },
-  {
-    title: "Who We Serve",
-    links: [
-      ["Overview", "/who-we-serve"],
-      ["Ship Owners", "/who-we-serve/ship-owners"],
-      ["Operators", "/who-we-serve/operators"],
-      ["Technical Managers & DPAs", "/who-we-serve/technical-managers-dpas"],
-      ["Maritime IT/OT", "/who-we-serve/maritime-it-ot"],
-      ["Vessel Masters & Officers", "/who-we-serve/vessel-masters-officers"],
-      ["Classification & Survey", "/who-we-serve/classification-survey"],
-      ["Insurers & P&I", "/who-we-serve/insurers-pi"],
-      ["Maritime Service Providers", "/who-we-serve/maritime-service-providers"],
-    ],
-  },
-  {
-    title: "Compliance",
-    links: [
-      ["Overview", "/compliance"],
-      ["IMO", "/compliance/imo"],
-      ["IACS", "/compliance/iacs"],
-      ["Guidelines", "/compliance/guidelines"],
-      ["Update Center", "/compliance/update-center"],
+      ["IACS UR E26 / E27", "/solutions/iacs-ur-e26"],
+      ["Who We Serve", "/who-we-serve"],
+      ["Compliance Hub", "/compliance"],
       ["Official Sources", "/compliance/official-sources"],
-      ["Mapping Methodology", "/compliance/mapping-methodology"],
     ],
   },
   {
@@ -345,9 +445,6 @@ export const FOOTER_GROUPS: { title: string; links: [string, string][] }[] = [
       ["Pricing", "/pricing"],
       ["FAQ", "/faq"],
       ["Product tour", "/demo"],
-      ["IMO MSC.428(98) Explained", "/resources/imo-msc-428-98-explained"],
-      ["IACS UR E26/E27 Overview", "/resources/iacs-ur-e26-e27-overview"],
-      ["Evidence Sufficiency", "/resources/evidence-sufficiency-cyber-compliance"],
     ],
   },
   {
@@ -369,18 +466,16 @@ export const FOOTER_GROUPS: { title: string; links: [string, string][] }[] = [
       ["Security", "/security"],
       ["Trust Center", "/trust"],
       ["Privacy Policy", "/legal/privacy"],
-      ["Business Terms of Service", "/legal/terms"],
-      ["Cookie Notice", "/legal/cookies"],
-      ["Acceptable Use Policy", "/legal/acceptable-use"],
+      ["Business Terms", "/legal/terms"],
       ["Accessibility", "/accessibility"],
-      ["Subprocessors", "/legal/subprocessors"],
-      ["Data Processing Agreement", "/legal/dpa"],
-      ["Legal Library", "/legal/library"],
       ["AI Policy", "/trust/ai-policy"],
       ["Responsible Disclosure", "/trust/responsible-disclosure"],
       ["Status", "/trust/status"],
       ["Procurement", "/trust/procurement"],
       ["Assurance Model", "/trust/assurance-model"],
+      ["Legal Library", "/legal/library"],
+      ["Data Processing Agreement", "/legal/dpa"],
+      ["Subprocessors", "/legal/subprocessors"],
     ],
   },
 ];
@@ -419,9 +514,29 @@ export function isNavPathActive(pathname: string, href: string): boolean {
   return false;
 }
 
+/**
+ * True when a primary nav item should render as a direct link (no mega / chevron).
+ * Honors explicit `direct`, empty children, or a single hub-only child matching href.
+ */
+export function isDirectNavGroup(group: NavMenuGroup): boolean {
+  if (group.direct) return true;
+  if (!group.href) return false;
+  if (group.children.length === 0) return true;
+  if (
+    group.children.length === 1 &&
+    hrefPathname(group.children[0].href) === hrefPathname(group.href)
+  ) {
+    return true;
+  }
+  return false;
+}
+
 /** True when any child (or group href) is active — for top-level menu buttons. */
 export function isNavGroupActive(pathname: string, group: NavMenuGroup): boolean {
   if (group.href && isNavPathActive(pathname, group.href)) return true;
+  if (isDirectNavGroup(group) && group.href) {
+    return isNavLinkActive(pathname, group.href);
+  }
   return group.children.some((child) => {
     const base = hrefPathname(child.href);
     return pathname === base || pathname.startsWith(`${base}/`);

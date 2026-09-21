@@ -11,7 +11,7 @@ export function Section({
   children: ReactNode;
   id?: string;
   surface?: "page" | "paper" | "navy";
-  spacing?: "standard" | "compact" | "tight";
+  spacing?: "standard" | "compact" | "tight" | "major";
   className?: string;
   as?: ElementType;
 }) {
@@ -22,7 +22,13 @@ export function Section({
         ? "section-surface section-surface--navy text-white"
         : "section-surface section-surface--page";
   const spacingClass =
-    spacing === "compact" ? "section-y-compact" : spacing === "tight" ? "section-y-tight" : "section-y";
+    spacing === "compact"
+      ? "section-y-compact"
+      : spacing === "tight"
+        ? "section-y-tight"
+        : spacing === "major"
+          ? "section-y-major"
+          : "section-y";
   return createElement(
     Tag,
     { id, className: `${spacingClass} ${surfaceClass} ${className}` },

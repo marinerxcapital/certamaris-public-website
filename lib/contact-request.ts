@@ -57,7 +57,9 @@ export type ContactValidationResult =
   | { ok: false; error: string };
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const SALES_INTENTS = new Set<ContactIntent>(["demo", "sales", "readiness", "procurement"]);
+/** Full commercial intake (timeline required). Demo uses a lighter required set. */
+const SALES_INTENTS = new Set<ContactIntent>(["sales", "readiness", "procurement"]);
+const DEMO_DEFAULT_MESSAGE = "Product demonstration request.";
 const ALLOWED_KEYS = new Set([
   "name",
   "email",
@@ -160,10 +162,22 @@ export function validateContactInput(input: unknown, now = Date.now()): ContactV
     if (failure) return failure;
   }
 
-  if (!contact.name || !contact.email || !contact.message) {
-    return { ok: false, error: "Name, email, and message are required." };
+  if (!contact.name || !contact.email) {
+    return { ok: false, error: "Name and email are required." };
   }
   if (!EMAIL_RE.test(contact.email)) return { ok: false, error: "Invalid email address." };
+
+  if (intent === "demo") {
+    if (!contact.company || !contact.fleetSize || !contact.objective) {
+      return {
+        ok: false,
+        error: "For demo requests, company, fleet size, and primary objective are required.",
+      };
+    }
+    if (!contact.message) contact.message = DEMO_DEFAULT_MESSAGE;
+  } else if (!contact.message) {
+    return { ok: false, error: "Name, email, and message are required." };
+  }
 
   if (SALES_INTENTS.has(intent)) {
     if (!contact.company || !contact.fleetSize || !contact.objective || !contact.timeline) {

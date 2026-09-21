@@ -55,8 +55,8 @@ const routeChecks = [
     candidates: [path.join("contact", "index.html"), "contact.html"],
     required: [
       "Fastest useful request",
-      "Fleet size and vessel types in scope",
-      "Documents needed, if this is a procurement or security request",
+      "Demo: name, work email, company, fleet size, primary objective",
+      "Procurement / security: documents needed and organization context",
       "Need diligence material?",
       "/trust/procurement",
     ],

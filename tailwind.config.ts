@@ -36,6 +36,10 @@ const config: Config = {
         cautionBg: "#FBF1DF",
         critical: "#B3261E",
         criticalBg: "#FBEAE9",
+        info: "#0E5A8A",
+        infoBg: "#E7F3FB",
+        inactive: "#5C6D7E",
+        inactiveBg: "#EEF2F5",
       },
       brass: {
         DEFAULT: "#B8823A",
@@ -49,14 +53,35 @@ const config: Config = {
         mono: ["var(--font-mono)", "Consolas", "monospace"],
       },
       maxWidth: {
-        shell: "1440px",
+        shell: "var(--shell-max)",
+        prose: "var(--content-max-prose)",
+        measure: "var(--content-max-measure)",
       },
       borderRadius: {
-        sm: "4px",
-        DEFAULT: "6px",
+        sm: "var(--radius-sm)",
+        DEFAULT: "var(--radius-control)",
+        card: "var(--radius-card)",
+        glass: "var(--radius-glass)",
       },
       boxShadow: {
-        card: "0 1px 2px rgba(11,42,74,0.06), 0 8px 24px -12px rgba(11,42,74,0.18)",
+        card: "var(--shadow-card)",
+        raised: "var(--shadow-raised)",
+        overlay: "var(--shadow-overlay)",
+        focus: "var(--focus-ring)",
+      },
+      spacing: {
+        "icon-xs": "var(--icon-xs)",
+        "icon-sm": "var(--icon-sm)",
+        "icon-md": "var(--icon-md)",
+        "icon-lg": "var(--icon-lg)",
+      },
+      transitionDuration: {
+        fast: "var(--duration-fast)",
+        standard: "var(--duration-standard)",
+        reveal: "var(--duration-reveal)",
+      },
+      transitionTimingFunction: {
+        standard: "var(--ease-standard)",
       },
       keyframes: {
         "fade-up": {

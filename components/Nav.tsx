@@ -13,6 +13,7 @@ import {
   PRIMARY_CTA_LABEL,
   SIGN_IN_LABEL,
   hrefPathname,
+  isDirectNavGroup,
   isNavGroupActive,
   isNavLinkActive,
   type NavMenuGroup,
@@ -22,10 +23,37 @@ import {
 const FOCUSABLE =
   'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
 
-function megaColumns(groupId: string): string {
-  if (groupId === "product" || groupId === "solutions") return "sm:grid-cols-2 lg:grid-cols-3";
-  if (groupId === "company") return "sm:grid-cols-2";
+function megaColumns(groupId: string, sectionCount = 0): string {
+  if (sectionCount >= 3 || groupId === "solutions") return "sm:grid-cols-2 lg:grid-cols-3";
+  if (sectionCount === 2 || groupId === "product" || groupId === "resources") return "sm:grid-cols-2";
+  if (groupId === "trust") return "sm:grid-cols-2 lg:grid-cols-3";
   return "sm:grid-cols-2";
+}
+
+function MegaLink({
+  item,
+  path,
+  onNavigate,
+}: {
+  item: SiteLink;
+  path: string;
+  onNavigate?: () => void;
+}) {
+  const active = isNavLinkActive(path, item.href);
+  return (
+    <Link
+      href={item.href}
+      className={`block rounded-md px-3 py-2 text-[14px] leading-snug transition-colors ${
+        active
+          ? "bg-ocean-wash font-semibold text-navy"
+          : "text-navy hover:bg-ocean-wash hover:text-navy"
+      }`}
+      aria-current={active ? "page" : undefined}
+      onClick={onNavigate}
+    >
+      {item.label}
+    </Link>
+  );
 }
 
 function MegaPanel({
@@ -37,6 +65,8 @@ function MegaPanel({
   path: string;
   onNavigate?: () => void;
 }) {
+  const sections = group.sections?.filter((s) => s.links.length > 0) ?? [];
+
   return (
     <div className="p-5 sm:p-6">
       <div className="mb-4 flex flex-wrap items-baseline justify-between gap-2">
@@ -52,27 +82,32 @@ function MegaPanel({
           </Link>
         ) : null}
       </div>
-      <ul className={`grid gap-0.5 ${megaColumns(group.id)}`}>
-        {group.children.map((item) => {
-          const active = isNavLinkActive(path, item.href);
-          return (
+      {sections.length > 0 ? (
+        <div className={`grid gap-6 ${megaColumns(group.id, sections.length)}`}>
+          {sections.map((section) => (
+            <div key={`${group.id}-${section.title}`}>
+              <p className="mb-2 px-3 font-mono text-[10px] uppercase tracking-[0.12em] text-structural/80">
+                {section.title}
+              </p>
+              <ul className="grid gap-0.5">
+                {section.links.map((item) => (
+                  <li key={`${group.id}-${section.title}-${item.href}-${item.label}`}>
+                    <MegaLink item={item} path={path} onNavigate={onNavigate} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <ul className={`grid gap-0.5 ${megaColumns(group.id)}`}>
+          {group.children.map((item) => (
             <li key={`${group.id}-${item.href}-${item.label}`}>
-              <Link
-                href={item.href}
-                className={`block rounded-md px-3 py-2 text-[14px] leading-snug transition-colors ${
-                  active
-                    ? "bg-ocean-wash font-semibold text-navy"
-                    : "text-navy hover:bg-ocean-wash hover:text-navy"
-                }`}
-                aria-current={active ? "page" : undefined}
-                onClick={onNavigate}
-              >
-                {item.label}
-              </Link>
+              <MegaLink item={item} path={path} onNavigate={onNavigate} />
             </li>
-          );
-        })}
-      </ul>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
@@ -193,7 +228,7 @@ export function Nav() {
     };
   }, [mobileOpen, closeMobile]);
 
-  // Desktop mega Escape + left/right between menu buttons
+  // Desktop mega Escape + arrows between menus / into panel (skip direct links)
   useEffect(() => {
     if (!openMenuId) return;
     function onKeyDown(event: KeyboardEvent) {
@@ -204,10 +239,19 @@ export function Nav() {
         if (id) menuButtonRefs.current[id]?.focus();
         return;
       }
+      if (event.key === "ArrowDown") {
+        const panel = document.getElementById(`${menuBaseId}-${openMenuId}`);
+        const firstLink = panel?.querySelector<HTMLElement>("a[href]");
+        if (firstLink) {
+          event.preventDefault();
+          firstLink.focus();
+        }
+        return;
+      }
       if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
-      const ids = NAV_PRIMARY.map((g) => g.id);
+      const ids = NAV_PRIMARY.filter((g) => !isDirectNavGroup(g)).map((g) => g.id);
       const idx = ids.indexOf(openMenuId!);
-      if (idx < 0) return;
+      if (idx < 0 || ids.length === 0) return;
       event.preventDefault();
       const next =
         event.key === "ArrowRight"
@@ -218,7 +262,7 @@ export function Nav() {
     }
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
-  }, [openMenuId]);
+  }, [openMenuId, menuBaseId]);
 
   const navLinkClass = (active: boolean) =>
     `px-2.5 py-2 rounded-md text-[14px] font-medium transition-colors xl:px-3 xl:text-[15px] ${
@@ -271,8 +315,28 @@ export function Nav() {
             <ul className="nav-mobile-link-list">
               {NAV_PRIMARY.map((group) => {
                 const groupActive = isNavGroupActive(path, group);
+                const direct = isDirectNavGroup(group);
                 const expanded = mobileExpanded === group.id;
                 const panelId = `${drawerId}-${group.id}-panel`;
+
+                if (direct && group.href) {
+                  const active = isNavLinkActive(path, group.href);
+                  return (
+                    <li key={group.id}>
+                      <Link
+                        href={group.href}
+                        className={`nav-mobile-link block ${
+                          active || groupActive ? "nav-mobile-link--active" : ""
+                        }`}
+                        aria-current={active ? "page" : undefined}
+                        onClick={closeMobile}
+                      >
+                        {group.label}
+                      </Link>
+                    </li>
+                  );
+                }
+
                 return (
                   <li key={group.id}>
                     <button
@@ -361,9 +425,25 @@ export function Nav() {
 
           <nav aria-label="Primary" className="hidden items-center gap-0 lg:flex" ref={menuRef}>
             {NAV_PRIMARY.map((group) => {
-              const active = isNavGroupActive(path, group) || openMenuId === group.id;
+              const direct = isDirectNavGroup(group);
+              const active = isNavGroupActive(path, group) || (!direct && openMenuId === group.id);
               const panelId = `${menuBaseId}-${group.id}`;
-              const isOpen = openMenuId === group.id;
+              const isOpen = !direct && openMenuId === group.id;
+
+              if (direct && group.href) {
+                return (
+                  <Link
+                    key={group.id}
+                    href={group.href}
+                    className={navLinkClass(active)}
+                    aria-current={isNavLinkActive(path, group.href) ? "page" : undefined}
+                    onClick={closeDesktopMenu}
+                  >
+                    {group.label}
+                  </Link>
+                );
+              }
+
               return (
                 <button
                   key={group.id}
@@ -388,7 +468,7 @@ export function Nav() {
               );
             })}
 
-            {openGroup ? (
+            {openGroup && !isDirectNavGroup(openGroup) ? (
               <div
                 id={`${menuBaseId}-${openGroup.id}`}
                 role="region"

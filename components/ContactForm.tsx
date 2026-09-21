@@ -32,6 +32,8 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
   const urlIntent = searchParams.get("intent");
   const [intentId, setIntentId] = useState(() => getContactIntent(urlIntent ?? defaultIntent).id);
   const intent = useMemo(() => getContactIntent(intentId), [intentId]);
+  const demoLite = Boolean(intent.demoLite);
+  const fullSalesFields = intent.salesFields && !demoLite;
   const [status, setStatus] = useState<Status>("idle");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submittedAt, setSubmittedAt] = useState<string | null>(null);
@@ -85,18 +87,22 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
     if (!name) nextErrors.name = "Enter your name.";
     if (!email) nextErrors.email = "Enter a work email.";
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) nextErrors.email = "Enter a valid email address.";
-    if (intent.salesFields && !company) nextErrors.company = "Enter your company name.";
-    if (!intent.salesFields && !company && intent.id !== "disclosure" && intent.id !== "careers") {
-      // Company preferred but not hard-required for non-sales paths except disclosure/careers.
-    }
-    if (intent.salesFields) {
+    if ((intent.salesFields || demoLite) && !company) nextErrors.company = "Enter your company name.";
+    if (demoLite) {
+      if (!fleetSize) nextErrors.fleetSize = "Select a fleet size.";
+      if (!objective) nextErrors.objective = "Select a primary objective.";
+      if (message.length > 4000) nextErrors.message = "Keep the note under 4,000 characters.";
+    } else if (fullSalesFields) {
       if (!fleetSize) nextErrors.fleetSize = "Select a fleet size.";
       if (!vesselCount) nextErrors.vesselCount = "Select a vessel count range.";
       if (!objective) nextErrors.objective = "Select an objective.";
       if (!timeline) nextErrors.timeline = "Select a timeline.";
+      if (!message) nextErrors.message = "Tell us briefly what you need.";
+      else if (message.length > 4000) nextErrors.message = "Keep the note under 4,000 characters.";
+    } else {
+      if (!message) nextErrors.message = "Tell us briefly what you need.";
+      else if (message.length > 4000) nextErrors.message = "Keep the note under 4,000 characters.";
     }
-    if (!message) nextErrors.message = "Tell us briefly what you need.";
-    else if (message.length > 4000) nextErrors.message = "Keep the note under 4,000 characters.";
 
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) {
@@ -122,18 +128,20 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
     setStatus("submitting");
     try {
       const endpoint = NEXT_PUBLIC_CONTACT_ENDPOINT || "/api/contact";
+      const resolvedMessage =
+        message || (demoLite ? "Product demonstration request." : message);
       const payload: Record<string, string | boolean | number> = {
         name,
         email,
         company,
-        message,
+        message: resolvedMessage,
         intent: intent.id,
         subjectTag: intent.subjectTag,
         formStartedAt,
         idempotencyKey,
         // Legacy-compatible mirrors for older forward endpoints
         primaryNeed: objective || intent.label,
-        timing: timeline || "Not specified",
+        timing: timeline || (demoLite ? "To be arranged" : "Not specified"),
         fleetSize: fleetSize || "Not specified",
       };
       if (role) payload.role = role;
@@ -201,16 +209,17 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
         {displayTime && (
           <p className="text-[13px] text-structural mb-3 font-mono">Submitted {displayTime}</p>
         )}
-        <p className="text-[14.5px] text-structural leading-relaxed mb-3">
-          Submit your details and we will contact you to arrange a suitable time. This form does not book a calendar
-          slot by itself.
+        <p className="mb-3 text-[14.5px] leading-relaxed text-structural">
+          {hasScheduling
+            ? "Your request was received. You can also pick a time with the scheduling link below."
+            : "Submit your details and we will contact you to arrange a suitable time. This form does not book a calendar slot by itself."}
         </p>
-        <p className="text-[14.5px] text-structural leading-relaxed mb-4">
+        <p className="mb-4 text-[14.5px] leading-relaxed text-structural">
           Your request was tagged <span className="font-mono text-navy">{intent.subjectTag}</span> for internal routing.
           We will follow up using the email you provided, as soon as practical.
         </p>
-        {hasScheduling && (
-          <p className="text-[14px] text-structural leading-relaxed">
+        {hasScheduling ? (
+          <p className="text-[14px] leading-relaxed text-structural">
             Prefer to pick a time yourself?{" "}
             <a
               href={APP_SCHEDULING_URL}
@@ -222,7 +231,12 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
             </a>
             .
           </p>
-        )}
+        ) : demoLite ? (
+          <p className="rounded-md border border-navy/10 bg-paper/80 p-3 text-[13px] leading-relaxed text-structural">
+            Self-serve scheduling is not configured on this site yet. After qualification, a booking link can be added
+            here without changing this request path.
+          </p>
+        ) : null}
       </div>
     );
   }
@@ -328,21 +342,43 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
           autoComplete="organization"
           maxLength={CONTACT_FIELD_LIMITS.company}
           helper="Operator, manager, yard, insurer, advisory, or media organization."
-          required={intent.salesFields}
+          required={intent.salesFields || demoLite}
         />
-        <SelectField
-          label="Role"
-          name="role"
-          options={[...ROLE_OPTIONS]}
-          helper="Helps route your request. Optional."
-          required={false}
-          placeholder="Select a role (optional)"
-        />
+        {!demoLite ? (
+          <SelectField
+            label="Role"
+            name="role"
+            options={[...ROLE_OPTIONS]}
+            helper="Helps route your request. Optional."
+            required={false}
+            placeholder="Select a role (optional)"
+          />
+        ) : (
+          <SelectField
+            label="Fleet size"
+            name="fleetSize"
+            error={errors.fleetSize}
+            options={[...FLEET_SIZE_OPTIONS]}
+            helper="Approximate scope is enough."
+            required
+          />
+        )}
       </div>
 
-      {intent.salesFields && (
+      {demoLite && (
+        <SelectField
+          label="Primary objective"
+          name="objective"
+          error={errors.objective}
+          options={[...OBJECTIVE_OPTIONS]}
+          helper="Helps us prepare the right demonstration."
+          required
+        />
+      )}
+
+      {fullSalesFields && (
         <>
-          <div className="grid sm:grid-cols-2 gap-5">
+          <div className="grid gap-5 sm:grid-cols-2">
             <SelectField
               label="Fleet size"
               name="fleetSize"
@@ -361,7 +397,7 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
             />
           </div>
 
-          <div className="grid sm:grid-cols-2 gap-5">
+          <div className="grid gap-5 sm:grid-cols-2">
             <SelectField
               label="Objective"
               name="objective"
@@ -381,7 +417,7 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
           </div>
 
           <div>
-            <label htmlFor="currentProcess" className="block text-[13.5px] font-medium text-navy mb-1.5">
+            <label htmlFor="currentProcess" className="mb-1.5 block text-[13.5px] font-medium text-navy">
               Current process{" "}
               <span className="font-normal text-structural" aria-hidden="true">
                 (optional)
@@ -394,14 +430,14 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
               id="currentProcess"
               name="currentProcess"
               rows={3}
-              className="w-full border rounded-sm px-3.5 py-2.5 text-[15px] bg-white"
+              className="w-full rounded-sm border bg-white px-3.5 py-2.5 text-[15px]"
               style={{ borderColor: "var(--hairline-strong)" }}
               aria-describedby="currentProcess-helper"
               maxLength={CONTACT_FIELD_LIMITS.currentProcess}
             />
           </div>
 
-          <div className="grid sm:grid-cols-2 gap-5">
+          <div className="grid gap-5 sm:grid-cols-2">
             <SelectField
               label="Document request"
               name="documentRequestType"
@@ -412,7 +448,7 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
             />
             <div className="flex flex-col justify-end">
               <div className="rounded-sm border px-3.5 py-3" style={{ borderColor: "var(--hairline-strong)" }}>
-                <label htmlFor="documentInterest" className="flex items-start gap-3 cursor-pointer">
+                <label htmlFor="documentInterest" className="flex cursor-pointer items-start gap-3">
                   <input
                     id="documentInterest"
                     name="documentInterest"
@@ -447,35 +483,43 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
       )}
 
       <div>
-        <label htmlFor="message" className="block text-[13.5px] font-medium text-navy mb-1.5">
-          Message{" "}
+        <label htmlFor="message" className="mb-1.5 block text-[13.5px] font-medium text-navy">
+          {demoLite ? "Anything else to prepare" : "Message"}{" "}
           <span className="font-normal text-structural" aria-hidden="true">
-            (required)
+            {demoLite ? "(optional)" : "(required)"}
           </span>
         </label>
         <p id="message-helper" className="mb-2 text-[12.5px] leading-relaxed text-structural">
-          {intent.salesFields
-            ? "Useful context: upcoming survey or review pressure, evidence condition, vessel scope, or the workflow that is breaking down."
-            : "Share the context we need to route this correctly. Avoid pasting secrets or exploit payloads."}
+          {demoLite
+            ? "Optional context — survey pressure, vessel types, or who should join. Leave blank if the five fields above are enough."
+            : fullSalesFields
+              ? "Useful context: upcoming survey or review pressure, evidence condition, vessel scope, or the workflow that is breaking down."
+              : "Share the context we need to route this correctly. Avoid pasting secrets or exploit payloads."}
         </p>
         <textarea
           id="message"
           name="message"
-          rows={5}
-          required
-          aria-required="true"
-          className="w-full border rounded-sm px-3.5 py-2.5 text-[15px] bg-white"
+          rows={demoLite ? 3 : 5}
+          required={!demoLite}
+          aria-required={demoLite ? undefined : true}
+          className="w-full rounded-sm border bg-white px-3.5 py-2.5 text-[15px]"
           style={{ borderColor: errors.message ? "var(--status-critical)" : "var(--hairline-strong)" }}
           aria-invalid={Boolean(errors.message)}
           aria-describedby={errors.message ? "message-helper message-error" : "message-helper"}
           maxLength={CONTACT_FIELD_LIMITS.message}
         />
         {errors.message && (
-          <p id="message-error" className="text-[13px] mt-1.5" style={{ color: "var(--status-critical)" }}>
+          <p id="message-error" className="mt-1.5 text-[13px]" style={{ color: "var(--status-critical)" }}>
             {errors.message}
           </p>
         )}
       </div>
+
+      {demoLite && hasScheduling && (
+        <p className="rounded-md border border-ocean/15 bg-ocean/5 px-3.5 py-3 text-[13px] leading-relaxed text-structural">
+          After you submit, a scheduling link will be available so you can pick a time if you prefer.
+        </p>
+      )}
 
       <p className="text-[12.5px] leading-relaxed text-structural">
         By submitting, you agree we may use the details you provide to respond to this request. See our{" "}

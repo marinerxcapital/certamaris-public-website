@@ -5,8 +5,12 @@ import { CtaBand } from "@/components/CtaBand";
 import { PageHero } from "@/components/PageHero";
 import { Reveal, RevealGroup } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
+import { StatusBadge } from "@/components/StatusBadge";
 import { pageMetadata } from "@/lib/metadata";
-import { TRUST_CENTER_LINKS } from "@/lib/security-trust";
+import {
+  TRUST_CENTER_CATEGORIES,
+  TRUST_STATUS_LEGEND,
+} from "@/lib/security-trust";
 import { CORPORATE_LAST_REVIEWED, trustCenterOverview } from "@/lib/trust-corporate";
 
 export const metadata = pageMetadata(
@@ -25,6 +29,27 @@ function formatReviewDate(isoDate: string): string {
     timeZone: "UTC",
   });
 }
+
+const operatingTopics = [
+  {
+    id: "infrastructure",
+    eyebrow: "Infrastructure",
+    title: "Hosting, architecture, and access",
+    body: `${trustCenterOverview.architectureSummary} ${trustCenterOverview.hostingSummary} ${trustCenterOverview.accessControlSummary}`,
+  },
+  {
+    id: "continuity",
+    eyebrow: "Business continuity",
+    title: "Incident response and recovery boundaries",
+    body: `${trustCenterOverview.incidentResponseSummary} ${trustCenterOverview.continuitySummary}`,
+  },
+  {
+    id: "data-flow",
+    eyebrow: "Data flow",
+    title: "How customer content moves",
+    body: trustCenterOverview.dataFlowSummary,
+  },
+] as const;
 
 export default function TrustCenterPage() {
   const reviewedLabel = formatReviewDate(CORPORATE_LAST_REVIEWED);
@@ -46,81 +71,115 @@ export default function TrustCenterPage() {
 
       <Section spacing="compact">
         <Reveal className="max-w-3xl">
-          <p className="text-[13px] font-mono text-structural mb-6">Last reviewed: {reviewedLabel}</p>
+          <p className="mb-6 font-mono text-[13px] text-structural">Last reviewed: {reviewedLabel}</p>
+          <Eyebrow>Status vocabulary</Eyebrow>
+          <h2 className="mb-3 text-[24px] leading-[1.16] sm:text-[28px]">
+            Claims stay labeled — never upgraded for marketing.
+          </h2>
+          <p className="mb-5 max-w-2xl text-[15px] leading-relaxed text-structural">
+            Trust and security pages use one StatusBadge system. Planned stays Planned. Not claimed stays not claimed.
+            Formal certifications are not invented here.
+          </p>
+          <ul className="flex flex-wrap gap-3" aria-label="Trust maturity status legend">
+            {TRUST_STATUS_LEGEND.map((item) => (
+              <li
+                key={item.status}
+                className="flex max-w-xs items-start gap-2.5 rounded-md border border-navy/10 bg-white/80 p-3"
+              >
+                <StatusBadge trustStatus={item.status} />
+                <p className="pt-0.5 text-[13px] leading-snug text-structural">{item.description}</p>
+              </li>
+            ))}
+          </ul>
         </Reveal>
-        <RevealGroup className="grid sm:grid-cols-3 gap-5" stagger={0.05}>
+      </Section>
+
+      <Section surface="paper" spacing="compact">
+        <Reveal className="mb-8 max-w-2xl">
+          <Eyebrow>Operating principles</Eyebrow>
+          <h2 className="section-h2 section-h2--lg">How this Trust Center is written.</h2>
+        </Reveal>
+        <RevealGroup className="grid gap-4 md:grid-cols-3" stagger={0.04}>
           {trustCenterOverview.principles.map((item) => (
-            <div key={item.title} className="premium-card p-6">
-              <h2 className="text-[16.5px] font-semibold mb-2">{item.title}</h2>
-              <p className="text-[14px] text-structural leading-relaxed">{item.body}</p>
+            <div key={item.title} className="rounded-md border border-navy/10 bg-white/85 p-5">
+              <h3 className="mb-2 text-[15.5px] font-semibold text-navy">{item.title}</h3>
+              <p className="text-[14px] leading-relaxed text-structural">{item.body}</p>
             </div>
           ))}
         </RevealGroup>
       </Section>
 
-      <Section surface="paper" spacing="compact">
-        <div className="grid lg:grid-cols-2 gap-10">
-          <Reveal>
-            <Eyebrow>Architecture</Eyebrow>
-            <h2 className="text-[26px] leading-[1.16] mb-4">High-level product architecture</h2>
-            <p className="text-[15px] text-structural leading-relaxed">
-              {trustCenterOverview.architectureSummary}
-            </p>
-          </Reveal>
-          <Reveal delay={0.05}>
-            <Eyebrow>Data flow</Eyebrow>
-            <h2 className="text-[26px] leading-[1.16] mb-4">How customer content moves</h2>
-            <p className="text-[15px] text-structural leading-relaxed">{trustCenterOverview.dataFlowSummary}</p>
-          </Reveal>
-        </div>
-      </Section>
-
-      <Section spacing="compact">
-        <div className="grid lg:grid-cols-2 gap-10">
-          <Reveal>
-            <Eyebrow>Hosting</Eyebrow>
-            <h2 className="text-[24px] leading-[1.16] mb-3">Cloud-hosted, details under procurement</h2>
-            <p className="text-[15px] text-structural leading-relaxed">{trustCenterOverview.hostingSummary}</p>
-          </Reveal>
-          <Reveal delay={0.05}>
-            <Eyebrow>Access control</Eyebrow>
-            <h2 className="text-[24px] leading-[1.16] mb-3">Authentication, RBAC, and tenancy</h2>
-            <p className="text-[15px] text-structural leading-relaxed">
-              {trustCenterOverview.accessControlSummary}
-            </p>
-          </Reveal>
-          <Reveal>
-            <Eyebrow>Incident response</Eyebrow>
-            <h2 className="text-[24px] leading-[1.16] mb-3">Internal process; contract defines notice</h2>
-            <p className="text-[15px] text-structural leading-relaxed">
-              {trustCenterOverview.incidentResponseSummary}
-            </p>
-          </Reveal>
-          <Reveal delay={0.05}>
-            <Eyebrow>Business continuity</Eyebrow>
-            <h2 className="text-[24px] leading-[1.16] mb-3">Backup and recovery boundaries</h2>
-            <p className="text-[15px] text-structural leading-relaxed">{trustCenterOverview.continuitySummary}</p>
-          </Reveal>
-        </div>
-      </Section>
-
-      <Section surface="paper" spacing="compact">
-        <Reveal className="max-w-2xl mb-10">
-          <Eyebrow>Trust resources</Eyebrow>
-          <h2 className="section-h2 section-h2--lg">Browse the Trust Center pages.</h2>
+      <Section id="trust-directory" spacing="compact">
+        <Reveal className="mb-10 max-w-2xl">
+          <Eyebrow>Directory</Eyebrow>
+          <h2 className="section-h2 section-h2--lg">Security through status — organized for procurement.</h2>
+          <p className="mt-4 text-[15px] leading-relaxed text-structural">
+            Browse by diligence topic. Each destination is an existing public route or an in-page operating summary.
+          </p>
         </Reveal>
-        <RevealGroup className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5" stagger={0.04}>
-          {TRUST_CENTER_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="premium-card p-6 block transition-colors hover:border-ocean/30"
-            >
-              <h3 className="text-[16px] font-semibold mb-2 text-navy">{link.title}</h3>
-              <p className="text-[14px] text-structural leading-relaxed">{link.description}</p>
-            </Link>
+        <nav aria-label="Trust Center categories" className="space-y-8">
+          {TRUST_CENTER_CATEGORIES.map((category) => (
+            <Reveal key={category.id}>
+              <section
+                aria-labelledby={`trust-cat-${category.id}`}
+                className="rounded-md border border-navy/10 bg-white/70 p-5 sm:p-6"
+              >
+                <div className="mb-4 flex flex-wrap items-baseline justify-between gap-3 border-b border-navy/8 pb-4">
+                  <div>
+                    <h3 id={`trust-cat-${category.id}`} className="text-[18px] font-semibold text-navy">
+                      {category.title}
+                    </h3>
+                    <p className="mt-1 max-w-2xl text-[13.5px] leading-relaxed text-structural">
+                      {category.summary}
+                    </p>
+                  </div>
+                </div>
+                <ul className="grid gap-3 sm:grid-cols-2">
+                  {category.links.map((link) => (
+                    <li key={`${category.id}-${link.href}-${link.title}`}>
+                      <Link
+                        href={link.href}
+                        className="group flex h-full flex-col rounded-md border border-transparent px-3 py-2.5 transition hover:border-ocean/25 hover:bg-ocean/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ocean focus-visible:ring-offset-2"
+                      >
+                        <span className="text-[15px] font-semibold text-navy group-hover:text-ocean">
+                          {link.title}
+                        </span>
+                        <span className="mt-1 text-[13px] leading-relaxed text-structural">
+                          {link.description}
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            </Reveal>
           ))}
-        </RevealGroup>
+        </nav>
+      </Section>
+
+      <Section surface="paper" spacing="compact">
+        <Reveal className="mb-10 max-w-2xl">
+          <Eyebrow>Operating posture</Eyebrow>
+          <h2 className="section-h2 section-h2--lg">Infrastructure, continuity, and data movement.</h2>
+          <p className="mt-4 text-[15px] leading-relaxed text-structural">
+            High-level posture for security and procurement reviewers. Detailed control status lives on the security
+            page; contractual recovery and residency terms are handled in procurement.
+          </p>
+        </Reveal>
+        <div className="space-y-6">
+          {operatingTopics.map((topic) => (
+            <Reveal key={topic.id}>
+              <article
+                id={topic.id}
+                className="scroll-mt-[calc(var(--header-offset,4.5rem)+1rem)] rounded-md border border-navy/10 bg-white/85 p-6"
+              >
+                <Eyebrow>{topic.eyebrow}</Eyebrow>
+                <h3 className="mb-3 mt-2 text-[20px] leading-[1.2] text-navy">{topic.title}</h3>
+                <p className="max-w-3xl text-[15px] leading-relaxed text-structural">{topic.body}</p>
+              </article>
+            </Reveal>
+          ))}
+        </div>
       </Section>
 
       <CtaBand

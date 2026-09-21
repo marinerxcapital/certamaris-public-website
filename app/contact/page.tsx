@@ -18,7 +18,7 @@ export const metadata = pageMetadata(
 const expectations = [
   {
     title: "Submit details — we arrange the time",
-    body: "Submit your details and we will contact you to arrange a suitable time. The form does not create a calendar event by itself.",
+    body: "Submit your details and we will contact you to arrange a suitable time. The form does not create a calendar event by itself unless a scheduling link is configured after you qualify.",
   },
   {
     title: "Intent-based routing",
@@ -26,7 +26,7 @@ const expectations = [
   },
   {
     title: "What to prepare",
-    body: "For sales and readiness: vessel count, role, objective, timeline, and current process help. Nothing needs to be polished before you write in.",
+    body: "Demo is low-friction: name, work email, company, fleet size, and primary objective. Sales and readiness add vessel count, timeline, and optional process context.",
   },
   {
     title: "What happens next",
@@ -35,10 +35,10 @@ const expectations = [
 ];
 
 const requestChecklist = [
-  "Fleet size and vessel types in scope",
-  "Primary pressure: demo, readiness, procurement, security, support, or disclosure",
-  "Current evidence condition and target planning horizon",
-  "Documents needed, if this is a procurement or security request",
+  "Demo: name, work email, company, fleet size, primary objective",
+  "Sales / readiness: add vessel count, timeline, and current process if known",
+  "Procurement / security: documents needed and organization context",
+  "Separate intents stay separate — press, careers, partners, privacy, disclosure",
 ];
 
 export default function ContactPage() {

@@ -558,8 +558,13 @@ export type ContactIntentConfig = {
   title: string;
   intro: string;
   submitLabel: string;
-  /** Sales-shaped forms collect fleet/objective fields. */
+  /** Sales-shaped forms collect fleet/objective/timeline fields. */
   salesFields: boolean;
+  /**
+   * Demo-only low-friction path: name, work email, company, fleet size, primary objective.
+   * Message and timeline stay optional; other sales extras are hidden.
+   */
+  demoLite?: boolean;
 };
 
 export const CONTACT_INTENTS: ContactIntentConfig[] = [
@@ -570,9 +575,10 @@ export const CONTACT_INTENTS: ContactIntentConfig[] = [
     eyebrow: "Request a demo",
     title: "Request a product demonstration.",
     intro:
-      "Share your fleet context and what you want to see. Submit your details and we will contact you to arrange a suitable time.",
+      "Five fields are enough: name, work email, company, fleet size, and what you want to see. We will follow up to arrange a suitable time.",
     submitLabel: "Request demo",
     salesFields: true,
+    demoLite: true,
   },
   {
     id: "sales",

@@ -18,9 +18,11 @@ const args = new Map(process.argv.slice(2).map((arg) => {
 const userBase = args.get("base");
 const mode = userBase ? "remote" : "local";
 const base = userBase ? String(userBase).replace(/\/+$/, "") : `http://127.0.0.1:${PORT}`;
+const qaRunId = new Date().toISOString().replace(/[:.]/g, "-");
 const artifactRoot = path.join("qa-artifacts", `ux-audit-${mode}-${new Date().toISOString().replace(/[:.]/g, "-")}`);
 const screenshotDir = path.join(artifactRoot, "screenshots");
 fs.mkdirSync(screenshotDir, { recursive: true });
+let qaNavigationIndex = 0;
 
 const FULL_ROUTES = [
   "/",
@@ -50,14 +52,14 @@ const FEATURE_CAPTURES = [
   { name: "home-fleet-assurance-workbench", route: "/", selector: '[data-qa="fleet-assurance-workbench"]' },
   {
     name: "home-lifecycle-pkg-state",
-    route: "/",
+    route: "/?lifecycle=PKG",
     selector: '[data-qa="assurance-lifecycle-teaser"]',
     before: async (page) => {
       const teaser = page.locator('[data-qa="assurance-lifecycle-teaser"]');
-      for (const code of ["REQ", "APP", "CTL", "ASM", "EVD", "FND", "RSK", "CAP", "QA", "PKG"]) {
-        await teaser.getByRole("button", { name: new RegExp(`\\b${code}\\b`) }).click();
-      }
-      await page.getByRole("heading", { name: "Release package" }).waitFor();
+      await teaser.waitFor({ state: "visible", timeout: 15000 });
+      await teaser.scrollIntoViewIfNeeded();
+      await page.waitForTimeout(750);
+      await waitForLifecyclePanel(page, "10 PKG", "Release package");
     },
   },
   {
@@ -68,6 +70,31 @@ const FEATURE_CAPTURES = [
   { name: "pricing-calculator-v2", route: "/pricing", selector: '[data-qa="pricing-calculator-v2"]' },
   { name: "evidence-simulator-v2", route: "/platform/evidence", selector: '[data-qa="evidence-simulator-v2"]' },
 ];
+
+const LIFECYCLE_LABELS = {
+  REQ: "Requirement",
+  APP: "Applicability",
+  CTL: "Control",
+  ASM: "Assessment",
+  EVD: "Evidence",
+  FND: "Finding",
+  RSK: "Risk",
+  CAP: "Corrective action",
+  QA: "QA review",
+  PKG: "Release package",
+};
+
+async function waitForLifecyclePanel(page, code, label) {
+  await page.waitForFunction(
+    ({ code, label }) => {
+      const panel = document.querySelector('[data-qa="assurance-lifecycle-teaser"] article');
+      const text = panel?.textContent?.replace(/\s+/g, " ") ?? "";
+      return text.includes(code) && text.includes(label);
+    },
+    { code, label },
+    { timeout: 15000 }
+  );
+}
 
 const MIME = {
   ".html": "text/html; charset=utf-8",
@@ -88,6 +115,12 @@ const MIME = {
 
 function routeName(route) {
   return (route === "/" ? "home" : route.replace(/^\//, "").replace(/[/?#=&]+/g, "-")).replace(/-+$/g, "");
+}
+
+function routeUrl(route) {
+  const url = new URL(route, `${base}/`);
+  if (mode === "remote") url.searchParams.set("__qa", `${qaRunId}-${++qaNavigationIndex}`);
+  return url.toString();
 }
 
 function resolveFile(urlPath) {
@@ -198,7 +231,11 @@ async function main() {
 
   const axeSource = fs.readFileSync("node_modules/axe-core/axe.min.js", "utf8");
   const browser = await chromium.launch();
-  const context = await browser.newContext({ viewport: { width: 1440, height: 1100 }, deviceScaleFactor: 1 });
+  const context = await browser.newContext({
+    viewport: { width: 1440, height: 1100 },
+    deviceScaleFactor: 1,
+    extraHTTPHeaders: mode === "remote" ? { "Cache-Control": "no-cache", Pragma: "no-cache" } : undefined,
+  });
   const page = await context.newPage();
   const report = {
     mode,
@@ -212,24 +249,24 @@ async function main() {
     failures: [],
   };
 
-  async function captureConsoleFor(route, action) {
+  async function captureConsoleFor(route, action, targetPage = page) {
     const messages = [];
     const pageErrors = [];
     const onConsole = (msg) => messages.push({ type: msg.type(), text: msg.text() });
     const onPageError = (err) => pageErrors.push(err.message);
-    page.on("console", onConsole);
-    page.on("pageerror", onPageError);
+    targetPage.on("console", onConsole);
+    targetPage.on("pageerror", onPageError);
     try {
       const result = await action();
       return { result, messages, pageErrors };
     } finally {
-      page.off("console", onConsole);
-      page.off("pageerror", onPageError);
+      targetPage.off("console", onConsole);
+      targetPage.off("pageerror", onPageError);
     }
   }
 
   for (const route of FULL_ROUTES) {
-    const url = `${base}${route}`;
+      const url = routeUrl(route);
     const { messages, pageErrors } = await captureConsoleFor(route, async () => {
       const response = await page.goto(url, { waitUntil: "load", timeout: 45000 });
       await page.waitForTimeout(250);
@@ -249,25 +286,27 @@ async function main() {
   }
 
   for (const feature of FEATURE_CAPTURES) {
-    const url = `${base}${feature.route}`;
+    const featurePage = await context.newPage();
+    const url = routeUrl(feature.route);
     const { messages, pageErrors } = await captureConsoleFor(feature.route, async () => {
-      await page.goto(url, { waitUntil: "load", timeout: 45000 });
-      if (feature.before) await feature.before(page);
-      await page.locator(feature.selector).waitFor({ state: "visible", timeout: 15000 });
-    });
-    const locator = page.locator(feature.selector);
+      await featurePage.goto(url, { waitUntil: "load", timeout: 45000 });
+      if (feature.before) await feature.before(featurePage);
+      await featurePage.locator(feature.selector).waitFor({ state: "visible", timeout: 15000 });
+    }, featurePage);
+    const locator = featurePage.locator(feature.selector);
     const screenshot = path.join(screenshotDir, `feature-${feature.name}.png`);
     await locator.screenshot({ path: screenshot });
-    const overflowX = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
+    const overflowX = await featurePage.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
     const cspMessages = messages.filter((msg) => /content security policy|style-src/i.test(msg.text));
     report.features.push({ ...feature, overflowX, consoleErrors: messages.filter((msg) => msg.type === "error").length + pageErrors.length, cspMessages, pageErrors, screenshot });
     if (overflowX || cspMessages.length || pageErrors.length) {
       report.failures.push(`feature ${feature.name}: overflowX=${overflowX} csp=${cspMessages.length} pageErrors=${pageErrors.length}`);
     }
+    await featurePage.close();
   }
 
   for (const route of ["/platform", "/security", "/resources"]) {
-    await page.goto(`${base}${route}`, { waitUntil: "load", timeout: 45000 });
+    await page.goto(routeUrl(route), { waitUntil: "load", timeout: 45000 });
     await settleProductExhibits(page);
     const exhibits = await visibleProductExhibits(page);
     report.productExhibits.push({ route, exhibits });
@@ -291,31 +330,50 @@ async function main() {
     { route: "/resources", selector: "main h1" },
     { route: "/security", selector: "main h1" },
   ]) {
-    await page.goto(`${base}${check.route}`, { waitUntil: "load", timeout: 45000 });
+    await page.goto(routeUrl(check.route), { waitUntil: "load", timeout: 45000 });
     const result = await noHeaderOverlap(page, check.selector);
     report.anchorChecks.push({ ...check, ...result });
     if (!result.ok) report.failures.push(`header overlap ${check.route} ${check.selector}: targetTop=${result.targetTop} headerBottom=${result.headerBottom}`);
   }
 
-  await page.goto(`${base}/`, { waitUntil: "load" });
+  await page.goto(routeUrl("/"), { waitUntil: "load" });
   const teaser = page.locator('[data-qa="assurance-lifecycle-teaser"]');
+  await teaser.waitFor({ state: "visible", timeout: 15000 });
+  await teaser.scrollIntoViewIfNeeded();
+  await page.waitForTimeout(750);
   for (const code of ["REQ", "APP", "CTL", "ASM", "EVD", "FND", "RSK", "CAP", "QA", "PKG"]) {
-    await teaser.getByRole("button", { name: new RegExp(`\\b${code}\\b`) }).click();
-    await page.getByText(code, { exact: true }).first().waitFor();
-  }
-  await page.getByRole("heading", { name: "Release package" }).waitFor();
-
-  await page.goto(`${base}/platform`, { waitUntil: "load" });
-  const platformModules = await page.locator("#modules").innerText();
-  if ((platformModules.match(/\bCurrent\b/g) || []).length >= 8) {
-    report.failures.push("/platform module list still appears uniformly Current");
+    const button = teaser.getByRole("button", { name: new RegExp(`\\b${code}\\b`) });
+    await button.click();
+    await page.waitForTimeout(180);
+    const panelText = await teaser.locator("article").innerText();
+    if (!panelText.includes(code) || !panelText.includes(LIFECYCLE_LABELS[code])) {
+      report.failures.push(`homepage lifecycle ${code} did not update panel; panel=${panelText.replace(/\s+/g, " ").slice(0, 120)}`);
+    }
   }
 
-  await page.goto(`${base}/demo`, { waitUntil: "load" });
+  await page.goto(routeUrl("/platform"), { waitUntil: "load" });
+  const platformModuleRows = await page.locator("#modules .platform-module-row").evaluateAll((rows) =>
+    rows.map((row) => row.textContent?.replace(/\s+/g, " ").trim() ?? "")
+  );
+  const statusRows = platformModuleRows.filter((row) =>
+    ["Current + configurable", "Current + preview", "Current + planned", "Current"].some((label) =>
+      row.includes(label)
+    )
+  );
+  const mixedRows = platformModuleRows.filter((row) =>
+    ["Current + configurable", "Current + preview", "Current + planned"].some((label) => row.includes(label))
+  );
+  if (platformModuleRows.length !== 11 || statusRows.length !== 11 || mixedRows.length === 0) {
+    report.failures.push(
+      `/platform module list status labels incomplete: rows=${platformModuleRows.length} statusRows=${statusRows.length} mixedRows=${mixedRows.length}`
+    );
+  }
+
+  await page.goto(routeUrl("/demo"), { waitUntil: "load" });
   const demoText = await page.locator("main").innerText();
   if (/\bFLT\b|\bVSL\b/.test(demoText)) report.failures.push("/demo still contains undocumented FLT/VSL codes");
 
-  await page.goto(`${base}/demo?stage=CAP#chain-inspector`, { waitUntil: "load" });
+  await page.goto(routeUrl("/demo?stage=CAP#chain-inspector"), { waitUntil: "load" });
   await page.getByRole("button", { name: /CAP-0455/ }).click();
   const inspectorText = await page.locator('[data-qa="chain-custody-inspector"]').innerText();
   if (/2026-08-15|2026-07-20/.test(inspectorText) || !/Demo day \+21/.test(inspectorText)) {
@@ -323,7 +381,7 @@ async function main() {
   }
 
   for (const route of ["/", "/pricing", "/platform", "/security"]) {
-    await page.goto(`${base}${route}`, { waitUntil: "load", timeout: 45000 });
+    await page.goto(routeUrl(route), { waitUntil: "load", timeout: 45000 });
     await page.evaluate(axeSource);
     const violations = await page.evaluate(async () => {
       const result = await window.axe.run(document, {

@@ -51,7 +51,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:grid-cols-5">
           {FOOTER_GROUPS.map((group) => (
             <div key={group.title}>
               <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.12em] text-white/70">{group.title}</p>

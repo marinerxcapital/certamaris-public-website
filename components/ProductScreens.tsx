@@ -29,6 +29,11 @@ type ProductScreenFrameProps = {
   priority?: boolean;
   className?: string;
   sizes?: string;
+  /**
+   * Art-directed crop of a tall product screenshot.
+   * `top` keeps the upper operating surface visible (hero / feature windows).
+   */
+  crop?: "none" | "top";
   /** Legacy props from the removed lightbox — accepted so existing call sites compile; unused. */
   lightboxTitle?: string;
   lightboxBody?: string;
@@ -96,10 +101,12 @@ function ProductScreenExhibit({
   annotations,
   width = 1440,
   height = 1040,
+  crop = "none",
 }: ProductScreenFrameProps) {
   const visibleAnnotations = clampAnnotations(annotations);
   const resolvedFullSrc = fullSrc ?? src;
   const reduced = usePrefersReducedMotion();
+  const isTopCrop = crop === "top";
 
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   /** "idle" (SSR/no-JS: fully placed) → "pending" → "set" (animation done). */
@@ -133,7 +140,7 @@ function ProductScreenExhibit({
   }, [reduced]);
 
   return (
-    <figure className={`product-exhibit m-0 ${className}`}>
+    <figure className={`product-exhibit m-0 ${isTopCrop ? "product-exhibit--crop-top " : ""}${className}`}>
       <div className="overflow-hidden rounded-lg border border-navy/15 bg-white shadow-card">
         <div className="flex min-h-10 items-center justify-between gap-2 border-b border-navy/10 bg-paper px-3">
           <span className="truncate font-mono text-[11px] uppercase tracking-[0.1em] text-structural">
@@ -149,7 +156,14 @@ function ProductScreenExhibit({
             <span className="sr-only"> — opens {label} screenshot in a new tab</span>
           </a>
         </div>
-        <div ref={imageWrapRef} className="relative block bg-paper">
+        <div
+          ref={imageWrapRef}
+          className={
+            isTopCrop
+              ? "product-exhibit-viewport product-exhibit-viewport--crop-top relative block bg-paper"
+              : "relative block bg-paper"
+          }
+        >
           <ProductScreenImage
             src={src}
             alt={alt}
@@ -157,7 +171,11 @@ function ProductScreenExhibit({
             height={height}
             sizes={sizes}
             priority={priority}
-            className="h-auto w-full object-contain object-top"
+            className={
+              isTopCrop
+                ? "h-full w-full object-cover object-top"
+                : "h-auto w-full object-contain object-top"
+            }
           />
           {visibleAnnotations.length > 0 ? (
             <svg

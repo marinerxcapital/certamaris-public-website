@@ -104,3 +104,36 @@ test("parses the progressive form encoding", async () => {
     assert.equal(validateContactInput(parsed.input).ok, true);
   }
 });
+
+test("accepts a low-friction demo request without timeline or message", () => {
+  const result = validateContactInput({
+    name: "Demo Buyer",
+    email: "buyer@example.com",
+    company: "Example Fleet Co",
+    fleetSize: "6-20 vessels",
+    objective: "Product demonstration",
+    intent: "demo",
+    formStartedAt: Date.now() - 5_000,
+    idempotencyKey: "demo-lite-key",
+  });
+  assert.equal(result.ok, true);
+  if (!result.ok || result.honeypot) return;
+  assert.equal(result.contact.intent, "demo");
+  assert.equal(result.contact.subjectTag, "[demo]");
+  assert.equal(result.contact.message, "Product demonstration request.");
+  assert.equal(result.contact.timeline, "");
+});
+
+test("still requires timeline for full sales intents", () => {
+  const result = validateContactInput({
+    name: "Sales Buyer",
+    email: "buyer@example.com",
+    company: "Example Fleet Co",
+    fleetSize: "6-20 vessels",
+    objective: "Pricing and scope",
+    message: "Need a scoped proposal.",
+    intent: "sales",
+    formStartedAt: Date.now() - 5_000,
+  });
+  assert.equal(result.ok, false);
+});

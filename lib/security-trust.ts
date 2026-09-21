@@ -1,15 +1,15 @@
 /**
  * Structured vendor security & trust controls for the public Security and Trust pages.
  * Status values are deliberate: do not claim SOC 2 / ISO / pen-test outcomes here.
- * Do not invent RTO/RTO, insurance, regions, or certifications.
+ * Do not invent RTO/RPO, insurance, regions, or certifications.
  */
 
-export type TrustControlStatus =
-  | "current"
-  | "configurable"
-  | "planned"
-  | "not_claimed"
-  | "available_under_nda";
+import {
+  TRUST_MATURITY_BADGE,
+  type TrustMaturityStatus,
+} from "@/components/StatusBadge";
+
+export type TrustControlStatus = TrustMaturityStatus;
 
 export type TrustControl = {
   id: string;
@@ -21,17 +21,8 @@ export type TrustControl = {
   last_verified: string;
 };
 
-/** StatusBadge mapping for trust control status. */
-export const TRUST_STATUS_BADGE: Record<
-  TrustControlStatus,
-  { badgeStatus: "ok" | "caution" | "pending"; label: string }
-> = {
-  current: { badgeStatus: "ok", label: "Current" },
-  configurable: { badgeStatus: "caution", label: "Configurable" },
-  planned: { badgeStatus: "pending", label: "Planned" },
-  not_claimed: { badgeStatus: "pending", label: "Not claimed" },
-  available_under_nda: { badgeStatus: "caution", label: "Available under NDA" },
-};
+/** StatusBadge mapping for trust control status (single source with StatusBadge). */
+export const TRUST_STATUS_BADGE = TRUST_MATURITY_BADGE;
 
 export const SECURITY_TRUST_LAST_REVIEWED = "2026-07-31";
 
@@ -245,45 +236,191 @@ export const SECURITY_PAGE_SECTIONS = {
   },
 } as const;
 
-export const TRUST_CENTER_LINKS: { href: string; title: string; description: string }[] = [
+export type TrustCenterLink = {
+  href: string;
+  title: string;
+  description: string;
+};
+
+export type TrustCenterCategory = {
+  id: string;
+  title: string;
+  summary: string;
+  links: TrustCenterLink[];
+};
+
+/**
+ * Trust Center destination IA for security/procurement buyers.
+ * Categories mirror the public diligence map; link targets are existing routes or in-page anchors.
+ */
+export const TRUST_CENTER_CATEGORIES: TrustCenterCategory[] = [
   {
-    href: "/security",
-    title: "Security controls",
-    description: "Current, planned, configurable, and not-claimed platform controls with status labels.",
+    id: "security",
+    title: "Security",
+    summary: "Platform controls with Current / Configurable / Planned / NDA / Not claimed labels.",
+    links: [
+      {
+        href: "/security",
+        title: "Security controls",
+        description: "Tenancy, identity, encryption, operations, and assurance — with status labels.",
+      },
+    ],
   },
   {
-    href: "/legal/subprocessors",
+    id: "privacy",
+    title: "Privacy",
+    summary: "How personal data on the public site and product intake is described.",
+    links: [
+      {
+        href: "/legal/privacy",
+        title: "Privacy Policy",
+        description: "Public privacy notice for website and contact processing.",
+      },
+      {
+        href: "/legal/cookies",
+        title: "Cookie Notice",
+        description: "Cookie and similar-technology notice for the marketing site.",
+      },
+    ],
+  },
+  {
+    id: "infrastructure",
+    title: "Infrastructure",
+    summary: "Hosting, access control, and architecture boundaries published without inventing regions.",
+    links: [
+      {
+        href: "/trust#infrastructure",
+        title: "Hosting & access",
+        description: "Cloud-hosted product posture, authentication, RBAC, and tenancy summary.",
+      },
+      {
+        href: "/security",
+        title: "Control inventory",
+        description: "Detailed control list including encryption, environments, and privileged access.",
+      },
+    ],
+  },
+  {
+    id: "continuity",
+    title: "Business Continuity",
+    summary: "Backup and recovery approach without public RTO/RPO guarantees.",
+    links: [
+      {
+        href: "/trust#continuity",
+        title: "Continuity summary",
+        description: "Backup model and where contractual recovery terms are defined.",
+      },
+      {
+        href: "/trust/procurement",
+        title: "Request continuity materials",
+        description: "NDA path for continuity documentation during qualified procurement.",
+      },
+    ],
+  },
+  {
+    id: "ai-data",
+    title: "AI and Data",
+    summary: "AI provider boundaries and data classification ceilings.",
+    links: [
+      {
+        href: "/trust/ai-policy",
+        title: "AI provider & data classification policy",
+        description: "Approved AI providers, classification ceilings, human review, and inference budgets.",
+      },
+    ],
+  },
+  {
+    id: "legal",
+    title: "Legal",
+    summary: "Public legal documents and the PDF library for buyer forwarding.",
+    links: [
+      {
+        href: "/legal/library",
+        title: "Legal Library",
+        description: "Downloadable public PDFs and enterprise execution templates.",
+      },
+      {
+        href: "/legal/terms",
+        title: "Business Terms",
+        description: "Website and commercial terms published for review.",
+      },
+      {
+        href: "/legal/dpa",
+        title: "Data Processing Agreement",
+        description: "DPA text for procurement and privacy review.",
+      },
+      {
+        href: "/accessibility",
+        title: "Accessibility",
+        description: "Public-site accessibility approach and how to request materials.",
+      },
+    ],
+  },
+  {
+    id: "subprocessors",
     title: "Subprocessors",
-    description: "How infrastructure categories are described and how to request the product subprocessor list.",
+    summary: "Infrastructure categories and how to request the product subprocessor list.",
+    links: [
+      {
+        href: "/legal/subprocessors",
+        title: "Subprocessors",
+        description: "Published categories and request path for the product list under NDA.",
+      },
+    ],
   },
   {
-    href: "/trust/responsible-disclosure",
-    title: "Responsible disclosure",
-    description: "How to report a security issue to security@certamaris.com.",
+    id: "procurement",
+    title: "Procurement",
+    summary: "NDA packages, questionnaires, and the printable assurance model.",
+    links: [
+      {
+        href: "/trust/procurement",
+        title: "Procurement & security package",
+        description: "Request NDA materials, questionnaires, DPA/MSA discussion, and related documents.",
+      },
+      {
+        href: "/trust/assurance-model",
+        title: "Assurance model one-pager",
+        description: "Printable REQ→PKG operating model plus regulatory boundary.",
+      },
+    ],
   },
   {
-    href: "/trust/ai-policy",
-    title: "AI provider & data classification policy",
-    description: "Approved AI providers, data classification ceilings, human review, and inference budgets.",
+    id: "disclosure",
+    title: "Responsible Disclosure",
+    summary: "Private reporting path for security findings.",
+    links: [
+      {
+        href: "/trust/responsible-disclosure",
+        title: "Responsible disclosure",
+        description: "How to report a security issue to security@certamaris.com.",
+      },
+    ],
   },
   {
-    href: "/trust/status",
-    title: "Service status",
-    description: "Current operational status for the website, application, and API, with support escalation paths.",
+    id: "status",
+    title: "Status",
+    summary: "Operational health for website, application, and API surfaces.",
+    links: [
+      {
+        href: "/trust/status",
+        title: "Service status",
+        description: "Current operational status with support escalation paths.",
+      },
+    ],
   },
-  {
-    href: "/trust/procurement",
-    title: "Procurement & security package",
-    description: "Request NDA materials, questionnaires, DPA/MSA discussion, and related documents.",
-  },
-  {
-    href: "/trust/assurance-model",
-    title: "Assurance model one-pager",
-    description: "Printable REQ→PKG operating model plus regulatory boundary for procurement forwarding.",
-  },
-  {
-    href: "/accessibility",
-    title: "Accessibility",
-    description: "Public-site accessibility approach, limitations, and how to request materials.",
-  },
+];
+
+/** Flat list retained for consumers that do not need category grouping. */
+export const TRUST_CENTER_LINKS: TrustCenterLink[] = TRUST_CENTER_CATEGORIES.flatMap(
+  (category) => category.links
+);
+
+/** Status legend copy shared by Trust Center and Security. */
+export const TRUST_STATUS_LEGEND: { status: TrustControlStatus; description: string }[] = [
+  { status: "current", description: "Implemented for the production platform as described." },
+  { status: "configurable", description: "Available by plan, contract, or customer configuration." },
+  { status: "planned", description: "On the roadmap or enterprise path; not claimed as universally current." },
+  { status: "available_under_nda", description: "Shared during qualified procurement under confidentiality terms." },
+  { status: "not_claimed", description: "Not asserted on this website." },
 ];

@@ -90,7 +90,11 @@ export function PricingCalculator() {
             pricing plus optional remote QA-reviewed reports or on-board assessment anchors.
           </p>
 
-          <div className="mt-6 grid gap-5" aria-labelledby="pricing-calculator-heading">
+          <div
+            className="mt-6 grid gap-5"
+            aria-labelledby="pricing-calculator-heading"
+            aria-describedby={invalid ? "pricing-error" : undefined}
+          >
             <VesselInput
               id="calc-total-fleet"
               label="Total fleet vessels"
@@ -104,7 +108,11 @@ export function PricingCalculator() {
               onChange={(value) => update({ contractedVessels: value })}
             />
             {invalid ? (
-              <p id="pricing-error" className="rounded-md border border-status-critical/25 bg-white/70 p-3 text-[13px] font-medium leading-relaxed text-status-critical">
+              <p
+                id="pricing-error"
+                role="alert"
+                className="rounded-md border border-status-critical/25 bg-white/70 p-3 text-[13px] font-medium leading-relaxed text-status-critical"
+              >
                 {estimate.validation.errors.join(" ")}
               </p>
             ) : null}
@@ -188,11 +196,22 @@ function VesselInput({
   onChange: (value: number) => void;
 }) {
   const rangeValue = Math.min(value, PRICING_RANGE_MAX_VESSELS);
+  const labelId = `${id}-label`;
+  const hintId = `${id}-hint`;
+  const numberId = `${id}-exact`;
+  const valueText =
+    value >= PRICING_RANGE_MAX_VESSELS ? `${value} vessels, range at 60 plus` : `${value} vessels`;
+
   return (
     <div className="grid gap-3">
-      <label htmlFor={id} className="text-[13.5px] font-semibold text-navy">
-        {label}
-      </label>
+      <div className="flex flex-wrap items-baseline justify-between gap-2">
+        <label id={labelId} htmlFor={id} className="text-[13.5px] font-semibold text-navy">
+          {label}
+        </label>
+        <p id={hintId} className="font-mono text-[12px] text-structural">
+          {valueText}
+        </p>
+      </div>
       <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_6.5rem] sm:items-center">
         <input
           id={id}
@@ -201,17 +220,24 @@ function VesselInput({
           max={PRICING_RANGE_MAX_VESSELS}
           value={rangeValue}
           step={1}
+          aria-labelledby={labelId}
+          aria-describedby={hintId}
+          aria-valuemin={PRICING_MIN_VESSELS}
+          aria-valuemax={PRICING_RANGE_MAX_VESSELS}
           aria-valuenow={rangeValue}
-          aria-valuetext={value >= PRICING_RANGE_MAX_VESSELS ? `${value} vessels, range at 60 plus` : `${value} vessels`}
-          className="w-full accent-[#1478B8]"
+          aria-valuetext={valueText}
+          className="w-full accent-[#1478B8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ocean focus-visible:ring-offset-2"
           onChange={(event) => onChange(clampVesselCount(Number(event.target.value)))}
         />
         <input
+          id={numberId}
           type="number"
+          inputMode="numeric"
           min={PRICING_MIN_VESSELS}
           max={PRICING_MAX_VESSELS}
           value={value}
           aria-label={`${label} exact count`}
+          aria-describedby={hintId}
           className="min-h-11 rounded-md border border-navy/20 bg-white px-3 py-2 font-mono text-[14px] text-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ocean focus-visible:ring-offset-2"
           onChange={(event) => {
             if (event.target.value === "") return;

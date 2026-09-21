@@ -5,7 +5,6 @@ import { Reveal, RevealGroup } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
 import { StatusBadge } from "@/components/StatusBadge";
 import { pageMetadata } from "@/lib/metadata";
-import { TRUST_STATUS_BADGE } from "@/lib/security-trust";
 import { procurementContent } from "@/lib/trust-corporate";
 
 export const metadata = pageMetadata(
@@ -136,32 +135,29 @@ export default function ProcurementPage() {
             agreements, issued legal holds, completed corporate resolutions, or individualized contracts.
           </p>
         </Reveal>
-        <RevealGroup className="grid sm:grid-cols-2 gap-4" stagger={0.04}>
-          {procurementContent.materials.map((item) => {
-            const badge = TRUST_STATUS_BADGE[item.status];
-            return (
-              <div key={item.title} className="premium-card flex flex-col gap-3 p-5">
-                <div className="flex items-start justify-between gap-3">
-                  <h3 className="text-[15.5px] font-semibold">
-                    {"href" in item && item.href ? (
-                      <a href={item.href} className="hover:text-ocean">
-                        {item.title}
-                      </a>
-                    ) : (
-                      item.title
-                    )}
-                  </h3>
-                  <StatusBadge status={badge.badgeStatus} label={badge.label} />
-                </div>
-                <p className="text-[14px] leading-relaxed text-structural">{item.body}</p>
-                {"href" in item && item.href ? (
-                  <a href={item.href} className="text-[13.5px] font-semibold text-ocean hover:underline">
-                    Open leave-behind
-                  </a>
-                ) : null}
+        <RevealGroup className="grid gap-4 sm:grid-cols-2" stagger={0.04}>
+          {procurementContent.materials.map((item) => (
+            <div key={item.title} className="premium-card flex flex-col gap-3 p-5">
+              <div className="flex items-start justify-between gap-3">
+                <h3 className="text-[15.5px] font-semibold">
+                  {"href" in item && item.href ? (
+                    <a href={item.href} className="hover:text-ocean">
+                      {item.title}
+                    </a>
+                  ) : (
+                    item.title
+                  )}
+                </h3>
+                <StatusBadge trustStatus={item.status} />
               </div>
-            );
-          })}
+              <p className="text-[14px] leading-relaxed text-structural">{item.body}</p>
+              {"href" in item && item.href ? (
+                <a href={item.href} className="text-[13.5px] font-semibold text-ocean hover:underline">
+                  Open leave-behind
+                </a>
+              ) : null}
+            </div>
+          ))}
         </RevealGroup>
       </Section>
 

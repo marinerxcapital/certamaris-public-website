@@ -101,10 +101,19 @@ export default {
     }
 
     const assetRequest = rewriteRscRequest(request);
-    const response = await env.ASSETS.fetch(assetRequest);
+    const response = await env.ASSETS.fetch(assetFetchRequest(assetRequest));
     return withHeaders(response, request);
   },
 };
+
+function assetFetchRequest(request: Request): Request {
+  if (request.method !== "HEAD") return request;
+  return new Request(request.url, {
+    method: "GET",
+    headers: request.headers,
+    redirect: request.redirect,
+  });
+}
 
 function rewriteRscRequest(request: Request): Request {
   const url = new URL(request.url);
@@ -145,7 +154,7 @@ async function withHeaders(response: Response, request: Request): Promise<Respon
     headers.set("Cache-Control", HTML_CACHE);
   }
 
-  return new Response(response.body, {
+  return new Response(request.method === "HEAD" ? null : response.body, {
     status: response.status,
     statusText: response.statusText,
     headers,

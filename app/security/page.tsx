@@ -12,9 +12,8 @@ import { productProofScreens } from "@/lib/product-screens";
 import {
   SECURITY_PAGE_SECTIONS,
   SECURITY_TRUST_LAST_REVIEWED,
-  TRUST_STATUS_BADGE,
+  TRUST_STATUS_LEGEND,
   securityTrustControls,
-  type TrustControlStatus,
 } from "@/lib/security-trust";
 
 export const metadata = pageMetadata(
@@ -35,14 +34,6 @@ function formatReviewDate(isoDate: string): string {
   });
 }
 
-const LEGEND: { status: TrustControlStatus; description: string }[] = [
-  { status: "current", description: "Implemented for the production platform as described." },
-  { status: "configurable", description: "Available by plan, contract, or customer configuration." },
-  { status: "planned", description: "On the roadmap or enterprise path; not claimed as universally current." },
-  { status: "available_under_nda", description: "Shared during qualified procurement under confidentiality terms." },
-  { status: "not_claimed", description: "Not asserted on this website." },
-];
-
 export default function SecurityPage() {
   const reviewedLabel = formatReviewDate(SECURITY_TRUST_LAST_REVIEWED);
 
@@ -59,20 +50,17 @@ export default function SecurityPage() {
         <Reveal className="max-w-3xl">
           <p className="text-[13px] font-mono text-structural mb-6">Last reviewed: {reviewedLabel}</p>
           <Eyebrow>Status legend</Eyebrow>
-          <div className="flex flex-wrap gap-3 mt-3">
-            {LEGEND.map((item) => {
-              const badge = TRUST_STATUS_BADGE[item.status];
-              return (
-                <div
-                  key={item.status}
-                  className="liquid-glass liquid-glass--subtle lg-pad-sm flex max-w-xs items-start gap-2.5"
-                >
-                  <StatusBadge status={badge.badgeStatus} label={badge.label} />
-                  <p className="text-[13px] text-structural leading-snug pt-0.5">{item.description}</p>
-                </div>
-              );
-            })}
-          </div>
+          <ul className="mt-3 flex flex-wrap gap-3" aria-label="Security control status legend">
+            {TRUST_STATUS_LEGEND.map((item) => (
+              <li
+                key={item.status}
+                className="liquid-glass liquid-glass--subtle lg-pad-sm flex max-w-xs items-start gap-2.5"
+              >
+                <StatusBadge trustStatus={item.status} />
+                <p className="pt-0.5 text-[13px] leading-snug text-structural">{item.description}</p>
+              </li>
+            ))}
+          </ul>
           <p className="mt-6 text-[14px] text-structural leading-relaxed">
             Related:{" "}
             <Link href="/trust" className="font-medium text-ocean hover:underline">
@@ -101,24 +89,21 @@ export default function SecurityPage() {
             package, pen-test report, or substitute for contractual security exhibits.
           </p>
         </Reveal>
-        <div className="space-y-4 max-w-3xl">
-          {securityTrustControls.map((item) => {
-            const badge = TRUST_STATUS_BADGE[item.status];
-            return (
-              <Reveal key={item.id}>
-                <div className="premium-card flex items-start justify-between gap-6 p-5">
-                  <div>
-                    <p className="text-[11px] font-mono uppercase tracking-[0.12em] text-ocean mb-1.5">
-                      {item.category}
-                    </p>
-                    <h3 className="text-[15.5px] font-semibold mb-1.5">{item.title}</h3>
-                    <p className="text-[14px] text-structural leading-relaxed">{item.summary}</p>
-                  </div>
-                  <StatusBadge status={badge.badgeStatus} label={badge.label} />
+        <div className="max-w-3xl space-y-4">
+          {securityTrustControls.map((item) => (
+            <Reveal key={item.id}>
+              <div className="premium-card flex items-start justify-between gap-6 p-5">
+                <div>
+                  <p className="mb-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-ocean">
+                    {item.category}
+                  </p>
+                  <h3 className="mb-1.5 text-[15.5px] font-semibold">{item.title}</h3>
+                  <p className="text-[14px] leading-relaxed text-structural">{item.summary}</p>
                 </div>
-              </Reveal>
-            );
-          })}
+                <StatusBadge trustStatus={item.status} />
+              </div>
+            </Reveal>
+          ))}
         </div>
       </Section>
 

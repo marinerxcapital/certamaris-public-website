@@ -129,7 +129,7 @@ export default function PricingPage() {
               {pricingTiers.map((tier) => (
                 <a
                   key={tier.id}
-                  href="#package-comparison"
+                  href="#pricing-plans"
                   className="rounded-md border border-navy/10 bg-white/70 p-3 transition hover:border-ocean/35 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ocean focus-visible:ring-offset-2"
                 >
                   <span className="flex items-baseline justify-between gap-3">
@@ -144,36 +144,43 @@ export default function PricingPage() {
               ))}
             </div>
             <div className="mt-4 grid gap-2 border-t border-navy/10 pt-4 text-[13px]">
+              <a href="#pricing-plans" className="font-semibold text-navy hover:text-ocean hover:underline">
+                Review package shapes
+              </a>
+              <a href="#pricing-calculator" className="font-semibold text-navy hover:text-ocean hover:underline">
+                Open live estimate
+              </a>
               <a href="#package-comparison" className="font-semibold text-navy hover:text-ocean hover:underline">
                 Compare package detail
               </a>
               <a href="/trust/procurement" className="font-semibold text-navy hover:text-ocean hover:underline">
                 Review procurement packet
               </a>
-              <a href="/contact?intent=procurement" className="font-semibold text-navy hover:text-ocean hover:underline">
-                Start a procurement request
-              </a>
             </div>
           </div>
         }
       />
 
-      <Section spacing="compact">
-        <Reveal className="max-w-2xl mb-10">
-          <p className="text-[13px] font-mono text-structural mb-6">Last reviewed: {reviewedLabel}</p>
-          <Eyebrow>Package shapes</Eyebrow>
-          <h2 className="text-[27px] sm:text-[32px] leading-[1.16] mb-4">
-            Three ways to structure the commercial engagement.
+      <Section id="pricing-plans" spacing="compact">
+        <Reveal className="mb-10 max-w-2xl">
+          <p className="mb-6 font-mono text-[13px] text-structural">Last reviewed: {reviewedLabel}</p>
+          <Eyebrow>1 · Package shapes</Eyebrow>
+          <h2 className="mb-4 text-[27px] leading-[1.16] sm:text-[32px]">
+            Start with the plan that matches fleet structure.
           </h2>
-          <p className="text-[15px] text-structural leading-relaxed">{PRICING_BASIS_NOTE}</p>
+          <p className="text-[15px] leading-relaxed text-structural">{PRICING_BASIS_NOTE}</p>
+          <p className="mt-3 text-[13.5px] leading-relaxed text-structural">
+            Audience labels describe fit — not a “most popular” ranking. After you pick a shape, estimate annual cost
+            with the calculator below.
+          </p>
         </Reveal>
-        <div className="grid md:grid-cols-3 gap-5">
+        <div className="grid gap-5 md:grid-cols-3">
           {packageTiers.map((pkg, index) => (
             <Reveal key={pkg.name} delay={index * 0.05}>
               <article className="premium-card flex h-full flex-col p-6">
-                <p className="font-mono text-[11px] uppercase tracking-[0.1em] text-ocean mb-2">{pkg.audience}</p>
-                <h3 className="text-[19px] font-semibold mb-2">{pkg.name}</h3>
-                <p className="text-[13.5px] text-structural leading-relaxed mb-4">{pkg.summary}</p>
+                <p className="mb-2 font-mono text-[11px] uppercase tracking-[0.1em] text-ocean">{pkg.audience}</p>
+                <h3 className="mb-2 text-[19px] font-semibold">{pkg.name}</h3>
+                <p className="mb-4 text-[13.5px] leading-relaxed text-structural">{pkg.summary}</p>
                 {priceFor(pkg.name) ? (
                   <div className="mb-4 border-t border-navy/8 pt-3">
                     <p className="font-mono text-[12px] uppercase tracking-[0.1em] text-ocean">
@@ -182,7 +189,7 @@ export default function PricingPage() {
                     <p className="mt-1 text-[12.5px] text-structural">{priceFor(pkg.name)!.minimumNote}</p>
                   </div>
                 ) : null}
-                <ul className="space-y-2.5 flex-1">
+                <ul className="flex-1 space-y-2.5">
                   {pkg.features.map((feature) => (
                     <li key={feature} className="flex gap-2.5 text-[14px] leading-relaxed text-structural">
                       <span aria-hidden="true" className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-ocean" />
@@ -200,14 +207,27 @@ export default function PricingPage() {
           ))}
         </div>
         <Reveal className="mt-6">
-          <p className="text-[13.5px] text-structural leading-relaxed max-w-3xl">
+          <p className="max-w-3xl text-[13.5px] leading-relaxed text-structural">
             The tier above sets the annual platform fee and per-vessel license. Assurance engagements are priced
-            separately — see the published anchors below.
+            separately — see the published anchors below.{" "}
+            <a href="#pricing-calculator" className="font-medium text-ocean hover:underline">
+              Jump to the estimate calculator
+            </a>
+            .
           </p>
         </Reveal>
       </Section>
 
-      <Section spacing="compact">
+      <Section id="pricing-calculator" spacing="compact">
+        <Reveal className="mb-6 max-w-2xl">
+          <Eyebrow>2 · Live estimate</Eyebrow>
+          <h2 className="text-[24px] leading-[1.16] sm:text-[28px]">
+            Then size annual platform cost for your contracted vessels.
+          </h2>
+          <p className="mt-3 text-[14.5px] leading-relaxed text-structural">
+            Use the slider or type an exact vessel count. The estimate is non-binding and uses published anchors only.
+          </p>
+        </Reveal>
         <Reveal>
           <PricingCalculator />
         </Reveal>

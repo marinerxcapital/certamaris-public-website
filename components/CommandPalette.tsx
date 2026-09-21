@@ -23,7 +23,13 @@ function buildEntries(): PaletteEntry[] {
   };
   add("Home", "/", "Navigate");
   for (const group of NAV_PRIMARY) {
+    if (group.href) add(group.label, group.href, group.label);
     for (const link of group.children) add(link.label, link.href, group.label);
+    if (group.sections) {
+      for (const section of group.sections) {
+        for (const link of section.links) add(link.label, link.href, group.label);
+      }
+    }
   }
   for (const link of TRUST_LINKS) add(link.label, link.href, "Trust");
   for (const link of UTILITY_LINKS) add(link.label, link.href, "Company");
