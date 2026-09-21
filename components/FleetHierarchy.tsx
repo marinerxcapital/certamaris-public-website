@@ -72,13 +72,13 @@ export function FleetHierarchy() {
                     </Link>
                   </h4>
                   {index < hierarchyLevels.length - 1 ? (
-                    <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-ocean/80">
+                    <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-ocean-deep">
                       scopes next level
                     </span>
                   ) : null}
                 </div>
                 <p className="mt-1.5 text-[14px] leading-relaxed text-structural">{level.detail}</p>
-                <p className="mt-2 font-mono text-[11px] leading-relaxed text-navy/70">{level.sample}</p>
+                <p className="mt-2 font-mono text-[11px] leading-relaxed text-structural">{level.sample}</p>
               </div>
             </li>
           ))}

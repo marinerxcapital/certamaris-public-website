@@ -265,7 +265,7 @@ export default function HomePage() {
                   <p className="mt-1 text-[13px] text-structural">
                     {tier.audience} · {tier.platformFee} · {tier.vesselPrice}
                   </p>
-                  <p className="mt-1 text-[12.5px] text-navy/65">{tier.minimumNote}</p>
+                  <p className="mt-1 text-[12.5px] text-structural">{tier.minimumNote}</p>
                 </li>
               ))}
             </ul>
@@ -317,7 +317,7 @@ export default function HomePage() {
             <p className="mb-2 font-mono text-[11px] uppercase tracking-[0.14em] text-ocean">
               Trust &amp; regulatory boundary
             </p>
-            <p className="mb-4 text-[15px] leading-relaxed text-navy/78">{REGULATORY_BOUNDARY}</p>
+            <p className="mb-4 text-[15px] leading-relaxed text-navy">{REGULATORY_BOUNDARY}</p>
             <div className="flex flex-wrap gap-4">
               {trustLinks.map(([href, label]) => (
                 <Link key={href} href={href} className="text-[14px] font-semibold text-ocean hover:underline">

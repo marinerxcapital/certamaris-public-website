@@ -388,6 +388,10 @@ async function main() {
 
   for (const route of ["/", "/pricing", "/platform", "/security"]) {
     await page.goto(routeUrl(route), { waitUntil: "load", timeout: 45000 });
+    await page.evaluate(async () => {
+      if (document.fonts?.ready) await document.fonts.ready;
+    });
+    await page.waitForTimeout(500);
     await page.evaluate(axeSource);
     const violations = await page.evaluate(async () => {
       const result = await window.axe.run(document, {
@@ -400,11 +404,18 @@ async function main() {
           impact: violation.impact,
           help: violation.help,
           nodes: violation.nodes.length,
+          samples: violation.nodes.slice(0, 8).map((node) => ({
+            html: node.html.slice(0, 180),
+            summary: (node.failureSummary || "").replace(/\s+/g, " ").slice(0, 220),
+          })),
         }));
     });
     report.axe.push({ route, violations });
     for (const violation of violations) {
       report.failures.push(`axe ${route}: ${violation.id} ${violation.impact} x${violation.nodes}`);
+      for (const sample of violation.samples || []) {
+        report.failures.push(`axe-sample ${route}: ${sample.summary} :: ${sample.html}`);
+      }
     }
   }
 

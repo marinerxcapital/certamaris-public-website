@@ -2106,7 +2106,8 @@ figure.product-showcase-frame > div:first-child {
 
 /* Progressive reveal only when JS is active; no-JS keeps full opacity. */
 .js .lifecycle-teaser-graph:not(.is-revealed) .lifecycle-teaser-node {
-  opacity: 0.55;
+  /* Avoid opacity on text nodes — it fails WCAG contrast mid-animation. */
+  opacity: 1;
   transform: translateY(6px);
 }
 
@@ -2120,12 +2121,12 @@ figure.product-showcase-frame > div:first-child {
   width: 100%;
   min-height: 52px;
   display: grid;
-  grid-template-columns: 3.25rem minmax(0, 1fr);
+  grid-template-columns: auto 3.25rem minmax(0, 1fr);
   align-items: center;
   gap: 8px;
   border: 1px solid rgba(11, 42, 74, 0.12);
   border-radius: var(--radius-control);
-  background: rgba(255, 255, 255, 0.72);
+  background: #ffffff;
   padding: 10px 11px;
   text-align: left;
   cursor: pointer;
@@ -2139,13 +2140,14 @@ figure.product-showcase-frame > div:first-child {
   font-family: var(--font-mono), Consolas, monospace;
   font-size: 13px;
   font-weight: 600;
-  color: var(--ink-primary);
+  color: var(--ink-primary, #061e36);
 }
 
 .lifecycle-teaser-label {
   font-size: 12.5px;
   line-height: 1.3;
-  color: var(--ink-secondary);
+  /* structural navy — AA on white at small sizes (ink-secondary fails 4.5:1) */
+  color: var(--text-structural, #243748);
 }
 
 .lifecycle-teaser-connector {
