@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { IBM_Plex_Mono, Inter, Space_Grotesk } from "next/font/google";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
-import { PixelGridBackground } from "@/components/PixelGridBackground";
 import {
   SITE_CANONICAL_URL,
   SITE_DESCRIPTION,
@@ -73,7 +72,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
             />
           ))}
-          <PixelGridBackground />
           <div className="relative z-10">
             <Nav />
             <main id="main-content" tabIndex={-1}>

@@ -87,7 +87,7 @@ export const PERSONAS: Persona[] = [
 /** Default homepage copy when no persona is chosen (and for QA). */
 export const DEFAULT_HOME_COPY = {
   ledger: "MARITIME CYBER ASSURANCE",
-  headline: "Control maritime cyber assurance across every vessel.",
+  headline: "Know readiness before survey — across every vessel.",
   support:
     "One controlled record for requirements, evidence, findings, and readiness packages — inspectable from company to vessel.",
   ctaHint: "Request a demo",

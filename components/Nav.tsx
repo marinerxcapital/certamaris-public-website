@@ -416,7 +416,7 @@ export function Nav() {
       <div className="shell relative">
         <div
           className={`nav-bar liquid-glass liquid-glass--strong liquid-glass--unclipped relative z-50 flex items-center justify-between gap-2 px-3 py-2.5 sm:gap-3 sm:px-4 ${
-            scrolled ? "shadow-[0_12px_36px_rgba(1,43,109,0.12)]" : ""
+            scrolled ? "shadow-[0_6px_18px_rgba(11,42,74,0.06)]" : ""
           }`}
         >
           <Link href="/" className="flex min-w-0 shrink items-center" aria-label="CertaMaris home">
