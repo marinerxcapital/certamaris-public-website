@@ -355,18 +355,24 @@ async function main() {
   const platformModuleRows = await page.locator("#modules .platform-module-row").evaluateAll((rows) =>
     rows.map((row) => row.textContent?.replace(/\s+/g, " ").trim() ?? "")
   );
+  // Aug 24 UX audit: do NOT put uniform maturity chips on every /platform module row.
+  // Maturity/NDA context belongs on /security and /trust/procurement.
   const statusRows = platformModuleRows.filter((row) =>
-    ["Current + configurable", "Current + preview", "Current + planned", "Current"].some((label) =>
+    ["Current + configurable", "Current + preview", "Current + planned", "Not claimed"].some((label) =>
       row.includes(label)
     )
   );
-  const mixedRows = platformModuleRows.filter((row) =>
-    ["Current + configurable", "Current + preview", "Current + planned"].some((label) => row.includes(label))
-  );
-  if (platformModuleRows.length !== 11 || statusRows.length !== 11 || mixedRows.length === 0) {
+  if (platformModuleRows.length !== 11) {
+    report.failures.push(`/platform module list row count unexpected: rows=${platformModuleRows.length}`);
+  }
+  if (statusRows.length !== 0) {
     report.failures.push(
-      `/platform module list status labels incomplete: rows=${platformModuleRows.length} statusRows=${statusRows.length} mixedRows=${mixedRows.length}`
+      `/platform module list must not use uniform maturity chips: statusRows=${statusRows.length}`
     );
+  }
+  const platformBody = await page.locator("main").innerText();
+  if (!/\/security|Security/.test(platformBody) || !/procurement|Procurement/.test(platformBody)) {
+    report.failures.push("/platform missing maturity/procurement context pointers");
   }
 
   await page.goto(routeUrl("/demo"), { waitUntil: "load" });

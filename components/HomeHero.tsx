@@ -32,6 +32,7 @@ export function HomeHero() {
       <div className="shell relative z-10 py-14 sm:py-16 lg:py-20">
         <div className="hero-product-grid">
           <div className="hero-copy-block min-w-0">
+            <LiquidGlass variant="strong" padding="md" className="hero-copy-glass">
             <p className="brand-hero-mark">CertaMaris</p>
             <p className="mt-3 font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-[#0e5a8a]">
               {copy.ledger}
@@ -39,7 +40,7 @@ export function HomeHero() {
             <h1 id="hero-title" className="hero-display mt-4 max-w-[18ch]">
               {copy.headline}
             </h1>
-            <p className="mt-5 max-w-[34rem] text-[17px] font-medium leading-[1.55] text-navy/82 sm:text-[18px]">
+            <p className="mt-5 max-w-[34rem] text-[17px] font-medium leading-[1.55] text-navy sm:text-[18px]">
               {copy.support}
             </p>
 
@@ -79,7 +80,7 @@ export function HomeHero() {
               </a>
             </div>
 
-            <p className="mt-5 max-w-xl text-[13px] leading-relaxed text-navy/70">
+            <p className="mt-5 max-w-xl text-[13px] leading-relaxed text-structural">
               Workflow scope includes work aligned to IMO MSC.428(98) and IACS UR E26/E27. Official texts
               control; CertaMaris does not certify compliance or guarantee survey outcomes.
             </p>
@@ -111,6 +112,7 @@ export function HomeHero() {
                 </div>
               )}
             </div>
+            </LiquidGlass>
           </div>
 
           <div className="hero-product-plane min-w-0">
@@ -135,15 +137,15 @@ export function HomeHero() {
         </div>
 
         <div id="sample-record" className="hero-sample-plane mt-12 scroll-mt-28 lg:mt-14">
-          <div className="mb-4 max-w-2xl">
+          <LiquidGlass variant="strong" padding="md" className="mb-4 max-w-2xl">
             <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-ocean">
               Inspect one record
             </p>
-            <p className="mt-2 text-[15px] leading-relaxed text-structural">
+            <p className="mt-2 text-[15px] leading-relaxed text-navy">
               Follow a labeled sample chain from requirement to released package — the same object model
               behind the readiness surface above.
             </p>
-          </div>
+          </LiquidGlass>
           <SampleRecordExplorer
             key={copy.sampleRecordId}
             initialId={copy.sampleRecordId}
