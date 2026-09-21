@@ -1,3 +1,64 @@
+# Wow pass LIVE — 2026-09-20
+
+**Production:** https://certamaris.com · Worker `96ca441b-e8ef-4b53-bf4a-e81b8c1134a6` @100%
+**Change:** Pixel Grid removed; calm paper surfaces; hero 2-CTA + large Executive Readiness; homepage compressed to cinematic product moment spine.
+**Deploy:** `npm run build:static` + `npx wrangler deploy --config wrangler.jsonc --keep-vars`
+
+
+## SUPERGROK EXECUTION SIGN-OFF
+Primary Orchestrator: SuperGrok / Grok Build CLI (session 01a0c21f-0734-7583-8fa7-9cff68bf458e)
+Role: Principal Orchestrator / Final Integrator
+Completed: 2026-09-20T23:03:50-07:00
+
+Participating Subagents:
+- 01a0c288-a0e8-7870-a041-87ede3b9faac (Impl-Visual-Silence) | Kill Pixel Grid; flatten glass | 2026-09-20T22:58:00-07:00
+- 01a0c288-a0ea-7d23-a6ef-e02460a62225 (Impl-Hero-Wow) | Rebuild first-viewport hero | 2026-09-20T22:58:00-07:00
+- 01a0c288-a0eb-7e52-82ee-90fe08b9de32 (Impl-Homepage-Compress) | Compress homepage + cinematic spine | 2026-09-20T22:58:00-07:00
+
+Final Verification: SuperGrok / Grok Build CLI (session 01a0c21f-0734-7583-8fa7-9cff68bf458e) | 2026-09-20T23:03:50-07:00
+
+---
+# CertaMaris public website — AGENT MEMORY INDEX
+
+**Signed:** SuperGrok / Grok Build · **Date:** 2026-09-20T21:54:33-07:00  
+**Live SoT:** `C:\certamaris-startup-site-pnpm\certamaris-startup-site` · local commit `40550d2` (NO GitHub push this session)  
+**Production:** https://certamaris.com · Worker `certamaris-site` · version `c272ffe4-25e1-40a9-8a77-3e8406dae8c7` @100%
+
+> Future agents: read this section first. Deploy via `npm run build:static` + `npx wrangler deploy --config wrangler.jsonc --keep-vars`. Do not invent customers, metrics, certifications, or compliance guarantees.
+
+---
+
+## 2026-09-20 SuperGrok UI/UX master directive (COMPLETE)
+
+| Item | Detail |
+|---|---|
+| Scope | Product-led homepage, simplified nav (Product/Solutions/Resources/Pricing/Trust), Trust Center status system, low-friction demo, design tokens/motion/DomainIcons, before/with + fleet hierarchy |
+| Validation | typecheck; pricing 12/12; contact 9/9; worker 5/5; build:static 110 pages; qa:seo; qa:public-product-boundary; qa:buyer-paths; qa:excellence |
+| Production deploy | Wrangler only (NO GitHub Actions). Version `c272ffe4-25e1-40a9-8a77-3e8406dae8c7` |
+| Live verification | Homepage markers: Control maritime cyber, hero-product-grid, Inspect proof, #sample-record, #buyer-diligence, Before/With, fleet-hierarchy, regulatory boundary |
+| Hub records | `certamaris master\04_LOGS\2026-09-20-SUPERGROK-UIUX-MASTER-DIRECTIVE-COMPLETE.md` |
+
+
+## SUPERGROK EXECUTION SIGN-OFF
+Primary Orchestrator: SuperGrok / Grok Build CLI (session 01a0c21f-0734-7583-8fa7-9cff68bf458e)
+Role: Principal Orchestrator / Final Integrator
+Completed: 2026-09-20T21:54:33-07:00
+
+Participating Subagents:
+- 01a0c225-afc1-7f93-8e5b-5e2baac0d918 (Discovery-Marketing-SoT) | Discovery — marketing SoT | 2026-09-20T21:12:00-07:00
+- 01a0c225-afc1-7f93-8e5b-5e31cd40dc9e (Discovery-Platform-UI-SoT) | Discovery — platform UI SoT | 2026-09-20T21:13:00-07:00
+- 01a0c225-afc1-7f93-8e5b-5e459a946b16 (Discovery-Deploy-Live) | Discovery — deploy/live (failed; superseded) | 2026-09-20T21:07:00-07:00
+- 01a0c235-b690-7f42-8a6a-c3de7770ac3a (Impl-Nav-Shell) | Nav + footer | 2026-09-20T21:30:00-07:00
+- 01a0c235-b691-71f3-8e87-2f79d3dcb7b9 (Impl-Homepage-Transform) | Homepage transform | 2026-09-20T21:31:00-07:00
+- 01a0c235-b691-71f3-8e87-2f83997e1d54 (Impl-Trust-Demo-Contact) | Trust/demo/pricing | 2026-09-20T21:30:00-07:00
+- 01a0c235-b691-71f3-8e87-2f9c1f2fd1ca (Impl-Design-System-Polish) | Design tokens/motion/icons | 2026-09-20T21:30:00-07:00
+- 01a0c235-b691-71f3-8e87-2fa4fa974862 (Impl-Platform-UI-Polish) | Platform shared UI | 2026-09-20T21:30:00-07:00
+- 01a0c240-ee17-7852-bf03-12da1d1d6d88 (QA-Content-SEO-A11y) | Content/SEO/a11y QA | 2026-09-20T21:44:00-07:00
+- 01a0c245-1b7c-7862-a5fc-33ea26d2eada (Deploy-Platform-UI) | Platform wrangler deploy | 2026-09-20T21:55:00-07:00
+
+Final Verification: SuperGrok / Grok Build CLI (session 01a0c21f-0734-7583-8fa7-9cff68bf458e) | 2026-09-20T21:54:33-07:00
+
+---
 # CertaMaris public website — AGENT MEMORY INDEX
 
 **Signed:** Cursor Cloud Agent (Composer) · **Date:** 2026-08-16  
@@ -253,3 +314,5 @@ CHROMIUM_PATH=/usr/local/bin/google-chrome node scripts/qa/check-sample-record.m
 | `design/redesign-plan.md` | Design SoT + owner deviations (Pixel Grid) |
 
 **Signed:** Cursor Cloud Agent · 2026-08-16 · for Skyler Brown / future agents
+
+
