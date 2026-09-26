@@ -2,8 +2,8 @@
 
 **Pass:** Assurance Helix hero (landing page first viewport)
 **Repo:** `C:\certamaris-startup-site-pnpm\certamaris-startup-site` (marketing live SoT)
-**Commit:** `4be9ffb` corrective pass on top of `46675ea731fd2eb076794dcadd061da4bdf9f7d2`
-**Worker version:** `6b4c2250-45e2-441f-842a-ec04bc9b792c`
+**Commit:** `7c5a641` mockup-match corrective pass on top of `4be9ffb`
+**Worker version:** `547c484b-45ab-4191-b118-ccfdf7914711`
 **Full record:** [`../../2026-09-26-assurance-helix-hero-deployment.md`](../../2026-09-26-assurance-helix-hero-deployment.md)
 
 ## Files
@@ -23,9 +23,9 @@
     └── .hero-product-grid            (0.78fr / 1.22fr at ≥1024px)
         ├── .hero-copy-block           eyebrow · h1 (max-w-26ch) · support · 2 CTAs · sample-record link
         └── .hero-product-plane
-            └── figure.hero-helix      (product-surface exhibit; data-state, data-live, tabIndex=0)
+            └── figure.hero-helix      (mockup-aligned product-proof exhibit; data-state, data-live, tabIndex=0)
                 ├── .hero-helix__head  eyebrow + exhibit line + Full resolution link
-                ├── .hero-helix__plane (position:relative, aspect 760/540 desktop; compact mobile)
+                ├── .hero-helix__plane (position:relative, aspect 760/455 desktop; compact mobile)
                 │   ├── svg.hero-helix__svg       frame · wash · telemetry · aura · signals · strands/rungs · vessel
                 │   ├── ol.helix-trace            10 × li.helix-node (dot + tag + sr-only text)
                 │   ├── div.helix-chip--vessel    MV Certa Maris record
@@ -37,14 +37,14 @@
 
 | Constant | Value | Why |
 |---|---|---|
-| `HELIX_VIEW` | 760 × 540 | Plane aspect; labels are positioned as percentages of it |
-| `AXIS_START` / `AXIS_END` | (92, 366) → (672, 152) | Shallow rising axis |
-| `AXIS_BOW` | 24 | Gentle arc so the axis is not a straight rule |
-| `WEAVE_AMPLITUDE` | 48 | Shallow against the wavelength — ribbon, not spring |
-| `WEAVE_FLOOR` | 0.62 | Keeps the ends from pinching shut |
+| `HELIX_VIEW` | 760 × 455 | Mockup-shaped exhibit aspect; labels are positioned as percentages of it |
+| `AXIS_START` / `AXIS_END` | (78, 326) → (704, 106) | Shallow rising axis matching the target diagonal |
+| `AXIS_BOW` | 28 | Gentle arc so the axis is not a straight rule |
+| `WEAVE_AMPLITUDE` | 58 | Wide translucent strand depth without sci-fi rotation |
+| `WEAVE_FLOOR` | 0.66 | Keeps the ends from pinching shut |
 | `HALF_TURNS` | 5 | Exactly ten standing waves for ten objects |
 | `STRAND_SAMPLES` | 72 | Control points for the Catmull-Rom → cubic paths |
-| `RUNG_COUNT` | 34 | Depth-faded base pairs |
+| `RUNG_COUNT` | 42 | Depth-faded assurance links |
 
 Changing `HALF_TURNS` or the node parameterisation moves nodes off the standing
 waves, which reintroduces label collisions. Re-check with a browser overlap
@@ -74,7 +74,9 @@ Rules that must survive future edits:
 ## Content rules
 
 - Object order is the product's order and must never be reordered.
-- Record ids come from `lib/sample-record.ts`; keep them in sync.
+- Displayed record ids follow the supplied mockup: `REQ-026`, `APP-014`,
+  `CTL-041`, `ASM-023`, `EVD-238`, `FND-031`, `RSK-009`, `CAP-017`,
+  `QA-066`, `PKG-004`. Keep the object order fixed.
 - The vessel is "MV Certa Maris" — the same sample vessel the
   sample-record explorer already uses.
 - The vessel chip's fields (FLEET 01 / Container Vessel / Cyber Readiness /
@@ -84,7 +86,9 @@ Rules that must survive future edits:
 
 ## Not in this pass
 
-- No dependency change; `package.json` is untouched.
+- No dependency change. `package.json` changes only the static build command to
+  `next build --webpack` because the current Turbopack static build failed in
+  generated `next/font/google` resolution before application code.
 - No change to `/demo`, `/platform`, other product exhibits, the nav, or any
   other section. `ProductScreenFrame` and `lib/product-screens.ts` are still
   used elsewhere.
@@ -92,7 +96,7 @@ Rules that must survive future edits:
 
 ---
 
-COMPLETED BY: CODEX
+COMPLETED BY: DEEPSEEK-V4 VISION
 DATE: 2026-09-26
-TIME: 02:49 LOCAL
+TIME: 06:18 LOCAL
 STATUS: PRODUCTION DEPLOYED AND VERIFIED

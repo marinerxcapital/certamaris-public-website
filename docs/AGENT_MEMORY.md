@@ -1,9 +1,9 @@
 # Assurance Helix hero LIVE — 2026-09-26 (CURRENT)
 
-**Production:** https://certamaris.com · Worker `certamaris-site` version `6b4c2250-45e2-441f-842a-ec04bc9b792c`
-**Change:** Corrective Codex pass `4be9ffb` rebuilt the weak DeepSeek mobile result into the mockup-aligned **Assurance Helix** live product-surface exhibit: header, vessel tag, dimensional animated helix, embedded node labels, vessel line art, record tag, and legend. Copy, CTAs, and the sample-record link are unchanged.
-**Files:** `lib/assurance-helix.ts`, `components/AssuranceHelix.tsx`, `components/HomeHero.tsx`, `app/globals.css`.
-**Deploy:** `npm run build:static` + `npx wrangler deploy --config wrangler.jsonc --keep-vars` (local path — see the blocker below).
+**Production:** https://certamaris.com · Worker `certamaris-site` version `547c484b-45ab-4191-b118-ccfdf7914711`
+**Change:** Corrective Codex pass `7c5a641` tightened the landing page to the owner-supplied mockup: compact centered nav, three-line headline, first-fold product-proof surface on the right, denser dimensional animated helix, embedded target demo IDs, visible next-section transition, responsive/mobile correction, and reduced-motion static mode. Copy, CTAs, and the sample-record link are preserved.
+**Files:** `lib/assurance-helix.ts`, `components/AssuranceHelix.tsx`, `components/HomeHero.tsx`, `app/globals.css`, `package.json`.
+**Deploy:** `npm run build:static` (now `next build --webpack` for stable static export) + `npx wrangler deploy --config wrangler.jsonc --keep-vars` (local path — see the blocker below).
 **Rollback:** `npx wrangler versions deploy 96ca441b-e8ef-4b53-bf4a-e81b8c1134a6@100% --config wrangler.jsonc -y`
 **Record:** [`2026-09-26-assurance-helix-hero-deployment.md`](./2026-09-26-assurance-helix-hero-deployment.md) · [`implementation/assurance-helix-hero-20260926/`](./implementation/assurance-helix-hero-20260926/README.md)
 
@@ -18,7 +18,7 @@ This pass therefore deployed locally, per the project's documented local parity 
 
 `d49fba1` commits four source changes that were already serving in production but had never been committed: the 2026-09-21 `public/.well-known/security.txt`, the `public/_redirects` 301, and the `app/privacy` + `app/terms` legacy-title edits. Side effect already live: `check-seo` reports one duplicate title (`Privacy Policy — CertaMaris` on `/privacy` and `/legal/privacy`; `/privacy` is `noIndex`). Left as-is — legal page wording is an owner content decision.
 
-**Signed:** Codex · 2026-09-26T02:49:00-07:00
+**Signed:** DEEPSEEK-V4 VISION · 2026-09-26T06:18:00-07:00
 
 ---
 
@@ -45,8 +45,8 @@ Final Verification: SuperGrok / Grok Build CLI (session 01a0c21f-0734-7583-8fa7-
 # CertaMaris public website — AGENT MEMORY INDEX
 
 **Signed:** SuperGrok / Grok Build · **Date:** 2026-09-20T21:54:33-07:00  
-**Live SoT:** `C:\certamaris-startup-site-pnpm\certamaris-startup-site` · local commit `4be9ffb` (2026-09-26 helix corrective pass; see the banner above)  
-**Production:** https://certamaris.com · Worker `certamaris-site` · version `6b4c2250-45e2-441f-842a-ec04bc9b792c`
+**Live SoT:** `C:\certamaris-startup-site-pnpm\certamaris-startup-site` · local commit `7c5a641` (2026-09-26 mockup-match helix corrective pass; see the banner above)  
+**Production:** https://certamaris.com · Worker `certamaris-site` · version `547c484b-45ab-4191-b118-ccfdf7914711`
 
 > Future agents: read this section first. Deploy via `npm run build:static` + `npx wrangler deploy --config wrangler.jsonc --keep-vars`. Do not invent customers, metrics, certifications, or compliance guarantees.
 
@@ -57,16 +57,16 @@ Final Verification: SuperGrok / Grok Build CLI (session 01a0c21f-0734-7583-8fa7-
 | Item | Detail |
 |---|---|
 | Scope | Landing-page first viewport only: copy left, Assurance Helix live product-surface exhibit right, matching the supplied mockup. |
-| Architecture | `lib/assurance-helix.ts` (deterministic 760×540 geometry, five shallow turns, ten objects, label offsets, aura traces, signal points) + `components/AssuranceHelix.tsx` (SVG canvas, HTML label layer, two micro tags, legend, motion controller, trace-sweep layer) |
-| Object order | `REQ-0104 → APP-0231 → CTL-0389 → ASM-0512 → EVD-0847 → FND-0130 → RSK-0072 → CAP-0455 → QA-0290 → PKG-0067` — the product's own order and ids; never reorder |
+| Architecture | `lib/assurance-helix.ts` (deterministic 760×455 geometry, five shallow half-turns, ten objects, label offsets, aura traces, signal points) + `components/AssuranceHelix.tsx` (SVG canvas, HTML label layer, vessel tag, record tag, legend, motion controller, trace-sweep layer) |
+| Object order | `REQ → APP → CTL → ASM → EVD → FND → RSK → CAP → QA → PKG`; displayed mockup demo IDs are `REQ-026 → APP-014 → CTL-041 → ASM-023 → EVD-238 → FND-031 → RSK-009 → CAP-017 → QA-066 → PKG-004`; never reorder |
 | Motion | path draw + staggered reveal → ambient 52s near-invisible drift (paused off-screen) → 15s trace sweep/object progression → bounded pointer + scroll response. Reduced motion is static. |
 | Reduced motion | `data-state="static"`; animations double-gated by a `no-preference` media query; static centring uses `translate`, never `transform` |
 | Responsive | ≥1024 full composition · 640–1023 simplified scaffold · ≤639 keeps the product-surface composition with embedded on-helix labels, vessel tag, record tag, and legend. The detached two-column chip list is gone. |
-| Validation | typecheck · build:static (110 pages) · pricing 12/12 · product-proof PASS · custom Chrome viewport harness PASS (desktop/mobile/reduced motion) · live production harness PASS (no console errors, no 4xx/5xx, zero label overlaps, correct order, animation active, reduced-motion static) |
-| Production | Worker `6b4c2250-45e2-441f-842a-ec04bc9b792c`, live-verified on desktop and mobile; `helix-current`, `helix-aura`, and `helix-signal-points` present in deployed HTML. |
+| Validation | typecheck PASS · build:static PASS (110 pages) · pricing 12/12 PASS · product-proof PASS · custom Chrome viewport harness PASS at 1440/1280/tablet/mobile/reduced motion · live production harness PASS (no console errors, no 4xx/5xx, zero label overlaps, correct order, animation active, reduced-motion static) |
+| Production | Worker `547c484b-45ab-4191-b118-ccfdf7914711`, live-verified on desktop and mobile; `helix-current`, `helix-aura`, `helix-signal-points`, target demo IDs, and mockup-aligned hero layout present. |
 | Record | `docs/2026-09-26-assurance-helix-hero-deployment.md`, `docs/implementation/assurance-helix-hero-20260926/` |
 
-**Signed:** Codex · 2026-09-26T02:49:00-07:00
+**Signed:** DEEPSEEK-V4 VISION · 2026-09-26T06:18:00-07:00
 
 ---
 

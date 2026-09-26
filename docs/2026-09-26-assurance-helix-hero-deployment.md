@@ -1,5 +1,69 @@
 # 2026-09-26 — Assurance Helix hero deployment
 
+## CURRENT ADDENDUM — Mockup-match corrective pass
+
+| Item | Value |
+|---|---|
+| Domain | https://certamaris.com |
+| Worker | `certamaris-site` |
+| Deployed version | `547c484b-45ab-4191-b118-ccfdf7914711` |
+| Code commit | `7c5a641` (`feat(marketing): match landing hero mockup`) |
+| Deploy method | `npm run build:static` (explicit `next build --webpack` static export) + `npx wrangler deploy --config wrangler.jsonc --keep-vars` |
+| Visual target | Owner-supplied landing-page mockup attached in the 2026-09-26 correction request |
+| Completion | 2026-09-26 06:18 local, America/Los_Angeles |
+
+### What changed in the current pass
+
+- Tightened the first viewport to the mockup: compact centered nav, left copy at the target x-position, exact three-line headline, CTA rhythm, right product-proof exhibit high in the fold, and the `SAMPLE RECORD · DEMO DATA` section visible at the bottom of the first desktop viewport.
+- Reworked the Assurance Helix geometry from 760×540 to 760×455 so the trace fills the mockup-shaped exhibit instead of sitting small in a tall canvas.
+- Updated the visible demo ids to the mockup-aligned sequence while preserving the contractual object order: `REQ → APP → CTL → ASM → EVD → FND → RSK → CAP → QA → PKG`.
+- Strengthened the animated SVG system: denser aura paths, more signal points, wider translucent ribbons, 42 rungs, trace sweep, path draw, ordered node reveal, ambient drift, pointer response, and reduced-motion static mode.
+- Fixed the static export build path by making `build:static` use `next build --webpack`; the previous default Turbopack build failed before application code in the generated `next/font/google` resolver.
+
+### Current files changed
+
+| File | Change |
+|---|---|
+| `lib/assurance-helix.ts` | Mockup-shaped deterministic geometry, target demo ids, denser aura/signal field, wider trace, 42 depth rungs, 760×455 viewBox. |
+| `components/AssuranceHelix.tsx` | Product-proof exhibit wording, adjusted scaffold height, wash/vessel transform for the new viewport. |
+| `components/HomeHero.tsx` | Exact default three-line mockup headline while preserving persona fallback copy. |
+| `app/globals.css` | Compact nav, target hero grid/fold, headline scale, exhibit scale, ribbon/line weights, responsive/mobile behavior. |
+| `package.json` | `build:static` now runs `next build --webpack` for a stable static export. |
+
+### Current validation and live verification
+
+| Gate | Result |
+|---|---|
+| `npm run typecheck` | PASS |
+| `npm run build:static` | PASS, 110 static pages |
+| `npm run test:pricing` | PASS, 12/12 |
+| `npm run qa:product-proof` | PASS |
+| Chrome static-export harness | PASS at 1440, 1280, tablet, mobile, and reduced-motion contexts: zero horizontal overflow, zero helix label overlaps, correct order, animation active, reduced motion static |
+| Live production harness | PASS at desktop/mobile/reduced motion: no console errors, no 4xx/5xx responses, correct title, correct node order, target ids, zero label overlap, zero overflow, animation active, reduced motion static |
+| `npm run qa:responsive-a11y` | Existing local Playwright bundled Chromium ICU failure; compensated with system Chrome harness |
+| `npm run qa:seo` | Existing duplicate title failure for `/privacy` and `/legal/privacy`; unrelated to this hero pass |
+
+Live checks confirmed:
+
+- `https://certamaris.com` loads the new hero.
+- Current logo and nav render correctly.
+- Desktop first viewport matches the target composition closely.
+- Mobile no longer shows the broken detached label grid or nav/copy collision.
+- Helix animation initializes in normal motion: `helixDraw`, `helixTraceSweep`, `helixDrift`.
+- Reduced motion stays static: no trace/plane animation.
+- Node order is `REQ>APP>CTL>ASM>EVD>FND>RSK>CAP>QA>PKG`.
+- Demo ids are `REQ-026|APP-014|CTL-041|ASM-023|EVD-238|FND-031|RSK-009|CAP-017|QA-066|PKG-004`.
+- CTAs, sample-record anchor, next section, and full-resolution link render.
+
+COMPLETED BY: DEEPSEEK-V4 VISION  
+DATE: 2026-09-26  
+TIME: 06:18 LOCAL (America/Los_Angeles)  
+STATUS: PRODUCTION DEPLOYED AND VERIFIED
+
+---
+
+## Previous corrective deployment record
+
 | Item | Value |
 |---|---|
 | Domain | https://certamaris.com (and https://www.certamaris.com → 200) |

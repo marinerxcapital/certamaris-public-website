@@ -220,3 +220,8 @@ hash pipeline.
   carries the brand) and set the headline to three lines
   (`Know readiness / before survey — / across every vessel.`), which the
   hero's copy column now reproduces.
+- (2026-09-26, follow-up corrective pass) `7c5a641` is the current deployed
+  mockup-match pass, Worker `547c484b-45ab-4191-b118-ccfdf7914711`. It tightens
+  the nav width, first-fold geometry, 760×455 helix viewport, and target demo
+  ids (`REQ-026` → `PKG-004`) while preserving the fixed object order
+  `REQ → APP → CTL → ASM → EVD → FND → RSK → CAP → QA → PKG`.
