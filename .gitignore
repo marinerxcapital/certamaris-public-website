@@ -2,6 +2,7 @@ node_modules
 .next
 out
 .wrangler
+media-source
 artifacts
 qa-screenshots
 qa-artifacts

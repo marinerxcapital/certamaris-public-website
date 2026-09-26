@@ -50,6 +50,48 @@ export const capabilityPillars: CapabilityPillar[] = [
   },
 ];
 
+/**
+ * Landing-page capability band. Five domains, each grounded in capability that
+ * already exists on /platform, /solutions, or /compliance — no new claims.
+ */
+export const homeCapabilityPillars: CapabilityPillar[] = [
+  {
+    id: "maritime-cybersecurity",
+    title: "Maritime cybersecurity",
+    summary: "Cyber controls for bridge, engine, and shoreside systems joined to one fleet view.",
+    detail:
+      "Assets, control status, and ownership are recorded per vessel so an operator can see what protects what, and where a gap sits, without chasing separate registers.",
+  },
+  {
+    id: "cyber-risk-intelligence",
+    title: "Cyber-risk intelligence",
+    summary: "Requirement change tracked to the clauses, mappings, and tasks it affects.",
+    detail:
+      "When IMO, IACS, or flag-state guidance moves, the affected requirements and open implementation work are identified rather than rediscovered at the next audit.",
+  },
+  {
+    id: "compliance",
+    title: "Compliance",
+    summary: "IMO MSC.428(98) and IACS UR E26/E27 workflows, with the boundary stated.",
+    detail:
+      "Requirements are mapped to controls and evidence with an explicit regulatory boundary: official texts control and qualified human review decides applicability.",
+  },
+  {
+    id: "assurance",
+    title: "Assurance",
+    summary: "Evidence, findings, and corrective actions kept in one reviewable chain.",
+    detail:
+      "Every artifact keeps its custodian, version, and reviewer decision; findings separate condition, criterion, evidence, and owner response.",
+  },
+  {
+    id: "operational-resilience",
+    title: "Operational resilience",
+    summary: "Readiness packages assembled from approved work, not rebuilt before survey.",
+    detail:
+      "Scope, assessment basis, findings, corrective actions, and plan crosswalks compile into one reviewable set with gaps flagged before a surveyor finds them.",
+  },
+];
+
 export type ProcessStep = {
   number: string;
   title: string;

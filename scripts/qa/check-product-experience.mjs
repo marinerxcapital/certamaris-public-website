@@ -24,6 +24,8 @@ const MIME = {
   ".xml": "application/xml",
   ".txt": "text/plain",
   ".avif": "image/avif",
+  ".mp4": "video/mp4",
+  ".webm": "video/webm",
 };
 
 function resolveFile(urlPath) {
@@ -61,7 +63,7 @@ async function main() {
   }
 
   await new Promise((resolve) => server.listen(PORT, resolve));
-  const browser = await chromium.launch();
+  const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined });
   const context = await browser.newContext({ viewport: { width: 1280, height: 900 } });
   const page = await context.newPage();
   const base = `http://127.0.0.1:${PORT}`;

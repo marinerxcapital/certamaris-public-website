@@ -1,4 +1,44 @@
-# Rotating CertaMaris mark LIVE — 2026-09-26 (CURRENT)
+# Cinematic vessel-video hero LIVE - 2026-09-26 (CURRENT)
+
+**Production:** https://certamaris.com - Worker `certamaris-site` version `ea419440-583c-46c9-8208-24306cd4e7f9` @100%
+**Change:** The landing page is rebuilt around the owner-supplied vessel footage. The first
+screen is a full-bleed, silent, looping 720p aerial shot behind a corrected navy scrim with
+the category eyebrow, the existing H1, a supporting line, two live CTAs, the `#sample-record`
+anchor, and a factual coverage strip. A five-domain capability band and the preserved
+Assurance Helix product surface follow it, so value proposition now precedes technical proof.
+**Files:** `components/HeroVesselFilm.tsx` (new), `components/HomeHero.tsx` (rewritten),
+`components/HomeCapabilityBand.tsx` (new), `components/HomeSampleRecord.tsx` (new),
+`components/Button.tsx` (`outline-inverse`), `lib/content.ts` (`homeCapabilityPillars`),
+`app/page.tsx`, `app/globals.css`, `worker/index.ts`, `next.config.ts`, `.gitignore`,
+`scripts/media/build-hero-media.ps1` (new), `scripts/qa/check-hero-media.mjs` (new).
+**Media:** source `C:\Users\Skyler B. Brown\Desktop\CertaMaris Public Marketing Website Landing Page Video.mov`
+(HEVC 1280x720, 25 fps, 43.56 s, 42,062,551 bytes, SHA-256 `5052E730...A58258E`) ->
+`public/media/certamaris-vessel-hero-2026-09.mp4` (8,084,813 B), `-mobile.mp4` (854x480,
+3,563,597 B), `-poster.webp` (57,390 B), `-poster.jpg` (76,945 B). The loop is a seamless
+1.5 s crossfade splice of a single continuous orbit; no audio track; metadata stripped.
+**Media contract:** poster-first SSR (no `<video>` in static HTML), loop attached after
+hydration, `muted`/`loop`/`playsInline`/`no controls`/`aria-hidden`, poster-only for
+`prefers-reduced-motion`, Save-Data, effective 2G, or rejected autoplay. Mobile gets the
+480p derivative. `/media/` is a stable long-cache asset path in `worker/index.ts`.
+**Deploy:** `npm run build:static` + `npx wrangler deploy --config wrangler.jsonc --keep-vars`.
+**Validation:** `build:static` PASS (110 pages) - `typecheck` PASS - pricing 12/12, contact 9/9,
+worker 5/5 - `qa:hero-media` PASS 35/35 - `qa:responsive-a11y` PASS (0 axe violations, 0
+overflow across 16 routes x 9 viewports) - `audit-crawl after` PASS (94 routes x desktop +
+mobile: 0 axe-violating pages, 0 overflow pages, 0 console errors) - production harness
+`check-hero-media.mjs --base https://certamaris.com` PASS 26/26 - production routes 103/0 fail.
+**Note:** a real regression was found and fixed - `@keyframes helixNodeIn` started helix node
+labels at `opacity: 0.5` (3.38:1, below AA); label-bearing elements now settle on transform
+only, with a separate `helixDotIn` for the decorative dots.
+**Record:** [`2026-09-26-landing-video-hero-deployment.md`](./2026-09-26-landing-video-hero-deployment.md) -
+[`implementation/landing-video-hero-20260926/`](./implementation/landing-video-hero-20260926/README.md) -
+[`CERTAMARIS_MARKETING_REVAMP_HANDOFF_2026-09-26.md`](./CERTAMARIS_MARKETING_REVAMP_HANDOFF_2026-09-26.md)
+**Rollback:** `npx wrangler versions deploy c2be68c9-259c-4ece-a254-9aebc64ca8f8@100% --config wrangler.jsonc -y`
+
+**Signed:** Codex (DeepSeek V4 Flash Vision Exp, opencode Go) - 2026-09-26
+
+---
+
+# Rotating CertaMaris mark LIVE - 2026-09-26
 
 **Production:** https://certamaris.com · Worker `certamaris-site` version `c2be68c9-259c-4ece-a254-9aebc64ca8f8`
 **Change:** Codex pass `e90fe17` makes the CertaMaris icon/mark rotate continuously in the shared `BrandLogo` surface while leaving the wordmark static and readable. The animation is CSS-only (`certamarisMarkRotate`, 7.5s linear infinite) and remains disabled by the existing `prefers-reduced-motion: reduce` global rule.

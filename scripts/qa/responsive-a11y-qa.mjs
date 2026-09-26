@@ -46,6 +46,7 @@ const MIME = {
   ".webp": "image/webp", ".png": "image/png", ".jpg": "image/jpeg", ".svg": "image/svg+xml",
   ".ico": "image/x-icon", ".woff2": "font/woff2", ".json": "application/json",
   ".xml": "application/xml", ".txt": "text/plain", ".avif": "image/avif",
+  ".mp4": "video/mp4", ".webm": "video/webm",
 };
 
 function resolveFile(urlPath) {
@@ -74,9 +75,14 @@ const server = http.createServer((req, res) => {
 
 const axeSource = fs.readFileSync("node_modules/axe-core/axe.min.js", "utf8");
 
+// The counters are the gate; QA_VERBOSE_CONSOLE=1 prints what the browser is
+// actually complaining about (first few unique messages).
+const verboseConsole = process.env.QA_VERBOSE_CONSOLE === "1";
+const consoleSamples = new Set();
+
 async function main() {
   await new Promise((ok) => server.listen(PORT, ok));
-  const browser = await chromium.launch();
+  const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined });
   const report = { routes: KEY_ROUTES.length, viewports: VIEWPORTS.length, issues: [], consoleErrors: 0, brokenImages: [] };
 
   for (const vp of VIEWPORTS) {
@@ -87,8 +93,19 @@ async function main() {
     });
     const page = await ctx.newPage();
     let consoleErrors = 0;
-    page.on("console", (m) => { if (m.type() === "error") consoleErrors++; });
-    page.on("pageerror", () => consoleErrors++);
+    page.on("console", (m) => {
+      if (m.type() !== "error") return;
+      consoleErrors++;
+      if (verboseConsole && consoleSamples.size < 6) {
+        consoleSamples.add(`console @${vp.name}: ${m.text().slice(0, 200)}`);
+      }
+    });
+    page.on("pageerror", (e) => {
+      consoleErrors++;
+      if (verboseConsole && consoleSamples.size < 6) {
+        consoleSamples.add(`pageerror @${vp.name}: ${String(e).slice(0, 200)}`);
+      }
+    });
 
     for (const route of KEY_ROUTES) {
       const url = `http://127.0.0.1:${PORT}${route === "/" ? "/" : route}`;
@@ -121,10 +138,23 @@ async function main() {
           });
           return r.violations
             .filter((v) => ["serious", "critical"].includes(v.impact))
-            .map((v) => ({ id: v.id, impact: v.impact, help: v.help, count: v.nodes.length }));
+            .map((v) => ({
+              id: v.id,
+              impact: v.impact,
+              help: v.help,
+              count: v.nodes.length,
+              targets: v.nodes.slice(0, 4).map((n) => n.target.join(" ")),
+              sample: v.nodes[0]?.any?.[0]?.data ?? null,
+            }));
         });
         for (const v of axe) {
           report.issues.push(`axe ${route} ${v.id} (${v.impact}) x${v.count}`);
+          if (v.targets.length) {
+            report.issues.push(`    e.g. ${v.targets.join(" | ")}`);
+          }
+          if (v.sample) {
+            report.issues.push(`    data ${JSON.stringify(v.sample)}`);
+          }
         }
       }
     }
@@ -143,6 +173,10 @@ async function main() {
   for (const b of report.brokenImages) console.log(`  broken ${b.route} @${b.viewport}: ${b.count} (${b.first})`);
   console.log(`issues=${report.issues.length}`);
   for (const i of report.issues) console.log(`  ${i}`);
+  if (verboseConsole) {
+    console.log("console samples (first unique):");
+    for (const s of consoleSamples) console.log(`  ${s}`);
+  }
   process.exit(report.issues.length || report.brokenImages.length ? 1 : 0);
 }
 

@@ -13,6 +13,7 @@
     "qa:content": "node scripts/qa/content-qa.mjs",
     "qa:product-proof": "node scripts/qa/check-product-proof.mjs",
     "qa:product-proof:render": "node scripts/qa/check-product-proof-render.mjs",
+    "qa:hero-media": "node scripts/qa/check-hero-media.mjs",
     "qa:product-experience": "node scripts/qa/check-product-experience.mjs",
     "qa:buyer-paths": "node scripts/qa/check-buyer-paths.mjs",
     "qa:excellence": "node scripts/qa/check-excellence-path.mjs",

@@ -2,7 +2,9 @@ import Link from "next/link";
 import { BeforeAfterComparison } from "@/components/BeforeAfterComparison";
 import { Button } from "@/components/Button";
 import { FounderPortrait } from "@/components/FounderPortrait";
+import { HomeCapabilityBand } from "@/components/HomeCapabilityBand";
 import { HomeHero } from "@/components/HomeHero";
+import { HomeSampleRecord } from "@/components/HomeSampleRecord";
 import { ProductCinematicMoment } from "@/components/ProductCinematicMoment";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
@@ -33,6 +35,14 @@ export default function HomePage() {
   return (
     <>
       <HomeHero />
+
+      <Section id="capabilities" surface="paper" spacing="major">
+        <Reveal>
+          <HomeCapabilityBand />
+        </Reveal>
+      </Section>
+
+      <HomeSampleRecord />
 
       <Section id="product-moment" spacing="major">
         <Reveal>

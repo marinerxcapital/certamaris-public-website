@@ -19,6 +19,7 @@ const MIME = {
   ".webp": "image/webp", ".png": "image/png", ".jpg": "image/jpeg", ".svg": "image/svg+xml",
   ".ico": "image/x-icon", ".woff2": "font/woff2", ".json": "application/json",
   ".xml": "application/xml", ".txt": "text/plain", ".avif": "image/avif",
+  ".mp4": "video/mp4", ".webm": "video/webm",
 };
 function resolveFile(urlPath) {
   const parsed = new URL(urlPath, "http://127.0.0.1");

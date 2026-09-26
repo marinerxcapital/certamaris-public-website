@@ -111,6 +111,8 @@ const MIME = {
   ".xml": "application/xml",
   ".txt": "text/plain",
   ".avif": "image/avif",
+  ".mp4": "video/mp4",
+  ".webm": "video/webm",
 };
 
 function routeName(route) {
@@ -230,7 +232,7 @@ async function main() {
   if (server) await new Promise((resolve) => server.listen(PORT, resolve));
 
   const axeSource = fs.readFileSync("node_modules/axe-core/axe.min.js", "utf8");
-  const browser = await chromium.launch();
+  const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined });
   const context = await browser.newContext({
     viewport: { width: 1440, height: 1100 },
     deviceScaleFactor: 1,

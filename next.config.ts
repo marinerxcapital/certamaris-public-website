@@ -38,6 +38,10 @@ const nextConfig: NextConfig = {
         headers: [...securityHeaders, { key: "Cache-Control", value: "public, max-age=604800, stale-while-revalidate=86400" }],
       },
       {
+        source: "/media/:path*",
+        headers: [...securityHeaders, { key: "Cache-Control", value: "public, max-age=604800, stale-while-revalidate=86400" }],
+      },
+      {
         source: "/og/:path*",
         headers: [...securityHeaders, { key: "Cache-Control", value: "public, max-age=604800, stale-while-revalidate=86400" }],
       },
