@@ -900,9 +900,21 @@ svg {
   max-width: 100%;
 }
 
-/* Logo mark stays static — continuous spin reads as consumer/AI template, not enterprise software */
+/* The CertaMaris mark rotates continuously while the wordmark stays fixed and legible. */
 .certamaris-logo-mark {
   transform-origin: 50% 50%;
+  animation: certamarisMarkRotate 7.5s linear infinite;
+  will-change: transform;
+}
+
+@keyframes certamarisMarkRotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 button,
