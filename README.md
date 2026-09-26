@@ -7,7 +7,7 @@ built to stand on its own and to later link out to the authenticated
 CertaMaris application (being built separately in Lovable) through four
 clearly labeled integration points.
 
-## Production source of truth (verified 2026-08-24)
+## Production source of truth (verified 2026-09-26)
 
 | Item | Value |
 |---|---|
@@ -17,8 +17,9 @@ clearly labeled integration points.
 | **App** | Separate: https://app.certamaris.com |
 | **Agent memory (START HERE)** | [`docs/AGENT_MEMORY.md`](docs/AGENT_MEMORY.md) |
 | **Codex handoff** | [`docs/CODEX_MARKETING_TAKEOVER.md`](docs/CODEX_MARKETING_TAKEOVER.md) |
-| **Latest deploy note** | [`docs/2026-08-24-ux-accessibility-audit-fix-deployment.md`](docs/2026-08-24-ux-accessibility-audit-fix-deployment.md) |
-| **Latest production change** | UX/accessibility audit fix `46f0370`; previous sitewide professionalism upgrade `04de3aa` (PR #18) |
+| **Latest deploy note** | [`docs/2026-09-26-assurance-helix-hero-deployment.md`](docs/2026-09-26-assurance-helix-hero-deployment.md) |
+| **Latest production change** | Assurance Helix hero `46675ea` (Worker `41ab6e29-0680-430d-830b-36466363e0a8` @100%); previous live-but-uncommitted drift `d49fba1`; before that UX/accessibility audit fix `46f0370` |
+| **CI note (2026-09-26)** | The Actions `deploy` job is blocked: `npm run ci:validate` fails on `npm audit` (`next@16.2.12`, `sharp@0.35.3`). Deploy locally with `npm run build:static` + `npx wrangler deploy --config wrangler.jsonc --keep-vars`. |
 | **Latest UX pass** | UX/accessibility audit fix `46f0370`; previous product experience upgrade `dfb009f` plus pricing table keyboard-access closeout `0084f51` |
 | **Link-preview code commit** | `190533a` - link-preview branding fix (PR #9); prior feature content `df5f174` (PR #6) |
 
@@ -43,8 +44,9 @@ Canonical product monorepo (SPA/API, not live marketing): https://github.com/mar
 | UI | React 19 |
 | Language | TypeScript 5.7 (strict mode) |
 | Styling | Tailwind CSS 3.4, custom design tokens in `app/globals.css` |
-| Foreground motion | CSP-safe CSS/React class reveals plus restrained product-adjacent microinteractions |
-| Background treatment | AI Designer Pixel Grid runtime loaded once from `app/layout.tsx` |
+| Foreground motion | CSP-safe CSS/React class reveals, plus the hero Assurance Helix's own transform/opacity motion controller (`components/AssuranceHelix.tsx`) |
+| Hero exhibit | Asset-free inline SVG Assurance Helix (`lib/assurance-helix.ts` + `components/AssuranceHelix.tsx`), drawn directly on the hero canvas — no card/panel around it |
+| Background treatment | Plain `--surface-page` bands. The Pixel Grid runtime was retired sitewide on 2026-09-20 (`.pixel-grid-background { display: none }`); `components/PixelGridBackground.tsx` is dormant, not mounted |
 | Fonts | Space Grotesk (display), Inter (body), IBM Plex Mono (data/labels) — via `next/font/google` |
 | Hosting target | Cloudflare Workers with static assets through `wrangler.jsonc` |
 | Node | 22+ |

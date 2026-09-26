@@ -1,11 +1,11 @@
 # CODEX TAKEOVER — CertaMaris Marketing Website
 
 **Prepared:** 2026-08-01 · SuperGrok  
-**Updated:** 2026-08-24 · Codex
+**Updated:** 2026-09-26 · DEEPSEEK-V4 VISION
 **Audience:** Codex / Cursor / any successor agent  
 **Status:** Live production site organized; **this repo is the only deploy SoT**
 
-> **START HERE for new sessions:** [`docs/AGENT_MEMORY.md`](./AGENT_MEMORY.md), then this file, then the latest `docs/2026-08-*-deployment.md`.
+> **START HERE for new sessions:** [`docs/AGENT_MEMORY.md`](./AGENT_MEMORY.md), then this file, then the latest `docs/2026-*-deployment.md`.
 
 ---
 
@@ -17,6 +17,8 @@
 | **Authenticated app (separate)** | https://app.certamaris.com — do **not** merge into this repo |
 | **GitHub** | https://github.com/marinerxcapital/certamaris-public-website |
 | **Branch** | **`main` only** for production |
+| **Latest production change (2026-09-26)** | Assurance Helix hero `46675ea` · note `docs/2026-09-26-assurance-helix-hero-deployment.md`; previous live-but-uncommitted drift committed as `d49fba1` (2026-09-21 security.txt + legacy legal titles) |
+| **CI status (2026-09-26)** | **Deploy job blocked.** `npm run ci:validate` fails on `npm audit` (`next@16.2.12`, `sharp@0.35.3`). Deploy locally with `npm run build:static` + `npx wrangler deploy --config wrangler.jsonc --keep-vars` until the advisories are cleared. |
 | **Latest production change (2026-08-24)** | UX/accessibility audit fix `46f0370` · note `docs/2026-08-24-ux-accessibility-audit-fix-deployment.md`; previous sitewide professionalism upgrade `04de3aa` / PR #18 |
 | **Latest UX pass (2026-08-24)** | UX/accessibility audit fix `46f0370`; previous product experience upgrade `dfb009f` · pricing table keyboard-access closeout `0084f51` |
 | **Link-preview code commit (2026-08-21)** | **`190533a`** - PR #9 link-preview branding fix; prior PR #6 `df5f174` / PR #5 `660e5b4` |
