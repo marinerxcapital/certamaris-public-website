@@ -1,5 +1,42 @@
 # 2026-09-26 — Assurance Helix hero deployment
 
+## CURRENT ADDENDUM — Continuous CertaMaris mark rotation
+
+| Item | Value |
+|---|---|
+| Domain | https://certamaris.com |
+| Worker | `certamaris-site` |
+| Deployed version | `c2be68c9-259c-4ece-a254-9aebc64ca8f8` |
+| Code commit | `e90fe17` (`feat(marketing): rotate CertaMaris logo mark`) |
+| Deploy method | `npm run build:static` + `npx wrangler deploy --config wrangler.jsonc --keep-vars` |
+| Completion | 2026-09-26 06:46 local, America/Los_Angeles |
+
+### What changed in the current pass
+
+- Made the CertaMaris icon/mark rotate continuously wherever the shared `BrandLogo` mark is rendered.
+- Kept the wordmark static and readable.
+- Used CSS-only transform animation: `certamarisMarkRotate`, `7.5s`, `linear`, `infinite`.
+- Preserved reduced-motion accessibility through the existing global `prefers-reduced-motion: reduce` rule, which freezes the mark with no transform animation.
+
+### Current validation and live verification
+
+| Gate | Result |
+|---|---|
+| `npm run build:static` | PASS, 110 static pages |
+| `npm run typecheck` | PASS after generated `.next/types` existed |
+| `npm run test:pricing` | PASS, 12/12 |
+| Local Chrome animation harness | PASS: `.certamaris-logo-mark` animation is `certamarisMarkRotate`, duration `7.5s`, iteration count `infinite`, and transform changes over time |
+| Live desktop Chrome harness | PASS: `https://certamaris.com/?codex_logo_spin=e90fe17` loaded with no console errors, no 4xx/5xx, animation active, wordmark alt preserved |
+| Live mobile Chrome harness | PASS: animation active, no console errors, no 4xx/5xx, zero horizontal overflow |
+| Live reduced-motion harness | PASS: animation duration resolves to `0s`, iteration count `1`, transform `none` |
+
+COMPLETED BY: Codex  
+DATE: 2026-09-26  
+TIME: 06:46 LOCAL (America/Los_Angeles)  
+STATUS: PRODUCTION DEPLOYED AND VERIFIED
+
+---
+
 ## CURRENT ADDENDUM — Mockup-match corrective pass
 
 | Item | Value |

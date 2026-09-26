@@ -1,4 +1,16 @@
-# Assurance Helix hero LIVE — 2026-09-26 (CURRENT)
+# Rotating CertaMaris mark LIVE — 2026-09-26 (CURRENT)
+
+**Production:** https://certamaris.com · Worker `certamaris-site` version `c2be68c9-259c-4ece-a254-9aebc64ca8f8`
+**Change:** Codex pass `e90fe17` makes the CertaMaris icon/mark rotate continuously in the shared `BrandLogo` surface while leaving the wordmark static and readable. The animation is CSS-only (`certamarisMarkRotate`, 7.5s linear infinite) and remains disabled by the existing `prefers-reduced-motion: reduce` global rule.
+**Files:** `app/globals.css`.
+**Deploy:** `npm run build:static` + `npx wrangler deploy --config wrangler.jsonc --keep-vars`.
+**Validation:** `npm run build:static` PASS · `npm run typecheck` PASS after generated `.next/types` existed · `npm run test:pricing` PASS 12/12 · live Chrome verification PASS on desktop and mobile with animation transform changing over time, zero console errors, zero 4xx/5xx, and reduced-motion frozen.
+
+**Signed:** Codex · 2026-09-26T06:46:00-07:00
+
+---
+
+# Assurance Helix hero LIVE — 2026-09-26
 
 **Production:** https://certamaris.com · Worker `certamaris-site` version `547c484b-45ab-4191-b118-ccfdf7914711`
 **Change:** Corrective Codex pass `7c5a641` tightened the landing page to the owner-supplied mockup: compact centered nav, three-line headline, first-fold product-proof surface on the right, denser dimensional animated helix, embedded target demo IDs, visible next-section transition, responsive/mobile correction, and reduced-motion static mode. Copy, CTAs, and the sample-record link are preserved.
@@ -45,8 +57,8 @@ Final Verification: SuperGrok / Grok Build CLI (session 01a0c21f-0734-7583-8fa7-
 # CertaMaris public website — AGENT MEMORY INDEX
 
 **Signed:** SuperGrok / Grok Build · **Date:** 2026-09-20T21:54:33-07:00  
-**Live SoT:** `C:\certamaris-startup-site-pnpm\certamaris-startup-site` · local commit `7c5a641` (2026-09-26 mockup-match helix corrective pass; see the banner above)  
-**Production:** https://certamaris.com · Worker `certamaris-site` · version `547c484b-45ab-4191-b118-ccfdf7914711`
+**Live SoT:** `C:\certamaris-startup-site-pnpm\certamaris-startup-site` · local commit `e90fe17` (2026-09-26 rotating CertaMaris mark pass; see the banner above)  
+**Production:** https://certamaris.com · Worker `certamaris-site` · version `c2be68c9-259c-4ece-a254-9aebc64ca8f8`
 
 > Future agents: read this section first. Deploy via `npm run build:static` + `npx wrangler deploy --config wrangler.jsonc --keep-vars`. Do not invent customers, metrics, certifications, or compliance guarantees.
 
