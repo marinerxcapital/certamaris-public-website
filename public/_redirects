@@ -1,0 +1,4 @@
+# RFC 9116: the canonical security contact file lives at /.well-known/security.txt.
+# The Next.js export also emits a per-route RSC artifact at /security.txt, which would
+# otherwise be served as a 200 text/plain document that is not a security.txt.
+/security.txt /.well-known/security.txt 301
