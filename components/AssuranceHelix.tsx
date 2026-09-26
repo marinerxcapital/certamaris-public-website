@@ -18,10 +18,9 @@ import { productProofScreens } from "@/lib/product-screens";
 /**
  * The Assurance Helix — the hero exhibit for certamaris.com.
  *
- * It is drawn directly on the page canvas on the right of the hero: no card,
- * no window, no panel. Only two small information tags (the vessel record and
- * the single-record statement) sit on top of the canvas, matching the target
- * composition.
+ * It is drawn inside the right-side product-proof exhibit shown in the hero.
+ * The surface, headers, object labels, vessel tag, record tag, and legend all
+ * mirror the landing-page mockup while the underlying trace remains live SVG.
  *
  * Motion is activation → settle → responsive idle, never an endless spinner:
  *   1. reveal   — ribbon depth and nodes settle in, staggered REQ → PKG
@@ -151,7 +150,7 @@ export function AssuranceHelix({ className = "" }: { className?: string }) {
       <div className="hero-helix__head">
         <p className="hero-helix__eyebrow">Live product surface · demo data</p>
         <p className="hero-helix__exhibit">
-          <span>Exhibit · Assurance helix · Executive readiness</span>
+          <span>Exhibit · Product proof · Executive readiness</span>
           <a
             className="hero-helix__resolution"
             href={EXECUTIVE_READINESS.fullSrc}
@@ -206,16 +205,16 @@ export function AssuranceHelix({ className = "" }: { className?: string }) {
               </g>
             ))}
             {HELIX_FRAME.columns.map((x) => (
-              <path key={x} d={`M${x} 24 L${x} 516`} className="helix-frame__column" />
+              <path key={x} d={`M${x} 24 L${x} 430`} className="helix-frame__column" />
             ))}
           </g>
 
           <ellipse
             className="helix-wash"
             cx="392"
-            cy="274"
+            cy="238"
             rx="302"
-            ry="178"
+            ry="154"
             fill="url(#cmHelixWash)"
           />
 
@@ -264,7 +263,7 @@ export function AssuranceHelix({ className = "" }: { className?: string }) {
           </g>
 
           <g className="helix-vessel">
-            <g transform="translate(6 16)">
+            <g transform="translate(28 -64) scale(0.92)">
               {VESSEL_SHAPES.map((shape, index) => (
                 <path
                   key={index}

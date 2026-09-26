@@ -16,7 +16,7 @@
  * geometry library.
  */
 
-export const HELIX_VIEW = { width: 760, height: 540 } as const;
+export const HELIX_VIEW = { width: 760, height: 455 } as const;
 
 export type HelixStep = {
   /** Short object code shown on the node tag (product vocabulary). */
@@ -29,28 +29,28 @@ export type HelixStep = {
 
 /** REQ → PKG. Order is fixed; it is the assurance object order. */
 export const HELIX_TRACE: HelixStep[] = [
-  { code: "REQ", id: "REQ-0104", name: "Requirement" },
-  { code: "APP", id: "APP-0231", name: "Applicability" },
-  { code: "CTL", id: "CTL-0389", name: "Control" },
-  { code: "ASM", id: "ASM-0512", name: "Assessment" },
-  { code: "EVD", id: "EVD-0847", name: "Evidence" },
-  { code: "FND", id: "FND-0130", name: "Finding" },
-  { code: "RSK", id: "RSK-0072", name: "Risk" },
-  { code: "CAP", id: "CAP-0455", name: "Corrective action" },
-  { code: "QA", id: "QA-0290", name: "QA review" },
-  { code: "PKG", id: "PKG-0067", name: "Released package" },
+  { code: "REQ", id: "REQ-026", name: "Requirement" },
+  { code: "APP", id: "APP-014", name: "Applicability" },
+  { code: "CTL", id: "CTL-041", name: "Control" },
+  { code: "ASM", id: "ASM-023", name: "Assessment" },
+  { code: "EVD", id: "EVD-238", name: "Evidence" },
+  { code: "FND", id: "FND-031", name: "Finding" },
+  { code: "RSK", id: "RSK-009", name: "Risk" },
+  { code: "CAP", id: "CAP-017", name: "Corrective action" },
+  { code: "QA", id: "QA-066", name: "QA review" },
+  { code: "PKG", id: "PKG-004", name: "Released package" },
 ];
 
 type Point = { x: number; y: number };
 
 /* Axis: a shallow rising arc, low-left to high-right. */
-const AXIS_START: Point = { x: 92, y: 366 };
-const AXIS_END: Point = { x: 672, y: 152 };
-const AXIS_BOW = 24;
+const AXIS_START: Point = { x: 78, y: 326 };
+const AXIS_END: Point = { x: 704, y: 106 };
+const AXIS_BOW = 28;
 
 /* Weave: perpendicular displacement that tapers toward both ends. */
-const WEAVE_AMPLITUDE = 48;
-const WEAVE_FLOOR = 0.62;
+const WEAVE_AMPLITUDE = 58;
+const WEAVE_FLOOR = 0.66;
 const HALF_TURNS = 5;
 
 const round1 = (value: number) => Math.round(value * 10) / 10;
@@ -115,7 +115,7 @@ function strandPath(side: 1 | -1): string {
 export const HELIX_STRAND_REAR = strandPath(-1);
 export const HELIX_STRAND_FRONT = strandPath(1);
 
-const RUNG_COUNT = 34;
+const RUNG_COUNT = 42;
 
 /**
  * Base pairs between the strands. Opacity follows the projected depth, so
@@ -158,16 +158,16 @@ export const HELIX_NODES: HelixNode[] = HELIX_TRACE.map((step, index) => {
   const t = (index + 0.5) / HELIX_TRACE.length;
   const point = strandPoint(t, 1);
   const labelOffsets = [
-    [-18, -64],
-    [18, 24],
+    [-18, -62],
+    [12, 24],
+    [0, 25],
+    [-6, 24],
+    [-20, -67],
+    [22, 22],
     [-4, 24],
-    [-10, 22],
-    [-24, -70],
-    [26, 20],
-    [-8, 24],
-    [-18, -66],
-    [16, -66],
-    [20, -72],
+    [-17, -65],
+    [14, -66],
+    [12, -73],
   ] as const;
   const [labelDx, labelDy] = labelOffsets[index];
   return {
@@ -184,22 +184,29 @@ export const HELIX_NODES: HelixNode[] = HELIX_TRACE.map((step, index) => {
 });
 
 export const HELIX_AURA_PATHS = [
-  "M44 365 C165 210 294 182 405 238 C512 291 610 270 724 134",
-  "M50 394 C176 258 282 246 394 304 C512 366 618 336 712 190",
-  "M104 314 C216 180 318 156 424 205 C546 262 630 226 714 116",
+  "M30 332 C150 166 292 136 414 196 C526 253 612 228 738 88",
+  "M38 366 C164 234 292 214 404 270 C526 332 622 290 722 146",
+  "M96 274 C202 146 322 118 430 166 C548 222 628 188 726 72",
+  "M70 388 C188 284 310 274 424 316 C548 364 626 320 706 202",
+  "M54 308 C184 190 292 194 396 246 C506 302 636 272 728 124",
+  "M120 350 C240 240 344 228 452 278 C564 330 646 284 712 178",
 ] as const;
 
 export const HELIX_SIGNAL_POINTS: { x: number; y: number; r: number; opacity: number }[] = [
-  { x: 84, y: 318, r: 2.5, opacity: 0.5 },
-  { x: 142, y: 398, r: 2.2, opacity: 0.42 },
-  { x: 212, y: 292, r: 2.4, opacity: 0.45 },
-  { x: 286, y: 346, r: 2.1, opacity: 0.4 },
-  { x: 356, y: 244, r: 2.6, opacity: 0.52 },
-  { x: 438, y: 314, r: 2.2, opacity: 0.43 },
-  { x: 504, y: 216, r: 2.7, opacity: 0.55 },
-  { x: 574, y: 282, r: 2.2, opacity: 0.44 },
-  { x: 638, y: 176, r: 2.4, opacity: 0.46 },
-  { x: 690, y: 236, r: 2.1, opacity: 0.4 },
+  { x: 60, y: 288, r: 2.3, opacity: 0.42 },
+  { x: 88, y: 376, r: 2.1, opacity: 0.36 },
+  { x: 132, y: 250, r: 2.4, opacity: 0.44 },
+  { x: 174, y: 346, r: 2.2, opacity: 0.4 },
+  { x: 220, y: 220, r: 2.5, opacity: 0.45 },
+  { x: 274, y: 306, r: 2.1, opacity: 0.38 },
+  { x: 332, y: 194, r: 2.6, opacity: 0.5 },
+  { x: 390, y: 288, r: 2.2, opacity: 0.42 },
+  { x: 452, y: 174, r: 2.7, opacity: 0.52 },
+  { x: 512, y: 256, r: 2.2, opacity: 0.42 },
+  { x: 570, y: 146, r: 2.5, opacity: 0.48 },
+  { x: 624, y: 228, r: 2.1, opacity: 0.38 },
+  { x: 670, y: 120, r: 2.5, opacity: 0.48 },
+  { x: 718, y: 188, r: 2.1, opacity: 0.36 },
 ] as const;
 
 /**
@@ -248,7 +255,7 @@ export const VESSEL_SHAPES: { d: string; opacity?: number; dash?: string }[] = [
  * Decorative scaffold only — never load-bearing information.
  */
 export const HELIX_FRAME = {
-  rows: [126, 250, 374],
+  rows: [110, 218, 326],
   columns: [754],
   rowTicks: [8, 196, 384, 572, 752],
 } as const;

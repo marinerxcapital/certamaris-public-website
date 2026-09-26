@@ -12,8 +12,7 @@ import {
 
 /**
  * First-viewport hero: one outcome idea, two actions, and the Assurance Helix
- * exhibit drawn directly on the page canvas (no panel around it). The
- * sample-record explorer sits below the fold.
+ * product-proof exhibit. The sample-record explorer sits just below the fold.
  */
 export function HomeHero() {
   const { persona } = usePersonaSelection();
@@ -21,6 +20,7 @@ export function HomeHero() {
   const demoHref = persona
     ? `${DEMO_TOUR_HREF}?persona=${persona.id}#scrub-tour`
     : `${DEMO_TOUR_HREF}#scrub-tour`;
+  const targetHeadline = "Know readiness before survey — across every vessel.";
 
   return (
     <>
@@ -32,7 +32,17 @@ export function HomeHero() {
                 {copy.ledger}
               </p>
               <h1 id="hero-title" className="hero-display mt-4 max-w-[26ch]">
-                {copy.headline}
+                {copy.headline === targetHeadline ? (
+                  <>
+                    Know readiness
+                    <br />
+                    before survey —
+                    <br />
+                    across every vessel.
+                  </>
+                ) : (
+                  copy.headline
+                )}
               </h1>
               <p className="mt-5 max-w-[34rem] text-[17px] font-medium leading-[1.55] text-navy sm:text-[18px]">
                 {copy.support}
