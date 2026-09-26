@@ -18,7 +18,7 @@
 | **GitHub** | https://github.com/marinerxcapital/certamaris-public-website |
 | **Branch** | **`main` only** for production |
 | **Latest production change (2026-09-26)** | Assurance Helix hero `46675ea` · note `docs/2026-09-26-assurance-helix-hero-deployment.md`; previous live-but-uncommitted drift committed as `d49fba1` (2026-09-21 security.txt + legacy legal titles) |
-| **CI status (2026-09-26)** | **Deploy job blocked.** `npm run ci:validate` fails on `npm audit` (`next@16.2.12`, `sharp@0.35.3`). Deploy locally with `npm run build:static` + `npx wrangler deploy --config wrangler.jsonc --keep-vars` until the advisories are cleared. |
+| **CI status (2026-09-26)** | **Jobs do not start: GitHub account is billing-locked** (run `36232400278` — "The job was not started because your account is locked due to a billing issue", zero steps). Second gate: `npm run ci:validate` fails on `npm audit` (`next@16.2.12`, `sharp@0.35.3`). Deploy locally with `npm run build:static` + `npx wrangler deploy --config wrangler.jsonc --keep-vars`. See `docs/ci-billing.md`. |
 | **Latest production change (2026-08-24)** | UX/accessibility audit fix `46f0370` · note `docs/2026-08-24-ux-accessibility-audit-fix-deployment.md`; previous sitewide professionalism upgrade `04de3aa` / PR #18 |
 | **Latest UX pass (2026-08-24)** | UX/accessibility audit fix `46f0370`; previous product experience upgrade `dfb009f` · pricing table keyboard-access closeout `0084f51` |
 | **Link-preview code commit (2026-08-21)** | **`190533a`** - PR #9 link-preview branding fix; prior PR #6 `df5f174` / PR #5 `660e5b4` |

@@ -205,19 +205,31 @@ overflow; motion armed; CLS 0; axe clean.
 
 **Pre-existing, NOT caused by this pass, left in place**
 
-5. `npm run ci:validate` fails at its first step, `npm audit --omit=dev
-   --audit-level=high`, on dependency advisories that were published after the
-   2026-08-25 deploy: `next@16.2.12` (fix available in `next@16.3.6`, outside
-   the pinned range) and `sharp@0.35.3` via the `overrides` block.
-   **Consequence:** the GitHub Actions `deploy` job (`needs: validate`) will not
-   run for any push until the advisories are cleared, so this pass used the
-   project's documented local deploy path instead. Practical exposure is low —
-   this site is a static export with no Next server and `images.unoptimized`,
-   so neither the server RCE nor the image-optimisation advisory is reachable —
-   but the decision to bump Next and sharp is an owner decision and was
-   deliberately **not** taken here. Recommended follow-up: a dedicated
-   dependency-bump pass that re-runs `build:static`, the QA suite, and the live
-   harness.
+5. **GitHub Actions is blocked, in two layers — both owner-side.**
+   a. *Account billing lock (the first gate, observed live).* Pushing this work
+      to `main` triggered run [`36232400278`](https://github.com/marinerxcapital/certamaris-public-website/actions/runs/36232400278),
+      which failed in 4 s with the annotation **"The job was not started because
+      your account is locked due to a billing issue"** and **zero executed
+      steps**; the `deploy` job was skipped. This is the pattern already
+      documented in `docs/ci-billing.md` from 2026-07-31. No runner, hosted or
+      self-hosted, will start until the account is unlocked.
+   b. *Dependency advisories (the next gate).* Independently verified by running
+      `npm run ci:validate` locally: it fails at its **first** step,
+      `npm audit --omit=dev --audit-level=high`, on advisories published after
+      the 2026-08-25 deploy — `next@16.2.12` (fix available in `next@16.3.6`,
+      outside the pinned range) and `sharp@0.35.3` via the `overrides` block.
+      Once billing is restored this step will fail the `validate` job, and the
+      `deploy` job has `needs: validate`, so no push will deploy.
+
+   **Consequence:** this pass deployed through the project's documented local
+   path (`docs/ci-billing.md` local parity) rather than Actions. Practical
+   exposure from the advisories is low — this site is a static export with no
+   Next server and `images.unoptimized`, so neither the server RCE nor the
+   image-optimisation advisory is reachable — but both the account unlock and
+   the dependency bump are owner decisions and were deliberately **not** taken
+   here. Recommended follow-up, in order: (1) clear the GitHub billing lock;
+   (2) a dedicated dependency-bump pass that re-runs `build:static`, the QA
+   suite, and the live harness.
 6. `npm run qa` step `check-seo` fails on one duplicate title: `Privacy Policy —
    CertaMaris` on both `out/privacy.html` and `out/legal/privacy.html`. The
    cause is the pre-existing, already-live 2026-09-21 title edit (committed here

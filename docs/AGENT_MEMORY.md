@@ -7,9 +7,12 @@
 **Rollback:** `npx wrangler versions deploy 96ca441b-e8ef-4b53-bf4a-e81b8c1134a6@100% --config wrangler.jsonc -y`
 **Record:** [`2026-09-26-assurance-helix-hero-deployment.md`](./2026-09-26-assurance-helix-hero-deployment.md) · [`implementation/assurance-helix-hero-20260926/`](./implementation/assurance-helix-hero-20260926/README.md)
 
-### Owner decision pending: GitHub Actions is blocked by dependency advisories
+### Owner decision pending: GitHub Actions is blocked, in two layers
 
-`npm run ci:validate` now fails at its **first** step, `npm audit --omit=dev --audit-level=high`, on advisories published after the 2026-08-25 deploy: `next@16.2.12` (fixed in `next@16.3.6`, outside the pinned range) and `sharp@0.35.3` (via the `overrides` block). Because the Actions `deploy` job has `needs: validate`, **any** push to `main` will show a failing run and will not deploy. This pass therefore deployed locally, per the project's documented local parity in `docs/ci-billing.md`. Practical exposure is low (static export, no Next server, `images.unoptimized`), but clearing it needs a deliberate dependency bump and re-validation — owner decision, not taken here.
+1. **Account billing lock (the first gate).** Pushing this work to `main` triggered run [`36232400278`](https://github.com/marinerxcapital/certamaris-public-website/actions/runs/36232400278), which failed in 4 s with **"The job was not started because your account is locked due to a billing issue"** and **zero executed steps**; the deploy job was skipped. This is the 2026-07-31 pattern already recorded in `docs/ci-billing.md`. No runner starts until the account is unlocked.
+2. **Dependency advisories (the next gate).** `npm run ci:validate` fails at its **first** step, `npm audit --omit=dev --audit-level=high`, on advisories published after the 2026-08-25 deploy: `next@16.2.12` (fixed in `next@16.3.6`, outside the pinned range) and `sharp@0.35.3` (via the `overrides` block). With `deploy` having `needs: validate`, no push will deploy even after the unlock.
+
+This pass therefore deployed locally, per the project's documented local parity in `docs/ci-billing.md`. Practical exposure from the advisories is low (static export, no Next server, `images.unoptimized`). Order of owner action: (1) clear the billing lock; (2) a deliberate dependency bump + re-validation.
 
 ### Also committed in this pass (pre-existing live drift)
 
@@ -310,7 +313,8 @@ Final Verification: SuperGrok / Grok Build CLI (session 01a0c21f-0734-7583-8fa7-
 
 | Blocker | Status | Action |
 |---|---|---|
-| **CI is blocked by dependency advisories** (since 2026-09-26) | `npm run ci:validate` fails on `npm audit` — `next@16.2.12`, `sharp@0.35.3` | Owner: decide on a dependency-bump pass (`next@16.3.6`, `sharp@0.35.4`) and re-validate build + QA + live. Until then deploy locally via `npx wrangler deploy --config wrangler.jsonc --keep-vars`. |
+| **GitHub Actions blocked: account billing lock** (observed 2026-09-26) | Run `36232400278` — "The job was not started because your account is locked due to a billing issue"; zero steps ran, deploy skipped | Owner: clear the GitHub billing lock (`https://github.com/settings/billing`). No runner starts until then. |
+| **GitHub Actions blocked: dependency advisories** (next gate) | `npm run ci:validate` fails on `npm audit` — `next@16.2.12`, `sharp@0.35.3` | Owner: dependency-bump pass (`next@16.3.6`, `sharp@0.35.4`) + re-validate build, QA, live. Until both are cleared deploy locally via `npx wrangler deploy --config wrangler.jsonc --keep-vars`. |
 | `CONTACT_FORWARD_ENDPOINT` + `CONTACT_FORWARD_SECRET` | **Not set** (fail-closed 503) | Owner: `wrangler secret put` on `certamaris-site`, redeploy with `--keep-vars`, E2E test `/contact` |
 | Transaction-specific legal execution fields | Deferred to execution | Do not represent templates as signed instruments; update native HTML + PDF together for future legal changes |
 | Hub memory export PR | Historical | Hub PR #2 when GitHub allows |
