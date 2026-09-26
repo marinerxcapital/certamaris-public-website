@@ -7,6 +7,7 @@
 **Worker:** `certamaris-site` version `ea419440-583c-46c9-8208-24306cd4e7f9` @100%
 **Previous live version:** `c2be68c9-259c-4ece-a254-9aebc64ca8f8` @100% (2026-09-26 logo-mark deploy)
 **Branch:** `codex/assurance-helix-hero-20260926`
+**Code commit:** `e37f0e9` (local; not pushed - GitHub Actions remains owner-blocked)
 
 ---
 

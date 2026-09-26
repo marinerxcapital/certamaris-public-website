@@ -1,6 +1,7 @@
 # Cinematic vessel-video hero LIVE - 2026-09-26 (CURRENT)
 
 **Production:** https://certamaris.com - Worker `certamaris-site` version `ea419440-583c-46c9-8208-24306cd4e7f9` @100%
+**Code commit:** `e37f0e9` on `codex/assurance-helix-hero-20260926` (local; not pushed - GitHub Actions is owner-blocked)
 **Change:** The landing page is rebuilt around the owner-supplied vessel footage. The first
 screen is a full-bleed, silent, looping 720p aerial shot behind a corrected navy scrim with
 the category eyebrow, the existing H1, a supporting line, two live CTAs, the `#sample-record`
