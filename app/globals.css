@@ -2302,7 +2302,9 @@ figure.product-showcase-frame > div:first-child {
 
 .hero-brand-block .hero-display,
 .hero-copy-block .hero-display {
-  font-size: clamp(2rem, 4vw, 3.15rem);
+  /* Sized so the default headline breaks on the target's three lines
+     (Know readiness / before survey — / across every vessel.) */
+  font-size: clamp(2rem, 3.3vw, 2.85rem);
 }
 
 .hero-product-grid {
@@ -2326,33 +2328,6 @@ figure.product-showcase-frame > div:first-child {
   gap: 0.75rem 1rem;
 }
 
-.hero-product-panel {
-  background: #ffffff;
-  border: 1px solid rgba(11, 42, 74, 0.12);
-  border-radius: 14px;
-  padding: 14px 14px 16px;
-  box-shadow: 0 24px 60px rgba(11, 42, 74, 0.1);
-}
-
-.hero-product-glass {
-  box-shadow: 0 22px 56px rgba(11, 42, 74, 0.1);
-}
-
-.hero-executive-frame {
-  margin: 0;
-}
-
-.hero-executive-frame .product-exhibit-viewport--crop-top {
-  aspect-ratio: 4 / 3;
-  max-height: min(640px, 70vh);
-}
-
-@media (min-width: 1024px) {
-  .hero-executive-frame .product-exhibit-viewport--crop-top {
-    max-height: min(720px, 78vh);
-  }
-}
-
 @media (max-width: 767px) {
   .hero-cta-row {
     position: sticky;
@@ -2366,10 +2341,673 @@ figure.product-showcase-frame > div:first-child {
     box-shadow: 0 12px 28px rgba(11, 42, 74, 0.1);
     backdrop-filter: blur(10px);
   }
+}
 
-  .hero-executive-frame .product-exhibit-viewport--crop-top {
-    aspect-ratio: 5 / 4;
-    max-height: min(520px, 62vh);
+/* ---------- Assurance Helix (hero exhibit, 2026-09-26) ----------
+   The helix is drawn directly on the hero canvas on the right of the first
+   viewport: no card, no panel, no window. Only two small information tags
+   (the vessel record and the single-record statement) sit over the canvas.
+
+   Motion contract — activation, settle, then responsive idle:
+     · reveal   : ribbon depth and nodes settle in, staggered REQ → PKG
+     · ambient  : one 52s near-invisible structural drift, paused off-screen
+     · progress : a slow travelling emphasis through the object order
+     · response : small pointer depth plus a bounded scroll parallax
+   Everything is transform/opacity only and is gated on
+   prefers-reduced-motion; the static state is the complete, legible exhibit.
+   Centring uses the independent `translate` property, never `transform`,
+   because the sitewide reduced-motion block neutralises `transform`. */
+
+.hero-helix {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  margin: 0;
+  --px: 0;
+  --py: 0;
+  --sy: 0;
+}
+
+.hero-helix:focus-visible {
+  outline: var(--focus-outline);
+  outline-offset: 8px;
+}
+
+.hero-helix__head {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+
+.hero-helix__eyebrow {
+  margin: 0;
+  font-family: var(--font-mono), Consolas, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #0e5a8a;
+}
+
+.hero-helix__exhibit {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 14px;
+  margin: 0;
+  font-family: var(--font-mono), Consolas, monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-tertiary);
+}
+
+.hero-helix__resolution {
+  font-weight: 600;
+  white-space: nowrap;
+  color: #0b6597;
+  text-decoration: none;
+}
+
+.hero-helix__resolution:hover {
+  text-decoration: underline;
+}
+
+.hero-helix__plane {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  aspect-ratio: 760 / 540;
+}
+
+.hero-helix__svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Strands and node labels share one pointer offset so the nodes stay seated
+   on the weave while the tags, chips, and scaffold move at their own rates. */
+.hero-helix__svg,
+.helix-trace {
+  transform: translate3d(calc(var(--px) * 4px), calc(var(--py) * 4px), 0);
+}
+
+.helix-trace {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* --- Drawing frame + telemetry (decorative scaffold) --- */
+
+.helix-frame__row {
+  fill: none;
+  stroke: rgba(11, 42, 74, 0.1);
+  stroke-width: 1;
+  stroke-dasharray: 2 6;
+}
+
+.helix-frame__column {
+  fill: none;
+  stroke: rgba(11, 42, 74, 0.08);
+  stroke-width: 1;
+  stroke-dasharray: 2 6;
+}
+
+.helix-frame__tick {
+  fill: none;
+  stroke: rgba(11, 42, 74, 0.16);
+  stroke-width: 1;
+}
+
+.helix-frame,
+.helix-telemetry {
+  transform: translate(0, calc(var(--sy) * -12px));
+}
+
+.helix-telemetry text {
+  fill: #0e5a8a;
+  font-family: var(--font-mono), Consolas, monospace;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  opacity: 0.045;
+}
+
+.helix-wash {
+  opacity: 1;
+}
+
+/* --- The weave --- */
+
+.helix-ribbon {
+  fill: none;
+  stroke: #7cc0e8;
+  stroke-width: 26;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.24;
+}
+
+.helix-strand--front .helix-ribbon {
+  stroke: #63b3e4;
+  stroke-width: 28;
+  opacity: 0.28;
+}
+
+.helix-core {
+  fill: none;
+  stroke: #3f9ad4;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  opacity: 0.55;
+}
+
+.helix-strand--front .helix-core {
+  stroke: #126faa;
+  stroke-width: 1.9;
+  opacity: 0.8;
+}
+
+.helix-rungs path {
+  fill: none;
+  stroke: #6fb4de;
+  stroke-width: 1.1;
+}
+
+/* --- Vessel line drawing --- */
+
+.helix-vessel {
+  transform: translate(0, calc(var(--sy) * -16px));
+}
+
+.helix-vessel path {
+  fill: none;
+  stroke: #6f96b5;
+  stroke-width: 1;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  opacity: 0.6;
+}
+
+/* --- Object nodes --- */
+
+.helix-node {
+  position: absolute;
+  left: calc(var(--x) * 100%);
+  top: calc(var(--y) * 100%);
+  width: 0;
+  height: 0;
+}
+
+.helix-node__dot {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 10px;
+  height: 10px;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 28%, #cde5f5 0%, #8cbfe0 100%);
+  box-shadow: 0 0 0 4px rgba(79, 173, 224, 0.1);
+  transition: transform var(--duration-fast) var(--ease-standard);
+}
+
+.helix-node--front .helix-node__dot {
+  width: 15px;
+  height: 15px;
+  background: radial-gradient(circle at 34% 28%, #63b6e8 0%, #2180bd 52%, #0e5a8a 100%);
+  box-shadow: 0 0 0 5px rgba(18, 111, 170, 0.1), 0 6px 14px rgba(11, 42, 74, 0.16);
+}
+
+.helix-node__tag {
+  position: absolute;
+  left: 0;
+  bottom: 20px;
+  translate: -50% 0;
+  display: grid;
+  gap: 0;
+  min-width: 44px;
+  padding: 2px 5px 3px;
+  border: 1px solid rgba(11, 42, 74, 0.16);
+  border-radius: 4px;
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(11, 42, 74, 0.05);
+  white-space: nowrap;
+  transition: border-color var(--duration-fast) linear, box-shadow var(--duration-fast) linear;
+}
+
+.helix-node--front .helix-node__tag {
+  border-color: rgba(11, 42, 74, 0.22);
+  box-shadow: 0 2px 5px rgba(11, 42, 74, 0.08);
+}
+
+.helix-node__index,
+.helix-node__code,
+.helix-node__id {
+  font-family: var(--font-mono), Consolas, monospace;
+  line-height: 1.15;
+}
+
+.helix-node__index {
+  font-size: 8px;
+  font-weight: 500;
+  color: var(--ink-tertiary);
+  opacity: 0.85;
+}
+
+.helix-node__code {
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--ink-primary);
+}
+
+.helix-node__id {
+  font-size: 8.5px;
+  color: var(--ink-tertiary);
+}
+
+.helix-node:hover .helix-node__dot {
+  transform: scale(1.16);
+}
+
+.helix-node:hover .helix-node__tag {
+  border-color: rgba(18, 111, 170, 0.44);
+  box-shadow: 0 2px 6px rgba(11, 42, 74, 0.1);
+}
+
+/* --- Micro information tags (the only surfaces over the canvas) --- */
+
+.helix-chip {
+  position: absolute;
+  border: 1px solid rgba(11, 42, 74, 0.12);
+  border-radius: var(--radius-card);
+  background: #ffffff;
+  box-shadow: 0 1px 0 var(--hairline), 0 8px 20px rgba(11, 42, 74, 0.05);
+}
+
+.helix-chip--vessel {
+  top: 2%;
+  left: 0;
+  width: 44%;
+  max-width: 306px;
+  padding: 10px 12px 11px;
+  transform: translate3d(calc(var(--px) * 7px), calc(var(--py) * 6px), 0);
+}
+
+.helix-chip__head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.helix-chip__ship {
+  width: 24px;
+  height: 16px;
+  flex: none;
+  color: var(--accent-ocean);
+}
+
+.helix-chip__vessel {
+  font-family: var(--font-display), Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--ink-primary);
+}
+
+.helix-chip__demo {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 4px;
+  font-size: 11px;
+  color: var(--ink-tertiary);
+}
+
+.helix-chip__status-dot {
+  width: 7px;
+  height: 7px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--status-ok);
+}
+
+.helix-chip__fields {
+  display: grid;
+  gap: 5px;
+  margin: 9px 0 0;
+  padding-top: 8px;
+  border-top: 1px solid rgba(11, 42, 74, 0.1);
+}
+
+.helix-chip__fields > div {
+  display: grid;
+  grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+  gap: 10px;
+  align-items: baseline;
+}
+
+.helix-chip__fields dt {
+  font-family: var(--font-mono), Consolas, monospace;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-tertiary);
+}
+
+.helix-chip__fields dd {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: 0;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--ink-primary);
+}
+
+.helix-chip--record {
+  right: 0;
+  bottom: 3.5%;
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  width: 44%;
+  max-width: 306px;
+  padding: 11px 12px;
+  transform: translate3d(calc(var(--px) * 9px), calc(var(--py) * 7px), 0);
+}
+
+.helix-chip__doc {
+  width: 17px;
+  height: 19px;
+  flex: none;
+  margin-top: 1px;
+  color: var(--accent-ocean);
+}
+
+.helix-chip--record p {
+  font-size: 12.5px;
+  line-height: 1.4;
+  font-weight: 500;
+  color: var(--ink-secondary);
+}
+
+.helix-chip__arrow {
+  align-self: center;
+  margin-left: auto;
+  flex: none;
+  font-size: 13px;
+  color: var(--ink-tertiary);
+}
+
+/* --- Legend: the three exhibit callouts, kept from the product-proof frame --- */
+
+.hero-helix__legend {
+  display: grid;
+  gap: 5px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hero-helix__legend li {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 12.5px;
+  color: var(--ink-secondary);
+}
+
+.hero-helix__legend-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  flex: none;
+  translate: 0 1px;
+  border: 1px solid rgba(18, 111, 170, 0.4);
+  border-radius: 50%;
+  font-family: var(--font-mono), Consolas, monospace;
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--accent-ocean-deep);
+}
+
+/* --- Motion: only ever armed by the component after mount --- */
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-helix[data-state="run"] .helix-frame {
+    animation: helixSettle 900ms var(--ease-standard) both;
+  }
+
+  .hero-helix[data-state="run"] .helix-wash {
+    animation: helixBreathe 1400ms var(--ease-standard) both;
+  }
+
+  .hero-helix[data-state="run"] .helix-ribbon {
+    animation: helixFade 1100ms var(--ease-standard) both;
+    animation-delay: 160ms;
+  }
+
+  .hero-helix[data-state="run"] .helix-rungs {
+    animation: helixFade 1200ms var(--ease-standard) both;
+    animation-delay: 260ms;
+  }
+
+  .hero-helix[data-state="run"] .helix-vessel {
+    animation: helixSettle 1100ms var(--ease-standard) both;
+    animation-delay: 620ms;
+  }
+
+  .hero-helix[data-state="run"] .helix-node {
+    animation: helixNodeIn 620ms var(--ease-standard) both;
+    animation-delay: calc(240ms + var(--i) * 76ms);
+  }
+
+  .hero-helix[data-state="run"] .helix-chip {
+    animation: helixNodeIn 720ms var(--ease-standard) both;
+    animation-delay: 540ms;
+  }
+
+  /* Ambient structural drift — near-invisible, 52s, whole composition. */
+  .hero-helix[data-state="run"] .hero-helix__plane {
+    animation: helixDrift 52000ms ease-in-out infinite alternate;
+    animation-delay: 1600ms;
+  }
+
+  /* Object progression — one object at a time, 1.35s apart, 15s loop. */
+  .hero-helix[data-state="run"] .helix-node__dot::after,
+  .hero-helix[data-state="run"] .helix-node__tag::after {
+    animation: helixStep 15000ms linear infinite;
+    animation-delay: calc(1500ms + var(--i) * 1350ms);
+  }
+
+  /* Keyboard focus walks the same emphasis once, without waiting. */
+  .hero-helix[data-state="run"]:focus-visible .helix-node__dot::after,
+  .hero-helix[data-state="run"]:focus-visible .helix-node__tag::after {
+    animation: helixStepOnce 900ms var(--ease-standard) both;
+    animation-delay: calc(var(--i) * 95ms);
+  }
+}
+
+/* Ambient loops sleep while the hero is off-screen. */
+.hero-helix[data-live="false"] .hero-helix__plane,
+.hero-helix[data-live="false"] .helix-node__dot::after,
+.hero-helix[data-live="false"] .helix-node__tag::after {
+  animation-play-state: paused !important;
+}
+
+.helix-node__dot::after,
+.helix-node__tag::after {
+  content: "";
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.helix-node__dot::after {
+  inset: -7px;
+  border: 1.5px solid rgba(18, 111, 170, 0.55);
+  border-radius: 50%;
+}
+
+.helix-node__tag::after {
+  inset: -1px;
+  border-radius: inherit;
+  background: rgba(18, 111, 170, 0.09);
+}
+
+@keyframes helixStep {
+  0% {
+    opacity: 0;
+    transform: scale(0.86);
+  }
+  2.5% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  7%,
+  100% {
+    opacity: 0;
+    transform: scale(1.24);
+  }
+}
+
+@keyframes helixStepOnce {
+  0% {
+    opacity: 0;
+    transform: scale(0.86);
+  }
+  40% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.28);
+  }
+}
+
+@keyframes helixDrift {
+  from {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  to {
+    transform: translate3d(0, -4px, 0) rotate(-0.35deg);
+  }
+}
+
+@keyframes helixNodeIn {
+  from {
+    opacity: 0.5;
+    transform: translateY(7px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes helixFade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes helixBreathe {
+  from {
+    opacity: 0.45;
+  }
+}
+
+@keyframes helixSettle {
+  from {
+    opacity: 0.35;
+    transform: translateY(6px);
+  }
+}
+
+/* Tablet: keep the weave and its labels, drop the sheet frame and the
+   second micro tag so nothing crowds. */
+@media (max-width: 1023px) {
+  .helix-frame,
+  .helix-telemetry {
+    display: none;
+  }
+
+  .helix-chip--record {
+    display: none;
+  }
+
+  .helix-chip--vessel {
+    width: 58%;
+  }
+}
+
+/* Mobile: the weave stays; the labels become an ordered list beneath the
+   artwork so the REQ → PKG order stays readable at touch sizes. */
+@media (max-width: 639px) {
+  .hero-helix__plane {
+    aspect-ratio: auto;
+    animation: none !important;
+  }
+
+  .hero-helix__svg {
+    position: static;
+    height: auto;
+    aspect-ratio: 760 / 540;
+  }
+
+  .helix-vessel,
+  .helix-chip {
+    display: none;
+  }
+
+  .helix-trace {
+    position: static;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+    margin-top: 10px;
+    transform: none;
+  }
+
+  .helix-node {
+    position: static;
+    width: auto;
+    height: auto;
+  }
+
+  .helix-node__dot {
+    display: none;
+  }
+
+  .helix-node__tag {
+    position: static;
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+    min-width: 0;
+    padding: 4px 7px;
+    translate: none;
+  }
+
+  .helix-node__tag::after {
+    display: none;
+  }
+
+  .helix-node__code {
+    font-size: 11px;
   }
 }
 

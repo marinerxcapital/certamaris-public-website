@@ -1,21 +1,19 @@
 "use client";
 
+import { AssuranceHelix } from "@/components/AssuranceHelix";
 import { Button } from "@/components/Button";
 import { personaHomeCopy, usePersonaSelection } from "@/components/PersonaEntry";
-import { ProductScreenFrame } from "@/components/ProductScreens";
 import { SampleRecordExplorer } from "@/components/SampleRecordExplorer";
 import {
   DEMO_TOUR_HREF,
   PRIMARY_CTA_HREF,
   PRIMARY_CTA_LABEL,
 } from "@/lib/constants";
-import { productProofScreens } from "@/lib/product-screens";
-
-const heroScreen = productProofScreens.executiveReporting;
 
 /**
- * First-viewport hero: one outcome idea, two actions, and a large
- * Executive Readiness exhibit. Sample-record explorer sits below the fold.
+ * First-viewport hero: one outcome idea, two actions, and the Assurance Helix
+ * exhibit drawn directly on the page canvas (no panel around it). The
+ * sample-record explorer sits below the fold.
  */
 export function HomeHero() {
   const { persona } = usePersonaSelection();
@@ -27,14 +25,13 @@ export function HomeHero() {
   return (
     <>
       <section className="hero-section landing-hero relative" aria-labelledby="hero-title">
-        <div className="shell relative z-10 py-12 sm:py-14 lg:py-16">
+        <div className="shell relative z-10 py-10 sm:py-12 lg:py-12">
           <div className="hero-product-grid">
             <div className="hero-copy-block min-w-0">
-              <p className="brand-hero-mark">CertaMaris</p>
-              <p className="mt-3 font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-[#0e5a8a]">
+              <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-[#0e5a8a]">
                 {copy.ledger}
               </p>
-              <h1 id="hero-title" className="hero-display mt-4 max-w-[20ch]">
+              <h1 id="hero-title" className="hero-display mt-4 max-w-[26ch]">
                 {copy.headline}
               </h1>
               <p className="mt-5 max-w-[34rem] text-[17px] font-medium leading-[1.55] text-navy sm:text-[18px]">
@@ -60,18 +57,7 @@ export function HomeHero() {
             </div>
 
             <div className="hero-product-plane min-w-0">
-              <div className="hero-product-panel">
-                <p className="mb-3 font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-ocean">
-                  Live product surface · demo data
-                </p>
-                <ProductScreenFrame
-                  {...heroScreen}
-                  crop="top"
-                  priority
-                  className="hero-executive-frame"
-                  sizes="(min-width: 1280px) 640px, (min-width: 1024px) 52vw, 100vw"
-                />
-              </div>
+              <AssuranceHelix />
             </div>
           </div>
         </div>
