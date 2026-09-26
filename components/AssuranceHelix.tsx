@@ -2,9 +2,11 @@
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import {
+  HELIX_AURA_PATHS,
   HELIX_FRAME,
   HELIX_NODES,
   HELIX_RUNGS,
+  HELIX_SIGNAL_POINTS,
   HELIX_STRAND_FRONT,
   HELIX_STRAND_REAR,
   HELIX_TRACE,
@@ -186,6 +188,12 @@ export function AssuranceHelix({ className = "" }: { className?: string }) {
               <stop offset="0%" stopColor="#c6e0f3" />
               <stop offset="100%" stopColor="#82b8db" />
             </radialGradient>
+            <linearGradient id="cmHelixTrace" x1="15%" y1="70%" x2="92%" y2="20%">
+              <stop offset="0%" stopColor="#126faa" stopOpacity="0" />
+              <stop offset="24%" stopColor="#126faa" stopOpacity="0.2" />
+              <stop offset="58%" stopColor="#0b7fc2" stopOpacity="0.86" />
+              <stop offset="100%" stopColor="#63b6e8" stopOpacity="0" />
+            </linearGradient>
           </defs>
 
           <g className="helix-frame">
@@ -220,6 +228,24 @@ export function AssuranceHelix({ className = "" }: { className?: string }) {
             </text>
           </g>
 
+          <g className="helix-aura">
+            {HELIX_AURA_PATHS.map((path, index) => (
+              <path key={path} d={path} style={{ "--i": index } as CSSProperties} />
+            ))}
+          </g>
+
+          <g className="helix-signal-points">
+            {HELIX_SIGNAL_POINTS.map((point, index) => (
+              <circle
+                key={`${point.x}-${point.y}`}
+                cx={point.x}
+                cy={point.y}
+                r={point.r}
+                style={{ opacity: point.opacity, "--i": index } as CSSProperties}
+              />
+            ))}
+          </g>
+
           <g className="helix-strands">
             <g className="helix-strand">
               <path className="helix-ribbon" d={HELIX_STRAND_REAR} pathLength={1} />
@@ -233,6 +259,7 @@ export function AssuranceHelix({ className = "" }: { className?: string }) {
             <g className="helix-strand helix-strand--front">
               <path className="helix-ribbon" d={HELIX_STRAND_FRONT} pathLength={1} />
               <path className="helix-core" d={HELIX_STRAND_FRONT} pathLength={1} />
+              <path className="helix-current" d={HELIX_STRAND_FRONT} pathLength={1} />
             </g>
           </g>
 
@@ -260,6 +287,8 @@ export function AssuranceHelix({ className = "" }: { className?: string }) {
                   "--x": node.fx,
                   "--y": node.fy,
                   "--i": node.index,
+                  "--lx": `${node.labelDx}px`,
+                  "--ly": `${node.labelDy}px`,
                 } as CSSProperties
               }
             >

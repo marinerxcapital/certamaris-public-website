@@ -2329,17 +2329,12 @@ figure.product-showcase-frame > div:first-child {
 }
 
 @media (max-width: 767px) {
+  .landing-hero .shell {
+    padding-top: 3.75rem;
+  }
+
   .hero-cta-row {
-    position: sticky;
-    top: 4.75rem;
-    z-index: 30;
-    margin-inline: -0.25rem;
-    padding: 0.65rem 0.55rem;
-    border: 1px solid rgba(11, 42, 74, 0.1);
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.94);
-    box-shadow: 0 12px 28px rgba(11, 42, 74, 0.1);
-    backdrop-filter: blur(10px);
+    gap: 0.75rem;
   }
 }
 
@@ -2361,8 +2356,15 @@ figure.product-showcase-frame > div:first-child {
 .hero-helix {
   position: relative;
   width: 100%;
-  max-width: 700px;
+  max-width: 760px;
   margin: 0;
+  overflow: hidden;
+  border: 1px solid rgba(11, 42, 74, 0.12);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(246, 251, 255, 0.9)),
+    radial-gradient(circle at 54% 49%, rgba(108, 187, 235, 0.14), transparent 54%);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.88) inset, 0 22px 55px rgba(11, 42, 74, 0.11);
   --px: 0;
   --py: 0;
   --sy: 0;
@@ -2377,7 +2379,9 @@ figure.product-showcase-frame > div:first-child {
   display: flex;
   flex-direction: column;
   gap: 5px;
-  margin-bottom: 12px;
+  padding: 13px 16px 11px;
+  border-bottom: 1px solid rgba(11, 42, 74, 0.1);
+  background: rgba(255, 255, 255, 0.62);
 }
 
 .hero-helix__eyebrow {
@@ -2417,8 +2421,9 @@ figure.product-showcase-frame > div:first-child {
 
 .hero-helix__plane {
   position: relative;
-  width: 100%;
-  max-width: 700px;
+  width: calc(100% - 20px);
+  max-width: none;
+  margin: 0 10px;
   aspect-ratio: 760 / 540;
 }
 
@@ -2467,7 +2472,9 @@ figure.product-showcase-frame > div:first-child {
 }
 
 .helix-frame,
-.helix-telemetry {
+.helix-telemetry,
+.helix-aura,
+.helix-signal-points {
   transform: translate(0, calc(var(--sy) * -12px));
 }
 
@@ -2482,6 +2489,28 @@ figure.product-showcase-frame > div:first-child {
 
 .helix-wash {
   opacity: 1;
+}
+
+.helix-aura path {
+  fill: none;
+  stroke: #63b6e8;
+  stroke-width: 5;
+  stroke-linecap: round;
+  opacity: 0.12;
+}
+
+.helix-aura path:nth-child(2) {
+  stroke-width: 4;
+  opacity: 0.1;
+}
+
+.helix-aura path:nth-child(3) {
+  stroke-width: 2.5;
+  opacity: 0.1;
+}
+
+.helix-signal-points circle {
+  fill: #126faa;
 }
 
 /* --- The weave --- */
@@ -2513,6 +2542,14 @@ figure.product-showcase-frame > div:first-child {
   stroke: #126faa;
   stroke-width: 1.9;
   opacity: 0.8;
+}
+
+.helix-current {
+  fill: none;
+  stroke: url(#cmHelixTrace);
+  stroke-width: 4.4;
+  stroke-linecap: round;
+  opacity: 0;
 }
 
 .helix-rungs path {
@@ -2569,8 +2606,8 @@ figure.product-showcase-frame > div:first-child {
 .helix-node__tag {
   position: absolute;
   left: 0;
-  bottom: 20px;
-  translate: -50% 0;
+  top: 0;
+  translate: calc(-50% + var(--lx, 0px)) var(--ly, -64px);
   display: grid;
   gap: 0;
   min-width: 44px;
@@ -2636,8 +2673,9 @@ figure.product-showcase-frame > div:first-child {
 .helix-chip--vessel {
   top: 2%;
   left: 0;
-  width: 44%;
-  max-width: 306px;
+  width: 32%;
+  min-width: 222px;
+  max-width: 250px;
   padding: 10px 12px 11px;
   transform: translate3d(calc(var(--px) * 7px), calc(var(--py) * 6px), 0);
 }
@@ -2754,8 +2792,10 @@ figure.product-showcase-frame > div:first-child {
 .hero-helix__legend {
   display: grid;
   gap: 5px;
-  margin: 12px 0 0;
-  padding: 0;
+  margin: 0;
+  padding: 8px 16px 14px;
+  border-top: 1px solid rgba(11, 42, 74, 0.08);
+  background: rgba(255, 255, 255, 0.48);
   list-style: none;
 }
 
@@ -2795,13 +2835,34 @@ figure.product-showcase-frame > div:first-child {
   }
 
   .hero-helix[data-state="run"] .helix-ribbon {
-    animation: helixFade 1100ms var(--ease-standard) both;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: helixDraw 1500ms var(--ease-standard) both;
     animation-delay: 160ms;
+  }
+
+  .hero-helix[data-state="run"] .helix-core {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: helixDraw 1600ms var(--ease-standard) both;
+    animation-delay: 260ms;
   }
 
   .hero-helix[data-state="run"] .helix-rungs {
     animation: helixFade 1200ms var(--ease-standard) both;
     animation-delay: 260ms;
+  }
+
+  .hero-helix[data-state="run"] .helix-aura path {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: helixDraw 1500ms var(--ease-standard) both;
+    animation-delay: calc(340ms + var(--i) * 80ms);
+  }
+
+  .hero-helix[data-state="run"] .helix-signal-points circle {
+    animation: helixSignalIn 900ms var(--ease-standard) both;
+    animation-delay: calc(520ms + var(--i) * 70ms);
   }
 
   .hero-helix[data-state="run"] .helix-vessel {
@@ -2825,6 +2886,11 @@ figure.product-showcase-frame > div:first-child {
     animation-delay: 1600ms;
   }
 
+  .hero-helix[data-state="run"] .helix-current {
+    animation: helixTraceSweep 15000ms linear infinite;
+    animation-delay: 1500ms;
+  }
+
   /* Object progression — one object at a time, 1.35s apart, 15s loop. */
   .hero-helix[data-state="run"] .helix-node__dot::after,
   .hero-helix[data-state="run"] .helix-node__tag::after {
@@ -2842,6 +2908,7 @@ figure.product-showcase-frame > div:first-child {
 
 /* Ambient loops sleep while the hero is off-screen. */
 .hero-helix[data-live="false"] .hero-helix__plane,
+.hero-helix[data-live="false"] .helix-current,
 .hero-helix[data-live="false"] .helix-node__dot::after,
 .hero-helix[data-live="false"] .helix-node__tag::after {
   animation-play-state: paused !important;
@@ -2907,6 +2974,41 @@ figure.product-showcase-frame > div:first-child {
   }
 }
 
+@keyframes helixDraw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes helixTraceSweep {
+  0% {
+    opacity: 0;
+    stroke-dasharray: 0.001 0.999;
+    stroke-dashoffset: 0.16;
+  }
+  10% {
+    opacity: 0.7;
+  }
+  42% {
+    opacity: 0.72;
+    stroke-dasharray: 0.115 0.885;
+  }
+  72% {
+    opacity: 0.52;
+  }
+  100% {
+    opacity: 0;
+    stroke-dasharray: 0.001 0.999;
+    stroke-dashoffset: -0.92;
+  }
+}
+
+@keyframes helixSignalIn {
+  from {
+    opacity: 0;
+  }
+}
+
 @keyframes helixNodeIn {
   from {
     opacity: 0.5;
@@ -2937,8 +3039,8 @@ figure.product-showcase-frame > div:first-child {
   }
 }
 
-/* Tablet: keep the weave and its labels, drop the sheet frame and the
-   second micro tag so nothing crowds. */
+/* Tablet: keep the product surface, simplify the construction scaffold, and
+   tighten the two micro tags around the exhibit. */
 @media (max-width: 1023px) {
   .helix-frame,
   .helix-telemetry {
@@ -2946,68 +3048,188 @@ figure.product-showcase-frame > div:first-child {
   }
 
   .helix-chip--record {
-    display: none;
+    width: 38%;
   }
 
   .helix-chip--vessel {
-    width: 58%;
+    width: 44%;
+    max-width: 276px;
   }
 }
 
-/* Mobile: the weave stays; the labels become an ordered list beneath the
-   artwork so the REQ → PKG order stays readable at touch sizes. */
+/* Mobile keeps the target composition: compact product surface, on-helix
+   labels, vessel tag, record tag, and no detached chip list. */
 @media (max-width: 639px) {
+  .hero-product-grid {
+    gap: 1.45rem;
+  }
+
+  .hero-helix {
+    border-radius: 8px;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.88) inset, 0 14px 34px rgba(11, 42, 74, 0.1);
+  }
+
+  .hero-helix__head {
+    gap: 4px;
+    padding: 11px 12px 9px;
+  }
+
+  .hero-helix__eyebrow {
+    font-size: 9.5px;
+    letter-spacing: 0.12em;
+  }
+
+  .hero-helix__exhibit {
+    font-size: 8.8px;
+    letter-spacing: 0.085em;
+  }
+
   .hero-helix__plane {
-    aspect-ratio: auto;
+    width: calc(100% - 12px);
+    margin-inline: 6px;
+    aspect-ratio: 760 / 610;
     animation: none !important;
   }
 
-  .hero-helix__svg {
-    position: static;
-    height: auto;
-    aspect-ratio: 760 / 540;
-  }
-
-  .helix-vessel,
-  .helix-chip {
+  .helix-aura path:nth-child(3),
+  .helix-frame,
+  .helix-telemetry {
     display: none;
   }
 
-  .helix-trace {
-    position: static;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 6px;
-    margin-top: 10px;
-    transform: none;
+  .helix-ribbon {
+    stroke-width: 21;
+    opacity: 0.22;
   }
 
-  .helix-node {
-    position: static;
-    width: auto;
-    height: auto;
+  .helix-strand--front .helix-ribbon {
+    stroke-width: 23;
+    opacity: 0.28;
+  }
+
+  .helix-core {
+    stroke-width: 1.25;
+  }
+
+  .helix-strand--front .helix-core {
+    stroke-width: 1.55;
+  }
+
+  .helix-rungs path {
+    stroke-width: 0.85;
+  }
+
+  .helix-vessel {
+    display: block;
+    opacity: 0.78;
+  }
+
+  .helix-chip {
+    border-color: rgba(11, 42, 74, 0.14);
+    background: rgba(255, 255, 255, 0.9);
+  }
+
+  .helix-chip--vessel {
+    display: block;
+    top: 1.5%;
+    left: 1.5%;
+    width: 47%;
+    min-width: 0;
+    padding: 7px 8px 8px;
+  }
+
+  .helix-chip__ship {
+    width: 18px;
+    height: 13px;
+  }
+
+  .helix-chip__vessel {
+    font-size: 10.5px;
+  }
+
+  .helix-chip__demo {
+    margin-top: 3px;
+    font-size: 9px;
+  }
+
+  .helix-chip__fields {
+    display: none;
+  }
+
+  .helix-chip--record {
+    right: 1.5%;
+    bottom: 2%;
+    display: flex;
+    width: 43%;
+    gap: 6px;
+    padding: 8px;
+  }
+
+  .helix-chip__doc {
+    width: 13px;
+    height: 15px;
+  }
+
+  .helix-chip--record p {
+    font-size: 9px;
+    line-height: 1.25;
+  }
+
+  .helix-chip__arrow {
+    display: none;
   }
 
   .helix-node__dot {
-    display: none;
+    width: 8px;
+    height: 8px;
+    box-shadow: 0 0 0 3px rgba(79, 173, 224, 0.1);
+  }
+
+  .helix-node--front .helix-node__dot {
+    width: 11px;
+    height: 11px;
+    box-shadow: 0 0 0 3px rgba(18, 111, 170, 0.1), 0 4px 10px rgba(11, 42, 74, 0.14);
   }
 
   .helix-node__tag {
-    position: static;
-    display: flex;
-    align-items: baseline;
-    gap: 5px;
-    min-width: 0;
-    padding: 4px 7px;
-    translate: none;
+    min-width: 33px;
+    padding: 2px 4px 2px;
+    translate: calc(-50% + (var(--lx, 0px) * 0.55)) calc(var(--ly, -64px) * 0.52);
+    border-radius: 4px;
+    scale: 0.86;
+    transform-origin: center;
   }
 
   .helix-node__tag::after {
     display: none;
   }
 
+  .helix-node__index {
+    font-size: 7px;
+  }
+
   .helix-node__code {
-    font-size: 11px;
+    font-size: 9px;
+  }
+
+  .helix-node__id {
+    display: none;
+  }
+
+  .hero-helix__legend {
+    grid-template-columns: 1fr;
+    gap: 4px;
+    padding: 7px 12px 11px;
+  }
+
+  .hero-helix__legend li {
+    font-size: 10.5px;
+  }
+
+  .hero-helix__legend-num {
+    width: 14px;
+    height: 14px;
+    font-size: 8px;
   }
 }
 

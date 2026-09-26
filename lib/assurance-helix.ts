@@ -144,6 +144,9 @@ export type HelixNode = HelixStep & {
   fy: number;
   /** Front-strand nodes read nearer: larger, deeper, higher contrast. */
   front: boolean;
+  /** Label offset in CSS pixels from the node centre. */
+  labelDx: number;
+  labelDy: number;
 };
 
 /**
@@ -154,6 +157,19 @@ export type HelixNode = HelixStep & {
 export const HELIX_NODES: HelixNode[] = HELIX_TRACE.map((step, index) => {
   const t = (index + 0.5) / HELIX_TRACE.length;
   const point = strandPoint(t, 1);
+  const labelOffsets = [
+    [-18, -64],
+    [18, 24],
+    [-4, 24],
+    [-10, 22],
+    [-24, -70],
+    [26, 20],
+    [-8, 24],
+    [-18, -66],
+    [16, -66],
+    [20, -72],
+  ] as const;
+  const [labelDx, labelDy] = labelOffsets[index];
   return {
     ...step,
     index,
@@ -162,8 +178,29 @@ export const HELIX_NODES: HelixNode[] = HELIX_TRACE.map((step, index) => {
     fx: round1((point.x / HELIX_VIEW.width) * 10000) / 10000,
     fy: round1((point.y / HELIX_VIEW.height) * 10000) / 10000,
     front: weave(t) >= 0,
+    labelDx,
+    labelDy,
   };
 });
+
+export const HELIX_AURA_PATHS = [
+  "M44 365 C165 210 294 182 405 238 C512 291 610 270 724 134",
+  "M50 394 C176 258 282 246 394 304 C512 366 618 336 712 190",
+  "M104 314 C216 180 318 156 424 205 C546 262 630 226 714 116",
+] as const;
+
+export const HELIX_SIGNAL_POINTS: { x: number; y: number; r: number; opacity: number }[] = [
+  { x: 84, y: 318, r: 2.5, opacity: 0.5 },
+  { x: 142, y: 398, r: 2.2, opacity: 0.42 },
+  { x: 212, y: 292, r: 2.4, opacity: 0.45 },
+  { x: 286, y: 346, r: 2.1, opacity: 0.4 },
+  { x: 356, y: 244, r: 2.6, opacity: 0.52 },
+  { x: 438, y: 314, r: 2.2, opacity: 0.43 },
+  { x: 504, y: 216, r: 2.7, opacity: 0.55 },
+  { x: 574, y: 282, r: 2.2, opacity: 0.44 },
+  { x: 638, y: 176, r: 2.4, opacity: 0.46 },
+  { x: 690, y: 236, r: 2.1, opacity: 0.4 },
+] as const;
 
 /**
  * Light maritime construction drawing: a container-vessel profile in the
