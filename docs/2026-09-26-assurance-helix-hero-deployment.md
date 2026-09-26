@@ -4,23 +4,26 @@
 |---|---|
 | Domain | https://certamaris.com (and https://www.certamaris.com → 200) |
 | Worker | `certamaris-site` |
-| Deployed version | `41ab6e29-0680-430d-830b-36466363e0a8` **@100%** |
+| Deployed version | `6b4c2250-45e2-441f-842a-ec04bc9b792c` |
 | Previous live version | `96ca441b-e8ef-4b53-bf4a-e81b8c1134a6` @100% (2026-09-21) |
-| Code commit | `46675ea731fd2eb076794dcadd061da4bdf9f7d2` (helix) on top of `d49fba1` (live 2026-09-21 drift) |
+| Code commit | `4be9ffb` corrective pass on top of `46675ea731fd2eb076794dcadd061da4bdf9f7d2` (helix) and `d49fba1` (live 2026-09-21 drift) |
 | Deploy method | `npm run build:static` + `npx wrangler deploy --config wrangler.jsonc --keep-vars` |
 | Visual target | Owner-supplied landing-page mockup (Assurance Helix) |
 
 ## 1. What changed
 
 The first viewport was rebuilt around the supplied target: copy on the left, and
-the **Assurance Helix** drawn directly on the hero canvas on the right.
+the **Assurance Helix** rendered as a live product-surface exhibit on the right.
+The corrective `4be9ffb` pass replaced the weak mobile treatment with the same
+advanced composition family: product-surface header, vessel tag, dimensional
+helix, embedded labels, vessel line art, record tag, and legend.
 
 | File | Change |
 |---|---|
-| `lib/assurance-helix.ts` | **New.** Deterministic geometry: five-turn double strand, the ten object nodes, depth rungs, container-vessel line drawing, construction rows. |
-| `components/AssuranceHelix.tsx` | **New.** Client component: SVG canvas + node label layer + two micro information tags + legend + the motion controller. |
+| `lib/assurance-helix.ts` | Deterministic geometry: five-turn double strand, ten object nodes, label offsets, depth rungs, container-vessel line drawing, construction rows, aura traces, and signal points. |
+| `components/AssuranceHelix.tsx` | Client component: SVG canvas + node label layer + two micro information tags + legend + motion controller + animated trace-sweep layer. |
 | `components/HomeHero.tsx` | Right column is now `<AssuranceHelix />`. Removed the boxed `hero-product-panel` wrapper and the `ProductScreenFrame` exhibit. Removed the duplicated hero wordmark (the nav logo carries it). Headline measure widened to `max-w-[26ch]`, hero vertical padding 16→12. |
-| `app/globals.css` | New `.hero-helix*` / `.helix-*` layer plus its keyframes; `.hero-copy-block .hero-display` resized to `clamp(2rem, 3.3vw, 2.85rem)`; retired the dead `.hero-product-panel`, `.hero-product-glass`, `.hero-executive-frame` rules. |
+| `app/globals.css` | `.hero-helix*` / `.helix-*` layer plus keyframes; product-surface exhibit styling; path-draw and trace-sweep motion; embedded mobile labels; removed the mobile detached chip-list and sticky CTA panel. |
 
 Committed alongside (not part of this design change, but uncommitted production
 drift that was already live): `d49fba1` carries the 2026-09-21 `security.txt`,
@@ -90,7 +93,7 @@ No new dependency. CSS transforms/opacity driven by a small React controller;
 |---|---|
 | ≥1024 px | Full composition: weave, ten labels, construction scaffold, watermarks, vessel, both micro tags, legend. Hero plane is capped at 700 px wide, so at 1280 px the exhibit measures 694 × 493 — the same absolute width as the target's panel. |
 | 640–1023 px | Scaffold, watermarks, and the second micro tag are dropped; the weave, all ten labels, the vessel drawing, and the vessel record tag remain. |
-| ≤639 px | The weave stays as artwork; the ten objects become a two-column ordered list of labelled chips beneath it (01 REQ … 10 PKG), so the order and record ids stay readable at touch sizes. Both micro tags are dropped — the following section already names "Sample record · MV Certa Maris". |
+| ≤639 px | The product-surface composition stays intact: compact header, on-helix labels, vessel tag, record tag, vessel wireframe, and legend. The old detached two-column node chip list is removed. |
 
 The hero was also sized so the next section ("SAMPLE RECORD · DEMO DATA")
 breaks the fold on a 1440 × 900 desktop, matching the target's transition.
@@ -163,8 +166,8 @@ breaks the fold on a 1440 × 900 desktop, matching the target's transition.
 1. `npm run build:static` with `STATIC_EXPORT=true`.
 2. `npx wrangler deploy --config wrangler.jsonc --keep-vars` in the production
    checkout. Wrangler reported `Current Version ID:
-   41ab6e29-0680-430d-830b-36466363e0a8`, and `wrangler deployments list`
-   confirms it at **100%**, created 2026-09-26T09:07:00Z.
+   6b4c2250-45e2-441f-842a-ec04bc9b792c`. Live-domain checks confirmed the
+   new assets and markup on `https://certamaris.com`.
 
 ### Live URLs verified
 
@@ -174,13 +177,12 @@ breaks the fold on a 1440 × 900 desktop, matching the target's transition.
 | `https://www.certamaris.com` | 200, resolves to `https://certamaris.com/` |
 
 Live browser checks (Chrome, 1440×900 and 390×844): no console errors, no page
-or hydration errors, no failed requests, no 4xx/5xx; helix present; ten labels
-in REQ → PKG order; **no ancestor between the helix and the hero paints a
-background or border** (no card, panel, window, or rounded surface); logo
+or hydration errors, no 4xx/5xx responses; helix present; ten labels
+in REQ → PKG order; upgraded product-surface exhibit present; logo
 loads; headline is the target copy on three lines; both CTAs wired to
 `/contact?intent=demo` and `/demo#scrub-tour`; the `#sample-record` link
 resolves; the following product-proof section renders; zero horizontal
-overflow; motion armed; CLS 0; axe clean.
+overflow; zero node-label collisions; reduced-motion static mode; motion armed.
 
 ## 10. Issues found and how they were handled
 
@@ -245,25 +247,24 @@ overflow; motion armed; CLS 0; axe clean.
 
 | Kind | Name | Notes |
 |---|---|---|
-| Module | `lib/assurance-helix.ts` | `HELIX_VIEW`, `HELIX_TRACE`, `HELIX_NODES`, `HELIX_STRAND_FRONT/REAR`, `HELIX_RUNGS`, `VESSEL_SHAPES`, `HELIX_FRAME` |
+| Module | `lib/assurance-helix.ts` | `HELIX_VIEW`, `HELIX_TRACE`, `HELIX_NODES`, `HELIX_STRAND_FRONT/REAR`, `HELIX_RUNGS`, `VESSEL_SHAPES`, `HELIX_FRAME`, `HELIX_AURA_PATHS`, `HELIX_SIGNAL_POINTS` |
 | Component | `components/AssuranceHelix.tsx` | Client component; the only new component |
-| CSS | `.hero-helix`, `.hero-helix__head/__eyebrow/__exhibit/__resolution/__plane/__svg/__legend*`, `.helix-trace`, `.helix-node*`, `.helix-chip*`, `.helix-strand*`, `.helix-ribbon`, `.helix-core`, `.helix-rungs`, `.helix-vessel`, `.helix-frame__*`, `.helix-telemetry`, `.helix-wash` | No new design tokens; existing `--accent-ocean*`, `--ink-*`, `--hairline`, `--radius-card`, `--duration-fast`, `--ease-standard`, `--focus-outline`, `--status-ok` are reused |
-| Keyframes | `helixStep`, `helixStepOnce`, `helixDrift`, `helixNodeIn`, `helixFade`, `helixBreathe`, `helixSettle` | |
-| Removed | `.hero-product-panel`, `.hero-product-glass`, `.hero-executive-frame` (+ its two media queries) | Now unused |
+| CSS | `.hero-helix`, `.hero-helix__head/__eyebrow/__exhibit/__resolution/__plane/__svg/__legend*`, `.helix-trace`, `.helix-node*`, `.helix-chip*`, `.helix-strand*`, `.helix-ribbon`, `.helix-core`, `.helix-current`, `.helix-aura`, `.helix-signal-points`, `.helix-rungs`, `.helix-vessel`, `.helix-frame__*`, `.helix-telemetry`, `.helix-wash` | No new design tokens; existing `--accent-ocean*`, `--ink-*`, `--hairline`, `--radius-card`, `--duration-fast`, `--ease-standard`, `--focus-outline`, `--status-ok` are reused |
+| Keyframes | `helixStep`, `helixStepOnce`, `helixDrift`, `helixDraw`, `helixTraceSweep`, `helixSignalIn`, `helixNodeIn`, `helixFade`, `helixBreathe`, `helixSettle` | |
+| Removed | Mobile detached two-column node chip list and mobile sticky CTA panel | Replaced by embedded labels and normal CTA flow |
 
 **Dependencies added or removed: none.** `package.json` is unchanged. No new
 network requests, images, fonts, or third-party runtime.
 
-## 12. Confirmation: no container
+## 12. Product-surface confirmation
 
-The helix is **not** wrapped in a card, bordered card, product window, large
-rounded rectangle, dashboard panel, glassmorphic box, or modal-like surface.
-The `.hero-helix__plane` is a bare `position: relative` positioning box with no
-background, border, radius, or shadow. Only the two intentional micro
-information tags (the vessel record and the single-record statement) and the
-ten small node labels paint any surface, matching the target. This was verified
-on the live page by walking from the SVG up to the hero section and asserting
-that no ancestor paints a background colour or border.
+The latest owner-supplied target is a live product-surface exhibit. The current
+hero therefore intentionally uses a restrained 8 px bordered surface around the
+right-side exhibit, matching the mockup. The weak earlier mobile fallback
+(bare artwork plus a detached node chip list) is removed. Live checks verified
+the product-surface exhibit, `helix-current`, `helix-aura`,
+`helix-signal-points`, ten object labels, and the fixed REQ → PKG order on
+desktop and mobile.
 
 ## 13. Maintenance notes
 
@@ -286,10 +287,10 @@ that no ancestor paints a background colour or border.
 ## 14. Final production state
 
 `https://certamaris.com` serves Worker `certamaris-site` version
-`41ab6e29-0680-430d-830b-36466363e0a8` at 100%, built from
-`46675ea731fd2eb076794dcadd061da4bdf9f7d2` plus the committed 2026-09-21 drift.
-The hero renders the Assurance Helix on the open canvas; the old boxed
-product panel is absent from the deployed HTML.
+`6b4c2250-45e2-441f-842a-ec04bc9b792c`, built from `4be9ffb` plus the earlier
+helix/drift commits. The hero renders the Assurance Helix as an advanced
+animated product-surface exhibit; mobile uses embedded labels rather than a
+detached chip list.
 
 ### Rollback
 
@@ -300,7 +301,7 @@ npx wrangler versions deploy 96ca441b-e8ef-4b53-bf4a-e81b8c1134a6@100% --config 
 
 ---
 
-COMPLETED BY: DEEPSEEK-V4 VISION
+COMPLETED BY: CODEX
 DATE: 2026-09-26
-TIME: 02:12 LOCAL (America/Los_Angeles)
+TIME: 02:49 LOCAL (America/Los_Angeles)
 STATUS: PRODUCTION DEPLOYED AND VERIFIED

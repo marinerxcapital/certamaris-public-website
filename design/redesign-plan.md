@@ -206,19 +206,17 @@ hash pipeline.
   scroll pattern raced the IntersectionObserver differently than prior
   crawls had. Also added a bounded 1.5s fallback so that reveal always
   completes even if a real user flick-scrolls past it and never returns.
-- (2026-09-26, owner mockup) **The hero exhibit is now the Assurance Helix**,
-  drawn directly on the page canvas on the right of the first viewport, per
-  the owner's target mockup. This supersedes the "large Executive Readiness
-  panel" the hero carried from the 2026-09-20 wow pass: the product-proof
-  screenshot panel is gone from the hero (the exhibit itself is still one
-  click away under "Full resolution" and still used on `/demo` and
-  `/platform`). It is **not** a bespoke hero *background* — the plane is a
-  bare positioning box with no fill, border, radius, or shadow, so the point
-  above about bespoke hero surfaces still stands; only the two intentional
-  micro information tags and the ten node labels paint any surface. The
-  Pixel Grid referenced in that same note was itself retired on 2026-09-20
-  ("visual silence"), so the hero is now a plain `--surface-page` band.
-  The owner mockup also removed the duplicated hero wordmark (the nav logo
+- (2026-09-26, owner mockup + corrective pass) **The hero exhibit is now the
+  Assurance Helix live product surface**, on the right of the first viewport,
+  per the owner's target mockup. This supersedes both the 2026-09-20 large
+  Executive Readiness screenshot panel and the first DeepSeek helix pass that
+  reduced mobile to bare artwork plus a detached chip list. The current
+  surface keeps a restrained 8px exhibit shell, embedded labels, vessel tag,
+  record tag, vessel line art, layered trace/aura paths, and subtle path-draw
+  / trace-sweep motion. The Pixel Grid referenced in that same note was itself
+  retired on 2026-09-20 ("visual silence"), so the surrounding hero remains a
+  plain `--surface-page` band. The owner mockup also removed the duplicated
+  hero wordmark (the nav logo
   carries the brand) and set the headline to three lines
   (`Know readiness / before survey — / across every vessel.`), which the
   hero's copy column now reproduces.

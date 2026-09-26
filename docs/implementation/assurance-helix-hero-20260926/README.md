@@ -2,16 +2,16 @@
 
 **Pass:** Assurance Helix hero (landing page first viewport)
 **Repo:** `C:\certamaris-startup-site-pnpm\certamaris-startup-site` (marketing live SoT)
-**Commit:** `46675ea731fd2eb076794dcadd061da4bdf9f7d2`
-**Worker version:** `41ab6e29-0680-430d-830b-36466363e0a8` @100%
+**Commit:** `4be9ffb` corrective pass on top of `46675ea731fd2eb076794dcadd061da4bdf9f7d2`
+**Worker version:** `6b4c2250-45e2-441f-842a-ec04bc9b792c`
 **Full record:** [`../../2026-09-26-assurance-helix-hero-deployment.md`](../../2026-09-26-assurance-helix-hero-deployment.md)
 
 ## Files
 
 | File | Role |
 |---|---|
-| `lib/assurance-helix.ts` | All helix geometry and the trace object list. Pure functions, no React, no randomness. |
-| `components/AssuranceHelix.tsx` | The client component: SVG canvas, HTML node-label layer, two micro tags, legend, motion controller. |
+| `lib/assurance-helix.ts` | All helix geometry, trace object list, label offsets, aura traces, and signal points. Pure functions, no React, no randomness. |
+| `components/AssuranceHelix.tsx` | The client component: SVG canvas, HTML node-label layer, two micro tags, legend, motion controller, and trace-sweep layer. |
 | `components/HomeHero.tsx` | Hero layout. Right column renders `<AssuranceHelix />`; left column copy/CTA unchanged except the removed wordmark and the headline measure. |
 | `app/globals.css` | `.hero-helix*` / `.helix-*` styles, keyframes, responsive and reduced-motion rules. |
 
@@ -23,10 +23,10 @@
     └── .hero-product-grid            (0.78fr / 1.22fr at ≥1024px)
         ├── .hero-copy-block           eyebrow · h1 (max-w-26ch) · support · 2 CTAs · sample-record link
         └── .hero-product-plane
-            └── figure.hero-helix      (data-state, data-live, tabIndex=0)
+            └── figure.hero-helix      (product-surface exhibit; data-state, data-live, tabIndex=0)
                 ├── .hero-helix__head  eyebrow + exhibit line + Full resolution link
-                ├── .hero-helix__plane (position:relative, max-width 700px, aspect 760/540, no surface)
-                │   ├── svg.hero-helix__svg       frame · wash · telemetry · strands/rungs · vessel
+                ├── .hero-helix__plane (position:relative, aspect 760/540 desktop; compact mobile)
+                │   ├── svg.hero-helix__svg       frame · wash · telemetry · aura · signals · strands/rungs · vessel
                 │   ├── ol.helix-trace            10 × li.helix-node (dot + tag + sr-only text)
                 │   ├── div.helix-chip--vessel    MV Certa Maris record
                 │   └── div.helix-chip--record    "One controlled record…"
@@ -54,7 +54,8 @@ assertion at 1280 px and 1440 px before shipping such a change.
 
 | Layer | Effect | Gate |
 |---|---|---|
-| `.helix-ribbon`, `.helix-rungs`, `.helix-vessel`, `.helix-node`, `.helix-chip` | one-shot reveal (`helixFade` / `helixSettle` / `helixNodeIn`), staggered by `--i` | `data-state="run"` |
+| `.helix-ribbon`, `.helix-core`, `.helix-aura`, `.helix-rungs`, `.helix-vessel`, `.helix-node`, `.helix-chip` | one-shot reveal/path draw (`helixDraw` / `helixFade` / `helixSettle` / `helixNodeIn`), staggered by `--i` | `data-state="run"` |
+| `.helix-current` | `helixTraceSweep`, 15 s travelling trace along the front strand | `data-state="run"`, paused when `data-live="false"` |
 | `.hero-helix__plane` | `helixDrift`, 52 s, ±4 px and 0.35° | `data-state="run"`, paused when `data-live="false"` |
 | `.helix-node__dot::after`, `.helix-node__tag::after` | `helixStep`, 15 s loop, one object emphasised at a time | `data-state="run"`, paused when `data-live="false"` |
 | `:focus-visible` on the figure | `helixStepOnce`, same sweep, one pass | `data-state="run"` |
@@ -91,7 +92,7 @@ Rules that must survive future edits:
 
 ---
 
-COMPLETED BY: DEEPSEEK-V4 VISION
+COMPLETED BY: CODEX
 DATE: 2026-09-26
-TIME: 02:12 LOCAL
+TIME: 02:49 LOCAL
 STATUS: PRODUCTION DEPLOYED AND VERIFIED
