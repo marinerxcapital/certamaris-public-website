@@ -5,11 +5,12 @@ import { FounderPortrait } from "@/components/FounderPortrait";
 import { HomeCapabilityBand } from "@/components/HomeCapabilityBand";
 import { HomeHero } from "@/components/HomeHero";
 import { HomeSampleRecord } from "@/components/HomeSampleRecord";
+import { PricingPackageCard } from "@/components/PricingPackageCard";
 import { ProductCinematicMoment } from "@/components/ProductCinematicMoment";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
 import { APP_SIGN_IN_URL } from "@/lib/constants";
-import { pricingTiers } from "@/lib/faq-pricing";
+import { packageTiers, pricingTiers } from "@/lib/faq-pricing";
 
 const trustDiligenceLinks: [string, string][] = [
   ["/security", "Security"],
@@ -22,12 +23,10 @@ const trustDiligenceLinks: [string, string][] = [
   ["/legal/privacy", "Privacy"],
 ];
 
-const pricingTeaserTiers = pricingTiers.map((tier) => ({
-  name: tier.name,
-  platformFee: tier.platformFee,
-}));
-
 export default function HomePage() {
+  const priceFor = (name: string) =>
+    pricingTiers.find((tier) => name.toLowerCase().includes(tier.name.toLowerCase()));
+
   return (
     <>
       <HomeHero />
@@ -95,14 +94,17 @@ export default function HomePage() {
           <Reveal delay={0.04}>
             <Eyebrow>Pricing</Eyebrow>
             <h2 className="section-h2">Core, Assurance, and Enterprise — honest packages.</h2>
-            <ul className="mt-5 grid gap-2">
-              {pricingTeaserTiers.map((tier) => (
-                <li key={tier.name} className="flex items-baseline justify-between gap-4 border-b border-navy/10 pb-2">
-                  <span className="text-[15px] font-semibold text-navy">{tier.name}</span>
-                  <span className="font-mono text-[12px] text-structural">{tier.platformFee}</span>
-                </li>
+            <div className="mt-5 grid gap-4">
+              {packageTiers.map((pkg) => (
+                <PricingPackageCard
+                  key={pkg.id}
+                  pkg={pkg}
+                  pricing={priceFor(pkg.name)}
+                  ctaLabel="Request quote"
+                  ctaHref="/contact?intent=sales"
+                />
               ))}
-            </ul>
+            </div>
             <Link href="/pricing" className="mt-5 inline-block text-[14px] font-semibold text-ocean hover:underline">
               Full pricing and package comparison
             </Link>
