@@ -108,6 +108,24 @@ function formatComparisonValue(value: ComparisonValue): string {
   }
 }
 
+const comparisonPackages = [
+  {
+    key: "fleetCore",
+    label: "Fleet Core",
+    getValue: (row: (typeof pricingComparisonRows)[number]) => row.fleetCore,
+  },
+  {
+    key: "fleetAssurance",
+    label: "Fleet Assurance",
+    getValue: (row: (typeof pricingComparisonRows)[number]) => row.fleetAssurance,
+  },
+  {
+    key: "enterprise",
+    label: "Enterprise",
+    getValue: (row: (typeof pricingComparisonRows)[number]) => row.enterprise,
+  },
+] as const;
+
 export default function PricingPage() {
   const priceFor = (name: string) =>
     pricingTiers.find((tier) => name.toLowerCase().includes(tier.name.toLowerCase()));
@@ -343,16 +361,34 @@ export default function PricingPage() {
           </p>
         </Reveal>
         <Reveal>
-          <p id="package-comparison-instructions" className="sr-only">
-            This comparison scrolls horizontally on smaller screens. Focus the table region and use the arrow keys to
-            review every package column.
-          </p>
+          <div className="grid gap-3 md:hidden" aria-label="Package capability comparison">
+            {comparisonPackages.map((pkg, index) => (
+              <details
+                key={pkg.key}
+                className="rounded-md border border-navy/10 bg-white p-4 shadow-card"
+                open={index === 0}
+              >
+                <summary className="cursor-pointer text-[16px] font-semibold text-navy marker:text-ocean">
+                  {pkg.label}
+                </summary>
+                <dl className="mt-4 grid gap-3">
+                  {pricingComparisonRows.map((row) => (
+                    <div key={`${pkg.key}-${row.key}`} className="border-t border-navy/8 pt-3">
+                      <dt className="text-[12px] font-semibold uppercase tracking-[0.08em] text-ocean">
+                        {row.feature}
+                      </dt>
+                      <dd className="mt-1 text-[13.5px] leading-relaxed text-structural">
+                        {formatComparisonValue(pkg.getValue(row))}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              </details>
+            ))}
+          </div>
           <div
-            className="overflow-x-auto rounded-md border border-navy/10 bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ocean"
-            tabIndex={0}
-            role="region"
+            className="hidden overflow-x-auto rounded-md border border-navy/10 bg-white md:block"
             aria-label="Package capability comparison"
-            aria-describedby="package-comparison-instructions"
           >
             <table className="w-full min-w-[720px] border-collapse text-left text-[13.5px]">
               <caption className="sr-only">
