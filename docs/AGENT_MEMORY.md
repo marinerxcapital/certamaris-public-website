@@ -1,4 +1,47 @@
-# Cinematic vessel-video hero LIVE - 2026-09-26 (CURRENT)
+# Pixel Grid restored, ship + DNA strand removed - 2026-09-26 (CURRENT)
+
+**Production:** https://certamaris.com - Worker `certamaris-site` version `8852bbb1-dd35-4492-bb5b-c61319027f51` @100%
+**Code commit:** see git log after this doc - the revert commit on `codex/assurance-helix-hero-20260926` (local; not pushed)
+**Owner direction:** "Remove the dna strand and the ship. Bring back the animated pixel grids."
+**What changed:**
+
+1. **Pixel Grid is back sitewide.** `components/PixelGridBackground.tsx` is mounted again in
+   `app/layout.tsx` and the `display:none` / `opacity:0` retirement rules are gone. It is the
+   first-party fixed canvas at the owner-approved `0.28` layer opacity. Section shells are
+   translucent again so the grid reads through: `.section-surface` transparent,
+   `--surface-page: rgba(251,253,255,0.76)`, `--surface-paper: rgba(243,247,250,0.92)`,
+   `html { background: #f6f9fc }` as the pre-paint fallback. `.hero-section` is
+   `background: transparent` and the opaque `.landing-hero::before` overlay is deleted, so the
+   grid is the hero background. **The single strength knob is
+   `.pixel-grid-background { opacity }` in `app/globals.css`.**
+2. **The Assurance Helix ("DNA strand") is unmounted from `/`.** Band, heading, legend, vessel
+   tag and record tag removed. The component and `lib/assurance-helix.ts` stay in the repo,
+   dormant, if the owner wants it back.
+3. **The vessel hero is deleted, not hidden.** `components/HeroVesselFilm.tsx`, all four
+   `public/media/certamaris-vessel-hero-2026-09*` files, `scripts/qa/check-hero-media.mjs`, the
+   `qa:hero-media` script, the `run-all` step, the `/media/` cache rule in `worker/index.ts`,
+   the `/media/:path*` header in `next.config.ts`, and the `outline-inverse` Button variant are
+   all removed. `https://certamaris.com/media/*` returns 404.
+4. **Hero replaced** by the pre-helix, owner-approved composition: category label, headline,
+   supporting line, two actions and the `#sample-record` anchor on the left; one restrained
+   panel holding a **real Executive Readiness product screenshot** on the right
+   (`components/HomeHero.tsx`, `.hero-product-panel`, `.hero-executive-frame`).
+**Kept dormant on purpose:** `scripts/media/build-hero-media.ps1` plus the gitignored
+`media-source/` reference copy of the owner's footage - nothing is wired and nothing ships;
+re-running the script regenerates the media if the ship is ever wanted back.
+**Validation:** `build:static` PASS (110 pages) - `typecheck` PASS - content-qa PASS -
+`qa:responsive-a11y` PASS (16 routes x 9 viewports: 0 axe violations, 0 overflow, 0 broken
+images) - `audit-crawl after` PASS (94 routes x desktop + mobile: 0 axe-violating pages, 0
+overflow pages, 0 console errors) - production real-browser pass (grid canvas painted, 0
+console errors, 0 overflow, one H1, no video, no helix).
+**Record:** [`2026-09-26-pixel-grid-restore-and-hero-revert.md`](./2026-09-26-pixel-grid-restore-and-hero-revert.md)
+**Rollback:** `npx wrangler versions deploy ea419440-583c-46c9-8208-24306cd4e7f9@100% --config wrangler.jsonc -y`
+
+**Signed:** Codex (DeepSeek V4 Flash Vision Exp, opencode Go) - 2026-09-26
+
+---
+
+# Cinematic vessel-video hero - 2026-09-26 (SUPERSEDED same day)
 
 **Production:** https://certamaris.com - Worker `certamaris-site` version `ea419440-583c-46c9-8208-24306cd4e7f9` @100%
 **Code commit:** `e37f0e9` on `codex/assurance-helix-hero-20260926` (local; not pushed - GitHub Actions is owner-blocked)

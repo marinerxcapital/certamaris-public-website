@@ -4,8 +4,10 @@
 
 :root {
   /* ---------- Surfaces ---------- */
-  --surface-page: #f5f8fa;
-  --surface-paper: #f5f8fa;
+  /* Translucent so the fixed sitewide Pixel Grid reads through the section
+     shells. Dense copy stays on the near-solid panels/cards. */
+  --surface-page: rgba(251, 253, 255, 0.76);
+  --surface-paper: rgba(243, 247, 250, 0.92);
   --surface-raised: #ffffff;
   --surface-navy: #0b2a4a;
   /* Chart-navy band + sounding linework (redesign 2026-08-01, design/redesign-plan.md) */
@@ -118,7 +120,8 @@
 html {
   scroll-behavior: auto;
   scroll-padding-top: 108px;
-  background: var(--surface-page);
+  /* Fallback base before the Pixel Grid canvas paints its first frame */
+  background: #f6f9fc;
 }
 
 [id],
@@ -139,7 +142,7 @@ html {
 
 body {
   margin: 0;
-  background: var(--surface-page);
+  background: transparent;
   color: var(--ink-primary);
   font-family: var(--font-body), Arial, sans-serif;
   font-size: var(--font-size-body);
@@ -164,29 +167,40 @@ body {
 .site-root {
   position: relative;
   overflow-x: clip;
-  background: var(--surface-page);
+  background: transparent;
+  /* Do not isolate: keep the fixed Pixel Grid as a single full-viewport layer. */
 }
 
-/* Sitewide Pixel Grid retired — visual silence on marketing pages */
+/* Sitewide Pixel Grid — restored 2026-09-26 on explicit owner direction.
+   One fixed, first-party canvas behind the z-10 content shell
+   (components/PixelGridBackground.tsx). Owner-approved softness: the whole
+   layer sits at 0.28 so body copy over the transparent section shells keeps
+   AA contrast without relying only on the panels. */
 .pixel-grid-background {
-  display: none !important;
-  opacity: 0 !important;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  opacity: 0.28;
+  overflow: hidden;
   pointer-events: none;
 }
 
 .pixel-grid-background canvas,
 .pixel-grid-background > * {
-  display: none !important;
+  width: 100% !important;
+  height: 100% !important;
 }
 
 [data-aifx-wm] {
   display: none !important;
 }
 
-/* Section shells: calm paper/white — no competing background texture */
+/* Section shells: translucent so the Pixel Grid reads through, while dense copy
+   still sits on the near-solid panels/cards below. */
 .section-surface {
   position: relative;
-  background: var(--surface-page);
+  background: transparent;
 }
 
 .section-surface--page {
@@ -1034,19 +1048,12 @@ textarea:focus-visible,
   display: flex;
   align-items: center;
   overflow: visible;
-  background: var(--surface-page);
+  /* Transparent so the sitewide Pixel Grid is the hero's background. */
+  background: transparent;
 }
 
 .landing-hero {
   border-bottom: 1px solid var(--hairline);
-}
-
-.landing-hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--surface-page);
-  pointer-events: none;
 }
 
 .hero-copy-block {
@@ -2343,11 +2350,11 @@ figure.product-showcase-frame > div:first-child {
 
 .hero-brand-block .hero-display,
 .hero-copy-block .hero-display {
-  /* Sized so the default headline breaks on the target's three lines
+  /* Sized so the default headline breaks on the intended three lines
      (Know readiness / before survey — / across every vessel.) */
-  font-size: clamp(2.05rem, 3.08vw, 2.45rem);
+  font-size: clamp(2.05rem, 3.4vw, 2.85rem);
   line-height: 1.05;
-  max-width: 11.3em;
+  max-width: 13em;
 }
 
 .hero-product-grid {
@@ -2358,29 +2365,14 @@ figure.product-showcase-frame > div:first-child {
 
 @media (min-width: 1024px) {
   .landing-hero .shell {
-    max-width: 1094px;
-    padding-top: 24px;
-    padding-bottom: 30px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-top: 36px;
+    padding-bottom: 48px;
   }
 
   .hero-product-grid {
-    grid-template-columns: minmax(380px, 0.82fr) minmax(0, 1.5fr);
-    gap: 2.35rem;
-    align-items: start;
-  }
-
-  .hero-copy-block {
-    align-self: center;
-    width: 410px;
-    max-width: 410px;
-    padding-top: 47px;
-    translate: 28px 0;
-  }
-
-  .hero-product-plane {
-    align-self: start;
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+    gap: 2.75rem;
+    align-items: center;
   }
 }
 
@@ -2395,244 +2387,46 @@ figure.product-showcase-frame > div:first-child {
   min-width: 128px;
 }
 
-@media (min-width: 1024px) {
-  .landing-hero .hero-copy-block > p:nth-of-type(2) {
-    max-width: 360px;
-    font-size: 15.5px;
-    line-height: 1.5;
-  }
+/* ---------- Hero product proof (2026-09-26) ----------
+   The first viewport runs on the sitewide Pixel Grid: copy on the left and one
+   restrained panel holding a real product screenshot on the right. The proof
+   is the product surface itself — no decorative motif stands in for it. */
 
-  .landing-hero .hero-copy-block > p:last-child {
-    font-size: 12.5px;
+.hero-product-panel {
+  background: var(--surface-raised);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  padding: 14px 14px 16px;
+  box-shadow: var(--shadow-raised);
+}
+
+.hero-executive-frame {
+  margin: 0;
+}
+
+.hero-executive-frame .product-exhibit-viewport--crop-top {
+  aspect-ratio: 4 / 3;
+  max-height: min(620px, 68vh);
+}
+
+@media (min-width: 1024px) {
+  .hero-executive-frame .product-exhibit-viewport--crop-top {
+    max-height: min(700px, 76vh);
   }
 }
 
 @media (max-width: 767px) {
   .landing-hero .shell {
-    padding-top: 3.75rem;
+    padding-top: 2.25rem;
   }
 
   .hero-cta-row {
     gap: 0.75rem;
   }
-}
 
-/* ---------- Cinematic landing hero (video, 2026-09-26) ----------
-   The vessel footage is the signature first-screen visual. The copy column
-   sits inside a corrected navy scrim so contrast is a property of the design,
-   not of whichever frame is on screen. The media layer never receives pointer
-   events. Prefers-reduced-motion is handled in the component: the video element
-   is not mounted at all, so the poster still is the reduced-motion state. */
-
-.hero-cinematic {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  background: var(--surface-navy);
-  color: #ffffff;
-}
-
-.hero-cinematic__media {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.hero-film {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  background: var(--surface-navy);
-}
-
-.hero-film__poster,
-.hero-film__video {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* Keeps the vessel in frame as the viewport narrows. */
-  object-position: 64% 52%;
-}
-
-.hero-film__video {
-  opacity: 0;
-}
-
-.hero-film[data-live="true"] .hero-film__video {
-  opacity: 1;
-  transition: opacity 900ms var(--ease-standard);
-}
-
-.hero-film__scrim {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(
-      100deg,
-      rgba(4, 20, 36, 0.95) 0%,
-      rgba(4, 20, 36, 0.86) 32%,
-      rgba(4, 20, 36, 0.48) 62%,
-      rgba(4, 20, 36, 0.66) 100%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(4, 20, 36, 0.74) 0%,
-      rgba(4, 20, 36, 0.16) 36%,
-      rgba(4, 20, 36, 0.74) 100%
-    );
-}
-
-.hero-cinematic__band {
-  position: relative;
-  z-index: 1;
-  min-height: clamp(520px, 78svh, 860px);
-  display: grid;
-  grid-template-rows: minmax(0, 1fr) auto;
-  align-content: stretch;
-}
-
-.hero-cinematic__inner {
-  display: flex;
-  align-items: center;
-  padding-top: clamp(2.5rem, 7vh, 5rem);
-  padding-bottom: clamp(2rem, 5vh, 3.5rem);
-}
-
-.hero-cinematic__copy {
-  max-width: 41rem;
-}
-
-.hero-cinematic__kicker {
-  font-family: var(--font-mono), Consolas, monospace;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: #a6d4f2;
-}
-
-.hero-cinematic__display {
-  margin-top: 1rem;
-  font-family: var(--font-display), Arial, sans-serif;
-  font-weight: 700;
-  font-size: clamp(2.05rem, 4.2vw, 3.3rem);
-  line-height: 1.06;
-  letter-spacing: 0;
-  color: #ffffff;
-  max-width: 24ch;
-  text-wrap: balance;
-}
-
-.hero-cinematic__support {
-  margin-top: 1.15rem;
-  max-width: 36rem;
-  font-size: clamp(1rem, 1.35vw, 1.15rem);
-  font-weight: 500;
-  line-height: 1.58;
-  color: rgba(238, 247, 255, 0.9);
-}
-
-.hero-cinematic .hero-cta-row {
-  margin-top: 1.8rem;
-}
-
-.hero-cinematic .hero-cta-row a {
-  min-width: 148px;
-}
-
-.hero-cinematic__note {
-  margin-top: 1.25rem;
-  font-size: 13px;
-  color: rgba(226, 240, 252, 0.8);
-}
-
-.hero-cinematic__link {
-  font-weight: 600;
-  color: #bfe3fb;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-.hero-cinematic__link:hover {
-  color: #ffffff;
-}
-
-.hero-cinematic__coverage {
-  position: relative;
-  border-top: 1px solid rgba(255, 255, 255, 0.16);
-  background: rgba(5, 22, 38, 0.55);
-}
-
-.hero-cinematic__coverage-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem 1.6rem;
-  padding: 0.85rem 0;
-  font-family: var(--font-mono), Consolas, monospace;
-  font-size: 11.5px;
-  letter-spacing: 0.03em;
-  color: rgba(219, 236, 250, 0.88);
-}
-
-.hero-cinematic__coverage-list li {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.hero-cinematic__coverage-list li::before {
-  content: "";
-  width: 5px;
-  height: 5px;
-  flex: none;
-  border-radius: 999px;
-  background: var(--accent-ocean-light);
-}
-
-/* Product-proof plane directly under the footage. */
-.hero-assurance {
-  background: var(--surface-page);
-  border-bottom: 1px solid var(--hairline);
-}
-
-.hero-assurance__grid {
-  display: grid;
-  gap: 2rem;
-  align-items: center;
-}
-
-.hero-assurance__plane {
-  min-width: 0;
-}
-
-@media (min-width: 1024px) {
-  .hero-assurance__grid {
-    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.45fr);
-    gap: 2.6rem;
-  }
-}
-
-@media (max-width: 767px) {
-  .hero-cinematic__band {
-    min-height: clamp(480px, 74svh, 640px);
-  }
-
-  .hero-cinematic__display {
-    font-size: clamp(1.95rem, 8.4vw, 2.5rem);
-    max-width: 20ch;
-  }
-
-  .hero-film__poster,
-  .hero-film__video {
-    object-position: 58% 48%;
-  }
-
-  .hero-cinematic__coverage-list {
-    font-size: 11px;
-    gap: 0.35rem 1.1rem;
+  .hero-executive-frame .product-exhibit-viewport--crop-top {
+    aspect-ratio: 5 / 4;
+    max-height: min(500px, 60vh);
   }
 }
 

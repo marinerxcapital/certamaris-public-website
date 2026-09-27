@@ -17,9 +17,9 @@ clearly labeled integration points.
 | **App** | Separate: https://app.certamaris.com |
 | **Agent memory (START HERE)** | [`docs/AGENT_MEMORY.md`](docs/AGENT_MEMORY.md) |
 | **Codex handoff** | [`docs/CODEX_MARKETING_TAKEOVER.md`](docs/CODEX_MARKETING_TAKEOVER.md) |
-| **Latest deploy note** | [`docs/2026-09-26-landing-video-hero-deployment.md`](docs/2026-09-26-landing-video-hero-deployment.md) |
-| **Latest handoff** | [`docs/CERTAMARIS_MARKETING_REVAMP_HANDOFF_2026-09-26.md`](docs/CERTAMARIS_MARKETING_REVAMP_HANDOFF_2026-09-26.md) |
-| **Latest production change** | Cinematic vessel-video landing hero + five-domain capability band - Worker `ea419440-583c-46c9-8208-24306cd4e7f9`; previous rotating CertaMaris logo mark `e90fe17` (Worker `c2be68c9-259c-4ece-a254-9aebc64ca8f8`); previous mockup-match Assurance Helix corrective pass `7c5a641` (Worker `547c484b-45ab-4191-b118-ccfdf7914711`); `4be9ffb`; `46675ea`; live-but-uncommitted drift `d49fba1`; before that UX/accessibility audit fix `46f0370` |
+| **Latest deploy note** | [`docs/2026-09-26-pixel-grid-restore-and-hero-revert.md`](docs/2026-09-26-pixel-grid-restore-and-hero-revert.md) |
+| **Latest handoff** | [`docs/CERTAMARIS_MARKETING_REVAMP_HANDOFF_2026-09-26.md`](docs/CERTAMARIS_MARKETING_REVAMP_HANDOFF_2026-09-26.md) (superseded same day by the pixel-grid revert note) |
+| **Latest production change** | Pixel Grid restored sitewide; vessel hero deleted and Assurance Helix unmounted from `/` on owner direction - Worker `8852bbb1-dd35-4492-bb5b-c61319027f51`; previous cinematic vessel-video hero (Worker `ea419440-583c-46c9-8208-24306cd4e7f9`); previous rotating CertaMaris logo mark `e90fe17` (Worker `c2be68c9-259c-4ece-a254-9aebc64ca8f8`); previous mockup-match Assurance Helix pass `7c5a641` (Worker `547c484b-45ab-4191-b118-ccfdf7914711`); `4be9ffb`; `46675ea`; live-but-uncommitted drift `d49fba1`; before that UX/accessibility audit fix `46f0370` |
 | **CI note (2026-09-26)** | The Actions `deploy` job is blocked, twice over: (1) the GitHub account is billing-locked, so jobs do not start at all (run `36232400278`: "The job was not started because your account is locked due to a billing issue"); (2) once unlocked, `npm run ci:validate` fails on `npm audit` (`next@16.2.12`, `sharp@0.35.3`). Deploy locally with `npm run build:static` (explicit webpack static export) + `npx wrangler deploy --config wrangler.jsonc --keep-vars`. See `docs/ci-billing.md`. |
 | **Latest UX pass** | UX/accessibility audit fix `46f0370`; previous product experience upgrade `dfb009f` plus pricing table keyboard-access closeout `0084f51` |
 | **Link-preview code commit** | `190533a` - link-preview branding fix (PR #9); prior feature content `df5f174` (PR #6) |
@@ -46,9 +46,9 @@ Canonical product monorepo (SPA/API, not live marketing): https://github.com/mar
 | Language | TypeScript 5.7 (strict mode) |
 | Styling | Tailwind CSS 3.4, custom design tokens in `app/globals.css` |
 | Foreground motion | CSP-safe CSS/React class reveals, continuous CSS rotation on the CertaMaris mark, plus the Assurance Helix product surface's own transform/opacity motion controller (`components/AssuranceHelix.tsx`) |
-| Landing hero (2026-09-26) | Full-bleed cinematic vessel footage (`components/HeroVesselFilm.tsx`) behind a navy scrim, with the category eyebrow, H1, two CTAs, and a coverage strip. Poster-first: the static export ships a 57 KB WebP still and attaches the silent loop only after hydration. Media lives in `public/media/` and is derived by `scripts/media/build-hero-media.ps1`; never hand-edit those files. |
-| Product-proof exhibit | Asset-free inline SVG Assurance Helix (`lib/assurance-helix.ts` + `components/AssuranceHelix.tsx`) inside the mockup-aligned live product-surface exhibit, with layered path-draw and trace-sweep motion. It now sits in its own band directly beneath the hero footage. |
-| Background treatment | Plain `--surface-page` bands. The Pixel Grid runtime was retired sitewide on 2026-09-20 (`.pixel-grid-background { display: none }`); `components/PixelGridBackground.tsx` is dormant, not mounted |
+| Landing hero (2026-09-26) | Copy on the left (category label, H1, supporting line, two CTAs, `#sample-record` anchor) and one restrained panel holding a real Executive Readiness product screenshot on the right (`components/HomeHero.tsx`, `.hero-product-panel`). Runs directly on the sitewide Pixel Grid. No background video. |
+| Background treatment | Animated first-party **Pixel Grid** canvas, mounted once sitewide in `app/layout.tsx` (`components/PixelGridBackground.tsx`), at the owner-approved `0.28` layer opacity. Section shells are translucent so the grid reads through; dense copy sits on near-solid panels/cards. Strength is one knob: `.pixel-grid-background { opacity }` in `app/globals.css`. |
+| Dormant, not mounted | `components/AssuranceHelix.tsx` + `lib/assurance-helix.ts` (the removed hero exhibit), `components/HeroPixelGrid.tsx`, and the `scripts/media/build-hero-media.ps1` vessel pipeline with its gitignored `media-source/` reference copy. Nothing above is wired, rendered, or shipped. |
 | Fonts | Space Grotesk (display), Inter (body), IBM Plex Mono (data/labels) — via `next/font/google` |
 | Hosting target | Cloudflare Workers with static assets through `wrangler.jsonc` |
 | Node | 22+ |
@@ -77,7 +77,6 @@ npm run qa:buyer-paths # static-export guard for the buyer diligence path
 npm run qa:excellence # static-export guard for high-intent buyer readiness surfaces
 npm run qa:product-experience # browser guard for lifecycle, chain, pricing, persona, and evidence journeys
 npm run qa:public-product-boundary # generated-HTML guard against internal admin marketing leaks
-npm run qa:hero-media # hero media contract: poster-first, width tiers, reduced motion, size budget
 npm run qa:ux-audit # browser guard for CSP, anchors, overflow, product exhibits, and axe
 npm run qa:lighthouse # Lighthouse smoke for key marketing routes
 ```
@@ -140,20 +139,19 @@ npm run build:static
 wrangler deploy --config wrangler.jsonc --keep-vars
 ```
 
-### Landing hero media
+### Background system
 
-The landing-page footage is derived, never edited in place:
+The site ships the animated **Pixel Grid** as one fixed, first-party canvas
+(`components/PixelGridBackground.tsx`, mounted in `app/layout.tsx`). It has no
+external script and no WebGL, and it paints one static frame for
+`prefers-reduced-motion`. Its strength is the single
+`.pixel-grid-background { opacity }` value in `app/globals.css` (currently
+`0.28`); section shells stay translucent so the grid reads through.
 
-```powershell
-pwsh scripts/media/build-hero-media.ps1   # writes public/media/certamaris-vessel-hero-2026-09*
-npm run qa:hero-media                     # 35-check contract, incl. size budget
-node scripts/qa/check-hero-media.mjs --base https://certamaris.com   # production check
-```
-
-The script needs the owner source at
-`media-source/CertaMaris-vessel-hero-source-2026-09-26.mov` (or pass `-Source`).
-`/media/` is registered as a stable, long-cached asset path in `worker/index.ts`,
-so a new derivative must get a new versioned filename.
+The vessel-footage hero pipeline is retained but **dormant**: nothing in
+`public/` ships, and `scripts/media/build-hero-media.ps1` plus the gitignored
+`media-source/` reference copy exist only so the media can be regenerated if
+the owner asks for that hero again.
 
 The GitHub Actions workflow in `.github/workflows/ci-deploy.yml` validates
 pull requests and deploys pushes to `main` after the Cloudflare repository
@@ -215,8 +213,7 @@ components/               Nav, Footer, Button, Section, PageHero, Reveal,
                            FaqAccordion, ArticleCard, ContactForm, BoundaryPanel,
                            PricingCalculator, ChainOfCustodyInspector,
                            EvidenceFreshnessSimulator
-                           HeroVesselFilm (landing hero media), HomeHero,
-                           HomeCapabilityBand, HomeSampleRecord
+                           HomeHero, HomeCapabilityBand, HomeSampleRecord
 
 lib/                      constants.ts, content.ts, solutions-industries.ts,
                            resources.ts, metadata.ts, pricing-calculator.ts,
@@ -225,14 +222,13 @@ lib/                      constants.ts, content.ts, solutions-industries.ts,
 public/
   brand/                  Logo mark, full lockup, favicons (derived from
                            the approved CertaMaris brand assets)
-  media/                  Landing hero derivatives (video/poster) - generated
-                           by scripts/media/build-hero-media.ps1, never hand-edited
   legal/documents/        Public PDFs, execution templates, and master binder
   og/                     Versioned Open Graph social image
 ```
 
-`media-source/` (gitignored) holds the byte-identical reference copy of the
-owner-supplied hero footage. Only the derived files under `public/media/` ship.
+Dormant and gitignored: `media-source/` holds the reference copy of the
+owner-supplied footage used by the retired vessel-hero pipeline. It is not
+referenced by any shipped code.
 
 Internal CertaMaris employee/admin tooling is not a client-facing public product module. Public product IA must stay focused on client company, fleet, vessel, evidence, findings, corrective actions, cybersecurity plans, reports/readiness, trust, procurement, legal, and contact workflows. Do not restore `/platform/corporate-control-plane` as public marketing content.
 
@@ -268,14 +264,14 @@ See `docs/2026-07-30-pixel-grid-params-visibility-deployment.md`.
 
 Previous decorative background systems were removed from the live source:
 WebP atmospheric assets, Silk/WebGL, Three.js, and motion-field overlays.
-Reduced-motion users get a stable non-animated page background (`display: none`
-on the Pixel Grid host).
+Reduced-motion visitors get a stable, non-animated Pixel Grid frame — the grid
+stays, only the drift loop is removed.
 
-**2026-09-26 — the hero video is intentional and owner-supplied.** The cinematic
-vessel footage in `public/media/` is not one of the retired decorative systems.
-It is the signature first-screen visual, and it is served poster-first with the
-loop attached only after hydration. Reduced-motion, Save-Data, and effective-2G
-visitors get the poster still and never mount a `<video>` element at all.
+**2026-09-26 — the Pixel Grid is back on explicit owner direction.** It was
+disabled sitewide on 2026-09-20, and the owner asked for it restored. It is the
+site's background system again: one fixed canvas at `0.28` opacity with
+translucent section shells. The same-day vessel-footage hero was removed at the
+same time; nothing media-related ships under `public/`.
 
 ---
 

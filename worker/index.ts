@@ -164,7 +164,6 @@ async function withHeaders(response: Response, request: Request): Promise<Respon
 function isStableAsset(pathname: string): boolean {
   return (
     pathname.startsWith("/brand/") ||
-    pathname.startsWith("/media/") ||
     pathname.startsWith("/legal/documents/") ||
     pathname.startsWith("/product/") ||
     pathname.startsWith("/og/") ||

@@ -1,5 +1,13 @@
 # CERTAMARIS MARKETING REVAMP - FINAL HANDOFF (2026-09-26)
 
+> **SUPERSEDED 2026-09-26 (same day).** The owner rejected the vessel-video hero and the
+> Assurance Helix and asked for the animated Pixel Grid back. Sections 1-5 and 8-10 below
+> describe a state that is no longer live: the video is deleted, the helix is unmounted, and
+> the Pixel Grid is restored. Current truth:
+> [`2026-09-26-pixel-grid-restore-and-hero-revert.md`](./2026-09-26-pixel-grid-restore-and-hero-revert.md)
+> plus the CURRENT banner in [`AGENT_MEMORY.md`](./AGENT_MEMORY.md). This file is retained as
+> the record of the video pass and its evidence.
+
 Owner directive: *CertaMaris Codex Marketing Website Revamp + Video Directive, 2026-09-26.*
 Executed against the marketing live SoT
 `C:\certamaris-startup-site-pnpm\certamaris-startup-site`.
