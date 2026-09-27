@@ -5,6 +5,7 @@
 **Repo:** `C:\certamaris-startup-site-pnpm\certamaris-startup-site`
 **Worker:** `certamaris-site` version `8852bbb1-dd35-4492-bb5b-c61319027f51` @100%
 **Previous live version (for rollback):** `ea419440-583c-46c9-8208-24306cd4e7f9`
+**Code commit:** `58764a4` (local; not pushed - GitHub Actions remains owner-blocked)
 **Owner direction:** "Remove the dna strand and the ship. Bring back the animated pixel grids."
 
 ---

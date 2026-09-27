@@ -1,7 +1,7 @@
 # Pixel Grid restored, ship + DNA strand removed - 2026-09-26 (CURRENT)
 
 **Production:** https://certamaris.com - Worker `certamaris-site` version `8852bbb1-dd35-4492-bb5b-c61319027f51` @100%
-**Code commit:** see git log after this doc - the revert commit on `codex/assurance-helix-hero-20260926` (local; not pushed)
+**Code commit:** `58764a4` on `codex/assurance-helix-hero-20260926` (local; not pushed - GitHub Actions is owner-blocked)
 **Owner direction:** "Remove the dna strand and the ship. Bring back the animated pixel grids."
 **What changed:**
 
