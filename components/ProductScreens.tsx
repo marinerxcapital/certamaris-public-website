@@ -38,6 +38,7 @@ type ProductScreenFrameProps = {
   lightboxTitle?: string;
   lightboxBody?: string;
   interactive?: boolean;
+  showFullResolution?: boolean;
 };
 
 type ProductScreenTileProps = ProductScreenFrameProps & {
@@ -102,6 +103,7 @@ function ProductScreenExhibit({
   width = 1440,
   height = 1040,
   crop = "none",
+  showFullResolution = true,
 }: ProductScreenFrameProps) {
   const visibleAnnotations = clampAnnotations(annotations);
   const resolvedFullSrc = fullSrc ?? src;
@@ -146,15 +148,17 @@ function ProductScreenExhibit({
           <span className="truncate font-mono text-[11px] uppercase tracking-[0.1em] text-structural">
             Exhibit · {label}
           </span>
-          <a
-            href={resolvedFullSrc}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="shrink-0 rounded border border-transparent px-2 py-1 font-mono text-[10px] uppercase tracking-[0.08em] text-[#0b6597] underline-offset-2 hover:border-ocean/20 hover:bg-white hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ocean"
-          >
-            Full resolution<span aria-hidden="true"> ↗</span>
-            <span className="sr-only"> — opens {label} screenshot in a new tab</span>
-          </a>
+          {showFullResolution ? (
+            <a
+              href={resolvedFullSrc}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="shrink-0 rounded border border-transparent px-2 py-1 font-mono text-[10px] uppercase tracking-[0.08em] text-[#0b6597] underline-offset-2 hover:border-ocean/20 hover:bg-white hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ocean"
+            >
+              Full resolution<span aria-hidden="true"> ↗</span>
+              <span className="sr-only"> — opens {label} screenshot in a new tab</span>
+            </a>
+          ) : null}
         </div>
         <div
           ref={imageWrapRef}

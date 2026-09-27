@@ -32,6 +32,12 @@ export function HomeSampleRecord() {
             Follow a labeled sample chain from requirement to released package — the same object
             model behind the readiness surface above.
           </p>
+          <a
+            href="#sample-record"
+            className="mt-3 inline-block text-[14px] font-semibold text-ocean hover:underline"
+          >
+            Inspect a sample record
+          </a>
         </div>
         <SampleRecordExplorer
           key={copy.sampleRecordId}

@@ -56,17 +56,13 @@ export function HomeHero() {
             </div>
 
             <p className="mt-5 text-[13px] leading-relaxed text-structural">
-              <a href="#sample-record" className="font-semibold text-ocean hover:underline">
-                Inspect a sample record
-              </a>
-              <span aria-hidden="true"> · </span>
-              labeled demo data, not a live tenant
+              Labeled demo data, not a live tenant.
             </p>
           </div>
 
           <div className="hero-product-plane min-w-0">
             <div className="hero-product-panel">
-              <p className="mb-3 font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-ocean">
+              <p className="mb-3 font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-structural">
                 Live product surface · demo data
               </p>
               <ProductScreenFrame
@@ -75,6 +71,7 @@ export function HomeHero() {
                 priority
                 className="hero-executive-frame"
                 sizes="(min-width: 1280px) 620px, (min-width: 1024px) 50vw, 100vw"
+                showFullResolution={false}
               />
             </div>
           </div>
