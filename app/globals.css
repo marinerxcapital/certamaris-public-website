@@ -1369,6 +1369,69 @@ figure.product-showcase-frame > div:first-child {
   color: var(--ink-secondary);
 }
 
+.assurance-stepper {
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  background: var(--surface-raised);
+  padding: 14px;
+  box-shadow: var(--shadow-card);
+}
+
+.assurance-stepper-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.assurance-stepper-item {
+  display: grid;
+  grid-template-columns: auto minmax(0, auto) minmax(0, 1fr);
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+  border: 1px solid rgba(6, 30, 54, 0.1);
+  border-radius: var(--radius-control);
+  background: rgba(255, 255, 255, 0.7);
+  padding: 9px 10px;
+}
+
+.assurance-stepper-index,
+.assurance-stepper-code {
+  font-family: var(--font-mono), Consolas, monospace;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: #0e5a8a;
+  font-variant-numeric: tabular-nums;
+}
+
+.assurance-stepper-index {
+  color: var(--ink-secondary);
+}
+
+.assurance-stepper-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-primary);
+}
+
+@media (min-width: 760px) {
+  .assurance-stepper--abbreviated .assurance-stepper-list {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .assurance-stepper--full .assurance-stepper-list {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
 /* ---------- Command palette ---------- */
 .palette-trigger {
   display: inline-flex;
@@ -3777,5 +3840,4 @@ figure.product-showcase-frame > div:first-child {
     break-inside: avoid;
   }
 }
-
 

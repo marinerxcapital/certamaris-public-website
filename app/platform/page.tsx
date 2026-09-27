@@ -1,8 +1,7 @@
 import Link from "next/link";
+import { AssuranceStepper } from "@/components/AssuranceStepper";
 import { BoundaryPanel } from "@/components/BoundaryPanel";
 import { Button } from "@/components/Button";
-import { CustodyStripBand } from "@/components/CustodyStripBand";
-import { EvidenceChain } from "@/components/EvidenceChain";
 import { PageHero } from "@/components/PageHero";
 import { ProductScreenFrame } from "@/components/ProductScreens";
 import { Reveal } from "@/components/Reveal";
@@ -79,8 +78,6 @@ export default function PlatformPage() {
           </div>
         }
       />
-
-      <CustodyStripBand href="/demo#scrub-tour" label="Scrub the product tour" />
 
       <Section id="hierarchy" spacing="compact">
         <Reveal className="mb-10 max-w-2xl">
@@ -167,7 +164,7 @@ export default function PlatformPage() {
             Not a separate dashboard for each step — one inspectable custody thread.
           </p>
         </Reveal>
-        <EvidenceChain />
+        <AssuranceStepper variant="full" />
       </Section>
 
       <Section surface="paper" spacing="compact" id="modules">

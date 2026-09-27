@@ -2,6 +2,7 @@
 
 import { SampleRecordExplorer } from "@/components/SampleRecordExplorer";
 import { personaHomeCopy, usePersonaSelection } from "@/components/PersonaEntry";
+import { AssuranceStepper } from "@/components/AssuranceStepper";
 
 /**
  * Homepage sample-record plane. Kept as its own client island so the persona
@@ -39,10 +40,12 @@ export function HomeSampleRecord() {
             Inspect a sample record
           </a>
         </div>
+        <AssuranceStepper variant="abbreviated" linkHref="/platform" className="mb-5" />
         <SampleRecordExplorer
           key={copy.sampleRecordId}
           initialId={copy.sampleRecordId}
           className="hero-sample-record"
+          showObjectTabs={false}
         />
       </div>
     </section>

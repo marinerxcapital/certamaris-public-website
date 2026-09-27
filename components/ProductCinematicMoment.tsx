@@ -253,27 +253,29 @@ export function ProductCinematicMoment() {
             goTo(Number(event.target.value));
           }}
         />
-        <ol className="scrub-beats cinematic-beats" aria-label="Assurance stages">
+        <div className="mt-3 flex flex-wrap gap-2" aria-label="Product moment controls">
           {STAGES.map((item, beatIndex) => {
             const active = beatIndex === index;
             return (
-              <li key={item.id}>
-                <button
-                  type="button"
-                  className={`scrub-beat${active ? " is-active" : ""}${beatIndex < index ? " is-passed" : ""}`}
-                  aria-current={active ? "step" : undefined}
-                  onClick={() => {
-                    setPlaying(false);
-                    goTo(beatIndex);
-                  }}
-                >
-                  <span className="scrub-beat-index">{String(beatIndex + 1).padStart(2, "0")}</span>
-                  <span className="scrub-beat-code">{item.code}</span>
-                </button>
-              </li>
+              <button
+                key={item.id}
+                type="button"
+                className={`rounded-md border px-3 py-1.5 font-mono text-[11px] font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-ocean ${
+                  active
+                    ? "border-ocean/60 bg-white text-ocean shadow-card"
+                    : "border-navy/10 bg-white/60 text-structural hover:border-ocean/35 hover:text-ocean"
+                }`}
+                aria-current={active ? "step" : undefined}
+                onClick={() => {
+                  setPlaying(false);
+                  goTo(beatIndex);
+                }}
+              >
+                {String(beatIndex + 1).padStart(2, "0")}
+              </button>
             );
           })}
-        </ol>
+        </div>
       </div>
 
       <div className="mt-8 grid gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-start">

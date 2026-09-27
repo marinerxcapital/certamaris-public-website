@@ -28,6 +28,7 @@ type SampleRecordExplorerProps = {
   initialId?: string;
   /** Optional class on the outer liquid-glass shell. */
   className?: string;
+  showObjectTabs?: boolean;
 };
 
 function resolveInitialId(initialId?: string) {
@@ -37,7 +38,7 @@ function resolveInitialId(initialId?: string) {
   return SAMPLE_RECORD[0].id;
 }
 
-export function SampleRecordExplorer({ initialId, className = "" }: SampleRecordExplorerProps) {
+export function SampleRecordExplorer({ initialId, className = "", showObjectTabs = true }: SampleRecordExplorerProps) {
   const [activeId, setActiveId] = useState(() => resolveInitialId(initialId));
   const [interacted, setInteracted] = useState(false);
   const reduced = usePrefersReducedMotion();
@@ -91,58 +92,60 @@ export function SampleRecordExplorer({ initialId, className = "" }: SampleRecord
         </span>
       </p>
 
-      <div className="grid gap-5 lg:grid-cols-[15.5rem_minmax(0,1fr)]">
-        <div
-          role="tablist"
-          aria-label="Sample record objects"
-          aria-orientation="vertical"
-          className="flex gap-1.5 overflow-x-auto pb-1 lg:flex-col lg:overflow-visible lg:pb-0"
-          onKeyDown={onTablistKeyDown}
-        >
-          {SAMPLE_RECORD.map((record, index) => {
-            const isActive = record.id === active.id;
-            return (
-              <button
-                key={record.id}
-                id={tabDomId(record.id)}
-                type="button"
-                role="tab"
-                aria-selected={isActive}
-                aria-controls={`${baseId}-panel`}
-                tabIndex={isActive ? 0 : -1}
-                onClick={() => {
-                  setInteracted(true);
-                  setActiveId(record.id);
-                }}
-                className={`relative shrink-0 rounded-md border px-3 py-2 text-left transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-ocean lg:shrink ${
-                  isActive
-                    ? "border-ocean/60 bg-white shadow-card"
-                    : "border-navy/10 bg-white/55 hover:border-navy/25 hover:bg-white/80"
-                }`}
-              >
-                {isActive && interacted && !reduced ? (
-                  <span key={`ping-${record.id}`} className="tab-ping" aria-hidden="true" />
-                ) : null}
-                <span className="flex items-baseline gap-2">
-                  <span className="font-mono text-[10.5px] font-semibold tracking-[0.08em] text-[#0e5a8a] tabular-nums">
-                    {String(index + 1).padStart(2, "0")}
+      <div className={showObjectTabs ? "grid gap-5 lg:grid-cols-[15.5rem_minmax(0,1fr)]" : "grid gap-5"}>
+        {showObjectTabs ? (
+          <div
+            role="tablist"
+            aria-label="Sample record objects"
+            aria-orientation="vertical"
+            className="flex gap-1.5 overflow-x-auto pb-1 lg:flex-col lg:overflow-visible lg:pb-0"
+            onKeyDown={onTablistKeyDown}
+          >
+            {SAMPLE_RECORD.map((record, index) => {
+              const isActive = record.id === active.id;
+              return (
+                <button
+                  key={record.id}
+                  id={tabDomId(record.id)}
+                  type="button"
+                  role="tab"
+                  aria-selected={isActive}
+                  aria-controls={`${baseId}-panel`}
+                  tabIndex={isActive ? 0 : -1}
+                  onClick={() => {
+                    setInteracted(true);
+                    setActiveId(record.id);
+                  }}
+                  className={`relative shrink-0 rounded-md border px-3 py-2 text-left transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-ocean lg:shrink ${
+                    isActive
+                      ? "border-ocean/60 bg-white shadow-card"
+                      : "border-navy/10 bg-white/55 hover:border-navy/25 hover:bg-white/80"
+                  }`}
+                >
+                  {isActive && interacted && !reduced ? (
+                    <span key={`ping-${record.id}`} className="tab-ping" aria-hidden="true" />
+                  ) : null}
+                  <span className="flex items-baseline gap-2">
+                    <span className="font-mono text-[10.5px] font-semibold tracking-[0.08em] text-[#0e5a8a] tabular-nums">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <span className="font-mono text-[11px] font-semibold tracking-[0.06em] text-navy">
+                      {record.id}
+                    </span>
                   </span>
-                  <span className="font-mono text-[11px] font-semibold tracking-[0.06em] text-navy">
-                    {record.id}
+                  <span className="mt-0.5 block whitespace-nowrap text-[12.5px] font-medium text-structural lg:whitespace-normal">
+                    {record.step}
                   </span>
-                </span>
-                <span className="mt-0.5 block whitespace-nowrap text-[12.5px] font-medium text-structural lg:whitespace-normal">
-                  {record.step}
-                </span>
-              </button>
-            );
-          })}
-        </div>
+                </button>
+              );
+            })}
+          </div>
+        ) : null}
 
         <div
           id={`${baseId}-panel`}
           role="tabpanel"
-          aria-labelledby={tabDomId(active.id)}
+          aria-labelledby={showObjectTabs ? tabDomId(active.id) : undefined}
           className="min-w-0"
         >
           {reduced ? (
