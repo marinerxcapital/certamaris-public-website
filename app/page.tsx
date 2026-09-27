@@ -11,17 +11,13 @@ import { Eyebrow, Section } from "@/components/Section";
 import { APP_SIGN_IN_URL } from "@/lib/constants";
 import { pricingTiers } from "@/lib/faq-pricing";
 
-const trustStripLinks: [string, string][] = [
+const trustDiligenceLinks: [string, string][] = [
   ["/security", "Security"],
   ["/trust", "Trust Center"],
   ["/trust/procurement", "Procurement"],
-];
-
-const diligenceLinks: [string, string][] = [
+  ["#buyer-diligence", "Buyer diligence"],
   ["/pricing", "Pricing"],
-  ["/trust", "Trust Center"],
   ["/trust/assurance-model", "Assurance model"],
-  ["/trust/procurement", "Procurement"],
   ["/trust/ai-policy", "AI policy"],
   ["/legal/privacy", "Privacy"],
 ];
@@ -73,23 +69,27 @@ export default function HomePage() {
         </p>
       </Section>
 
-      <Section id="trust-pricing" spacing="major">
+      <Section id="buyer-diligence" spacing="major">
         <div className="grid gap-10 lg:grid-cols-2 lg:items-start">
           <Reveal>
             <Eyebrow>Trust &amp; security</Eyebrow>
-            <h2 className="section-h2">Security, Trust Center, and procurement — one click away.</h2>
+            <h2 className="section-h2">Security, diligence, and procurement — one packet.</h2>
             <p className="mt-4 text-[15px] leading-relaxed text-structural">
-              Review public controls and diligence paths before the demo. No invented certifications.
+              Review public controls, pricing context, assurance boundaries, AI policy, and legal routes before
+              the demo. No invented certifications.
             </p>
-            <div className="mt-5 flex flex-wrap gap-4">
-              {trustStripLinks.map(([href, label]) => (
+            <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2">
+              {trustDiligenceLinks.map(([href, label]) => (
                 <Link key={href} href={href} className="text-[14px] font-semibold text-ocean hover:underline">
                   {label}
                 </Link>
               ))}
-              <a href="#buyer-diligence" className="text-[14px] font-semibold text-ocean hover:underline">
-                Buyer diligence
-              </a>
+            </div>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Button href="/contact?intent=procurement">Request procurement materials</Button>
+              <Button href="/contact?intent=demo" variant="secondary">
+                Request a demo
+              </Button>
             </div>
           </Reveal>
           <Reveal delay={0.04}>
@@ -108,32 +108,6 @@ export default function HomePage() {
             </Link>
           </Reveal>
         </div>
-      </Section>
-
-      <Section id="buyer-diligence" spacing="major" surface="paper">
-        <Reveal>
-          <div className="rounded-lg border border-navy/12 bg-white p-6 shadow-card sm:p-8">
-            <Eyebrow>Buyer diligence</Eyebrow>
-            <h2 className="section-h2 mt-2">Open the packet before the demo.</h2>
-            <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-structural">
-              Forwardable review route: proof first, package fit second, procurement/legal review third, request
-              last.
-            </p>
-            <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2">
-              {diligenceLinks.map(([href, label]) => (
-                <Link key={href} href={href} className="text-[14px] font-semibold text-ocean hover:underline">
-                  {label}
-                </Link>
-              ))}
-            </div>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Button href="/contact?intent=procurement">Request procurement materials</Button>
-              <Button href="/contact?intent=demo" variant="secondary">
-                Request a demo
-              </Button>
-            </div>
-          </div>
-        </Reveal>
       </Section>
 
       <Section spacing="major">
