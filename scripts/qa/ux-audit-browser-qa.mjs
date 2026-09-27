@@ -338,18 +338,21 @@ async function main() {
   }
 
   await page.goto(routeUrl("/"), { waitUntil: "load" });
-  const teaser = page.locator('[data-qa="assurance-lifecycle-teaser"]');
-  await teaser.waitFor({ state: "visible", timeout: 15000 });
-  await teaser.scrollIntoViewIfNeeded();
-  await page.waitForTimeout(750);
-  for (const code of ["REQ", "APP", "CTL", "ASM", "EVD", "FND", "RSK", "CAP", "QA", "PKG"]) {
-    const button = teaser.getByRole("button", { name: new RegExp(`\\b${code}\\b`) });
-    await button.click();
-    await page.waitForTimeout(180);
-    const panelText = await teaser.locator("article").innerText();
-    if (!panelText.includes(code) || !panelText.includes(LIFECYCLE_LABELS[code])) {
-      report.failures.push(`homepage lifecycle ${code} did not update panel; panel=${panelText.replace(/\s+/g, " ").slice(0, 120)}`);
-    }
+  const homeStepCodes = await page
+    .locator("#sample-record .assurance-stepper-code")
+    .evaluateAll((nodes) => nodes.map((node) => node.textContent?.trim()).filter(Boolean));
+  const expectedHomeCodes = ["REQ", "EVD", "FND", "CAP", "PKG"];
+  if (homeStepCodes.join("|") !== expectedHomeCodes.join("|")) {
+    report.failures.push(`homepage abbreviated stepper mismatch: ${homeStepCodes.join(" → ")}`);
+  }
+
+  await page.goto(routeUrl("/platform"), { waitUntil: "load" });
+  const platformStepCodes = await page
+    .locator(".assurance-stepper--full .assurance-stepper-code")
+    .evaluateAll((nodes) => nodes.map((node) => node.textContent?.trim()).filter(Boolean));
+  const expectedPlatformCodes = ["REQ", "APP", "CTL", "ASM", "EVD", "FND", "RSK", "CAP", "QA", "PKG"];
+  if (platformStepCodes.join("|") !== expectedPlatformCodes.join("|")) {
+    report.failures.push(`platform full stepper mismatch: ${platformStepCodes.join(" → ")}`);
   }
 
   await page.goto(routeUrl("/platform"), { waitUntil: "load" });
