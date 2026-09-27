@@ -68,6 +68,30 @@ export default function HomePage() {
         </p>
       </Section>
 
+      <Section spacing="major">
+        <Reveal className="mx-auto max-w-3xl">
+          <div className="grid gap-6 sm:grid-cols-[auto_1fr] sm:items-start">
+            <FounderPortrait size="sm" className="mx-auto sm:mx-0" />
+            <div>
+              <Eyebrow>From the founder</Eyebrow>
+              <h2 className="section-h2">Why I built this.</h2>
+              <p className="mt-3 text-[15px] leading-relaxed text-structural">
+                From the deck side — Third Mate, Unlimited Tonnage, Oceans — I watched cyber compliance break when
+                requirements, proof, and ownership lived in different places. CertaMaris keeps that chain connected
+                through to a package you can hand over.
+              </p>
+              <p className="mt-4 text-[15px] font-semibold text-navy">Skyler Brown</p>
+              <Link
+                href="/about/leadership"
+                className="mt-2 inline-block text-[14px] font-semibold text-ocean hover:underline"
+              >
+                Full profile
+              </Link>
+            </div>
+          </div>
+        </Reveal>
+      </Section>
+
       <Section id="buyer-diligence" spacing="major">
         <div className="grid gap-10 lg:grid-cols-2 lg:items-start">
           <Reveal>
@@ -110,30 +134,6 @@ export default function HomePage() {
             </Link>
           </Reveal>
         </div>
-      </Section>
-
-      <Section spacing="major">
-        <Reveal className="mx-auto max-w-3xl">
-          <div className="grid gap-6 sm:grid-cols-[auto_1fr] sm:items-start">
-            <FounderPortrait size="sm" className="mx-auto sm:mx-0" />
-            <div>
-              <Eyebrow>From the founder</Eyebrow>
-              <h2 className="section-h2">Why I built this.</h2>
-              <p className="mt-3 text-[15px] leading-relaxed text-structural">
-                From the deck side — Third Mate, Unlimited Tonnage, Oceans — I watched cyber compliance break when
-                requirements, proof, and ownership lived in different places. CertaMaris keeps that chain connected
-                through to a package you can hand over.
-              </p>
-              <p className="mt-4 text-[15px] font-semibold text-navy">Skyler Brown</p>
-              <Link
-                href="/about/leadership"
-                className="mt-2 inline-block text-[14px] font-semibold text-ocean hover:underline"
-              >
-                Full profile
-              </Link>
-            </div>
-          </div>
-        </Reveal>
       </Section>
 
       <Section spacing="major" surface="paper">
