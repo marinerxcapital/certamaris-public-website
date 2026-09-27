@@ -98,8 +98,8 @@ export default function HomePage() {
             <Eyebrow>Trust &amp; security</Eyebrow>
             <h2 className="section-h2">Security, diligence, and procurement — one packet.</h2>
             <p className="mt-4 text-[15px] leading-relaxed text-structural">
-              Review public controls, pricing context, assurance boundaries, AI policy, and legal routes before
-              the demo. No invented certifications.
+              Forwardable review route: public controls, pricing context, assurance boundaries, AI policy, and
+              legal routes before the demo. No invented certifications.
             </p>
             <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2">
               {trustDiligenceLinks.map(([href, label]) => (

@@ -79,24 +79,16 @@ async function main() {
     }
   }
 
-  await step("homepage lifecycle selects PKG and links to inspector", async () => {
+  await step("homepage record chain is abbreviated and links to platform", async () => {
     await page.goto(`${base}/`, { waitUntil: "load" });
-    await page.getByRole("button", { name: /PKG/ }).click();
-    await page.getByRole("heading", { name: "Release package" }).waitFor();
-    await page.getByRole("link", { name: "Inspect the full chain" }).click();
-    await page.waitForURL(/\/demo#chain-inspector$/);
-    await page.locator('[data-qa="chain-custody-inspector"]').waitFor();
-    await assertNoOverflow(page, "homepage/demo chain");
-  });
-
-  await step("homepage fleet workbench switches sample vessel", async () => {
-    await page.goto(`${base}/`, { waitUntil: "load" });
-    await page.locator('[data-qa="fleet-assurance-workbench"]').waitFor();
-    await page.getByRole("tab", { name: /MV Pelagos/ }).click();
-    await page.getByText("Readiness package under QA review").waitFor();
-    await page.getByText("Reviewer decision on EVD-0994").waitFor();
-    await page.getByRole("link", { name: "Inspect lineage" }).waitFor();
-    await assertNoOverflow(page, "fleet workbench");
+    await page.getByText("REQ").first().waitFor();
+    await page.getByText("EVD").first().waitFor();
+    await page.getByText("FND").first().waitFor();
+    await page.getByText("CAP").first().waitFor();
+    await page.getByText("PKG").first().waitFor();
+    const href = await page.getByRole("link", { name: /See the full record chain/ }).getAttribute("href");
+    if (href !== "/platform") throw new Error(`unexpected full chain href: ${href}`);
+    await assertNoOverflow(page, "homepage abbreviated chain");
   });
 
   await step("demo inspector restores query stage and navigates lineage", async () => {

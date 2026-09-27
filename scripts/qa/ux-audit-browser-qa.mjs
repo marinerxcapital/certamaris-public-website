@@ -49,19 +49,18 @@ const FULL_ROUTES = [
 ];
 
 const FEATURE_CAPTURES = [
-  { name: "home-fleet-assurance-workbench", route: "/", selector: '[data-qa="fleet-assurance-workbench"]' },
   {
-    name: "home-lifecycle-pkg-state",
-    route: "/?lifecycle=PKG",
-    selector: '[data-qa="assurance-lifecycle-teaser"]',
+    name: "home-sample-record",
+    route: "/#sample-record",
+    selector: ".hero-sample-record",
     before: async (page) => {
-      const teaser = page.locator('[data-qa="assurance-lifecycle-teaser"]');
-      await teaser.waitFor({ state: "visible", timeout: 15000 });
-      await teaser.scrollIntoViewIfNeeded();
+      const sample = page.locator(".hero-sample-record");
+      await sample.waitFor({ state: "visible", timeout: 15000 });
+      await sample.scrollIntoViewIfNeeded();
       await page.waitForTimeout(750);
-      await waitForLifecyclePanel(page, "10 PKG", "Release package");
     },
   },
+  { name: "home-product-moment", route: "/#product-moment", selector: '[data-qa="product-cinematic-moment"]' },
   {
     name: "demo-chain-custody-inspector",
     route: "/demo?stage=CAP#chain-inspector",

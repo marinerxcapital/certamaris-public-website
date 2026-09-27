@@ -41,6 +41,8 @@ async function resolveInOut(pathname) {
   // Also try raw path for assets already absolute under out
   const raw = clean.replace(/^\//, "");
   if (raw && (await pathExists(path.join(outDir, raw)))) return true;
+  const decodedRaw = decodeURIComponent(raw);
+  if (decodedRaw !== raw && (await pathExists(path.join(outDir, decodedRaw)))) return true;
   return false;
 }
 
