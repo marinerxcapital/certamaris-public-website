@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 import { DomainIcon, type DomainIconId } from "@/components/DomainIcons";
 import { Eyebrow } from "@/components/Section";
 
@@ -66,24 +64,6 @@ export function HomeCapabilityBand() {
           </li>
         ))}
       </ul>
-
-      <p className="mt-6 text-[14px] text-structural">
-        <Link href="/platform" className="font-semibold text-ocean hover:underline">
-          Platform
-        </Link>
-        <span aria-hidden="true"> · </span>
-        <Link href="/solutions" className="font-semibold text-ocean hover:underline">
-          Solutions
-        </Link>
-        <span aria-hidden="true"> · </span>
-        <Link href="/compliance" className="font-semibold text-ocean hover:underline">
-          Compliance hub
-        </Link>
-        <span aria-hidden="true"> · </span>
-        <Link href="/who-we-serve" className="font-semibold text-ocean hover:underline">
-          Who we serve
-        </Link>
-      </p>
     </>
   );
 }
