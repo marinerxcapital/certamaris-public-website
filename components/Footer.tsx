@@ -1,9 +1,9 @@
 import Link from "next/link";
+import { ComplianceDisclaimer } from "@/components/ComplianceDisclaimer";
 import {
   APP_GET_STARTED_URL,
   APP_SIGN_IN_URL,
   FOOTER_GROUPS,
-  FOOTER_STANDING_LINE,
   PRIMARY_CTA_LABEL,
   SIGN_IN_LABEL,
   SITE_TAGLINE,
@@ -72,7 +72,7 @@ export function Footer() {
         </div>
 
         <div className="mt-14 flex flex-col gap-4 border-t border-white/15 pt-6 md:flex-row md:items-start md:justify-between">
-          <p className="max-w-2xl text-[13px] leading-relaxed text-white/70">{FOOTER_STANDING_LINE}</p>
+          <ComplianceDisclaimer inverse className="max-w-2xl" />
           <div className="flex flex-col gap-2 text-[13px] text-white/72 md:items-end md:pt-0.5">
             <Link
               href="/sitemap"
