@@ -1,7 +1,45 @@
 import Link from "next/link";
 
+import { DomainIcon, type DomainIconId } from "@/components/DomainIcons";
 import { Eyebrow } from "@/components/Section";
-import { homeCapabilityPillars } from "@/lib/content";
+
+const capabilityItems: {
+  id: string;
+  icon: DomainIconId;
+  title: string;
+  support: string;
+}[] = [
+  {
+    id: "maritime-cybersecurity",
+    icon: "Vessel",
+    title: "Maritime cyber controls",
+    support: "Bridge, engine, vessel, and shoreside controls in one fleet view.",
+  },
+  {
+    id: "cyber-risk-intelligence",
+    icon: "RSK",
+    title: "Cyber-risk change intelligence",
+    support: "Requirement changes tied to affected clauses, mappings, and tasks.",
+  },
+  {
+    id: "compliance",
+    icon: "REQ",
+    title: "Compliance workflow mapping",
+    support: "IMO and IACS work structured with official-source boundaries visible.",
+  },
+  {
+    id: "assurance",
+    icon: "EVD",
+    title: "Assurance evidence chain",
+    support: "Evidence, findings, and corrective actions stay connected for review.",
+  },
+  {
+    id: "operational-resilience",
+    icon: "PKG",
+    title: "Operational readiness package",
+    support: "Approved work compiles into a reviewable readiness package.",
+  },
+];
 
 /**
  * Plain-language "what this covers" band placed between the hero and the
@@ -20,14 +58,11 @@ export function HomeCapabilityBand() {
       </p>
 
       <ul className="home-capability-grid mt-8">
-        {homeCapabilityPillars.map((pillar, index) => (
-          <li key={pillar.id}>
-            <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-ocean-deep">
-              {String(index + 1).padStart(2, "0")}
-            </p>
-            <h3 className="mt-2 text-[17.5px] font-semibold text-navy">{pillar.title}</h3>
-            <p className="mt-2 text-[14.5px] leading-relaxed text-navy/85">{pillar.summary}</p>
-            <p className="mt-3 text-[13.5px] leading-relaxed text-structural">{pillar.detail}</p>
+        {capabilityItems.map((item) => (
+          <li key={item.id}>
+            <DomainIcon id={item.icon} className="h-7 w-7 text-ocean" />
+            <h3 className="mt-3 text-[16px] font-semibold text-navy">{item.title}</h3>
+            <p className="mt-1.5 text-[13.5px] leading-relaxed text-structural">{item.support}</p>
           </li>
         ))}
       </ul>
