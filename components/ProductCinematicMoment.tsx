@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
-import { ProductScreenFrame } from "@/components/ProductScreens";
+import { ProductExhibit } from "@/components/ProductScreens";
 import { productProofScreens, type ProductProofScreen } from "@/lib/product-screens";
 import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 
@@ -183,7 +183,7 @@ export function ProductCinematicMoment() {
   );
 
   const frame = (
-    <ProductScreenFrame
+    <ProductExhibit
       src={stage.screen.src}
       fullSrc={stage.screen.fullSrc}
       alt={stage.screen.alt}

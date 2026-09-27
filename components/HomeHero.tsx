@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/Button";
 import { personaHomeCopy, usePersonaSelection } from "@/components/PersonaEntry";
-import { ProductScreenFrame } from "@/components/ProductScreens";
+import { ProductExhibit } from "@/components/ProductScreens";
 import {
   DEMO_TOUR_HREF,
   PRIMARY_CTA_HREF,
@@ -65,7 +65,7 @@ export function HomeHero() {
               <p className="mb-3 font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-structural">
                 Live product surface · demo data
               </p>
-              <ProductScreenFrame
+              <ProductExhibit
                 {...heroScreen}
                 crop="top"
                 priority

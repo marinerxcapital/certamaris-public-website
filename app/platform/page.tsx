@@ -3,7 +3,7 @@ import { AssuranceStepper } from "@/components/AssuranceStepper";
 import { BoundaryPanel } from "@/components/BoundaryPanel";
 import { Button } from "@/components/Button";
 import { PageHero } from "@/components/PageHero";
-import { ProductScreenFrame } from "@/components/ProductScreens";
+import { ProductExhibit } from "@/components/ProductScreens";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
 import {
@@ -70,7 +70,7 @@ export default function PlatformPage() {
             <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-[#0e5a8a]">
               CertaMaris · Platform
             </p>
-            <ProductScreenFrame
+            <ProductExhibit
               {...productProofScreens.executiveReporting}
               priority
               sizes="(min-width: 1024px) 420px, 80vw"
@@ -144,7 +144,7 @@ export default function PlatformPage() {
               </p>
               <h3 className="mb-2 text-[18px] font-semibold text-navy">{beat.title}</h3>
               <p className="mb-4 text-[14.5px] leading-relaxed text-structural">{beat.body}</p>
-              <ProductScreenFrame {...beat.screen} sizes="(min-width: 1024px) 42vw, 100vw" />
+              <ProductExhibit {...beat.screen} sizes="(min-width: 1024px) 42vw, 100vw" />
             </Reveal>
           ))}
         </div>

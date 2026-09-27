@@ -91,7 +91,7 @@ export function ProductScreenImage({
   );
 }
 
-function ProductScreenExhibit({
+export function ProductExhibit({
   src,
   alt,
   label,
@@ -234,7 +234,7 @@ function ProductScreenExhibit({
 }
 
 export function ProductScreenFrame(props: ProductScreenFrameProps) {
-  return <ProductScreenExhibit {...props} />;
+  return <ProductExhibit {...props} />;
 }
 
 export function ProductScreenTile({
@@ -245,7 +245,7 @@ export function ProductScreenTile({
 }: ProductScreenTileProps) {
   return (
     <article className={`product-screen-tile grid content-start gap-3.5 ${tileClassName}`}>
-      <ProductScreenExhibit
+      <ProductExhibit
         sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 45vw, (min-width: 640px) 50vw, 100vw"
         {...screen}
         title={title}
