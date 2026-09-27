@@ -51,7 +51,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:grid-cols-5">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:grid-cols-4">
           {FOOTER_GROUPS.map((group) => (
             <div key={group.title}>
               <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.12em] text-white/70">{group.title}</p>
@@ -73,9 +73,15 @@ export function Footer() {
 
         <div className="mt-14 flex flex-col gap-4 border-t border-white/15 pt-6 md:flex-row md:items-start md:justify-between">
           <p className="max-w-2xl text-[13px] leading-relaxed text-white/70">{FOOTER_STANDING_LINE}</p>
-          <p className="whitespace-nowrap text-[13px] text-white/72 md:pt-0.5">
-            © {new Date().getFullYear()} CertaMaris. All rights reserved.
-          </p>
+          <div className="flex flex-col gap-2 text-[13px] text-white/72 md:items-end md:pt-0.5">
+            <Link
+              href="/sitemap"
+              className="rounded-sm font-semibold text-white/88 underline-offset-4 transition-colors hover:text-white hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-navy"
+            >
+              Full sitemap
+            </Link>
+            <p className="whitespace-nowrap">© {new Date().getFullYear()} CertaMaris. All rights reserved.</p>
+          </div>
         </div>
       </div>
     </footer>

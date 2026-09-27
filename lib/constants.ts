@@ -399,13 +399,51 @@ export const NAV_GROUPS: { title: string; links: [string, string][] }[] = [
   },
 ];
 
+export const FULL_SITEMAP_GROUPS: { title: string; links: [string, string][] }[] = [
+  {
+    title: "Product",
+    links: PRODUCT_LINKS.map((link) => [link.label, link.href] as [string, string]),
+  },
+  {
+    title: "Solutions",
+    links: SOLUTIONS_LINKS.map((link) => [link.label, link.href] as [string, string]),
+  },
+  {
+    title: "Who We Serve",
+    links: WHO_WE_SERVE_LINKS.map((link) => [link.label, link.href] as [string, string]),
+  },
+  {
+    title: "Compliance",
+    links: COMPLIANCE_LINKS.map((link) => [link.label, link.href] as [string, string]),
+  },
+  {
+    title: "Resources",
+    links: [
+      ...RESOURCES_LINKS.map((link) => [link.label, link.href] as [string, string]),
+      ["Why CertaMaris", "/why-certamaris"],
+      ["Implementation", "/implementation"],
+      ["Pricing", "/pricing"],
+      ["FAQ", "/faq"],
+      [DEMO_TOUR_LABEL, DEMO_TOUR_HREF],
+    ],
+  },
+  {
+    title: "Company",
+    links: [
+      ...COMPANY_LINKS.map((link) => [link.label, link.href] as [string, string]),
+      ["Contact", "/contact"],
+      [PRIMARY_CTA_LABEL, PRIMARY_CTA_HREF],
+    ],
+  },
+  {
+    title: "Trust & Legal",
+    links: TRUST_LINKS.map((link) => [link.label, link.href] as [string, string]),
+  },
+];
+
 /**
- * Footer column groups — premium enterprise footer.
- * Product · Solutions · Resources · Company · Trust/Legal
- *
- * NOTE: this array is hand-maintained separately from NAV_PRIMARY and the
- * individual *_LINKS sources above. When a new page is added, its footer
- * exposure must be added here by hand or it silently becomes crawl-orphaned.
+ * Footer column groups — intentionally compact enterprise footer.
+ * Full destination coverage lives on /sitemap.
  */
 export const FOOTER_GROUPS: { title: string; links: [string, string][] }[] = [
   {
@@ -415,49 +453,16 @@ export const FOOTER_GROUPS: { title: string; links: [string, string][] }[] = [
       ["Assessments", "/platform/assessments"],
       ["Evidence Management", "/platform/evidence"],
       ["Findings & Actions", "/platform/findings-corrective-actions"],
-      ["Cybersecurity Plans", "/platform/cybersecurity-plans"],
-      ["Fleet Management", "/platform/fleet-management"],
-      ["Vessel Portal", "/platform/vessel-portal"],
       ["Reports and Readiness", "/platform/reports-readiness"],
-      ["Integrations", "/platform/integrations"],
-    ],
-  },
-  {
-    title: "Solutions",
-    links: [
-      ["All Solutions", "/solutions"],
-      ["Fleet Cyber Compliance", "/solutions/fleet-cyber-compliance"],
-      ["Audit & Survey Readiness", "/solutions/audit-survey-readiness"],
-      ["IMO MSC.428(98)", "/solutions/imo-msc-428-98"],
-      ["IACS UR E26 / E27", "/solutions/iacs-ur-e26"],
-      ["Who We Serve", "/who-we-serve"],
-      ["Compliance Hub", "/compliance"],
-      ["Official Sources", "/compliance/official-sources"],
-    ],
-  },
-  {
-    title: "Resources",
-    links: [
-      ["Resources", "/resources"],
-      ["Glossary", "/glossary"],
-      ["Why CertaMaris", "/why-certamaris"],
-      ["Implementation", "/implementation"],
-      ["Pricing", "/pricing"],
-      ["FAQ", "/faq"],
-      ["Product tour", "/demo"],
     ],
   },
   {
     title: "Company",
     links: [
       ["About", "/about"],
-      ["Leadership", "/about/leadership"],
-      ["Corporate Information", "/about/corporate-information"],
-      ["Partners", "/about/partners"],
       ["Careers", "/about/careers"],
       ["Press", "/about/press"],
       ["Contact", "/contact"],
-      [PRIMARY_CTA_LABEL, PRIMARY_CTA_HREF],
     ],
   },
   {
@@ -465,17 +470,9 @@ export const FOOTER_GROUPS: { title: string; links: [string, string][] }[] = [
     links: [
       ["Security", "/security"],
       ["Trust Center", "/trust"],
-      ["Privacy Policy", "/legal/privacy"],
-      ["Business Terms", "/legal/terms"],
+      ["Privacy", "/legal/privacy"],
+      ["Terms", "/legal/terms"],
       ["Accessibility", "/accessibility"],
-      ["AI Policy", "/trust/ai-policy"],
-      ["Responsible Disclosure", "/trust/responsible-disclosure"],
-      ["Status", "/trust/status"],
-      ["Procurement", "/trust/procurement"],
-      ["Assurance Model", "/trust/assurance-model"],
-      ["Legal Library", "/legal/library"],
-      ["Data Processing Agreement", "/legal/dpa"],
-      ["Subprocessors", "/legal/subprocessors"],
     ],
   },
 ];
