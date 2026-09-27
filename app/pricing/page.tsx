@@ -327,115 +327,116 @@ export default function PricingPage() {
       </Section>
 
       <Section id="package-comparison" surface="paper">
-        <Reveal className="max-w-2xl mb-8">
-          <Eyebrow>Comparison</Eyebrow>
-          <h2 className="text-[27px] sm:text-[32px] leading-[1.16] mb-4">Capability matrix by package.</h2>
-          <p className="text-[15px] text-structural leading-relaxed">
-            Compare vessel scope, users, entities, portals, assessments, evidence, plans, reports, continuous
-            assurance, integrations, API, SSO, SCIM, support, onboarding, retention, audit history, and professional
-            services. Values describe depth — not list prices.
-          </p>
-        </Reveal>
         <Reveal>
-          <div className="grid gap-3 md:hidden" aria-label="Package capability comparison">
-            {comparisonPackages.map((pkg, index) => (
-              <details
-                key={pkg.key}
-                className="rounded-md border border-navy/10 bg-white p-4 shadow-card"
-                open={index === 0}
-              >
-                <summary className="cursor-pointer text-[16px] font-semibold text-navy marker:text-ocean">
-                  {pkg.label}
-                </summary>
-                <dl className="mt-4 grid gap-3">
-                  {pricingComparisonRows.map((row) => (
-                    <div key={`${pkg.key}-${row.key}`} className="border-t border-navy/8 pt-3">
-                      <dt className="text-[12px] font-semibold uppercase tracking-[0.08em] text-ocean">
-                        {row.feature}
-                      </dt>
-                      <dd className="mt-1 text-[13.5px] leading-relaxed text-structural">
-                        {formatComparisonValue(pkg.getValue(row))}
-                      </dd>
-                    </div>
-                  ))}
-                </dl>
-              </details>
-            ))}
-          </div>
-          <div
-            className="hidden overflow-x-auto rounded-md border border-navy/10 bg-white md:block"
-            aria-label="Package capability comparison"
-          >
-            <table className="w-full min-w-[720px] border-collapse text-left text-[13.5px]">
-              <caption className="sr-only">
-                Feature comparison across Fleet Core, Fleet Assurance, and Enterprise packages
-              </caption>
-              <thead>
-                <tr className="border-b border-navy/10 bg-paper">
-                  <th scope="col" className="px-4 py-3 font-semibold text-navy">
-                    Feature
-                  </th>
-                  <th scope="col" className="px-4 py-3 font-semibold text-navy">
-                    Fleet Core
-                  </th>
-                  <th scope="col" className="px-4 py-3 font-semibold text-navy">
-                    Fleet Assurance
-                  </th>
-                  <th scope="col" className="px-4 py-3 font-semibold text-navy">
-                    Enterprise
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {pricingComparisonRows.map((row) => (
-                  <tr key={row.key} className="border-b border-navy/8 last:border-0">
-                    <th scope="row" className="px-4 py-3 font-medium text-navy align-top">
-                      {row.feature}
-                    </th>
-                    <td className="px-4 py-3 text-structural align-top">
-                      {formatComparisonValue(row.fleetCore)}
-                    </td>
-                    <td className="px-4 py-3 text-structural align-top">
-                      {formatComparisonValue(row.fleetAssurance)}
-                    </td>
-                    <td className="px-4 py-3 text-structural align-top">
-                      {formatComparisonValue(row.enterprise)}
-                    </td>
-                  </tr>
+          <details className="rounded-lg border border-navy/12 bg-white p-5 shadow-card sm:p-7">
+            <summary className="cursor-pointer text-[19px] font-semibold text-navy marker:text-ocean">
+              Compare packages in detail
+            </summary>
+            <div className="mt-8">
+              <div className="max-w-2xl mb-8">
+                <Eyebrow>Comparison</Eyebrow>
+                <h2 className="text-[27px] sm:text-[32px] leading-[1.16] mb-4">Capability matrix by package.</h2>
+                <p className="text-[15px] text-structural leading-relaxed">
+                  Compare vessel scope, users, entities, portals, assessments, evidence, plans, reports, continuous
+                  assurance, integrations, API, SSO, SCIM, support, onboarding, retention, audit history, and
+                  professional services. Values describe depth — not list prices.
+                </p>
+              </div>
+              <div className="grid gap-3 md:hidden" aria-label="Package capability comparison">
+                {comparisonPackages.map((pkg, index) => (
+                  <details
+                    key={pkg.key}
+                    className="rounded-md border border-navy/10 bg-white p-4 shadow-card"
+                    open={index === 0}
+                  >
+                    <summary className="cursor-pointer text-[16px] font-semibold text-navy marker:text-ocean">
+                      {pkg.label}
+                    </summary>
+                    <dl className="mt-4 grid gap-3">
+                      {pricingComparisonRows.map((row) => (
+                        <div key={`${pkg.key}-${row.key}`} className="border-t border-navy/8 pt-3">
+                          <dt className="text-[12px] font-semibold uppercase tracking-[0.08em] text-ocean">
+                            {row.feature}
+                          </dt>
+                          <dd className="mt-1 text-[13.5px] leading-relaxed text-structural">
+                            {formatComparisonValue(pkg.getValue(row))}
+                          </dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </details>
                 ))}
-              </tbody>
-            </table>
-          </div>
-          <p className="mt-4 text-[12.5px] text-structural leading-relaxed max-w-3xl">{PRICING_BASIS_NOTE}</p>
-        </Reveal>
-      </Section>
+              </div>
+              <div
+                className="hidden overflow-x-auto rounded-md border border-navy/10 bg-white md:block"
+                aria-label="Package capability comparison"
+              >
+                <table className="w-full min-w-[720px] border-collapse text-left text-[13.5px]">
+                  <caption className="sr-only">
+                    Feature comparison across Fleet Core, Fleet Assurance, and Enterprise packages
+                  </caption>
+                  <thead>
+                    <tr className="border-b border-navy/10 bg-paper">
+                      <th scope="col" className="px-4 py-3 font-semibold text-navy">
+                        Feature
+                      </th>
+                      <th scope="col" className="px-4 py-3 font-semibold text-navy">
+                        Fleet Core
+                      </th>
+                      <th scope="col" className="px-4 py-3 font-semibold text-navy">
+                        Fleet Assurance
+                      </th>
+                      <th scope="col" className="px-4 py-3 font-semibold text-navy">
+                        Enterprise
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {pricingComparisonRows.map((row) => (
+                      <tr key={row.key} className="border-b border-navy/8 last:border-0">
+                        <th scope="row" className="px-4 py-3 font-medium text-navy align-top">
+                          {row.feature}
+                        </th>
+                        <td className="px-4 py-3 text-structural align-top">
+                          {formatComparisonValue(row.fleetCore)}
+                        </td>
+                        <td className="px-4 py-3 text-structural align-top">
+                          {formatComparisonValue(row.fleetAssurance)}
+                        </td>
+                        <td className="px-4 py-3 text-structural align-top">
+                          {formatComparisonValue(row.enterprise)}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p className="mt-4 text-[12.5px] text-structural leading-relaxed max-w-3xl">{PRICING_BASIS_NOTE}</p>
+            </div>
 
-      <Section>
-        <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-10 items-start">
-          <Reveal>
-            <PackageRecommender />
-          </Reveal>
-          <Reveal delay={0.06}>
-            <div className="premium-card p-8">
-              <p className="font-mono text-[12px] uppercase tracking-[0.1em] text-ocean mb-3">Scope a proposal</p>
-              <h3 className="text-[22px] font-semibold mb-3">Tell us about your fleet.</h3>
-              <p className="text-[14.5px] text-structural leading-relaxed mb-6">
-                A readiness request gives CertaMaris the minimum context needed to discuss whether the platform fits
-                your fleet and what scope would need to be priced. There is no free perpetual trial; access is arranged
-                through a sales-assisted conversation.
-              </p>
-              <div className="flex flex-wrap gap-3">
-                <Button href="/contact?intent=demo">{PRIMARY_CTA_LABEL}</Button>
-                <Button href="/demo" variant="secondary">
-                  Product demo tour
-                </Button>
-                <Button href="/security" variant="ghost">
-                  Security &amp; trust
-                </Button>
+            <div className="mt-10 grid lg:grid-cols-[1.05fr_0.95fr] gap-10 items-start">
+              <PackageRecommender />
+              <div className="premium-card p-8">
+                <p className="font-mono text-[12px] uppercase tracking-[0.1em] text-ocean mb-3">Scope a proposal</p>
+                <h3 className="text-[22px] font-semibold mb-3">Tell us about your fleet.</h3>
+                <p className="text-[14.5px] text-structural leading-relaxed mb-6">
+                  A readiness request gives CertaMaris the minimum context needed to discuss whether the platform fits
+                  your fleet and what scope would need to be priced. There is no free perpetual trial; access is
+                  arranged through a sales-assisted conversation.
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  <Button href="/contact?intent=demo">{PRIMARY_CTA_LABEL}</Button>
+                  <Button href="/demo" variant="secondary">
+                    Product demo tour
+                  </Button>
+                  <Button href="/security" variant="ghost">
+                    Security &amp; trust
+                  </Button>
+                </div>
               </div>
             </div>
-          </Reveal>
-        </div>
+          </details>
+        </Reveal>
       </Section>
 
       <Section surface="paper" spacing="compact">
