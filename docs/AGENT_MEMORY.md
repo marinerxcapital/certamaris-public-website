@@ -1,4 +1,31 @@
-# Pixel Grid restored, ship + DNA strand removed - 2026-09-26 (CURRENT)
+# Homepage approved video showcase LIVE - 2026-10-10 (CURRENT)
+
+**Production:** https://certamaris.com - Worker `certamaris-site` version `fdad693e-e162-4074-80a6-dddcc41bbdbc` @100%
+**Code commit:** `27fe0ca` on `codex/assurance-helix-hero-20260926` (local Wrangler deployment)
+**Owner directive:** replace the homepage product screenshot with the supplied CertaMaris hero video while preserving the existing navigation, copy, CTA destinations, pixel-grid background, and responsive behavior.
+
+**What changed:**
+
+1. `components/HeroVideo.tsx` owns the noninteractive showcase surface. It renders the approved MP4 with `autoplay`, `muted`, `loop`, `playsInline`, `preload="auto"`, no controls, and a poster fallback. The small product-demo chrome is decorative metadata, not a player control surface.
+2. `components/HomeHero.tsx` keeps the approved CertaMaris copy and CTA links and replaces only the screenshot exhibit with the video surface.
+3. `app/globals.css` adds the responsive white media frame, subtle border/shadow, 16:9 sizing, mobile stacking, and reduced-motion presentation.
+4. `public/videos/certamaris-hero-demo.mp4` is H.264/yuv420p 1280x720, 24 fps, 10 s, 2,768,705 bytes, fast-start, no audio. `public/videos/certamaris-hero-poster.jpg` is the 1280x720 poster, 118,717 bytes. Source media was the attached HEVC 1280x720 MOV.
+
+**Validation:** `npm run typecheck` PASS; `npm run build:static` PASS (111 generated routes); `npm run test:pricing` PASS (12/12); `npm run qa:product-experience` PASS (5/5 with installed Chrome); `npm run qa:public-product-boundary` PASS (21/21); `npm run qa:content` PASS (154 files); `CHROMIUM_PATH=...\\chrome.exe npm run qa:responsive-a11y` PASS (0 issues, 0 broken images, 16 routes × 9 viewports). Static-harness console 404 counts remain the known Next static-export RSC prefetch behavior; live Chrome reports zero console errors.
+
+**Live verification:** homepage, MP4, and poster return 200 with the expected content types; desktop and mobile Chrome decode the video (`readyState=4`, 1280x720), autoplay it (`paused=false`, currentTime advanced), report zero horizontal overflow and zero console errors, and expose no controls. Reduced-motion Chrome pauses at `currentTime=0` on the poster frame while retaining the required media attributes. CTAs remain `/contact?intent=demo` and `/demo#scrub-tour`.
+
+**Known residual:** `npm audit --omit=dev --audit-level=high` remains red on four pre-existing advisories in the pinned Next/sharp/toolchain versions; no dependency changes were introduced for this hero-only release. Bundled Playwright Chromium still fails on this Windows host's ICU descriptor, so browser gates used the installed Chrome executable.
+
+**Rollback:** `npx wrangler versions deploy 7a735921-c1e0-4245-8ad4-217c34704933@100% --config wrangler.jsonc -y`
+
+**Record:** [`2026-10-10-landing-video-hero-deployment.md`](./2026-10-10-landing-video-hero-deployment.md)
+
+**Signed:** Codex - 2026-10-10
+
+---
+
+# Pixel Grid restored, ship + DNA strand removed - 2026-09-26
 
 **Production:** https://certamaris.com - Worker `certamaris-site` version `8852bbb1-dd35-4492-bb5b-c61319027f51` @100%
 **Code commit:** `58764a4` on `codex/assurance-helix-hero-20260926` (local; not pushed - GitHub Actions is owner-blocked)
