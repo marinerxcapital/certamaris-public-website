@@ -2450,6 +2450,97 @@ figure.product-showcase-frame > div:first-child {
   min-width: 128px;
 }
 
+/* ---------- Homepage hero video (approved product demo) ---------- */
+.hero-video-frame {
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgba(11, 42, 74, 0.16);
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.95) inset, 0 20px 48px rgba(11, 42, 74, 0.12);
+}
+
+.hero-video-chrome {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 42px;
+  padding: 0 15px;
+  border-bottom: 1px solid rgba(11, 42, 74, 0.1);
+  color: #243748;
+  font-family: var(--font-mono), Consolas, monospace;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.hero-video-status {
+  width: 7px;
+  height: 7px;
+  flex: none;
+  border-radius: 999px;
+  background: #1478b8;
+  box-shadow: 0 0 0 3px rgba(20, 120, 184, 0.12);
+}
+
+.hero-video-divider {
+  width: 1px;
+  height: 14px;
+  background: rgba(11, 42, 74, 0.18);
+}
+
+.hero-video-platform {
+  color: #5c6d7e;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+
+.hero-video-context {
+  margin-left: auto;
+  color: #5c6d7e;
+  font-family: var(--font-body), Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.hero-video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #dceaf2;
+  object-fit: cover;
+}
+
+@media (max-width: 639px) {
+  .hero-video-frame {
+    border-radius: 14px;
+  }
+
+  .hero-video-chrome {
+    min-height: 38px;
+    padding-inline: 12px;
+    font-size: 8px;
+    letter-spacing: 0.1em;
+  }
+
+  .hero-video-platform,
+  .hero-video-context {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-video {
+    object-position: center;
+  }
+}
+
 /* ---------- Hero product proof (2026-09-26) ----------
    The first viewport runs on the sitewide Pixel Grid: copy on the left and one
    restrained panel holding a real product screenshot on the right. The proof

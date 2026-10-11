@@ -1,25 +1,21 @@
 "use client";
 
 import { Button } from "@/components/Button";
+import { HeroVideo } from "@/components/HeroVideo";
 import { personaHomeCopy, usePersonaSelection } from "@/components/PersonaEntry";
-import { ProductExhibit } from "@/components/ProductScreens";
 import {
   DEMO_TOUR_HREF,
   PRIMARY_CTA_HREF,
   PRIMARY_CTA_LABEL,
 } from "@/lib/constants";
-import { productProofScreens } from "@/lib/product-screens";
-
-const heroScreen = productProofScreens.executiveReporting;
 
 /**
  * Landing-page first screen.
  *
  * Runs directly on the sitewide Pixel Grid (components/PixelGridBackground.tsx):
  * category label, headline, supporting line, two actions and the sample-record
- * anchor on the left; one restrained panel holding a real product screenshot on
- * the right. The product surface is the proof — no decorative motif and no
- * background video stands in for it.
+ * anchor on the left; one restrained panel holding the approved product demo
+ * video on the right.
  *
  * The `#sample-record` explorer lives in components/HomeSampleRecord.tsx, one
  * band below.
@@ -61,19 +57,7 @@ export function HomeHero() {
           </div>
 
           <div className="hero-product-plane min-w-0">
-            <div className="hero-product-panel">
-              <p className="mb-3 font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-structural">
-                Live product surface · demo data
-              </p>
-              <ProductExhibit
-                {...heroScreen}
-                crop="top"
-                priority
-                className="hero-executive-frame"
-                sizes="(min-width: 1280px) 620px, (min-width: 1024px) 50vw, 100vw"
-                showFullResolution={false}
-              />
-            </div>
+            <HeroVideo />
           </div>
         </div>
       </div>
