@@ -7,7 +7,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { OUT_DIR, pathExists, printReport, exitCode } from "./lib.mjs";
 
-const EXPECTED_IMAGE_PATH = "/og/certamaris-link-preview-2026-08-v2.png";
+const EXPECTED_IMAGE_PATH = "/og/certamaris-link-preview-2026-10-v1.png";
 const EXPECTED_IMAGE_URL = `https://certamaris.com${EXPECTED_IMAGE_PATH}`;
 const OLD_IMAGE_RE = /\/og\/certamaris-og\.(?:jpe?g|png)\b/i;
 const EXPECTED_TITLE = "CertaMaris";
@@ -80,7 +80,7 @@ async function main() {
     else fail.push("og:site_name missing CertaMaris");
     if (twitterCards[0] === "summary_large_image") ok.push("twitter:card is summary_large_image");
     else fail.push(`twitter:card mismatch: ${twitterCards[0] || "missing"}`);
-    if (/https:\/\/certamaris\.com\/og\/certamaris-link-preview-2026-08-v2\.png/.test(html)) {
+    if (/https:\/\/certamaris\.com\/og\/certamaris-link-preview-2026-10-v1\.png/.test(html)) {
       ok.push("root HTML contains the absolute versioned preview URL");
     } else {
       fail.push("root HTML is missing the absolute versioned preview URL");

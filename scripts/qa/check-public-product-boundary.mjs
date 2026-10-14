@@ -53,7 +53,7 @@ const REQUIRED_CLIENT_FACING_SNIPPETS = [
   "/contact?intent=procurement",
 ];
 
-const EXPECTED_OG_PATH = "/og/certamaris-link-preview-2026-08-v2.png";
+const EXPECTED_OG_PATH = "/og/certamaris-link-preview-2026-10-v1.png";
 
 const REQUIRED_PAGES = [
   { route: "/", candidates: ["index.html"] },

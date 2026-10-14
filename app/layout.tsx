@@ -5,7 +5,6 @@ import { Footer } from "@/components/Footer";
 import { PixelGridBackground } from "@/components/PixelGridBackground";
 import {
   SITE_CANONICAL_URL,
-  SITE_DESCRIPTION,
   SITE_NAME,
   SITE_TAGLINE,
   SITE_URL,
@@ -20,12 +19,12 @@ const mono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500"], variabl
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: { default: `${SITE_NAME} — ${SITE_TAGLINE}`, template: `%s — ${SITE_NAME}` },
-  description: SITE_DESCRIPTION,
+  title: { default: SITE_NAME, template: `%s — ${SITE_NAME}` },
+  description: SITE_TAGLINE,
   alternates: { canonical: new URL("/", SITE_URL) },
   openGraph: {
-    title: `${SITE_NAME} — ${SITE_TAGLINE}`,
-    description: SITE_DESCRIPTION,
+    title: SITE_NAME,
+    description: SITE_TAGLINE,
     url: SITE_CANONICAL_URL,
     siteName: SITE_NAME,
     images: [
@@ -42,8 +41,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE_NAME} — ${SITE_TAGLINE}`,
-    description: SITE_DESCRIPTION,
+    title: SITE_NAME,
+    description: SITE_TAGLINE,
     images: [{ url: SOCIAL_PREVIEW_IMAGE_URL, alt: SITE_NAME }],
   },
   icons: {
