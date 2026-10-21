@@ -1,4 +1,43 @@
-# Homepage approved video showcase LIVE - 2026-10-10 (CURRENT)
+# Target-size remediation + OG branding LIVE - 2026-10-21 (CURRENT)
+
+**Production:** https://certamaris.com - Worker `certamaris-site` version `645e711a-a23a-4423-8c20-d6e8c093a509` @100%
+**Branch:** `codex/assurance-helix-hero-20260926` (local Wrangler deploy, as established)
+**Commits:** `99fd3a7` (target size) deployed on top of `c028095` (OG branding)
+
+**What changed:**
+
+1. **Open Graph social-preview branding deployed** (`c028095`). Live had still
+   served `og:image=/og/certamaris-og.jpg`; now `og:image` and `twitter:image`
+   point at `/og/certamaris-link-preview-2026-10-v1.png` (1200x630). Version `6646297d`.
+2. **WCAG 2.5.8 target size enforced on nav and footer** (`99fd3a7`). The desktop
+   header previously rendered the logo at 23px and nav/search/sign-in at 36-37px
+   (the existing axe gates do not enable target-size). Added `min-h-11`/44px to
+   `Nav.tsx` (top-level controls, mega links, mobile sub-links, logo, sign-in, CTA),
+   `Footer.tsx` (group links, sitemap), and `.palette-trigger` in `globals.css`.
+   Live readback: header controls 0/9 under 44px at desktop, 0/2 at mobile.
+
+**Validation:** `typecheck` PASS · `build:static` PASS (111 routes) · `npm run qa`
+PASS (0 failed steps, 105 pages, 4487 links) · `qa:responsive-a11y` PASS
+(16 routes x 9 viewports, 0 axe/overflow/broken images) · `qa:ux-audit` PASS
+(21 routes, 5 features, 0 failures) · live readback confirms OG PNG + pixel grid +
+hero video preserved.
+
+**Known residuals:** 5 expected SEO duplicate-H1/title warnings on legacy aliases
+(`/privacy`, `/terms`, `/trust/subprocessors`) and not-found pages; `npm audit`
+red on 4 pre-existing pinned-dependency advisories; static-harness RSC-prefetch
+console 404s are not production errors; remaining <44px body items are inline text
+links (WCAG exempt) and 32-39px widgets above the AA floor.
+
+**Rollback:** `npx wrangler versions deploy 6646297d-3d53-4b79-befd-e2e754703365@100% --config wrangler.jsonc -y`
+
+**Record:** [`2026-10-21-full-site-audit-deployment.md`](./2026-10-21-full-site-audit-deployment.md) ·
+[`DEFECT_REGISTER.json`](./DEFECT_REGISTER.json) · [`ROUTE_INVENTORY.md`](./ROUTE_INVENTORY.md)
+
+**Signed:** Codex - 2026-10-21
+
+---
+
+# Homepage approved video showcase LIVE - 2026-10-10
 
 **Production:** https://certamaris.com - Worker `certamaris-site` version `fdad693e-e162-4074-80a6-dddcc41bbdbc` @100%
 **Code commit:** `27fe0ca` on `codex/assurance-helix-hero-20260926` (local Wrangler deployment)

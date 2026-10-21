@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-21",
+  "repository": "marinerxcapital/certamaris-public-website",
+  "branch": "codex/assurance-helix-hero-20260926",
+  "headBefore": "c028095",
+  "headAfter": "99fd3a7",
+  "auditBasis": "Live https://certamaris.com audited 2026-10-21 plus local branch. Note: the supplied directive's defect premise was partially stale; the live site and branch already carried 22 committed remediation commits (IA remediation 2026-09-27, pixel-grid restore 2026-09-26, hero video 2026-10-10).",
+  "defects": [
+    {
+      "id": "SEO-OG-001",
+      "category": "SEO / social metadata",
+      "target": "sitewide / app/layout.tsx, lib/constants.ts",
+      "severity": "medium",
+      "status": "FIXED-DEPLOYED",
+      "evidence": "live og:image and twitter:image now https://certamaris.com/og/certamaris-link-preview-2026-10-v1.png (1200x630) after deploy 6646297d",
+      "note": "Commit c028095 was authored but not live; live still served certamaris-og.jpg. Deployed HEAD."
+    },
+    {
+      "id": "A11Y-TARGET-001",
+      "category": "Accessibility / target size",
+      "target": "components/Nav.tsx, components/Footer.tsx, app/globals.css (.palette-trigger)",
+      "severity": "high",
+      "status": "FIXED-DEPLOYED",
+      "evidence": "Before: 8/9 header controls <44px (36-37px nav buttons, 23px logo). After: 0/9 desktop, 0/2 mobile under 44px (live readback after deploy 645e711a). Commit 99fd3a7.",
+      "note": "WCAG 2.5.8 AAA target size. Enforced min-height 44px on persistent header controls, mega dropdown links, mobile sub-links, footer links, and search trigger."
+    },
+    {
+      "id": "SEO-DUPH1-001",
+      "category": "SEO / heading uniqueness",
+      "target": "legacy alias routes /privacy, /terms, /trust/subprocessors, /legal/*",
+      "severity": "low",
+      "status": "ACCEPTED-RESIDUAL",
+      "evidence": "qa:check-seo WARN (5): duplicate H1 'privacy policy', 'subprocessor list', 'business terms' across legal/* and legacy aliases; not-found title/H1 shared (404 vs _not-found).",
+      "note": "Intentional legacy alias routes pointing at the same logical content; titles already disambiguated where required. Documented expected warnings since 2026-09-27 IA remediation."
+    },
+    {
+      "id": "DEP-AUDIT-001",
+      "category": "Dependency hygiene",
+      "target": "package.json (pinned Next 16.2.12 / sharp / toolchain)",
+      "severity": "medium",
+      "status": "ACCEPTED-RESIDUAL",
+      "evidence": "npm audit --omit=dev --audit-level=high remains red on 4 pre-existing advisories.",
+      "note": "No dependency changes introduced in this pass. Pre-existing; deferred to owner-approved dependency maintenance."
+    },
+    {
+      "id": "A11Y-TARGET-002",
+      "category": "Accessibility / target size (body content)",
+      "target": "inline body-copy text links and small widgets across pages",
+      "severity": "low",
+      "status": "ACCEPTED-RESIDUAL",
+      "evidence": "Homepage remaining <44px items are inline text links (16-22px, e.g. 'Full comparison on Why CertaMaris') and small widgets (32-39px step/tab/range controls).",
+      "note": "Inline links in a sentence are exempt from WCAG 2.5.8; small widgets already exceed the AA 24px floor. Full 44px body-wide remediation is a larger cross-component follow-up and was deferred to avoid visual churn against owner-approved design."
+    }
+  ],
+  "verification": {
+    "typecheck": "PASS",
+    "buildStatic": "PASS (111 routes generated)",
+    "coreQa": "PASS (0 failed steps; 105 pages scanned; 4487 internal links resolved)",
+    "responsiveA11y": "PASS (16 routes x 9 viewports; 0 axe violations, 0 horizontal overflow, 0 broken images)",
+    "uxAudit": "PASS (21 routes, 5 feature captures, 0 failures; no header overlap)",
+    "liveReadback": "PASS (og:image/twitter:image versioned PNG; pixel-grid and hero video preserved; canonical apex; header target size 0/9 desktop and 0/2 mobile under 44px)"
+  },
+  "knownResiduals": [
+    "Static-harness console entries (335) are the documented Next static-export RSC prefetch 404 artifact; production Chrome reports zero console errors.",
+    "5 expected SEO duplicate-H1/title warnings on legacy aliases and the not-found pages.",
+    "npm audit red on 4 pre-existing advisories in pinned dependencies."
+  ]
+}
