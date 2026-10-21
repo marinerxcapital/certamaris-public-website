@@ -43,7 +43,7 @@ function MegaLink({
   return (
     <Link
       href={item.href}
-      className={`block rounded-md px-3 py-2 text-[14px] leading-snug transition-colors ${
+      className={`flex min-h-11 items-center rounded-md px-3 py-2 text-[14px] leading-snug transition-colors ${
         active
           ? "bg-ocean-wash font-semibold text-navy"
           : "text-navy hover:bg-ocean-wash hover:text-navy"
@@ -265,7 +265,7 @@ export function Nav() {
   }, [openMenuId, menuBaseId]);
 
   const navLinkClass = (active: boolean) =>
-    `px-2.5 py-2 rounded-md text-[14px] font-medium transition-colors xl:px-3 xl:text-[15px] ${
+    `inline-flex min-h-11 items-center px-2.5 py-2 rounded-md text-[14px] font-medium transition-colors xl:px-3 xl:text-[15px] ${
       active ? "bg-ocean-wash text-navy" : "text-navy hover:text-ocean"
     }`;
 
@@ -366,7 +366,7 @@ export function Nav() {
                             <li key={`m-${group.id}-${item.href}-${item.label}`}>
                               <Link
                                 href={item.href}
-                                className={`block px-5 py-2.5 text-[15px] ${
+                                className={`flex min-h-11 items-center px-5 py-2.5 text-[15px] ${
                                   isHub || active ? "font-semibold " : ""
                                 }${active ? "text-ocean" : "text-navy/85"}`}
                                 aria-current={active ? "page" : undefined}
@@ -419,7 +419,7 @@ export function Nav() {
             scrolled ? "shadow-[0_6px_18px_rgba(11,42,74,0.06)]" : ""
           }`}
         >
-          <Link href="/" className="flex min-w-0 shrink items-center" aria-label="CertaMaris home">
+          <Link href="/" className="flex min-h-11 min-w-0 shrink items-center" aria-label="CertaMaris home">
             <BrandLogo />
           </Link>
 
@@ -451,7 +451,7 @@ export function Nav() {
                     menuButtonRefs.current[group.id] = el;
                   }}
                   type="button"
-                  className={`flex items-center gap-1 ${navLinkClass(active)}`}
+                  className={`gap-1 ${navLinkClass(active)}`}
                   aria-expanded={isOpen}
                   aria-haspopup="true"
                   aria-controls={isOpen ? panelId : undefined}
@@ -484,14 +484,14 @@ export function Nav() {
             <CommandPalette />
             <a
               href={APP_SIGN_IN_URL}
-              className="rounded-md px-3 py-2 text-[14px] font-medium text-navy transition-colors hover:text-ocean xl:text-[15px]"
+              className="inline-flex min-h-11 items-center rounded-md px-3 py-2 text-[14px] font-medium text-navy transition-colors hover:text-ocean xl:text-[15px]"
               data-integration-point="sign-in"
             >
               {SIGN_IN_LABEL}
             </a>
             <Link
               href={APP_GET_STARTED_URL}
-              className="inline-flex items-center rounded-md bg-navy px-4 py-2.5 text-[14px] font-semibold text-white transition-colors hover:bg-[#0e3a68] xl:px-5 xl:text-[15px]"
+              className="inline-flex min-h-11 items-center rounded-md bg-navy px-4 py-2.5 text-[14px] font-semibold text-white transition-colors hover:bg-[#0e3a68] xl:px-5 xl:text-[15px]"
               data-integration-point="get-started"
             >
               {PRIMARY_CTA_LABEL}

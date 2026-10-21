@@ -60,7 +60,7 @@ export function Footer() {
                   <li key={`${group.title}-${href}-${label}`}>
                     <Link
                       href={href}
-                      className="rounded-sm text-[14px] text-white/88 underline-offset-4 transition-colors hover:text-white hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-navy"
+                      className="inline-flex min-h-11 items-center rounded-sm text-[14px] text-white/88 underline-offset-4 transition-colors hover:text-white hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-navy"
                     >
                       {label}
                     </Link>
@@ -76,7 +76,7 @@ export function Footer() {
           <div className="flex flex-col gap-2 text-[13px] text-white/72 md:items-end md:pt-0.5">
             <Link
               href="/sitemap"
-              className="rounded-sm font-semibold text-white/88 underline-offset-4 transition-colors hover:text-white hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-navy"
+              className="inline-flex min-h-11 items-center rounded-sm font-semibold text-white/88 underline-offset-4 transition-colors hover:text-white hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-navy"
             >
               Full sitemap
             </Link>

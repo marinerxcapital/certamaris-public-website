@@ -1436,6 +1436,7 @@ figure.product-showcase-frame > div:first-child {
 .palette-trigger {
   display: inline-flex;
   align-items: center;
+  min-height: 44px;
   gap: 8px;
   border: 1px solid var(--lg-border);
   border-radius: var(--radius-control);
