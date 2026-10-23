@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-21",
+  "generatedAt": "2026-10-22",
   "repository": "marinerxcapital/certamaris-public-website",
   "branch": "codex/assurance-helix-hero-20260926",
-  "headBefore": "c028095",
-  "headAfter": "99fd3a7",
-  "auditBasis": "Live https://certamaris.com audited 2026-10-21 plus local branch. Note: the supplied directive's defect premise was partially stale; the live site and branch already carried 22 committed remediation commits (IA remediation 2026-09-27, pixel-grid restore 2026-09-26, hero video 2026-10-10).",
+  "headBefore": "4a8fb7b",
+  "headAfter": "cc5c9ee",
+  "auditBasis": "Live https://certamaris.com and the static export audited 2026-10-22. The prior 2026-10-21 audit already confirmed broad responsive, target-size, navigation, search, footer, and trust-page quality; this pass closes the remaining company empty-state cluster.",
   "defects": [
     {
       "id": "SEO-OG-001",
@@ -44,6 +44,17 @@
       "note": "No dependency changes introduced in this pass. Pre-existing; deferred to owner-approved dependency maintenance."
     },
     {
+      "id": "UX-EMPTY-001",
+      "category": "Information architecture / empty state",
+      "target": "/about/partners, /about/careers, /about/press; components/EmptyState.tsx; CommandPalette and Resources no-match states",
+      "severity": "medium",
+      "status": "FIXED-DEPLOYED",
+      "rootCause": "Three route-specific copies of one minimal block provided no shared state primitive, insufficient visual differentiation, and no dedicated visual/regression gate.",
+      "fix": "Added the shared EmptyState page/compact system with distinct motifs, explicit unpublished status, one primary action, a three-step routing band, and four related paths per company route. Reused the compact variants for resources and command-search no-match states.",
+      "verification": "Dedicated before/after/live QA: 3 routes x 12 viewport-orientation checks, 72 screenshots per set, 0 overflow, 0 broken images, one H1, one primary action, three process steps, four related links, all state targets >=44px, 0 serious/critical axe findings. Live routes return 200. Worker version ffe4337d-8b08-4e4f-a837-0ed085b8ea5c at 100%.",
+      "evidence": "qa-artifacts/empty-state-revamp-2026-10-22/{before,after,live-after}/; docs/2026-10-22-empty-state-revamp-deployment.md; docs/empty-state-design-system.md"
+    },
+    {
       "id": "A11Y-TARGET-002",
       "category": "Accessibility / target size (body content)",
       "target": "inline body-copy text links and small widgets across pages",
@@ -56,14 +67,17 @@
   "verification": {
     "typecheck": "PASS",
     "buildStatic": "PASS (111 routes generated)",
-    "coreQa": "PASS (0 failed steps; 105 pages scanned; 4487 internal links resolved)",
-    "responsiveA11y": "PASS (16 routes x 9 viewports; 0 axe violations, 0 horizontal overflow, 0 broken images)",
-    "uxAudit": "PASS (21 routes, 5 feature captures, 0 failures; no header overlap)",
-    "liveReadback": "PASS (og:image/twitter:image versioned PNG; pixel-grid and hero video preserved; canonical apex; header target size 0/9 desktop and 0/2 mobile under 44px)"
+    "coreQa": "PASS (0 failed steps; 105 pages scanned; 4493 internal links resolved)",
+    "responsiveA11y": "PASS (19 routes x 9 viewports; 0 reported issues, 0 broken images)",
+    "uxAudit": "PASS (25 routes, 5 feature captures, 0 failures; no header overlap)",
+    "emptyStateQa": "PASS (3 routes x 12 viewport/orientation checks; 72 local and 72 live screenshots; 0 failures)",
+    "lighthouseSmoke": "PASS command exit 0 (mobile scores: / 60, /security 68, /pricing 64; smoke only, no threshold)",
+    "liveReadback": "PASS (all three routes 200; one H1 and expected variant; nav, page hero, Pixel Grid, footer, homepage hero video/poster, canonical URLs, and contact secrets preserved)"
   },
   "knownResiduals": [
-    "Static-harness console entries (335) are the documented Next static-export RSC prefetch 404 artifact; production Chrome reports zero console errors.",
+    "Static-harness console entries (282) are the documented Next static-export RSC prefetch 404 artifact; production Chrome reports zero console or network errors for the changed route matrix.",
     "5 expected SEO duplicate-H1/title warnings on legacy aliases and the not-found pages.",
-    "npm audit red on 4 pre-existing advisories in pinned dependencies."
+    "npm audit red on four pre-existing package findings (next, sharp, source-map-js, baseline-browser-mapping); no dependency versions changed.",
+    "Lighthouse mobile smoke scores remain 60/68/64 on /, /security, and /pricing; no repository threshold is configured and performance work is a separate scope."
   ]
 }

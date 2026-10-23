@@ -1,4 +1,49 @@
-# Target-size remediation + OG branding LIVE - 2026-10-21 (CURRENT)
+# Empty-state design system LIVE - 2026-10-22 (CURRENT)
+
+**Production:** https://certamaris.com - Worker `certamaris-site` version
+`ffe4337d-8b08-4e4f-a837-0ed085b8ea5c` @100%
+**Branch:** `codex/assurance-helix-hero-20260926`
+**Code commit:** `cc5c9ee`
+
+**What changed:**
+
+1. Added `components/EmptyState.tsx`, a shared page/compact state system with
+   distinct partnership, careers, press, resources, and search motifs.
+2. Rebuilt `/about/partners`, `/about/careers`, and `/about/press` with one
+   honest status, one primary action, a three-step routing band, and four
+   related paths. All unpublished-directory, open-role, and press-archive
+   boundaries remain explicit.
+3. Reused the compact primitive for Resources no-match and Command Palette
+   no-match states. No route, pricing value, compliance wording, contact
+   routing, navigation destination, hero, or Pixel Grid behavior changed.
+4. Added `scripts/qa/empty-state-qa.mjs` and `npm run qa:empty-states`. The
+   harness checks 3 routes across 12 viewport/orientation sizes, captures 72
+   full/fold screenshots, verifies H1 count, overflow, broken images, target
+   size, state structure, interactions, and axe.
+
+**Validation:** `typecheck` PASS - `build:static` PASS (111 routes) - `npm run
+qa` PASS (0 failed steps, 105 pages, 4,493 links) - `qa:responsive-a11y` PASS
+(19 routes x 9 viewports, 0 issues, 0 broken images) - `qa:ux-audit` PASS
+(25 routes, 5 features) - dedicated local and live empty-state QA PASS (72
+screenshots each, 0 failures) - live routes return 200 with one H1 and the
+expected variant; nav, page hero, Pixel Grid, footer, hero video, poster, and
+contact secrets remain present.
+
+**Evidence:** `qa-artifacts/empty-state-revamp-2026-10-22/{before,after,live-after}/`
+and `docs/2026-10-22-empty-state-revamp-deployment.md`.
+
+**Known residuals:** four pre-existing dependency findings remain (`next`,
+`sharp`, `source-map-js`, `baseline-browser-mapping`); five accepted legacy
+SEO alias warnings; Lighthouse mobile smoke scores are 60/68/64 without a
+configured threshold.
+
+**Rollback:** `npx wrangler versions deploy 645e711a-a23a-4423-8c20-d6e8c093a509@100% --config wrangler.jsonc -y`
+
+**Signed:** Codex (DeepSeek V4 Flash Vision Exp) - 2026-10-22
+
+---
+
+# Target-size remediation + OG branding LIVE - 2026-10-21 (PREVIOUS)
 
 **Production:** https://certamaris.com - Worker `certamaris-site` version `645e711a-a23a-4423-8c20-d6e8c093a509` @100%
 **Branch:** `codex/assurance-helix-hero-20260926` (local Wrangler deploy, as established)

@@ -6,3 +6,8 @@ Canonical remediation QA write-up:
 - [../measurement-spec.md](../measurement-spec.md) — privacy-safe analytics events
 
 Runnable scripts live in `scripts/qa/`.
+
+Empty-state route, responsive, interaction, and axe coverage:
+
+- `npm run qa:empty-states`
+- [../empty-state-design-system.md](../empty-state-design-system.md)

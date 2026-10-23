@@ -17,7 +17,8 @@
 | **Authenticated app (separate)** | https://app.certamaris.com — do **not** merge into this repo |
 | **GitHub** | https://github.com/marinerxcapital/certamaris-public-website |
 | **Branch** | **`main` only** for production |
-| **Latest production change (2026-09-26)** | **Pixel Grid restored; vessel hero deleted and Assurance Helix unmounted from `/` on owner direction** - Worker version `8852bbb1-dd35-4492-bb5b-c61319027f51`; note `docs/2026-09-26-pixel-grid-restore-and-hero-revert.md`. Previous: cinematic vessel-video hero (Worker `ea419440-583c-46c9-8208-24306cd4e7f9`, note `docs/2026-09-26-landing-video-hero-deployment.md`); rotating logo mark `e90fe17` (Worker `c2be68c9-259c-4ece-a254-9aebc64ca8f8`); mockup-match Assurance Helix pass `7c5a641` (Worker `547c484b-45ab-4191-b118-ccfdf7914711`); `4be9ffb`; `46675ea`; live-but-uncommitted drift committed as `d49fba1` (2026-09-21 security.txt + legacy legal titles) |
+| **Latest production change (2026-10-22)** | Empty-state design system on `/about/partners`, `/about/careers`, `/about/press`, plus compact Resources and Command Palette no-match states. Code `cc5c9ee`; Worker `ffe4337d-8b08-4e4f-a837-0ed085b8ea5c` at 100%; prior version `645e711a-a23a-4423-8c20-d6e8c093a509`. Evidence: `docs/2026-10-22-empty-state-revamp-deployment.md`, `docs/empty-state-design-system.md`. |
+| **Production baseline before 2026-10-22** | **Pixel Grid restored; vessel hero deleted and Assurance Helix unmounted from `/` on owner direction** - Worker version `8852bbb1-dd35-4492-bb5b-c61319027f51`; note `docs/2026-09-26-pixel-grid-restore-and-hero-revert.md`. Previous: cinematic vessel-video hero (Worker `ea419440-583c-46c9-8208-24306cd4e7f9`, note `docs/2026-09-26-landing-video-hero-deployment.md`); rotating logo mark `e90fe17` (Worker `c2be68c9-259c-4ece-a254-9aebc64ca8f8`); mockup-match Assurance Helix pass `7c5a641` (Worker `547c484b-45ab-4191-b118-ccfdf7914711`); `4be9ffb`; `46675ea`; live-but-uncommitted drift committed as `d49fba1` (2026-09-21 security.txt + legacy legal titles) |
 | **CI status (2026-09-26)** | **Jobs do not start: GitHub account is billing-locked** (run `36232400278` — "The job was not started because your account is locked due to a billing issue", zero steps). Second gate: `npm run ci:validate` fails on `npm audit` (`next@16.2.12`, `sharp@0.35.3`). Deploy locally with `npm run build:static` (explicit webpack static export) + `npx wrangler deploy --config wrangler.jsonc --keep-vars`. See `docs/ci-billing.md`. |
 | **Latest production change (2026-08-24)** | UX/accessibility audit fix `46f0370` · note `docs/2026-08-24-ux-accessibility-audit-fix-deployment.md`; previous sitewide professionalism upgrade `04de3aa` / PR #18 |
 | **Latest UX pass (2026-08-24)** | UX/accessibility audit fix `46f0370`; previous product experience upgrade `dfb009f` · pricing table keyboard-access closeout `0084f51` |
@@ -199,7 +200,9 @@ Never re-bind `app.certamaris.com` to `certamaris-site`.
 | Pixel Grid | `components/PixelGridBackground.tsx` |
 | Design tokens | `app/globals.css` |
 | Shared professional shell | `app/globals.css`, `components/PageHero.tsx`, `components/Button.tsx` |
+| Empty-state design system | `components/EmptyState.tsx`, `app/about/{partners,careers,press}/page.tsx`, `docs/empty-state-design-system.md` |
 | QA routes | `scripts/qa/expected-routes.mjs`, `scripts/qa/check-product-experience.mjs` |
+| Empty-state visual/interaction QA | `scripts/qa/empty-state-qa.mjs`, `npm run qa:empty-states` |
 | Public product boundary | `scripts/qa/check-public-product-boundary.mjs` |
 | UX/a11y audit browser QA | `scripts/qa/ux-audit-browser-qa.mjs` |
 | Lighthouse performance smoke | `scripts/qa/lighthouse-performance.mjs` |
