@@ -27,6 +27,9 @@ const KEY_ROUTES = [
   "/who-we-serve/ship-owners",
   "/who-we-serve/technical-managers-dpas",
   "/who-we-serve/maritime-it-ot",
+  "/about/partners",
+  "/about/careers",
+  "/about/press",
 ];
 
 const VIEWPORTS = [

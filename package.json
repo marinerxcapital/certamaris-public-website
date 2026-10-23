@@ -22,6 +22,7 @@
     "qa:link-preview": "node scripts/qa/check-link-preview.mjs",
     "qa:links": "node scripts/qa/check-links.mjs",
     "qa:founder": "node scripts/qa/check-founder.mjs",
+    "qa:empty-states": "node scripts/qa/empty-state-qa.mjs --label verify --verify",
     "qa:responsive-a11y": "node scripts/qa/responsive-a11y-qa.mjs",
     "qa:ux-audit": "node scripts/qa/ux-audit-browser-qa.mjs",
     "qa:lighthouse": "node scripts/qa/lighthouse-performance.mjs",

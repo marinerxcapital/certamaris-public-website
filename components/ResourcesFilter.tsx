@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { ArticleCard } from "@/components/ArticleCard";
+import { EmptyState } from "@/components/EmptyState";
 import type { Article } from "@/lib/resources";
 import { filterArticles, resourceKinds, resourceTags, resourceTopics } from "@/lib/resources";
 
@@ -46,6 +47,12 @@ export function ResourcesFilter({ articles: allArticles }: { articles: Article[]
     () => filterArticles({ query, topic, tag, kind }),
     [query, topic, tag, kind]
   );
+  const clearFilters = () => {
+    setQuery("");
+    setTopic("all");
+    setTag("all");
+    setKind("all");
+  };
 
   return (
     <div className="space-y-8">
@@ -116,13 +123,8 @@ export function ResourcesFilter({ articles: allArticles }: { articles: Article[]
         {(query || topic !== "all" || tag !== "all" || kind !== "all") && (
           <button
             type="button"
-            className="ml-3 font-medium text-ocean hover:underline"
-            onClick={() => {
-              setQuery("");
-              setTopic("all");
-              setTag("all");
-              setKind("all");
-            }}
+            className="ml-3 min-h-11 font-medium text-ocean hover:underline"
+            onClick={clearFilters}
           >
             Clear filters
           </button>
@@ -130,7 +132,18 @@ export function ResourcesFilter({ articles: allArticles }: { articles: Article[]
       </p>
 
       {filtered.length === 0 ? (
-        <p className="text-[15px] text-structural">No resources match these filters. Try clearing search or tags.</p>
+        <EmptyState
+          variant="resources"
+          size="compact"
+          eyebrow="Resource results"
+          title="No resources match these filters."
+          body={<p>Try clearing the query or removing one or more topic, tag, or type filters.</p>}
+          primaryAction={
+            <button type="button" className="empty-state__action" onClick={clearFilters}>
+              Clear filters
+            </button>
+          }
+        />
       ) : (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {filtered.map((article) => (

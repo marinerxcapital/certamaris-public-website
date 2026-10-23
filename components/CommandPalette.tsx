@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { EmptyState } from "@/components/EmptyState";
 import { NAV_PRIMARY, TRUST_LINKS, UTILITY_LINKS } from "@/lib/constants";
 
 type PaletteEntry = {
@@ -182,7 +183,19 @@ export function CommandPalette() {
                 <ul id={listId} role="listbox" aria-label="Pages" className="palette-results">
                   {results.length === 0 ? (
                     <li className="palette-empty" role="presentation">
-                      No pages match “{query}”.
+                      <EmptyState
+                        variant="search"
+                        size="compact"
+                        titleAs="p"
+                        eyebrow="Site search"
+                        title="No pages found"
+                        body={
+                          <p>
+                            No pages match “{query}”. Try a product, compliance, trust, or
+                            company term.
+                          </p>
+                        }
+                      />
                     </li>
                   ) : (
                     results.map((entry, index) => (

@@ -35,6 +35,7 @@ const steps = [
   { name: "check-links", file: "check-links.mjs", argv: [], needsOut: true },
   // Founder headshot / leadership bio — prefers out/; falls back to source
   { name: "check-founder", file: "check-founder.mjs", argv: [] },
+  { name: "empty-state journeys", file: "empty-state-qa.mjs", argv: ["--label", "qa-suite", "--verify"], needsOut: true },
 ];
 
 if (args.base && typeof args.base === "string") {

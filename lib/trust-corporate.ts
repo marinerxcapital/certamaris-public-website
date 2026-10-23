@@ -403,7 +403,7 @@ export const careersContent = {
   title: "Careers",
   intro: "CertaMaris hires carefully and publishes roles only when they are open for applications.",
   status: "No open roles are published on this website at this time.",
-  body: "If you believe your background in maritime operations, compliance, security, or product engineering is a strong fit, you may send a brief introduction and résumé overview to the sales contact channel for routing. Unsolicited applications are not a guarantee of review, and this page does not invent headcount plans or office locations.",
+  body: "Relevant backgrounds in maritime operations, compliance, security, or product engineering may send a brief introduction for routing. Unsolicited applications are not a guarantee of review.",
   salesEmail: APP_SALES_EMAIL,
   contactHref: "/contact",
 } as const;

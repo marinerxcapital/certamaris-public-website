@@ -26,6 +26,7 @@ let qaNavigationIndex = 0;
 
 const FULL_ROUTES = [
   "/",
+  "/about",
   "/demo",
   "/pricing",
   "/platform",
@@ -46,6 +47,9 @@ const FULL_ROUTES = [
   "/who-we-serve/classification-survey",
   "/who-we-serve/insurers-pi",
   "/who-we-serve/maritime-service-providers",
+  "/about/partners",
+  "/about/careers",
+  "/about/press",
 ];
 
 const FEATURE_CAPTURES = [
