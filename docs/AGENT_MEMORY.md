@@ -4,6 +4,7 @@
 `106e7258-b712-4252-9331-8ca4718e21ed` @100%
 **Branch:** `codex/assurance-helix-hero-20260926`
 **Code commit:** `58e9c53`
+**Documentation commit:** `5700177`
 
 **What changed:**
 

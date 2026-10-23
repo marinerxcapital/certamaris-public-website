@@ -5,6 +5,7 @@
 - Repository: `C:\certamaris-startup-site-pnpm\certamaris-startup-site`
 - Branch: `codex/assurance-helix-hero-20260926`
 - Code commit: `58e9c53`
+- Documentation commit: `5700177`
 - Prior production version: `ffe4337d-8b08-4e4f-a837-0ed085b8ea5c`
 - New production version: `106e7258-b712-4252-9331-8ca4718e21ed`
 - Worker: `certamaris-site`, 100% production traffic
