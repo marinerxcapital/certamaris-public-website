@@ -7,7 +7,7 @@
     {
       "id": "SEO-META-001",
       "severity": "medium",
-      "status": "FIXED-VERIFIED-LOCAL",
+      "status": "FIXED-DEPLOYED",
       "routes": ["/legal/privacy", "/legal/acceptable-use", "/legal/dpa", "/privacy"],
       "finding": "Four rendered meta descriptions exceeded 160 characters.",
       "rootCause": "Legal document description fields were written as broad summaries rather than search-result descriptions.",
@@ -17,7 +17,7 @@
     {
       "id": "SEO-ALIAS-001",
       "severity": "medium",
-      "status": "FIXED-VERIFIED-LOCAL",
+      "status": "FIXED-DEPLOYED",
       "routes": ["/privacy", "/terms", "/trust/subprocessors"],
       "finding": "Legacy legal aliases duplicated canonical legal H1s and carried self-canonical URLs despite being noindex.",
       "rootCause": "Aliases were noindex but did not consolidate canonical signals or redirect to the maintained legal route.",
@@ -27,7 +27,7 @@
     {
       "id": "SEO-REDIRECT-001",
       "severity": "medium",
-      "status": "FIXED-VERIFIED-LOCAL",
+      "status": "FIXED-DEPLOYED",
       "routes": ["/industries", "/sample-platform"],
       "finding": "Two legacy static HTML pages remained indexable while the production Worker redirected them.",
       "rootCause": "Redirect metadata was not aligned with the edge redirect behavior.",
@@ -37,7 +37,7 @@
     {
       "id": "SEO-SITEMAP-001",
       "severity": "high",
-      "status": "FIXED-VERIFIED-LOCAL",
+      "status": "FIXED-DEPLOYED",
       "routes": ["/sitemap", "sitewide"],
       "finding": "The export had 97 pages marked indexable while sitemap.xml contained only 94 URLs; the human sitemap page was omitted and redirect fallbacks were incorrectly indexable.",
       "rootCause": "No strict machine comparison existed between rendered indexability and the generated sitemap.",
@@ -47,7 +47,7 @@
     {
       "id": "SEO-STRUCTURED-001",
       "severity": "medium",
-      "status": "FIXED-VERIFIED-LOCAL",
+      "status": "FIXED-DEPLOYED",
       "routes": [
         "/about",
         "/compliance",
@@ -71,7 +71,7 @@
     {
       "id": "SEO-HOME-001",
       "severity": "medium",
-      "status": "FIXED-VERIFIED-LOCAL",
+      "status": "FIXED-DEPLOYED",
       "routes": ["/"],
       "finding": "The homepage title was only the brand name 'CertaMaris' and did not state the product category.",
       "rootCause": "The root layout default title was used without a homepage-specific metadata export.",
@@ -81,7 +81,7 @@
     {
       "id": "SEO-SOCIAL-001",
       "severity": "medium",
-      "status": "FIXED-VERIFIED-LOCAL",
+      "status": "FIXED-DEPLOYED",
       "routes": ["/about/leadership"],
       "finding": "The founder portrait was declared as a 1200x630 PNG social image, but the actual asset is a 1251x1361 JPEG.",
       "rootCause": "A portrait was passed through a helper that assumed a standard landscape social-card image.",
@@ -91,7 +91,7 @@
     {
       "id": "SEO-TEST-001",
       "severity": "medium",
-      "status": "FIXED-VERIFIED-LOCAL",
+      "status": "FIXED-DEPLOYED",
       "routes": ["sitewide"],
       "finding": "Existing SEO checks did not compare sitemap membership to rendered indexability, validate JSON-LD against visible content, detect canonical collisions, or crawl the full sitemap visually.",
       "rootCause": "SEO QA focused on title presence and uniqueness rather than cross-system integrity.",

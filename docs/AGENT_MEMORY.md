@@ -1,4 +1,60 @@
-# Empty-state design system LIVE - 2026-10-22 (CURRENT)
+# SEO optimization LIVE - 2026-10-22 (CURRENT)
+
+**Production:** https://certamaris.com - Worker `certamaris-site` version
+`106e7258-b712-4252-9331-8ca4718e21ed` @100%
+**Branch:** `codex/assurance-helix-hero-20260926`
+**Code commit:** `58e9c53`
+
+**What changed:**
+
+1. Shared metadata now supports explicit alias canonicals, `noindex, follow`
+   utility fallbacks, correct social-image MIME inference, and accurate
+   dimensions. The homepage title now states the category:
+   `Maritime Cyber Compliance Software`.
+2. Six legacy/duplicate-intent URLs permanently redirect to maintained routes:
+   `/industries`, `/sample-platform`, `/privacy`, `/terms`,
+   `/trust/subprocessors`, and `/platform/corporate-control-plane`.
+3. Sitemap/indexability parity is exact: 105 exported HTML pages, 95 indexable
+   canonical routes, 95 sitemap URLs, and 10 intentional noindex utility or
+   alias pages.
+4. BreadcrumbList JSON-LD now matches visible breadcrumb trails on the affected
+   compliance, glossary, resources, article, topic, and about templates.
+5. Added `qa:seo-audit` for canonical, sitemap, robots, title/description,
+   JSON-LD, OG-image, and inbound-link integrity, plus `seo-visual-qa.mjs` for
+   the full sitemap at desktop/mobile and a 10-viewport family matrix.
+
+**Validation:** `typecheck` exit 0 - `build:static` exit 0 (111 generated
+routes) - `npm run qa` with the installed-Chrome path exit 0 after the bundled
+Playwright Chromium hit the known Windows ICU launch defect - `qa:responsive-a11y`
+exit 0 (19 routes x 9 viewports, 0 issues, 0 broken images) - `qa:ux-audit`
+exit 0 (25 routes, 5 features) - `qa:seo` exit 0 (105 pages) - `qa:seo-audit`
+exit 0 (95 indexable / 95 sitemap, 0 errors, 0 warnings) - `qa:links` exit 0
+(4,509 hrefs) - `qa:link-preview` exit 0 (14/14) - meta lengths exit 0
+(105 pages, 0 over-limit titles/descriptions) - local and live route checks
+103/103 - live visual crawl 95 routes / 340 observations / 0 failures - live
+aliases all 301 to final URLs - Lighthouse smoke exit 0 (scores 60/68/64,
+CLS 0/0/0.0002).
+
+**Evidence:** `docs/seo/ROUTE_SEO_INVENTORY.json`,
+`docs/seo/SEO_DEFECT_REGISTER.json`, `docs/seo/SEO_TECHNICAL_AUDIT.json`,
+`docs/seo/INTERNAL_LINK_MAP.md`, `docs/seo/SEO_QA_EVIDENCE.md`,
+`docs/2026-10-22-seo-optimization-deployment.md`, and
+`qa-artifacts/seo-opt-2026-10-22/live-final-20261023/`.
+
+**Known residuals:** no Search Console, analytics, ranking, query-volume,
+backlink, or competitor export was available; Lighthouse mobile remains
+60/68/64 on `/`, `/security`, and `/pricing`; four pre-existing dependency
+audit findings remain. The static harness still reports expected Next
+RSC-prefetch 404 noise locally; production visual QA reported zero console and
+network failures.
+
+**Rollback:** `npx wrangler versions deploy ffe4337d-8b08-4e4f-a837-0ed085b8ea5c@100% --config wrangler.jsonc -y`
+
+**Signed:** Codex (DeepSeek V4 Flash Vision Exp) - 2026-10-22
+
+---
+
+# Empty-state design system LIVE - 2026-10-22 (PREVIOUS)
 
 **Production:** https://certamaris.com - Worker `certamaris-site` version
 `ffe4337d-8b08-4e4f-a837-0ed085b8ea5c` @100%
@@ -478,7 +534,7 @@ Final Verification: SuperGrok / Grok Build CLI (session 01a0c21f-0734-7583-8fa7-
 6. **Marketing vs app:** `certamaris.com` ≠ `app.certamaris.com` — never rebind.
 7. **Deploy:** `npm run build:static` then `npx wrangler deploy --config wrangler.jsonc --keep-vars`.
 8. **Reduced motion and CSP:** never animate from opacity 0; use `usePrefersReducedMotion()` from `lib/`, not framer’s hook alone. Public-page reveal/product-exhibit motion must remain class-driven under the Worker CSP; do not reintroduce inline opacity/transform styles for these audited surfaces.
-9. **Root link preview:** active metadata must use `/og/certamaris-link-preview-2026-08-v2.png`; do not restore `/og/certamaris-og.jpg` to `og:image` or `twitter:image`.
+9. **Root link preview:** active metadata must use `/og/certamaris-link-preview-2026-10-v1.png`; do not restore `/og/certamaris-og.jpg` or the superseded 2026-08 preview to `og:image` or `twitter:image`.
 10. **Internal admin boundary:** the Internal CertaMaris Admin Dashboard / Corporate Control Plane / employee-only operating tooling is not a client-facing product feature. Do not restore it to public nav, platform modules, demo copy, pricing, trust/procurement, screenshots, sitemap, or generated HTML.
 
 ---

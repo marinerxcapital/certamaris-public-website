@@ -4,8 +4,9 @@
   "repository": "marinerxcapital/certamaris-public-website",
   "branch": "codex/assurance-helix-hero-20260926",
   "headBefore": "4a8fb7b",
-  "headAfter": "cc5c9ee",
-  "auditBasis": "Live https://certamaris.com and the static export audited 2026-10-22. The prior 2026-10-21 audit already confirmed broad responsive, target-size, navigation, search, footer, and trust-page quality; this pass closes the remaining company empty-state cluster.",
+  "headAfter": "58e9c53",
+  "seoHeadBefore": "cc5c9ee",
+  "auditBasis": "Live https://certamaris.com and the static export audited 2026-10-22 through 2026-10-23. The 2026-10-21 audit confirmed broad responsive, target-size, navigation, search, footer, and trust-page quality; the 2026-10-22 empty-state pass closed the company empty-state cluster; the final SEO pass closed alias, sitemap, schema, and metadata integrity gaps.",
   "defects": [
     {
       "id": "SEO-OG-001",
@@ -62,17 +63,91 @@
       "status": "ACCEPTED-RESIDUAL",
       "evidence": "Homepage remaining <44px items are inline text links (16-22px, e.g. 'Full comparison on Why CertaMaris') and small widgets (32-39px step/tab/range controls).",
       "note": "Inline links in a sentence are exempt from WCAG 2.5.8; small widgets already exceed the AA 24px floor. Full 44px body-wide remediation is a larger cross-component follow-up and was deferred to avoid visual churn against owner-approved design."
+    },
+    {
+      "id": "SEO-META-001",
+      "category": "SEO / metadata length",
+      "target": "legal metadata",
+      "severity": "medium",
+      "status": "FIXED-DEPLOYED",
+      "evidence": "Four legal meta descriptions exceeded 160 characters before remediation. Final check-meta-lengths.mjs: 105 pages, 0 descriptions over 160, 0 titles over 60.",
+      "note": "Legal document body text was not changed."
+    },
+    {
+      "id": "SEO-ALIAS-001",
+      "category": "SEO / canonicalization",
+      "target": "/privacy, /terms, /trust/subprocessors and /legal/* canonical routes",
+      "severity": "medium",
+      "status": "FIXED-DEPLOYED",
+      "evidence": "Alias metadata now uses noindex,follow and canonicalizes to the maintained /legal/* route. Live un-followed readback returned 301 for each alias.",
+      "note": "Legacy URLs remain available for external links while consolidating canonical signals."
+    },
+    {
+      "id": "SEO-REDIRECT-001",
+      "category": "SEO / indexation",
+      "target": "/industries, /sample-platform, /platform/corporate-control-plane",
+      "severity": "medium",
+      "status": "FIXED-DEPLOYED",
+      "evidence": "Static fallbacks are noindex,follow and canonicalize to final destinations. Live un-followed readback: /industries -> /who-we-serve, /sample-platform -> /demo, /platform/corporate-control-plane -> /platform/client-company-portal.",
+      "note": "Worker and static-export behavior are aligned."
+    },
+    {
+      "id": "SEO-SITEMAP-001",
+      "category": "SEO / sitemap integrity",
+      "target": "app/sitemap.ts and exported route set",
+      "severity": "high",
+      "status": "FIXED-DEPLOYED",
+      "evidence": "Strict audit: 105 exported HTML pages, 95 indexable routes, 95 sitemap URLs, 0 hard errors, 0 warnings. Live sitemap: 95 URLs, includes /sitemap, excludes the /privacy alias.",
+      "note": "The human /sitemap page was added and redirect fallbacks were removed from indexable sitemap membership."
+    },
+    {
+      "id": "SEO-STRUCTURED-001",
+      "category": "SEO / structured data",
+      "target": "compliance, glossary, resources, article, topic, and about templates",
+      "severity": "medium",
+      "status": "FIXED-DEPLOYED",
+      "evidence": "Strict audit parsed all JSON-LD blocks and matched FAQ, article, breadcrumb, and person content against rendered text: 0 JSON-LD parse errors and 0 mismatches.",
+      "note": "Visible breadcrumbs were added to templates that publish BreadcrumbList schema."
+    },
+    {
+      "id": "SEO-HOME-001",
+      "category": "SEO / homepage intent",
+      "target": "/",
+      "severity": "medium",
+      "status": "FIXED-DEPLOYED",
+      "evidence": "Rendered title is 'Maritime Cyber Compliance Software' (44 characters including the brand template) instead of the brand-only default.",
+      "note": "H1 and page content were not changed for this metadata fix."
+    },
+    {
+      "id": "SEO-SOCIAL-001",
+      "category": "SEO / social metadata",
+      "target": "/about/leadership",
+      "severity": "medium",
+      "status": "FIXED-DEPLOYED",
+      "evidence": "Leadership now uses the approved 1200x630 branded PNG social card; shared metadata infers image MIME and dimensions correctly.",
+      "note": "Root and route social-preview checks passed 14/14."
+    },
+    {
+      "id": "SEO-TEST-001",
+      "category": "SEO / regression coverage",
+      "target": "scripts/qa/seo-audit.mjs, scripts/qa/seo-visual-qa.mjs, scripts/qa/check-seo.mjs",
+      "severity": "medium",
+      "status": "FIXED-DEPLOYED",
+      "evidence": "Strict local and live full-sitemap gates are runnable and green; the final live visual crawl recorded 95 routes, 340 observations, and 0 failures.",
+      "note": "Coverage includes canonical collisions, sitemap/indexability parity, JSON-LD parsing and content matching, H1 count, overflow, image loading, and console/network failures."
     }
   ],
   "verification": {
     "typecheck": "PASS",
     "buildStatic": "PASS (111 routes generated)",
-    "coreQa": "PASS (0 failed steps; 105 pages scanned; 4493 internal links resolved)",
+    "coreQa": "PASS (0 failed steps with installed Chrome; 105 pages scanned; 4509 internal links resolved)",
     "responsiveA11y": "PASS (19 routes x 9 viewports; 0 reported issues, 0 broken images)",
     "uxAudit": "PASS (25 routes, 5 feature captures, 0 failures; no header overlap)",
     "emptyStateQa": "PASS (3 routes x 12 viewport/orientation checks; 72 local and 72 live screenshots; 0 failures)",
+    "seoQa": "PASS (95 indexable routes, 95 sitemap URLs, 0 hard errors, 0 warnings, 0 JSON-LD errors; 4509 internal hrefs resolved)",
+    "liveVisualQa": "PASS (95 sitemap routes, 340 observations, 0 failures, 0 console/network errors, 0 overflow, 0 broken images, 0 H1 failures)",
     "lighthouseSmoke": "PASS command exit 0 (mobile scores: / 60, /security 68, /pricing 64; smoke only, no threshold)",
-    "liveReadback": "PASS (all three routes 200; one H1 and expected variant; nav, page hero, Pixel Grid, footer, homepage hero video/poster, canonical URLs, and contact secrets preserved)"
+    "liveReadback": "PASS (103/103 required routes/assets; six legacy routes return 301; sitemap 95 URLs with /sitemap included and aliases excluded; robots.txt points to the canonical sitemap; nav, Pixel Grid, footer, hero, metadata, schema, and contact secrets preserved)"
   },
   "knownResiduals": [
     "Static-harness console entries (282) are the documented Next static-export RSC prefetch 404 artifact; production Chrome reports zero console or network errors for the changed route matrix.",
