@@ -110,6 +110,9 @@ Coverage:
 - Final live browser rerun: 95 sitemap routes, 340 observations, 0 failures,
   0 console errors, 0 network errors, 0 overflow, 0 broken images, and 0 H1
   failures.
+- A separate live metadata readback fetched all 95 sitemap pages: all returned
+  200 with one H1, self-canonical URL, `index, follow`, a title, a unique
+  description, and an OG image; all 358 JSON-LD blocks parsed with 0 errors.
 
 ## Residuals
 

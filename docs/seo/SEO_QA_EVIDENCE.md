@@ -107,6 +107,9 @@ Production Worker: `106e7258-b712-4252-9331-8ca4718e21ed`.
 
 Final live readback also verified:
 
+- All 95 sitemap pages returned 200, exactly one H1, a self-canonical URL,
+  `index, follow`, a title, a unique description, and an OG image; 358 JSON-LD
+  blocks parsed with 0 errors.
 - `node scripts/qa/check-routes.mjs --base https://certamaris.com --include-planned`
   exit 0: 103/103 required route and asset checks.
 - Six legacy paths returned HTTP 301 to their canonical destinations.

@@ -33,8 +33,9 @@ exit 0 (95 indexable / 95 sitemap, 0 errors, 0 warnings) - `qa:links` exit 0
 (4,509 hrefs) - `qa:link-preview` exit 0 (14/14) - meta lengths exit 0
 (105 pages, 0 over-limit titles/descriptions) - local and live route checks
 103/103 - live visual crawl 95 routes / 340 observations / 0 failures - live
-aliases all 301 to final URLs - Lighthouse smoke exit 0 (scores 60/68/64,
-CLS 0/0/0.0002).
+metadata readback 95/95 with unique descriptions, self-canonicals, one H1, and
+358 parsing JSON-LD blocks - live aliases all 301 to final URLs - Lighthouse
+smoke exit 0 (scores 60/68/64, CLS 0/0/0.0002).
 
 **Evidence:** `docs/seo/ROUTE_SEO_INVENTORY.json`,
 `docs/seo/SEO_DEFECT_REGISTER.json`, `docs/seo/SEO_TECHNICAL_AUDIT.json`,
