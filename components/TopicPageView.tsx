@@ -24,7 +24,16 @@ export function TopicPageView({ topic }: { topic: TopicPage }) {
   return (
     <>
       <JsonLd data={schemas} />
-      <PageHero eyebrow={topic.eyebrow} title={topic.title} intro={topic.intro} />
+      <PageHero
+        eyebrow={topic.eyebrow}
+        title={topic.title}
+        intro={topic.intro}
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Topics", href: "/topics" },
+          { label: topic.title },
+        ]}
+      />
 
       <Section>
         <div className="max-w-2xl space-y-10">

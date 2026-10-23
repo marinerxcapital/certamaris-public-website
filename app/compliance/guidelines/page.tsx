@@ -38,6 +38,11 @@ export default function ComplianceGuidelinesPage() {
         eyebrow="Compliance · Guidelines"
         title="Standards, industry guidance, and national frameworks"
         intro="High-level orientation only. These instruments may complement IMO and IACS work — they do not automatically replace SMS cyber risk management or class requirements. Legal and entity-scope determinations require qualified advisors."
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Compliance", href: "/compliance" },
+          { label: "Guidelines" },
+        ]}
       />
       <Section>
         <Reveal className="max-w-2xl mb-8">

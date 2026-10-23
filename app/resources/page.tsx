@@ -40,6 +40,10 @@ export default function ResourcesPage() {
         eyebrow="Resources"
         title="Plain-language explainers on maritime cyber compliance."
         intro="Operator-focused explainers, guides, and checklists authored by CertaMaris Editorial. Not legal advice."
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Resources" },
+        ]}
       />
 
       <Section>

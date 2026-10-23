@@ -1,7 +1,8 @@
 # CertaMaris Public Site — Route Inventory
 
-Generated 2026-10-21 from the static export (`out/`). 105 rendered HTML pages
-(104 non-`__next`/404 pages plus the apex route `/`).
+Updated 2026-10-22 from the static export (`out/`). 105 rendered HTML pages:
+95 indexable routes and 10 noindex utility, redirect-fallback, or error pages.
+`sitemap.xml` contains the same 95 indexable routes.
 
 ## Route families
 
@@ -112,6 +113,24 @@ Generated 2026-10-21 from the static export (`out/`). 105 rendered HTML pages
 - `/sitemap.xml`
 - `/robots.txt`
 - `/404`
+
+### Redirect aliases
+
+The Worker keeps these legacy URLs available with permanent 301 redirects:
+
+- `/industries` → `/who-we-serve`
+- `/sample-platform` → `/demo`
+- `/platform/corporate-control-plane` → `/platform/client-company-portal`
+- `/privacy` → `/legal/privacy`
+- `/terms` → `/legal/terms`
+- `/trust/subprocessors` → `/legal/subprocessors`
+
+The static fallback pages remain in the export, but are `noindex, follow`,
+canonicalize to the final destination, and are excluded from `sitemap.xml`.
+
+Noindex utility pages include `/contact/submitted`,
+`/contact/delivery-failed`, `/legal/library`, the redirect fallbacks, and the
+404 documents.
 
 Note: this branch carries more routes than the directive's ~50-route list (notably
 `/legal/*`, `/topics/*`, `/trust/ai-policy`, `/trust/assurance-model`,

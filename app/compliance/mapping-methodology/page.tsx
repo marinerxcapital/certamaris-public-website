@@ -58,6 +58,11 @@ export default function MappingMethodologyPage() {
         eyebrow="Compliance · Methodology"
         title="Mapping methodology"
         intro="Control mapping connects a requirement to systems, procedures, and evidence. Done well, a requirement change shows what it touches. Mapping is a workflow discipline — not a certificate."
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Compliance", href: "/compliance" },
+          { label: "Mapping methodology" },
+        ]}
       />
       <Section>
         <div className="max-w-2xl space-y-8">

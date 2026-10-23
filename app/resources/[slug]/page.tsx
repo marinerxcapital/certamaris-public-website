@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BoundaryPanel } from "@/components/BoundaryPanel";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
 import { Eyebrow, ReferenceLabel, Section } from "@/components/Section";
 import { pageMetadata } from "@/lib/metadata";
@@ -66,9 +67,14 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
       >
         <div className="shell relative z-10 py-16 sm:py-20">
           <div className="liquid-glass liquid-glass--strong lg-pad-lg max-w-2xl">
-            <Link href="/resources" className="mb-6 inline-block text-[13.5px] font-medium text-ocean hover:underline">
-              ← All resources
-            </Link>
+            <Breadcrumbs
+              className="mb-6"
+              items={[
+                { label: "Home", href: "/" },
+                { label: "Resources", href: "/resources" },
+                { label: article.title },
+              ]}
+            />
             <Eyebrow>
               {article.topic} · {article.kind}
             </Eyebrow>

@@ -11,7 +11,11 @@ import { SamplePlatformClientRedirect } from "./SamplePlatformClientRedirect";
 export const metadata: Metadata = pageMetadata(
   "Sample Platform Moved",
   "The sample platform tour has moved to the product demo at /demo.",
-  "/sample-platform"
+  "/sample-platform",
+  {
+    noIndex: true,
+    canonicalPath: "/demo",
+  }
 );
 
 export default function SamplePlatformRedirectPage() {

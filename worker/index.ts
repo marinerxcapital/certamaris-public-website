@@ -42,6 +42,14 @@ type Env = {
 };
 
 const SITE_HOST = "certamaris.com";
+const LEGACY_REDIRECTS = new Map([
+  ["/industries", "/who-we-serve"],
+  ["/sample-platform", "/demo"],
+  ["/platform/corporate-control-plane", "/platform/client-company-portal"],
+  ["/privacy", "/legal/privacy"],
+  ["/terms", "/legal/terms"],
+  ["/trust/subprocessors", "/legal/subprocessors"],
+]);
 const ONE_WEEK_CACHE = "public, max-age=604800, stale-while-revalidate=86400";
 const IMMUTABLE_CACHE = "public, max-age=31536000, immutable";
 // Let Cloudflare cache the static HTML at the edge while browsers revalidate.
@@ -64,21 +72,12 @@ export default {
       return withHeaders(Response.redirect(url.toString(), 301), request);
     }
 
-    // Permanent redirect: legacy industries route → canonical audience hub
-    if (url.pathname === "/industries" || url.pathname === "/industries/") {
-      url.pathname = "/who-we-serve";
-      return withHeaders(Response.redirect(url.toString(), 301), request);
-    }
-
-    // Permanent redirect: legacy sample-platform → product demo hub
-    if (url.pathname === "/sample-platform" || url.pathname === "/sample-platform/") {
-      url.pathname = "/demo";
-      return withHeaders(Response.redirect(url.toString(), 301), request);
-    }
-
-    // Permanent redirect: former internal-only product page is not a customer-facing module.
-    if (url.pathname === "/platform/corporate-control-plane" || url.pathname === "/platform/corporate-control-plane/") {
-      url.pathname = "/platform/client-company-portal";
+    // Permanent aliases consolidate legacy and duplicate-intent URLs into
+    // the canonical page while preserving every inbound link destination.
+    const normalizedPath = url.pathname.replace(/\/+$/, "") || "/";
+    const legacyTarget = LEGACY_REDIRECTS.get(normalizedPath);
+    if (legacyTarget) {
+      url.pathname = legacyTarget;
       return withHeaders(Response.redirect(url.toString(), 301), request);
     }
 

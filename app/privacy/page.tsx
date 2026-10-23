@@ -5,5 +5,6 @@ const document = publicLegalDocumentsBySlug.privacy;
 
 export const metadata = pageMetadata("Privacy Policy Legacy Redirect", document.description, "/privacy", {
   noIndex: true,
+  canonicalPath: "/legal/privacy",
 });
 export { default } from "../legal/privacy/page";

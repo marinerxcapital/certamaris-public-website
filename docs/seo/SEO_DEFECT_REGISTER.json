@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-22",
+  "repository": "marinerxcapital/certamaris-public-website",
+  "branch": "codex/assurance-helix-hero-20260926",
+  "defects": [
+    {
+      "id": "SEO-META-001",
+      "severity": "medium",
+      "status": "FIXED-VERIFIED-LOCAL",
+      "routes": ["/legal/privacy", "/legal/acceptable-use", "/legal/dpa", "/privacy"],
+      "finding": "Four rendered meta descriptions exceeded 160 characters.",
+      "rootCause": "Legal document description fields were written as broad summaries rather than search-result descriptions.",
+      "fix": "Shortened the legal metadata descriptions without changing legal document text.",
+      "verification": "check-meta-lengths.mjs: 105 pages checked, 0 descriptions over 160, 0 titles over 60."
+    },
+    {
+      "id": "SEO-ALIAS-001",
+      "severity": "medium",
+      "status": "FIXED-VERIFIED-LOCAL",
+      "routes": ["/privacy", "/terms", "/trust/subprocessors"],
+      "finding": "Legacy legal aliases duplicated canonical legal H1s and carried self-canonical URLs despite being noindex.",
+      "rootCause": "Aliases were noindex but did not consolidate canonical signals or redirect to the maintained legal route.",
+      "fix": "Alias metadata now canonicalizes to /legal/* with noindex,follow; the Worker issues permanent 301 redirects to the maintained legal pages.",
+      "verification": "Worker redirect test covers all six legacy routes; strict SEO audit reports 0 canonical collisions."
+    },
+    {
+      "id": "SEO-REDIRECT-001",
+      "severity": "medium",
+      "status": "FIXED-VERIFIED-LOCAL",
+      "routes": ["/industries", "/sample-platform"],
+      "finding": "Two legacy static HTML pages remained indexable while the production Worker redirected them.",
+      "rootCause": "Redirect metadata was not aligned with the edge redirect behavior.",
+      "fix": "Both fallback pages are now noindex,follow and canonicalize to their final destinations.",
+      "verification": "Strict audit reports 0 indexable pages missing from sitemap and 0 noindex pages included in sitemap."
+    },
+    {
+      "id": "SEO-SITEMAP-001",
+      "severity": "high",
+      "status": "FIXED-VERIFIED-LOCAL",
+      "routes": ["/sitemap", "sitewide"],
+      "finding": "The export had 97 pages marked indexable while sitemap.xml contained only 94 URLs; the human sitemap page was omitted and redirect fallbacks were incorrectly indexable.",
+      "rootCause": "No strict machine comparison existed between rendered indexability and the generated sitemap.",
+      "fix": "Added the human sitemap route, corrected redirect fallback robots directives, and added a strict indexability/sitemap parity gate.",
+      "verification": "Strict audit: 95 indexable routes, 95 sitemap URLs, 0 hard errors, 0 warnings."
+    },
+    {
+      "id": "SEO-STRUCTURED-001",
+      "severity": "medium",
+      "status": "FIXED-VERIFIED-LOCAL",
+      "routes": [
+        "/about",
+        "/compliance",
+        "/compliance/imo",
+        "/compliance/iacs",
+        "/compliance/guidelines",
+        "/compliance/official-sources",
+        "/compliance/mapping-methodology",
+        "/compliance/update-center",
+        "/glossary",
+        "/resources",
+        "/resources/*",
+        "/topics",
+        "/topics/*"
+      ],
+      "finding": "Several pages published BreadcrumbList JSON-LD without a corresponding visible breadcrumb trail.",
+      "rootCause": "Structured-data helpers were added before every template exposed the same breadcrumb UI.",
+      "fix": "Added optional breadcrumbs to PageHero and visible breadcrumb trails to the affected templates, including article pages.",
+      "verification": "Strict audit parses every JSON-LD block and verifies page-specific FAQ, article, breadcrumb, and person content against rendered text: 0 errors."
+    },
+    {
+      "id": "SEO-HOME-001",
+      "severity": "medium",
+      "status": "FIXED-VERIFIED-LOCAL",
+      "routes": ["/"],
+      "finding": "The homepage title was only the brand name 'CertaMaris' and did not state the product category.",
+      "rootCause": "The root layout default title was used without a homepage-specific metadata export.",
+      "fix": "Added homepage metadata using 'Maritime Cyber Compliance Software — CertaMaris' and the approved site description.",
+      "verification": "Rendered homepage title is 44 characters and remains unique."
+    },
+    {
+      "id": "SEO-SOCIAL-001",
+      "severity": "medium",
+      "status": "FIXED-VERIFIED-LOCAL",
+      "routes": ["/about/leadership"],
+      "finding": "The founder portrait was declared as a 1200x630 PNG social image, but the actual asset is a 1251x1361 JPEG.",
+      "rootCause": "A portrait was passed through a helper that assumed a standard landscape social-card image.",
+      "fix": "Leadership now uses the approved branded social card; the shared helper infers image MIME type and only supplies default dimensions for standard OG PNG cards.",
+      "verification": "All rendered OG image paths resolve; root social-card QA remains 14/14 PASS."
+    },
+    {
+      "id": "SEO-TEST-001",
+      "severity": "medium",
+      "status": "FIXED-VERIFIED-LOCAL",
+      "routes": ["sitewide"],
+      "finding": "Existing SEO checks did not compare sitemap membership to rendered indexability, validate JSON-LD against visible content, detect canonical collisions, or crawl the full sitemap visually.",
+      "rootCause": "SEO QA focused on title presence and uniqueness rather than cross-system integrity.",
+      "fix": "Added seo-audit.mjs and seo-visual-qa.mjs, integrated strict SEO audit and meta-length checks into npm run qa, and added full-sitemap screenshot, H1, overflow, image, console, and network checks.",
+      "verification": "Strict audit, 95-route visual crawl, and all existing repository gates pass."
+    }
+  ],
+  "knownResiduals": [
+    "No Search Console or analytics export was available, so no traffic, query, indexing, ranking, or click-through claims are made.",
+    "Legacy legal aliases remain available as static noindex fallbacks but redirect to maintained legal routes in production.",
+    "No keyword-volume, difficulty, competitor-gap, or backlink data was fabricated or inferred."
+  ]
+}

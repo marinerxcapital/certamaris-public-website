@@ -17,7 +17,11 @@ import { IndustriesClientRedirect } from "./IndustriesClientRedirect";
 export const metadata: Metadata = pageMetadata(
   "Industries → Who We Serve",
   "CertaMaris organizes buyers by stakeholder role. This legacy industries path points to Who we serve.",
-  "/industries"
+  "/industries",
+  {
+    noIndex: true,
+    canonicalPath: "/who-we-serve",
+  }
 );
 
 export default function IndustriesRedirectHubPage() {

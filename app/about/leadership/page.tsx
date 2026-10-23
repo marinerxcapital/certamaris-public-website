@@ -10,7 +10,6 @@ import {
   FOUNDER_CREDENTIALS,
   FOUNDER_EMAIL,
   FOUNDER_FULL_BIO,
-  FOUNDER_IMAGE,
   FOUNDER_NAME,
   FOUNDER_SHORT_BIO,
   FOUNDER_TITLE,
@@ -24,7 +23,6 @@ export const metadata = pageMetadata(
   FOUNDER_SHORT_BIO,
   "/about/leadership",
   {
-    image: FOUNDER_IMAGE.src,
     keywords: ["Skyler Brown", "CertaMaris founder", "maritime cyber compliance leadership"],
   }
 );

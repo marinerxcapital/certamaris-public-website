@@ -34,6 +34,10 @@ export default function TopicsIndexPage() {
         eyebrow="Topics"
         title="High-intent maritime cyber topics"
         intro="Task-oriented landings with honest product framing. For authority metadata see Compliance; for long-form explainers see Resources."
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Topics" },
+        ]}
       />
       <Section>
         <Reveal className="mb-8">

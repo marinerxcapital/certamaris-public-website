@@ -38,6 +38,11 @@ export default function ComplianceIacsPage() {
         eyebrow="Compliance · IACS"
         title="IACS UR E26 & E27"
         intro="Design-stage cyber resilience of ships and on-board systems. Not a single-day retrofit mandate for the entire world fleet — confirm class and contract basis per hull."
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Compliance", href: "/compliance" },
+          { label: "IACS" },
+        ]}
       />
       <Section>
         <Reveal className="max-w-2xl mb-8">

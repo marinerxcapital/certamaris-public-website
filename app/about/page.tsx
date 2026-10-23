@@ -28,7 +28,15 @@ export default function AboutPage() {
     <>
       <FounderJsonLd variant="about" />
 
-      <PageHero eyebrow={aboutContent.eyebrow} title={aboutContent.title} intro={aboutContent.intro} />
+      <PageHero
+        eyebrow={aboutContent.eyebrow}
+        title={aboutContent.title}
+        intro={aboutContent.intro}
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "About" },
+        ]}
+      />
 
       {/* 1–2. Why CertaMaris exists */}
       <Section spacing="compact">

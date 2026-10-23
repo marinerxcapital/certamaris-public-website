@@ -9,8 +9,15 @@ import { PricingPackageCard } from "@/components/PricingPackageCard";
 import { ProductCinematicMoment } from "@/components/ProductCinematicMoment";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
-import { APP_SIGN_IN_URL } from "@/lib/constants";
+import { APP_SIGN_IN_URL, SITE_DESCRIPTION } from "@/lib/constants";
 import { packageTiers, pricingTiers } from "@/lib/faq-pricing";
+import { pageMetadata } from "@/lib/metadata";
+
+export const metadata = pageMetadata(
+  "Maritime Cyber Compliance Software",
+  SITE_DESCRIPTION,
+  "/"
+);
 
 const trustDiligenceLinks: [string, string][] = [
   ["/security", "Security"],

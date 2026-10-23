@@ -38,6 +38,11 @@ export default function ComplianceImoPage() {
         eyebrow="Compliance · IMO"
         title="IMO cyber risk instruments"
         intro="MSC.428(98), the ISM Code as structural context, and MSC-FAL.1/Circ.3 guidelines. Operational orientation only — official texts control."
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Compliance", href: "/compliance" },
+          { label: "IMO" },
+        ]}
       />
       <Section>
         <Reveal className="max-w-2xl mb-8">

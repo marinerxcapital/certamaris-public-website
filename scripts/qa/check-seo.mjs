@@ -32,6 +32,14 @@ import {
 const args = parseArgs();
 const outDir = typeof args.out === "string" ? path.resolve(args.out) : OUT_DIR;
 
+function isNoIndex(html) {
+  const robots =
+    html.match(/<meta\b[^>]*name=["']robots["'][^>]*content=["']([^"']+)["'][^>]*>/i)?.[1] ||
+    html.match(/<meta\b[^>]*content=["']([^"']+)["'][^>]*name=["']robots["'][^>]*>/i)?.[1] ||
+    "";
+  return /noindex/i.test(robots);
+}
+
 async function main() {
   if (!(await pathExists(outDir))) {
     console.error(`out dir not found: ${outDir}. Run build:static first.`);
@@ -56,12 +64,14 @@ async function main() {
   const fail = [];
   const warn = [];
   const titles = new Map(); // title → [files]
+  const noIndexFiles = new Set();
 
   for (const { file, html } of pages) {
     const title = extractTitle(html);
     const h1s = extractH1s(html);
     const desc = extractMetaDescription(html);
     const canonical = extractCanonical(html);
+    if (isNoIndex(html)) noIndexFiles.add(file);
 
     if (!title) {
       fail.push(`${file}: missing <title>`);
@@ -88,9 +98,14 @@ async function main() {
 
   for (const [title, files] of titles) {
     if (files.length > 1) {
+      const indexableFiles = files.filter(
+        (file) => !noIndexFiles.has(file) && !isNotFoundExport(file)
+      );
       // Next static export emits both 404.html and _not-found.html with the same not-found UI.
       if (files.every(isNotFoundExport)) {
-        warn.push(`not-found title shared (expected): ${files.join(", ")}`);
+        ok.push(`not-found title shared by design: ${files.join(", ")}`);
+      } else if (indexableFiles.length <= 1 && files.some((file) => noIndexFiles.has(file))) {
+        ok.push(`duplicate title limited to intentional noindex aliases: ${files.join(", ")}`);
       } else {
         fail.push(`duplicate title ${JSON.stringify(title)} on: ${files.join(", ")}`);
       }
@@ -109,8 +124,13 @@ async function main() {
   }
   for (const [h1, files] of h1Map) {
     if (files.length > 1) {
+      const indexableFiles = files.filter(
+        (file) => !noIndexFiles.has(file) && !isNotFoundExport(file)
+      );
       if (files.every(isNotFoundExport)) {
-        warn.push(`not-found H1 shared (expected): ${files.join(", ")}`);
+        ok.push(`not-found H1 shared by design: ${files.join(", ")}`);
+      } else if (indexableFiles.length <= 1 && files.some((file) => noIndexFiles.has(file))) {
+        ok.push(`duplicate H1 limited to intentional noindex aliases: ${files.join(", ")}`);
       } else {
         warn.push(`duplicate H1 ${JSON.stringify(h1)} on: ${files.join(", ")}`);
       }

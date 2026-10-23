@@ -75,6 +75,10 @@ export default function CompliancePage() {
         eyebrow="Compliance"
         title="The regulatory landscape, explained plainly."
         intro="Authority pages, official sources, and honest product mapping status. Not legal or regulatory advice — official texts control."
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Compliance" },
+        ]}
       />
 
       <Section>

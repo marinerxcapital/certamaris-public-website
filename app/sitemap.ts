@@ -53,6 +53,7 @@ const coreRoutes: Entry[] = [
   { path: "/trust/ai-policy", priority: 0.65, changeFrequency: "monthly" },
   { path: "/pricing", priority: 0.85, changeFrequency: "monthly" },
   { path: "/faq", priority: 0.7, changeFrequency: "monthly" },
+  { path: "/sitemap", priority: 0.35, changeFrequency: "monthly" },
   { path: "/accessibility", priority: 0.4, changeFrequency: "yearly" },
 ];
 

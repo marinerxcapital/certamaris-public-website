@@ -114,3 +114,20 @@ test("native fallback redirects without exposing submitted values", async () => 
   assert.equal(response.headers.get("location"), "https://certamaris.com/contact/submitted");
   assert.doesNotMatch(response.headers.get("location") ?? "", /qa%40|Production|Controlled/);
 });
+
+test("legacy and duplicate-intent routes permanently redirect to canonical destinations", async () => {
+  const redirects = new Map([
+    ["/industries", "/who-we-serve"],
+    ["/sample-platform", "/demo"],
+    ["/platform/corporate-control-plane", "/platform/client-company-portal"],
+    ["/privacy", "/legal/privacy"],
+    ["/terms", "/legal/terms"],
+    ["/trust/subprocessors", "/legal/subprocessors"],
+  ]);
+
+  for (const [source, target] of redirects) {
+    const response = await worker.fetch(new Request(`https://certamaris.com${source}`), env().bindings);
+    assert.equal(response.status, 301, source);
+    assert.equal(response.headers.get("location"), `https://certamaris.com${target}`, source);
+  }
+});

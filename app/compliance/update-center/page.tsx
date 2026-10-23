@@ -36,6 +36,11 @@ export default function UpdateCenterPage() {
         eyebrow="Compliance · Updates"
         title="Regulatory update center"
         intro="IMO, IACS, flag, class, and national instruments change on independent schedules. This page documents our editorial review stamp and recommended operator habits — not a real-time legal feed."
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Compliance", href: "/compliance" },
+          { label: "Update center" },
+        ]}
       />
       <Section>
         <div className="max-w-2xl space-y-10">

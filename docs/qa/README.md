@@ -11,3 +11,10 @@ Empty-state route, responsive, interaction, and axe coverage:
 
 - `npm run qa:empty-states`
 - [../empty-state-design-system.md](../empty-state-design-system.md)
+
+SEO integrity and visual coverage:
+
+- `npm run qa:seo`
+- `npm run qa:seo-audit`
+- `npm run qa:seo-visual`
+- [../seo/SEO_QA_EVIDENCE.md](../seo/SEO_QA_EVIDENCE.md)

@@ -5,5 +5,6 @@ const document = publicLegalDocumentsBySlug.terms;
 
 export const metadata = pageMetadata("Business Terms", document.description, "/terms", {
   noIndex: true,
+  canonicalPath: "/legal/terms",
 });
 export { default } from "../legal/terms/page";

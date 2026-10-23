@@ -48,6 +48,10 @@ export default function GlossaryPage() {
         eyebrow="Glossary"
         title="Maritime cyber compliance terms"
         intro="Plain-language operator definitions. Not legal definitions — official instruments and qualified advisors control."
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Glossary" },
+        ]}
       />
       <Section>
         <Reveal className="max-w-2xl mb-10">

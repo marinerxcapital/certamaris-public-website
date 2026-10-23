@@ -8,6 +8,10 @@ export type PageMetadataOptions = {
   robots?: Metadata["robots"];
   /** Optional absolute or site-relative OG image path. */
   image?: string;
+  imageAlt?: string;
+  imageType?: string;
+  imageWidth?: number;
+  imageHeight?: number;
   /** ISO date for article OG tags. */
   publishedTime?: string;
   /** ISO date for article modified time. */
@@ -16,6 +20,8 @@ export type PageMetadataOptions = {
   keywords?: string[];
   /** Noindex helper for draft/utility pages if ever needed. */
   noIndex?: boolean;
+  /** Canonical destination when this route is a preserved alias. */
+  canonicalPath?: string;
 };
 
 /**
@@ -31,46 +37,64 @@ export function pageMetadata(
 ): Metadata {
   const normalizedPath = path.startsWith("/") ? path : `/${path}`;
   const url = `${SITE_URL}${normalizedPath === "/" ? "/" : normalizedPath}`;
+  const canonicalNormalizedPath = options.canonicalPath
+    ? options.canonicalPath.startsWith("/")
+      ? options.canonicalPath
+      : `/${options.canonicalPath}`
+    : normalizedPath;
+  const canonicalUrl = `${SITE_URL}${canonicalNormalizedPath === "/" ? "/" : canonicalNormalizedPath}`;
   const brandedTitle = `${title} — ${SITE_NAME}`;
   const image = options.image ?? SOCIAL_PREVIEW_IMAGE_URL;
   const ogType = options.ogType ?? "website";
   const imageUrl = image.startsWith("http://") || image.startsWith("https://") ? image : `${SITE_URL}${image}`;
+  const imageType =
+    options.imageType ??
+    (/\\.jpe?g(?:$|\\?)/i.test(image) ? "image/jpeg" : /\\.webp(?:$|\\?)/i.test(image) ? "image/webp" : "image/png");
+  const imageWidth = options.imageWidth ?? (imageType === "image/png" ? 1200 : undefined);
+  const imageHeight = options.imageHeight ?? (imageType === "image/png" ? 630 : undefined);
+  const imageMetadata = {
+    url: imageUrl,
+    secureUrl: imageUrl,
+    type: imageType,
+    alt: options.imageAlt ?? SITE_NAME,
+    ...(imageWidth && imageHeight ? { width: imageWidth, height: imageHeight } : {}),
+  };
 
   const openGraph =
     ogType === "article"
       ? {
           title: brandedTitle,
           description,
-          url,
+          url: canonicalUrl,
           siteName: SITE_NAME,
           type: "article" as const,
-          images: [{ url: imageUrl, secureUrl: imageUrl, type: "image/png", width: 1200, height: 630, alt: SITE_NAME }],
+          images: [imageMetadata],
           ...(options.publishedTime ? { publishedTime: options.publishedTime } : {}),
           ...(options.modifiedTime ? { modifiedTime: options.modifiedTime } : {}),
         }
       : {
           title: brandedTitle,
           description,
-          url,
+          url: canonicalUrl,
           siteName: SITE_NAME,
           type: "website" as const,
-          images: [{ url: imageUrl, secureUrl: imageUrl, type: "image/png", width: 1200, height: 630, alt: SITE_NAME }],
+          images: [imageMetadata],
         };
 
   return {
     title,
     description,
     keywords: options.keywords,
-    alternates: { canonical: url },
+    alternates: { canonical: canonicalUrl },
     robots: options.noIndex
-      ? { index: false, follow: false }
+      ? { index: false, follow: true }
       : options.robots ?? { index: true, follow: true },
     openGraph,
     twitter: {
       card: "summary_large_image",
       title: brandedTitle,
       description,
-      images: [{ url: imageUrl, alt: SITE_NAME }],
+      images: [{ url: imageUrl, alt: options.imageAlt ?? SITE_NAME }],
     },
   };
 }

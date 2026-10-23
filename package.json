@@ -19,6 +19,8 @@
     "qa:public-product-boundary": "node scripts/qa/check-public-product-boundary.mjs",
     "qa:routes": "node scripts/qa/check-routes.mjs --out --include-planned",
     "qa:seo": "node scripts/qa/check-seo.mjs",
+    "qa:seo-audit": "node scripts/qa/seo-audit.mjs --strict",
+    "qa:seo-visual": "node scripts/qa/seo-visual-qa.mjs --label verify --verify",
     "qa:link-preview": "node scripts/qa/check-link-preview.mjs",
     "qa:links": "node scripts/qa/check-links.mjs",
     "qa:founder": "node scripts/qa/check-founder.mjs",

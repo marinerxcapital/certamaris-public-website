@@ -35,6 +35,11 @@ export default function OfficialSourcesPage() {
         eyebrow="Compliance · Sources"
         title="Official sources"
         intro="Prefer primary authority sites over secondary summaries. URLs below point at official or standards-body landing pages. Edition, PDF, and paywalled texts may require account access on the authority site."
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Compliance", href: "/compliance" },
+          { label: "Official sources" },
+        ]}
       />
       <Section>
         <Reveal className="max-w-2xl mb-10">

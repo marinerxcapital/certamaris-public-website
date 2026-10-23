@@ -31,6 +31,8 @@ const steps = [
     needsOut: true,
   },
   { name: "check-seo", file: "check-seo.mjs", argv: [], needsOut: true },
+  { name: "meta title/description lengths", file: "check-meta-lengths.mjs", argv: [], needsOut: true },
+  { name: "strict SEO integrity", file: "seo-audit.mjs", argv: ["--strict"], needsOut: true },
   { name: "check-link-preview", file: "check-link-preview.mjs", argv: [], needsOut: true },
   { name: "check-links", file: "check-links.mjs", argv: [], needsOut: true },
   // Founder headshot / leadership bio — prefers out/; falls back to source

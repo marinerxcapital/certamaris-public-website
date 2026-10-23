@@ -6,6 +6,7 @@ const document = publicLegalDocumentsBySlug.subprocessors;
 
 export const metadata = pageMetadata("Subprocessors - trust route", document.description, "/trust/subprocessors", {
   noIndex: true,
+  canonicalPath: "/legal/subprocessors",
 });
 
 export default function TrustSubprocessorsPage() {

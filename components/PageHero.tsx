@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Breadcrumbs, type BreadcrumbItem } from "@/components/Breadcrumbs";
 import { LedgerRoute } from "@/components/LedgerRoute";
 import { Eyebrow } from "@/components/Section";
 
@@ -8,6 +9,7 @@ export function PageHero({
   intro,
   aside = null,
   emphasis = "standard",
+  breadcrumbs,
 }: {
   eyebrow: string;
   title: string;
@@ -21,6 +23,7 @@ export function PageHero({
    * that scope (legal, FAQ, resources, contact, about).
    */
   emphasis?: "standard" | "elevated";
+  breadcrumbs?: BreadcrumbItem[];
 }) {
   const elevated = emphasis === "elevated";
   return (
@@ -31,6 +34,7 @@ export function PageHero({
       <div className={`shell relative z-10 ${elevated ? "py-14 sm:py-20" : "py-12 sm:py-16"}`}>
         <div className={aside ? "grid lg:grid-cols-[minmax(0,0.9fr)_auto] gap-10 items-end" : undefined}>
           <div className="page-hero-copy max-w-3xl">
+            {breadcrumbs?.length ? <Breadcrumbs items={breadcrumbs} className="mb-5" /> : null}
             <LedgerRoute />
             <Eyebrow>{eyebrow}</Eyebrow>
             <h1
