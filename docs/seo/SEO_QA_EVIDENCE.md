@@ -53,9 +53,9 @@ Coverage:
   0 broken images.
 - Existing `qa:ux-audit`: 25 routes and 5 interactive feature captures,
   0 failures.
-- Full-sitemap axe crawl: 95 routes at desktop and mobile. Desktop axe scans
-  found 0 pages with violations; both viewports found 0 horizontal-overflow
-  pages and 0 console errors. Evidence: `audit/after-seo/results.json`.
+- Full-sitemap axe crawl (`final-seo-20261023 --no-shots`): 95 routes at
+  desktop and mobile, 0 pages with axe violations, 0 pages with horizontal
+  overflow, and 0 console errors. Evidence: `audit/final-seo-20261023/`.
 
 ## Build and regression
 

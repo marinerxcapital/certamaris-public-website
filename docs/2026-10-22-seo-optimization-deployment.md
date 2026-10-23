@@ -80,6 +80,7 @@ destination, Pixel Grid, or homepage hero content was removed.
 - Live after: `qa-artifacts/seo-opt-2026-10-22/live-after/screenshots/`
 - Final live rerun: `qa-artifacts/seo-opt-2026-10-22/live-final-20261023/screenshots/`
 - Full-sitemap axe data: `audit/after-seo/results.json`
+- Final full-sitemap axe rerun: `audit/final-seo-20261023/results.json`
 
 Coverage:
 
