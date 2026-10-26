@@ -1,4 +1,60 @@
-# SEO optimization LIVE - 2026-10-22 (CURRENT)
+# Full-site vision polish LIVE - 2026-10-26 (CURRENT)
+
+**Production:** https://certamaris.com - Worker `certamaris-site` version
+`a17ddd35-f7c8-4e6b-8c5a-3b77f1d13b79` @100%
+**Branch:** `codex/assurance-helix-hero-20260926`
+**Code commit:** `f093a87`
+**Prior Worker:** `106e7258-b712-4252-9331-8ca4718e21ed`
+
+**What changed:**
+
+1. Fixed real mobile clipping on 37 routes caused by CSS Grid children keeping
+   intrinsic `min-width:auto`. Long page-hero copy, product exhibits, legal
+   metadata columns, and the AI-policy grid were visibly cut off even though
+   `overflow-x:clip` hid the defect from the old scrollWidth gate.
+2. Hardened shared `PageHero`, legal-document, and two-column templates with
+   explicit shrink permissions.
+3. Added `components/PageOutline.tsx` and page-local outlines to Security,
+   Trust, About, and Standards & Guidelines.
+4. Raised remaining shared controls to a 44px minimum target: FAQ links and
+   triggers, breadcrumbs, jump navigation, resource filters, product-exhibit
+   actions, demo controls, and related-route chips.
+5. Added framework-specific accessible names for repeated Official source and
+   Platform workflows links.
+
+**Validation:** `typecheck` exit 0 - `build:static` exit 0 (111 generated
+routes) - `npm run qa` exit 0 - `qa:responsive-a11y` exit 0 (19 routes x 9
+viewports, 0 issues) - `qa:ux-audit` exit 0 (25 routes, 5 features) -
+`qa:empty-states` exit 0 (72 screenshots) - `qa:seo` exit 0 (105 pages) -
+`qa:seo-audit` exit 0 (95 indexable / 95 sitemap) - `qa:links` exit 0 (4,509
+hrefs) - `qa:link-preview` exit 0 (14/14) - full-sitemap axe exit 0 (95
+desktop + 95 mobile; 0 axe pages, 0 overflow) - final local and live visual
+crawls exit 0 (95 routes, 340 observations each, 0 failures) - image/alt scroll
+audit exit 0 (95 routes) - live semantic audit exit 0 (95 pages, 358 JSON-LD
+blocks, 0 clipping) - Lighthouse exit 0 (60/68/64, CLS 0/0/0.0002).
+
+**Evidence:** `docs/2026-10-26-full-site-polish-deployment.md`,
+`docs/full-site-polish/PAGE_POLISH_MATRIX.json`,
+`docs/full-site-polish/QA_EVIDENCE.md`,
+`qa-artifacts/seo-opt-2026-10-22/polish-before-20261026/`,
+`qa-artifacts/seo-opt-2026-10-22/polish-final-20261026/`,
+`qa-artifacts/seo-opt-2026-10-22/full-site-polish-live-20261026/`, and
+`qa-artifacts/full-site-polish-2026-10-26/`.
+
+**Known residuals:** no Search Console, analytics, ranking, query-volume,
+backlink, conversion, or competitor export was available; Lighthouse mobile
+remains 60/68/64 on `/`, `/security`, and `/pricing`; four pre-existing
+dependency audit findings remain. The local static harness still reports
+expected Next RSC-prefetch console noise; the live browser crawl reports zero
+console and network errors.
+
+**Rollback:** `npx wrangler versions deploy 106e7258-b712-4252-9331-8ca4718e21ed@100% --config wrangler.jsonc -y`
+
+**Signed:** Codex (DeepSeek V4 Flash Vision Exp) - 2026-10-26
+
+---
+
+# SEO optimization LIVE - 2026-10-22 (PREVIOUS)
 
 **Production:** https://certamaris.com - Worker `certamaris-site` version
 `106e7258-b712-4252-9331-8ca4718e21ed` @100%

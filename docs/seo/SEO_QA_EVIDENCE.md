@@ -105,6 +105,27 @@ Artifact roots:
 
 Production Worker: `106e7258-b712-4252-9331-8ca4718e21ed`.
 
+## 2026-10-26 full-site polish revalidation
+
+Production Worker: `a17ddd35-f7c8-4e6b-8c5a-3b77f1d13b79`.
+
+The full-site vision and accessibility release did not change route intent or
+SEO metadata. The complete SEO integrity suite passed again after the polish:
+
+- `npm run qa:seo`: exit 0; 105 pages.
+- `npm run qa:seo-audit`: exit 0; 95 indexable routes, 95 sitemap URLs,
+  0 hard errors, 0 warnings, 0 JSON-LD errors.
+- `npm run qa:links`: exit 0; 4,509 internal hrefs.
+- `npm run qa:link-preview`: exit 0; 14/14.
+- `check-meta-lengths.mjs`: exit 0; 105 pages.
+- Live route check: 103/103 required routes and assets.
+- Live semantic audit: 95/95 pages returned 200 with one H1, self-canonical,
+  index/follow, unique title and description, and OG image; 358 JSON-LD blocks
+  parsed with 0 errors.
+- Live visual crawl: 95 routes, 340 observations, 0 failures.
+
+Full release evidence is in `docs/full-site-polish/`.
+
 Final live readback also verified:
 
 - All 95 sitemap pages returned 200, exactly one H1, a self-canonical URL,

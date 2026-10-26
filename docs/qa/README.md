@@ -18,3 +18,9 @@ SEO integrity and visual coverage:
 - `npm run qa:seo-audit`
 - `npm run qa:seo-visual`
 - [../seo/SEO_QA_EVIDENCE.md](../seo/SEO_QA_EVIDENCE.md)
+
+Full-site vision, responsive, interaction, image-load, and live-polish coverage:
+
+- [../full-site-polish/PAGE_POLISH_MATRIX.json](../full-site-polish/PAGE_POLISH_MATRIX.json)
+- [../full-site-polish/QA_EVIDENCE.md](../full-site-polish/QA_EVIDENCE.md)
+- [../2026-10-26-full-site-polish-deployment.md](../2026-10-26-full-site-polish-deployment.md)

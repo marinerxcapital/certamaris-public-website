@@ -1,6 +1,6 @@
 # CertaMaris Internal Link Map
 
-Generated from the static export at 2026-10-23T05:11:21.537Z.
+Generated from the static export at 2026-10-26T16:31:21.494Z.
 
 | Route | Family | Inbound | Inbound sources |
 | --- | --- | ---: | --- |

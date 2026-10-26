@@ -1,12 +1,13 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-22",
+  "generatedAt": "2026-10-26",
   "repository": "marinerxcapital/certamaris-public-website",
   "branch": "codex/assurance-helix-hero-20260926",
   "headBefore": "4a8fb7b",
-  "headAfter": "58e9c53",
+  "headAfter": "f093a87",
   "seoHeadBefore": "cc5c9ee",
-  "auditBasis": "Live https://certamaris.com and the static export audited 2026-10-22 through 2026-10-23. The 2026-10-21 audit confirmed broad responsive, target-size, navigation, search, footer, and trust-page quality; the 2026-10-22 empty-state pass closed the company empty-state cluster; the final SEO pass closed alias, sitemap, schema, and metadata integrity gaps.",
+  "fullSitePolishHeadBefore": "ea0f8bb",
+  "auditBasis": "Live https://certamaris.com and the static export audited through 2026-10-26. The earlier audits confirmed broad responsive, target-size, navigation, search, footer, trust-page, and SEO quality. The final full-site vision pass closed mobile clipping across 37 routes, long-page navigation gaps, and remaining shared-control target/name defects.",
   "defects": [
     {
       "id": "SEO-OG-001",
@@ -135,6 +136,50 @@
       "status": "FIXED-DEPLOYED",
       "evidence": "Strict local and live full-sitemap gates are runnable and green; the final live visual crawl recorded 95 routes, 340 observations, and 0 failures.",
       "note": "Coverage includes canonical collisions, sitemap/indexability parity, JSON-LD parsing and content matching, H1 count, overflow, image loading, and console/network failures."
+    },
+    {
+      "id": "RESP-CLIP-001",
+      "category": "Responsive layout",
+      "target": "37 routes using page hero, product proof, legal document, or two-column content layouts",
+      "severity": "high",
+      "status": "FIXED-DEPLOYED",
+      "rootCause": "CSS Grid children retained min-width:auto, allowing intrinsic heading, exhibit, and table widths to push mobile content past the viewport while overflow-x:clip hid the scroll anomaly.",
+      "fix": "Added shared grid-child shrink rules, corrected PageHero and aside constraints, constrained legal content grids, and corrected the AI-policy two-column layout.",
+      "verification": "Bounding-box audit at 390 and 1440: 37 clipped pages before, 0 after. Live 390 route audit: 0 clipped pages. Live visual crawl: 0 horizontal-overflow findings.",
+      "evidence": "qa-artifacts/seo-opt-2026-10-22/polish-before-20261026/clipping-audit.json; qa-artifacts/full-site-polish-2026-10-26/clipping-audit-final.json; qa-artifacts/seo-opt-2026-10-22/full-site-polish-live-20261026/"
+    },
+    {
+      "id": "UX-LONGNAV-001",
+      "category": "Information architecture / navigation",
+      "target": "/security, /trust, /about, /compliance/guidelines",
+      "severity": "medium",
+      "status": "FIXED-DEPLOYED",
+      "rootCause": "High-content pages exceeded 10,000px on mobile without a page-local outline or jump navigation.",
+      "fix": "Added a shared accessible PageOutline component with 44px targets and applied it to the four high-content templates.",
+      "verification": "Page-outline anchors verified at 390x844 and 1440x900; all targets clear the sticky header. Live visual crawl remains clean.",
+      "evidence": "components/PageOutline.tsx; qa-artifacts/full-site-polish-2026-10-26/page-outline/"
+    },
+    {
+      "id": "A11Y-TARGET-003",
+      "category": "Accessibility / target size",
+      "target": "FAQ, breadcrumbs, jump navigation, resources filters, proof exhibits, demo controls, and related-route links",
+      "severity": "medium",
+      "status": "FIXED-DEPLOYED",
+      "rootCause": "Several shared control primitives rendered below 44px even though top-level navigation and footer targets had already been remediated.",
+      "fix": "Raised shared controls to a 44px minimum target and extended standalone inline action links to 44px without changing sentence-embedded text-link behavior.",
+      "verification": "Full-sitemap axe crawl passes; focused target checks confirm shared controls at or above 44px. Existing 24px AA minimum remains satisfied for compact controls.",
+      "evidence": "docs/full-site-polish/QA_EVIDENCE.md"
+    },
+    {
+      "id": "A11Y-LINKNAME-001",
+      "category": "Accessibility / link purpose",
+      "target": "FrameworkDetail and Official Sources links",
+      "severity": "low",
+      "status": "FIXED-DEPLOYED",
+      "rootCause": "Repeated visible labels such as 'Official source' and 'Platform workflows' did not expose the relevant framework in the accessible name.",
+      "fix": "Added framework-specific screen-reader context without changing visible table or link copy.",
+      "verification": "Source inspection and full-sitemap axe crawl pass.",
+      "evidence": "components/FrameworkDetail.tsx; app/compliance/official-sources/page.tsx"
     }
   ],
   "verification": {
@@ -147,12 +192,21 @@
     "seoQa": "PASS (95 indexable routes, 95 sitemap URLs, 0 hard errors, 0 warnings, 0 JSON-LD errors; 4509 internal hrefs resolved)",
     "liveVisualQa": "PASS (95 sitemap routes, 340 observations, 0 failures, 0 console/network errors, 0 overflow, 0 broken images, 0 H1 failures)",
     "lighthouseSmoke": "PASS command exit 0 (mobile scores: / 60, /security 68, /pricing 64; smoke only, no threshold)",
-    "liveReadback": "PASS (103/103 required routes/assets; six legacy routes return 301; sitemap 95 URLs with /sitemap included and aliases excluded; robots.txt points to the canonical sitemap; nav, Pixel Grid, footer, hero, metadata, schema, and contact secrets preserved)"
+    "liveReadback": "PASS (103/103 required routes/assets; six legacy routes return 301; sitemap 95 URLs with /sitemap included and aliases excluded; robots.txt points to the canonical sitemap; nav, Pixel Grid, footer, hero, metadata, schema, and contact secrets preserved)",
+    "fullSitePolish": {
+      "routes": "105 HTML documents; 95 canonical routes; 10 noindex utility/alias pages",
+      "visual": "340 local and 340 live observations; 0 failures; 0 clipped pages; 0 overflow; 0 broken images",
+      "axe": "95 desktop + 95 mobile routes; 0 pages with violations; 0 overflow; 0 console errors",
+      "metadata": "95 live pages; one H1, self-canonical, index/follow, unique title and description, OG image; 358 JSON-LD blocks with 0 parse errors",
+      "outlines": "Security, Trust, About, and Standards & Guidelines; anchors pass at mobile and desktop",
+      "imageAudit": "95 routes scrolled before inspection; 0 image load or alt issues"
+    }
   },
   "knownResiduals": [
-    "Static-harness console entries (282) are the documented Next static-export RSC prefetch 404 artifact; production Chrome reports zero console or network errors for the changed route matrix.",
+    "Static-harness console entries are the documented Next static-export RSC prefetch artifact; the final live Chrome crawl reports zero console or network errors for all 95 sitemap routes.",
     "5 expected SEO duplicate-H1/title warnings on legacy aliases and the not-found pages.",
     "npm audit red on four pre-existing package findings (next, sharp, source-map-js, baseline-browser-mapping); no dependency versions changed.",
-    "Lighthouse mobile smoke scores remain 60/68/64 on /, /security, and /pricing; no repository threshold is configured and performance work is a separate scope."
+    "Lighthouse mobile smoke scores remain 60/68/64 on /, /security, and /pricing; no repository threshold is configured and performance work is a separate scope.",
+    "No Search Console, analytics, ranking, query-volume, backlink, conversion, or competitor export was available for this pass."
   ]
 }
