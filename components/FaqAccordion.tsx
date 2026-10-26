@@ -28,7 +28,7 @@ export function FaqAccordion({
             <h3>
               <button
                 type="button"
-                className="w-full flex items-center justify-between gap-4 text-left rounded-sm"
+                className="flex min-h-11 w-full items-center justify-between gap-4 rounded-sm text-left"
                 aria-expanded={isOpen}
                 aria-controls={panelId}
                 id={triggerId}

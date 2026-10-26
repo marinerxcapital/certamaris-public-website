@@ -22,8 +22,8 @@ export function LegalDocumentPage({ document }: { document: LegalPublicDocument 
           ]}
         />
 
-        <div className="grid gap-8 lg:grid-cols-[280px_minmax(0,1fr)] lg:items-start">
-          <aside className="space-y-4 lg:sticky lg:top-24">
+        <div className="grid min-w-0 gap-8 lg:grid-cols-[280px_minmax(0,1fr)] lg:items-start">
+          <aside className="min-w-0 space-y-4 lg:sticky lg:top-24">
             <div className="premium-card p-5">
               <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.12em] text-ocean">Document</p>
               <dl className="space-y-2 text-[13.5px] leading-relaxed text-structural">

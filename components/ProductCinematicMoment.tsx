@@ -260,7 +260,7 @@ export function ProductCinematicMoment() {
               <button
                 key={item.id}
                 type="button"
-                className={`rounded-md border px-3 py-1.5 font-mono text-[11px] font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-ocean ${
+                className={`min-h-11 rounded-md border px-3 py-1.5 font-mono text-[11px] font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-ocean ${
                   active
                     ? "border-ocean/60 bg-white text-ocean shadow-card"
                     : "border-navy/10 bg-white/60 text-structural hover:border-ocean/35 hover:text-ocean"

@@ -48,7 +48,7 @@ function FounderCard() {
       </span>
       <Link
         href="/about/leadership"
-        className="text-[13.5px] font-semibold text-ocean hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ocean"
+        className="inline-flex min-h-11 items-center text-[13.5px] font-semibold text-ocean hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ocean"
       >
         Full profile
       </Link>

@@ -35,7 +35,7 @@ export function Breadcrumbs({ items, className = "", label = "Breadcrumb" }: Bre
               {item.href && !isLast ? (
                 <Link
                   href={item.href}
-                  className="truncate font-medium text-navy/70 transition-colors hover:text-ocean focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ocean"
+                  className="inline-flex min-h-11 items-center truncate px-1 font-medium text-navy/70 transition-colors hover:text-ocean focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ocean"
                 >
                   {item.label}
                 </Link>

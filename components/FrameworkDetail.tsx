@@ -77,12 +77,12 @@ export function FrameworkDetail({ framework }: { framework: RegulatoryFramework 
           href={framework.officialSourceUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-[14px] font-medium text-ocean hover:underline"
+          className="inline-flex min-h-11 items-center text-[14px] font-medium text-ocean hover:underline"
         >
-          Official source →
+          Official source<span className="sr-only"> for {framework.shortName}</span> →
         </a>
-        <Link href="/platform" className="text-[14px] font-medium text-ocean hover:underline">
-          Platform workflows →
+        <Link href="/platform" className="inline-flex min-h-11 items-center text-[14px] font-medium text-ocean hover:underline">
+          Platform workflows<span className="sr-only"> related to {framework.shortName}</span> →
         </Link>
       </div>
 

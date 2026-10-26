@@ -64,7 +64,7 @@ export function ResourcesFilter({ articles: allArticles }: { articles: Article[]
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search title, tags, body…"
-            className="mt-1.5 w-full rounded-lg border border-navy/15 bg-white/80 px-3 py-2 text-[14px] text-navy outline-none focus:border-ocean"
+            className="mt-1.5 min-h-11 w-full rounded-lg border border-navy/15 bg-white/80 px-3 py-2 text-[14px] text-navy outline-none focus:border-ocean"
             aria-label="Search resources"
           />
         </label>
@@ -73,7 +73,7 @@ export function ResourcesFilter({ articles: allArticles }: { articles: Article[]
           <select
             value={topic}
             onChange={(e) => setTopic(e.target.value)}
-            className="mt-1.5 w-full rounded-lg border border-navy/15 bg-white/80 px-3 py-2 text-[14px] text-navy outline-none focus:border-ocean"
+            className="mt-1.5 min-h-11 w-full rounded-lg border border-navy/15 bg-white/80 px-3 py-2 text-[14px] text-navy outline-none focus:border-ocean"
             aria-label="Filter by topic"
           >
             <option value="all">All topics</option>
@@ -89,7 +89,7 @@ export function ResourcesFilter({ articles: allArticles }: { articles: Article[]
           <select
             value={tag}
             onChange={(e) => setTag(e.target.value)}
-            className="mt-1.5 w-full rounded-lg border border-navy/15 bg-white/80 px-3 py-2 text-[14px] text-navy outline-none focus:border-ocean"
+            className="mt-1.5 min-h-11 w-full rounded-lg border border-navy/15 bg-white/80 px-3 py-2 text-[14px] text-navy outline-none focus:border-ocean"
             aria-label="Filter by tag"
           >
             <option value="all">All tags</option>
@@ -105,7 +105,7 @@ export function ResourcesFilter({ articles: allArticles }: { articles: Article[]
           <select
             value={kind}
             onChange={(e) => setKind(e.target.value)}
-            className="mt-1.5 w-full rounded-lg border border-navy/15 bg-white/80 px-3 py-2 text-[14px] text-navy outline-none focus:border-ocean"
+            className="mt-1.5 min-h-11 w-full rounded-lg border border-navy/15 bg-white/80 px-3 py-2 text-[14px] text-navy outline-none focus:border-ocean"
             aria-label="Filter by type"
           >
             <option value="all">All types</option>

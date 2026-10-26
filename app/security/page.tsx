@@ -2,6 +2,7 @@ import Link from "next/link";
 import { BoundaryPanel } from "@/components/BoundaryPanel";
 import { Button } from "@/components/Button";
 import { PageHero } from "@/components/PageHero";
+import { PageOutline } from "@/components/PageOutline";
 import { ProductScreenFrame, ProductScreenTile } from "@/components/ProductScreens";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
@@ -46,7 +47,19 @@ export default function SecurityPage() {
         intro="This page separates implemented platform controls from configurable terms, planned capabilities, NDA materials, and controls not currently claimed on this website."
       />
 
-      <Section spacing="compact">
+      <PageOutline
+        items={[
+          { id: "security-status", label: "Status legend" },
+          { id: "platform-controls", label: "Platform controls" },
+          { id: "data-processing", label: "Data processing" },
+          { id: "hosting", label: "Hosting" },
+          { id: "shared-responsibility", label: "Shared responsibility" },
+          { id: "security-package", label: "Security package" },
+          { id: "product-boundary", label: "Product boundary" },
+        ]}
+      />
+
+      <Section id="security-status" spacing="compact">
         <Reveal className="max-w-3xl">
           <p className="text-[13px] font-mono text-structural mb-6">Last reviewed: {reviewedLabel}</p>
           <Eyebrow>Status legend</Eyebrow>
@@ -78,7 +91,7 @@ export default function SecurityPage() {
         </Reveal>
       </Section>
 
-      <Section surface="paper" spacing="compact">
+      <Section id="platform-controls" surface="paper" spacing="compact">
         <Reveal className="max-w-2xl mb-10">
           <Eyebrow>Platform controls</Eyebrow>
           <h2 className="section-h2 section-h2--lg mb-4">
@@ -107,7 +120,7 @@ export default function SecurityPage() {
         </div>
       </Section>
 
-      <Section spacing="compact">
+      <Section id="data-processing" spacing="compact">
         <Reveal className="max-w-2xl">
           <Eyebrow>Data processing</Eyebrow>
           <h2 className="text-[26px] leading-[1.16] mb-4">{SECURITY_PAGE_SECTIONS.dataProcessing.title}</h2>
@@ -124,7 +137,7 @@ export default function SecurityPage() {
         </Reveal>
       </Section>
 
-      <Section surface="paper" spacing="compact">
+      <Section id="hosting" surface="paper" spacing="compact">
         <Reveal className="max-w-2xl">
           <Eyebrow>Hosting</Eyebrow>
           <h2 className="text-[26px] leading-[1.16] mb-4">{SECURITY_PAGE_SECTIONS.hosting.title}</h2>
@@ -132,7 +145,7 @@ export default function SecurityPage() {
         </Reveal>
       </Section>
 
-      <Section spacing="compact">
+      <Section id="shared-responsibility" spacing="compact">
         <Reveal className="max-w-2xl">
           <Eyebrow>Shared responsibility</Eyebrow>
           <h2 className="text-[26px] leading-[1.16] mb-4">{SECURITY_PAGE_SECTIONS.sharedResponsibility.title}</h2>
@@ -146,7 +159,7 @@ export default function SecurityPage() {
         </Reveal>
       </Section>
 
-      <Section surface="paper" spacing="compact">
+      <Section id="security-package" surface="paper" spacing="compact">
         <Reveal className="max-w-2xl">
           <Eyebrow>Security package</Eyebrow>
           <h2 className="text-[26px] leading-[1.16] mb-4">How to request materials for procurement.</h2>
@@ -180,7 +193,7 @@ export default function SecurityPage() {
         </Reveal>
       </Section>
 
-      <Section spacing="compact">
+      <Section id="product-boundary" spacing="compact">
         <Reveal className="max-w-2xl mb-10">
           <Eyebrow>Product UI (not a certification)</Eyebrow>
           <h2 className="section-h2 section-h2--lg mb-4">

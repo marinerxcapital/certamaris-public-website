@@ -120,7 +120,7 @@ function DemoTabPanel({ tab }: { tab: DemoTab }) {
 
       <figure className="product-exhibit m-0">
         <div className="overflow-hidden rounded-lg border border-navy/15 bg-white shadow-card">
-          <div className="flex min-h-10 items-center justify-between gap-2 border-b border-navy/10 bg-paper px-3">
+          <div className="flex min-h-11 items-center justify-between gap-2 border-b border-navy/10 bg-paper px-3">
             <span className="truncate font-mono text-[11px] uppercase tracking-[0.1em] text-structural">
               Exhibit · {tab.screen.label}
             </span>
@@ -128,7 +128,7 @@ function DemoTabPanel({ tab }: { tab: DemoTab }) {
               href={tab.screen.fullSrc ?? tab.screen.src}
               target="_blank"
               rel="noopener noreferrer"
-              className="shrink-0 rounded border border-transparent px-2 py-1 font-mono text-[10px] uppercase tracking-[0.08em] text-[#0b6597] underline-offset-2 hover:border-ocean/20 hover:bg-white hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ocean"
+              className="inline-flex min-h-11 shrink-0 items-center rounded border border-transparent px-2 font-mono text-[10px] uppercase tracking-[0.08em] text-[#0b6597] underline-offset-2 hover:border-ocean/20 hover:bg-white hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ocean"
             >
               Full resolution<span aria-hidden="true"> ↗</span>
               <span className="sr-only"> — opens {tab.screen.label} screenshot in a new tab</span>
@@ -255,7 +255,7 @@ export function DemoTourGallery() {
               aria-controls={`${baseId}-panel`}
               tabIndex={isActive ? 0 : -1}
               onClick={() => select(tab.id)}
-              className={`shrink-0 whitespace-nowrap rounded-full border px-3.5 py-1.5 text-[13px] font-medium focus-visible:outline focus-visible:outline-2 focus-visible:outline-ocean ${
+              className={`min-h-11 shrink-0 whitespace-nowrap rounded-full border px-3.5 py-1.5 text-[13px] font-medium focus-visible:outline focus-visible:outline-2 focus-visible:outline-ocean ${
                 isActive
                   ? "border-ocean bg-ocean text-white"
                   : "border-navy/15 bg-white text-navy hover:border-ocean/40 hover:text-ocean"

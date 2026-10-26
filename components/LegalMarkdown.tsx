@@ -24,7 +24,7 @@ export function LegalMarkdown({ markdown }: { markdown: string }) {
   const blocks = parseMarkdown(markdown);
 
   return (
-    <article className="legal-panel legal-document-content space-y-6 text-[15px] leading-7 text-navy/85">
+    <article className="legal-panel legal-document-content min-w-0 space-y-6 text-[15px] leading-7 text-navy/85">
       {blocks.map((block, index) => {
         if (block.type === "heading") {
           if (block.depth === 1) return null;

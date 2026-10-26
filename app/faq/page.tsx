@@ -57,7 +57,7 @@ export default function FaqPage() {
             <a
               key={cat.id}
               href={`#faq-${cat.id}`}
-              className="rounded-full border border-navy/15 bg-white px-3.5 py-1.5 text-[13px] font-medium text-navy hover:border-ocean/40 hover:text-ocean"
+              className="inline-flex min-h-11 items-center rounded-full border border-navy/15 bg-white px-3.5 py-1.5 text-[13px] font-medium text-navy hover:border-ocean/40 hover:text-ocean"
             >
               {cat.label}
             </a>

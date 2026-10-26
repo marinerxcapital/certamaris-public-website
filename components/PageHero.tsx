@@ -32,8 +32,8 @@ export function PageHero({
       style={{ borderColor: "var(--hairline)" }}
     >
       <div className={`shell relative z-10 ${elevated ? "py-14 sm:py-20" : "py-12 sm:py-16"}`}>
-        <div className={aside ? "grid lg:grid-cols-[minmax(0,0.9fr)_auto] gap-10 items-end" : undefined}>
-          <div className="page-hero-copy max-w-3xl">
+        <div className={aside ? "grid min-w-0 lg:grid-cols-[minmax(0,0.9fr)_auto] gap-10 items-end" : undefined}>
+          <div className="page-hero-copy min-w-0 max-w-3xl">
             {breadcrumbs?.length ? <Breadcrumbs items={breadcrumbs} className="mb-5" /> : null}
             <LedgerRoute />
             <Eyebrow>{eyebrow}</Eyebrow>
@@ -48,7 +48,7 @@ export function PageHero({
             </h1>
             {intro && <p className="text-[16px] text-structural leading-relaxed max-w-2xl">{intro}</p>}
           </div>
-          {aside ? <div className="page-hero-aside mt-6 max-w-full lg:mt-0">{aside}</div> : null}
+          {aside ? <div className="page-hero-aside mt-6 min-w-0 max-w-full lg:mt-0">{aside}</div> : null}
         </div>
       </div>
     </section>

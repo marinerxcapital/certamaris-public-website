@@ -675,6 +675,9 @@ body {
 }
 
 .jump-nav a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
   border-radius: 999px;
   padding: 8px 12px;
 }
@@ -950,6 +953,22 @@ textarea {
 }
 
 /* Layout primitives */
+
+/* CSS Grid items default to min-width:auto, which makes long headings,
+   product exhibits, and scrollable tables force the whole page wider than
+   the viewport. Grid children must be allowed to shrink; overflow remains
+   opt-in on the individual scroll region. */
+.site-root .grid > * {
+  min-width: 0;
+}
+
+/* Standalone inline-block action links are not sentence-embedded links; give
+   them a comfortable touch target without altering their visual weight. */
+.site-root a.inline-block {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+}
 
 .shell {
   width: 100%;
@@ -4104,6 +4123,7 @@ figure.product-showcase-frame > div:first-child {
 }
 
 .persona-clear {
+  min-height: 44px;
   font-family: var(--font-mono), Consolas, monospace;
   font-size: 11px;
   font-weight: 600;
@@ -4196,7 +4216,7 @@ figure.product-showcase-frame > div:first-child {
   background: rgba(231, 243, 251, 0.9);
   border: 1px solid rgba(18, 111, 170, 0.35);
   border-radius: 999px;
-  min-height: 36px;
+  min-height: 44px;
   padding: 0 14px;
   cursor: pointer;
 }
@@ -4231,9 +4251,9 @@ figure.product-showcase-frame > div:first-child {
   position: absolute;
   left: 0;
   right: 0;
-  top: 0;
+  top: -8px;
   width: 100%;
-  height: 28px;
+  height: 44px;
   opacity: 0;
   cursor: ew-resize;
   z-index: 2;

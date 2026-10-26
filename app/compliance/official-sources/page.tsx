@@ -72,7 +72,8 @@ export default function OfficialSourcesPage() {
                       href={f.officialSourceUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-medium text-ocean hover:underline break-all"
+                      aria-label={`Open official source for ${f.shortName}`}
+                      className="inline-flex min-h-11 items-center font-medium text-ocean hover:underline break-all"
                     >
                       Open source
                     </a>

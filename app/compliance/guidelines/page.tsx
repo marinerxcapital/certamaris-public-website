@@ -3,6 +3,7 @@ import { BoundaryPanel } from "@/components/BoundaryPanel";
 import { FrameworkDetail } from "@/components/FrameworkDetail";
 import { JsonLd } from "@/components/JsonLd";
 import { PageHero } from "@/components/PageHero";
+import { PageOutline } from "@/components/PageOutline";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
 import { pageMetadata } from "@/lib/metadata";
@@ -17,6 +18,11 @@ export const metadata = pageMetadata(
 
 export default function ComplianceGuidelinesPage() {
   const items = frameworks.filter((f) => f.category === "industry" || f.category === "standards" || f.category === "national");
+  const groups = [
+    { id: "industry-guidance", label: "Industry guidance", category: "industry" },
+    { id: "standards", label: "Standards", category: "standards" },
+    { id: "national-frameworks", label: "National frameworks", category: "national" },
+  ] as const;
   return (
     <>
       <JsonLd
@@ -44,7 +50,14 @@ export default function ComplianceGuidelinesPage() {
           { label: "Guidelines" },
         ]}
       />
-      <Section>
+      <PageOutline
+        items={[
+          { id: "guidelines-overview", label: "Overview" },
+          ...groups.map((group) => ({ id: group.id, label: group.label })),
+          { id: "guidelines-boundary", label: "Boundary" },
+        ]}
+      />
+      <Section id="guidelines-overview">
         <Reveal className="max-w-2xl mb-8">
           <Eyebrow>Last reviewed {REGULATORY_LAST_REVIEWED_LABEL}</Eyebrow>
           <p className="text-[15.5px] text-structural leading-relaxed">
@@ -55,15 +68,26 @@ export default function ComplianceGuidelinesPage() {
             Official sources →
           </Link>
         </Reveal>
-        <div className="space-y-8">
-          {items.map((framework) => (
-            <Reveal key={framework.id}>
-              <FrameworkDetail framework={framework} />
-            </Reveal>
-          ))}
+        <div className="space-y-12">
+          {groups.map((group) => {
+            const groupItems = items.filter((framework) => framework.category === group.category);
+            if (!groupItems.length) return null;
+            return (
+              <div key={group.id} id={group.id} className="scroll-mt-28">
+                <h2 className="section-h2 mb-5">{group.label}</h2>
+                <div className="space-y-8">
+                  {groupItems.map((framework) => (
+                    <Reveal key={framework.id}>
+                      <FrameworkDetail framework={framework} />
+                    </Reveal>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </Section>
-      <Section spacing="tight">
+      <Section id="guidelines-boundary" spacing="tight">
         <BoundaryPanel className="max-w-3xl" />
       </Section>
     </>

@@ -4,6 +4,7 @@ import { CtaBand } from "@/components/CtaBand";
 import { FounderJsonLd } from "@/components/FounderJsonLd";
 import { LeadershipGrid } from "@/components/LeadershipGrid";
 import { PageHero } from "@/components/PageHero";
+import { PageOutline } from "@/components/PageOutline";
 import { Reveal, RevealGroup } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
 import {
@@ -38,8 +39,19 @@ export default function AboutPage() {
         ]}
       />
 
+      <PageOutline
+        items={[
+          { id: "why-certamaris", label: "Why CertaMaris" },
+          { id: "operating-model", label: "Operating model" },
+          { id: "founder", label: "Leadership" },
+          { id: "product-philosophy", label: "Product philosophy" },
+          { id: "boundaries", label: "Boundaries" },
+          { id: "company-pages", label: "Company pages" },
+        ]}
+      />
+
       {/* 1–2. Why CertaMaris exists */}
-      <Section spacing="compact">
+      <Section id="why-certamaris" spacing="compact">
         <Reveal className="max-w-3xl">
           <Eyebrow>{aboutContent.whyExists.eyebrow}</Eyebrow>
           <h2 className="section-h2 section-h2--lg mb-5">{aboutContent.whyExists.title}</h2>
@@ -49,7 +61,7 @@ export default function AboutPage() {
       </Section>
 
       {/* 3. Company / fleet / vessel model */}
-      <Section surface="paper">
+      <Section id="operating-model" surface="paper">
         <Reveal className="max-w-2xl mb-10">
           <Eyebrow>{aboutContent.operatingModel.eyebrow}</Eyebrow>
           <h2 className="section-h2 section-h2--lg mb-4">
@@ -85,7 +97,7 @@ export default function AboutPage() {
       </Section>
 
       {/* 5. Product philosophy */}
-      <Section surface="paper">
+      <Section id="product-philosophy" surface="paper">
         <Reveal className="max-w-2xl mb-12">
           <Eyebrow>Product philosophy</Eyebrow>
           <h2 className="section-h2 section-h2--lg">How CertaMaris is built to behave.</h2>
@@ -101,7 +113,7 @@ export default function AboutPage() {
       </Section>
 
       {/* 6. What CertaMaris does not replace */}
-      <Section spacing="compact">
+      <Section id="boundaries" spacing="compact">
         <div className="grid lg:grid-cols-[0.85fr_1.15fr] gap-14 items-start">
           <Reveal>
             <Eyebrow>{aboutContent.doesNotReplace.eyebrow}</Eyebrow>
@@ -122,7 +134,7 @@ export default function AboutPage() {
       </Section>
 
       {/* Related company pages */}
-      <Section surface="paper" spacing="compact">
+      <Section id="company-pages" surface="paper" spacing="compact">
         <Reveal className="max-w-2xl mb-10">
           <Eyebrow>Company pages</Eyebrow>
           <h2 className="text-[26px] leading-[1.14]">Corporate, leadership, partners, careers, and press.</h2>

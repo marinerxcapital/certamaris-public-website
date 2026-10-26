@@ -212,8 +212,8 @@ export default function AiPolicyPage() {
       </Section>
 
       <Section spacing="compact">
-        <div className="grid lg:grid-cols-2 gap-10 items-start">
-          <Reveal>
+        <div className="grid min-w-0 lg:grid-cols-2 gap-10 items-start">
+          <Reveal className="min-w-0">
             <Eyebrow>Restricted data</Eyebrow>
             <h2 className="text-[24px] leading-[1.16] mb-4">Never leaves CertaMaris-controlled processing.</h2>
             <p className="text-[14.5px] text-structural leading-relaxed mb-5">
@@ -229,7 +229,7 @@ export default function AiPolicyPage() {
               ))}
             </ul>
           </Reveal>
-          <Reveal delay={0.06}>
+          <Reveal delay={0.06} className="min-w-0">
             <div className="premium-card p-6">
               <Eyebrow>Workflow ceilings</Eyebrow>
               <h3 className="mb-4 text-[18px] font-semibold">Maximum classification by workflow.</h3>

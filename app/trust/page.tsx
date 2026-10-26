@@ -3,6 +3,7 @@ import { BoundaryPanel } from "@/components/BoundaryPanel";
 import { BuyerDiligencePacket } from "@/components/BuyerDiligencePacket";
 import { CtaBand } from "@/components/CtaBand";
 import { PageHero } from "@/components/PageHero";
+import { PageOutline } from "@/components/PageOutline";
 import { Reveal, RevealGroup } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
 import { StatusBadge } from "@/components/StatusBadge";
@@ -63,13 +64,24 @@ export default function TrustCenterPage() {
         intro={trustCenterOverview.intro}
       />
 
-      <Section spacing="compact">
+      <PageOutline
+        items={[
+          { id: "diligence-packet", label: "Diligence packet" },
+          { id: "trust-status", label: "Status vocabulary" },
+          { id: "trust-principles", label: "Operating principles" },
+          { id: "trust-directory", label: "Directory" },
+          { id: "operating-posture", label: "Operating posture" },
+          { id: "document-request", label: "Document request" },
+        ]}
+      />
+
+      <Section id="diligence-packet" spacing="compact">
         <Reveal>
           <BuyerDiligencePacket compact />
         </Reveal>
       </Section>
 
-      <Section spacing="compact">
+      <Section id="trust-status" spacing="compact">
         <Reveal className="max-w-3xl">
           <p className="mb-6 font-mono text-[13px] text-structural">Last reviewed: {reviewedLabel}</p>
           <Eyebrow>Status vocabulary</Eyebrow>
@@ -94,7 +106,7 @@ export default function TrustCenterPage() {
         </Reveal>
       </Section>
 
-      <Section surface="paper" spacing="compact">
+      <Section id="trust-principles" surface="paper" spacing="compact">
         <Reveal className="mb-8 max-w-2xl">
           <Eyebrow>Operating principles</Eyebrow>
           <h2 className="section-h2 section-h2--lg">How this Trust Center is written.</h2>
@@ -157,7 +169,7 @@ export default function TrustCenterPage() {
         </nav>
       </Section>
 
-      <Section surface="paper" spacing="compact">
+      <Section id="operating-posture" surface="paper" spacing="compact">
         <Reveal className="mb-10 max-w-2xl">
           <Eyebrow>Operating posture</Eyebrow>
           <h2 className="section-h2 section-h2--lg">Infrastructure, continuity, and data movement.</h2>
@@ -182,7 +194,8 @@ export default function TrustCenterPage() {
         </div>
       </Section>
 
-      <CtaBand
+      <div id="document-request">
+        <CtaBand
         surface="paper"
         eyebrow="Document request"
         title="Request security and procurement materials"
@@ -198,7 +211,8 @@ export default function TrustCenterPage() {
           variant: "secondary",
         }}
         tertiary={false}
-      />
+        />
+      </div>
 
       <Section spacing="tight">
         <Reveal>
