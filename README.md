@@ -12,7 +12,7 @@ clearly labeled integration points.
 | Item | Value |
 |---|---|
 | **This repo** | **Live SoT** for https://certamaris.com |
-| **Branch** | **`main`** only for production |
+| **Branch** | `codex/assurance-helix-hero-20260926` is the current local production branch; `main` remains the canonical remote branch when CI is unblocked |
 | **Worker** | Cloudflare `certamaris-site` (`wrangler.jsonc`) |
 | **App** | Separate: https://app.certamaris.com |
 | **Agent memory (START HERE)** | [`docs/AGENT_MEMORY.md`](docs/AGENT_MEMORY.md) |
