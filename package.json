@@ -26,6 +26,7 @@
     "qa:founder": "node scripts/qa/check-founder.mjs",
     "qa:empty-states": "node scripts/qa/empty-state-qa.mjs --label verify --verify",
     "qa:responsive-a11y": "node scripts/qa/responsive-a11y-qa.mjs",
+    "qa:lightbox": "node scripts/qa/product-lightbox-smoke.mjs",
     "qa:ux-audit": "node scripts/qa/ux-audit-browser-qa.mjs",
     "qa:lighthouse": "node scripts/qa/lighthouse-performance.mjs",
     "test:pricing": "node --experimental-strip-types --test lib/pricing-calculator.test.ts",

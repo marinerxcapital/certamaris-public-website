@@ -3,6 +3,7 @@ import { IBM_Plex_Mono, Inter, Space_Grotesk } from "next/font/google";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { PixelGridBackground } from "@/components/PixelGridBackground";
+import { ProductGalleryHost } from "@/components/ProductGalleryHost";
 import {
   SITE_CANONICAL_URL,
   SITE_NAME,
@@ -10,12 +11,28 @@ import {
   SITE_URL,
   SOCIAL_PREVIEW_IMAGE_URL,
 } from "@/lib/constants";
-import { organizationSchema, softwareApplicationSchema, websiteSchema } from "@/lib/seo-schema";
+import {
+  organizationSchema,
+  softwareApplicationSchema,
+  websiteSchema,
+} from "@/lib/seo-schema";
 import "./globals.css";
 
-const display = Space_Grotesk({ subsets: ["latin"], weight: ["500", "700"], variable: "--font-display" });
-const body = Inter({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-body" });
-const mono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-mono" });
+const display = Space_Grotesk({
+  subsets: ["latin"],
+  weight: ["500", "700"],
+  variable: "--font-display",
+});
+const body = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-body",
+});
+const mono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-mono",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -53,15 +70,33 @@ export const metadata: Metadata = {
       { url: "/favicon-48.png", type: "image/png", sizes: "48x48" },
     ],
     apple: [{ url: "/apple-icon.png", type: "image/png", sizes: "180x180" }],
-    other: [{ rel: "icon", url: "/brand/icon-192.png", type: "image/png", sizes: "192x192" }],
+    other: [
+      {
+        rel: "icon",
+        url: "/brand/icon-192.png",
+        type: "image/png",
+        sizes: "192x192",
+      },
+    ],
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const siteSchemas = [organizationSchema(), websiteSchema(), softwareApplicationSchema()];
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const siteSchemas = [
+    organizationSchema(),
+    websiteSchema(),
+    softwareApplicationSchema(),
+  ];
 
   return (
-    <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
+    <html
+      lang="en"
+      className={`${display.variable} ${body.variable} ${mono.variable}`}
+    >
       <body>
         <div className="site-root relative min-h-screen overflow-x-clip">
           {siteSchemas.map((schema, index) => (
@@ -80,6 +115,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </main>
             <Footer />
           </div>
+          <ProductGalleryHost />
         </div>
       </body>
     </html>
