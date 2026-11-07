@@ -1,8 +1,8 @@
 # Product exhibit viewer LIVE - 2026-11-07 (CURRENT)
 
 **Production:** `https://certamaris.com` - Worker `certamaris-site` version
-`12c9e77f-a6aa-4cc6-adb2-b3bbaeaa6a16` @100%; previous
-`a17ddd35-f7c8-4e6b-8c5a-3b77f1d13b79`.
+`f4047440-be48-4d22-80f1-0d1a0bc1c1b6` @100%; previous
+`12c9e77f-a6aa-4cc6-adb2-b3bbaeaa6a16`.
 
 - `components/ProductScreens.tsx` keeps the existing real annotated captures
   inline and registers interactive exhibits with a route-scoped viewer.
@@ -20,7 +20,7 @@ Validation and deployment evidence: [`2026-11-07-product-exhibit-viewer-deployme
 Rollback:
 
 ```powershell
-npx wrangler versions deploy a17ddd35-f7c8-4e6b-8c5a-3b77f1d13b79@100% --config wrangler.jsonc -y
+npx wrangler versions deploy 12c9e77f-a6aa-4cc6-adb2-b3bbaeaa6a16@100% --config wrangler.jsonc -y
 ```
 
 **Status:** PRODUCTION DEPLOYED AND LIVE-VERIFIED

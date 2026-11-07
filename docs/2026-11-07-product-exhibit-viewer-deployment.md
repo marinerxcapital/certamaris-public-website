@@ -1,11 +1,15 @@
 # Product exhibit viewer LIVE - 2026-11-07
 
 **Production:** https://certamaris.com - Cloudflare Worker `certamaris-site`
-version `12c9e77f-a6aa-4cc6-adb2-b3bbaeaa6a16` @100%
-**Previous version:** `a17ddd35-f7c8-4e6b-8c5a-3b77f1d13b79`
+version `f4047440-be48-4d22-80f1-0d1a0bc1c1b6` @100%
+**Previous version:** `12c9e77f-a6aa-4cc6-adb2-b3bbaeaa6a16`
 **Branch:** `codex/assurance-helix-hero-20260926`
 **Code commit:** `e56dbf0` (`feat(marketing): restore premium product exhibit viewer`)
-**Deployment:** direct local Wrangler deployment; GitHub Actions was not used
+**Deployment:** direct local Wrangler redeploy; GitHub Actions was not used
+
+The first verified release was `12c9e77f-a6aa-4cc6-adb2-b3bbaeaa6a16`.
+This final redeploy used the same code and static artifact from `bfdb0f7` and
+read back `f4047440-be48-4d22-80f1-0d1a0bc1c1b6` at 100%.
 
 ## Scope
 
@@ -70,13 +74,13 @@ contracts remain intact.
 - `/product/dashboard-v2/executive-readiness.png` returned HTTP 200.
 - Live headers retain CSP, HSTS preload, `X-Content-Type-Options: nosniff`,
   `X-Frame-Options: DENY`, and canonical metadata.
-- Wrangler version readback lists `12c9e77f-a6aa-4cc6-adb2-b3bbaeaa6a16`
-  created `2026-11-07T19:42:06.249Z`.
+- Wrangler version readback lists `f4047440-be48-4d22-80f1-0d1a0bc1c1b6`
+  created `2026-11-07T21:41:48.978Z`.
 
 ## Rollback
 
 ```powershell
-npx wrangler versions deploy a17ddd35-f7c8-4e6b-8c5a-3b77f1d13b79@100% --config wrangler.jsonc -y
+npx wrangler versions deploy 12c9e77f-a6aa-4cc6-adb2-b3bbaeaa6a16@100% --config wrangler.jsonc -y
 ```
 
 ## Residuals
