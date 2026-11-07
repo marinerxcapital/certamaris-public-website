@@ -7,6 +7,7 @@ import { chromium } from "playwright-core";
 
 const OUT = path.resolve("out");
 const PORT = Number(process.env.LIGHTBOX_QA_PORT || 4637);
+const configuredBase = process.env.LIGHTBOX_BASE?.replace(/\/+$/, "");
 const mime = {
   ".html": "text/html",
   ".css": "text/css",
@@ -39,23 +40,27 @@ function resolveFile(urlPath) {
 }
 
 async function main() {
-  if (!fs.existsSync(path.join(OUT, "index.html"))) {
+  if (!configuredBase && !fs.existsSync(path.join(OUT, "index.html"))) {
     throw new Error("Missing out/index.html. Run npm run build:static first.");
   }
 
-  const server = http.createServer((request, response) => {
-    const file = resolveFile(request.url || "/");
-    if (!file) {
-      response.writeHead(404);
-      response.end("not found");
-      return;
-    }
-    response.writeHead(200, {
-      "content-type": mime[path.extname(file)] || "application/octet-stream",
-    });
-    fs.createReadStream(file).pipe(response);
-  });
-  await new Promise((resolve) => server.listen(PORT, resolve));
+  const server = configuredBase
+    ? null
+    : http.createServer((request, response) => {
+        const file = resolveFile(request.url || "/");
+        if (!file) {
+          response.writeHead(404);
+          response.end("not found");
+          return;
+        }
+        response.writeHead(200, {
+          "content-type":
+            mime[path.extname(file)] || "application/octet-stream",
+        });
+        fs.createReadStream(file).pipe(response);
+      });
+  if (server) await new Promise((resolve) => server.listen(PORT, resolve));
+  const base = configuredBase || `http://127.0.0.1:${PORT}`;
 
   const browser = await chromium.launch({
     executablePath: process.env.CHROMIUM_PATH || undefined,
@@ -64,7 +69,7 @@ async function main() {
     viewport: { width: 1440, height: 900 },
   });
   const page = await context.newPage();
-  await page.goto(`http://127.0.0.1:${PORT}/platform`, { waitUntil: "load" });
+  await page.goto(`${base}/platform`, { waitUntil: "load" });
   const trigger = page
     .locator('main button[data-testid="product-screen-trigger"]')
     .first();
@@ -76,6 +81,14 @@ async function main() {
   await trigger.click();
   const dialog = page.locator('[data-testid="product-lightbox"]');
   await dialog.waitFor({ state: "visible" });
+  await dialog.locator("img").waitFor({ state: "visible" });
+  await page.waitForFunction(
+    () =>
+      document.querySelector('[data-testid="product-lightbox"] img')
+        ?.naturalWidth > 0,
+    undefined,
+    { timeout: 15000 },
+  );
   const opened = await dialog.evaluate((element) => ({
     title: element.querySelector("h2")?.textContent?.trim() || "",
     imageLoaded: element.querySelector("img")?.naturalWidth > 0,
@@ -92,18 +105,21 @@ async function main() {
     await page.locator('[data-testid="product-lightbox-next"]').click();
   const afterTitle = await dialog.locator("h2").textContent();
   await page.keyboard.press("Escape");
-  await page.waitForTimeout(100);
+  await page.waitForTimeout(300);
   const closed =
     (await page.locator('[data-testid="product-lightbox"]').count()) === 0;
-  const focusRestored = await page.evaluate(
-    () =>
+  const focusState = await page.evaluate(() => ({
+    restored:
       document.activeElement?.matches(
         'button[data-testid="product-screen-trigger"]',
       ) ?? false,
-  );
+    tag: document.activeElement?.tagName ?? null,
+    label: document.activeElement?.getAttribute("aria-label") ?? null,
+  }));
+  const focusRestored = focusState.restored;
 
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto(`http://127.0.0.1:${PORT}/platform`, { waitUntil: "load" });
+  await page.goto(`${base}/platform`, { waitUntil: "load" });
   await page
     .locator('main button[data-testid="product-screen-trigger"]')
     .first()
@@ -111,6 +127,13 @@ async function main() {
   await page
     .locator('[data-testid="product-lightbox"]')
     .waitFor({ state: "visible" });
+  await page.waitForFunction(
+    () =>
+      document.querySelector('[data-testid="product-lightbox"] img')
+        ?.naturalWidth > 0,
+    undefined,
+    { timeout: 15000 },
+  );
   const mobile = await page.evaluate(() => ({
     overflow: document.documentElement.scrollWidth > window.innerWidth,
     closeVisible: Boolean(
@@ -125,7 +148,7 @@ async function main() {
     reducedMotion: "reduce",
   });
   const reducedPage = await reducedContext.newPage();
-  await reducedPage.goto(`http://127.0.0.1:${PORT}/platform`, {
+  await reducedPage.goto(`${base}/platform`, {
     waitUntil: "load",
   });
   await reducedPage
@@ -135,6 +158,13 @@ async function main() {
   await reducedPage
     .locator('[data-testid="product-lightbox"]')
     .waitFor({ state: "visible" });
+  await reducedPage.waitForFunction(
+    () =>
+      document.querySelector('[data-testid="product-lightbox"] img')
+        ?.naturalWidth > 0,
+    undefined,
+    { timeout: 15000 },
+  );
   const reduced = await reducedPage
     .locator('[data-testid="product-lightbox"]')
     .evaluate(() => ({
@@ -147,7 +177,7 @@ async function main() {
     }));
   await reducedContext.close();
   await browser.close();
-  server.close();
+  server?.close();
 
   const result = {
     route: "/platform",
@@ -158,6 +188,7 @@ async function main() {
     afterTitle,
     closed,
     focusRestored,
+    focusState,
     mobile,
     reduced,
   };

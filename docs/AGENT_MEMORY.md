@@ -1,3 +1,32 @@
+# Product exhibit viewer LIVE - 2026-11-07 (CURRENT)
+
+**Production:** `https://certamaris.com` - Worker `certamaris-site` version
+`12c9e77f-a6aa-4cc6-adb2-b3bbaeaa6a16` @100%; previous
+`a17ddd35-f7c8-4e6b-8c5a-3b77f1d13b79`.
+
+- `components/ProductScreens.tsx` keeps the existing real annotated captures
+  inline and registers interactive exhibits with a route-scoped viewer.
+- `components/ProductGalleryHost.tsx` supplies the full-resolution modal with
+  title/body context, sanitized-capture boundary copy, annotation list,
+  previous/next navigation, original-asset access, Escape/backdrop close,
+  focus trapping/restoration, scroll locking, and failed-asset recovery.
+- The viewer is responsive, mobile-safe, WCAG-oriented, CSP-compatible, and
+  reduced-motion safe. Existing static homepage proof and intentional
+  `interactive={false}` demo/cinematic surfaces remain unchanged.
+- The repeatable contract is `npm run qa:lightbox`; it passed locally and live.
+
+Validation and deployment evidence: [`2026-11-07-product-exhibit-viewer-deployment.md`](./2026-11-07-product-exhibit-viewer-deployment.md).
+
+Rollback:
+
+```powershell
+npx wrangler versions deploy a17ddd35-f7c8-4e6b-8c5a-3b77f1d13b79@100% --config wrangler.jsonc -y
+```
+
+**Status:** PRODUCTION DEPLOYED AND LIVE-VERIFIED
+
+---
+
 # Full-site vision polish LIVE - 2026-10-26 (CURRENT)
 
 **Production:** https://certamaris.com - Worker `certamaris-site` version
