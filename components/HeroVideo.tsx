@@ -34,7 +34,8 @@ export function HeroVideo() {
 
     syncMotionPreference();
     reducedMotion.addEventListener("change", syncMotionPreference);
-    return () => reducedMotion.removeEventListener("change", syncMotionPreference);
+    return () =>
+      reducedMotion.removeEventListener("change", syncMotionPreference);
   }, []);
 
   return (
@@ -44,7 +45,9 @@ export function HeroVideo() {
         <span>PRODUCT DEMO</span>
         <span className="hero-video-divider" />
         <span className="hero-video-platform">CertaMaris Platform</span>
-        <span className="hero-video-context">Maritime cyber readiness in action</span>
+        <span className="hero-video-context">
+          Maritime cyber readiness in action
+        </span>
       </div>
       <video
         ref={videoRef}
@@ -55,14 +58,15 @@ export function HeroVideo() {
         muted
         loop
         playsInline
-        preload="auto"
+        preload="metadata"
         disablePictureInPicture
         controls={false}
         controlsList="nodownload noplaybackrate noremoteplayback"
         aria-label="CertaMaris maritime cyber readiness product demonstration"
       />
       <figcaption className="sr-only">
-        CertaMaris platform demonstration showing maritime cyber readiness across a vessel fleet.
+        CertaMaris platform demonstration showing maritime cyber readiness
+        across a vessel fleet.
       </figcaption>
     </figure>
   );

@@ -31,24 +31,40 @@ export function PageHero({
       className="page-hero-section page-hero-polished relative overflow-visible border-b"
       style={{ borderColor: "var(--hairline)" }}
     >
-      <div className={`shell relative z-10 ${elevated ? "py-14 sm:py-20" : "py-12 sm:py-16"}`}>
-        <div className={aside ? "grid min-w-0 lg:grid-cols-[minmax(0,0.9fr)_auto] gap-10 items-end" : undefined}>
+      <div
+        className={`shell relative z-10 ${elevated ? "py-14 sm:py-20" : "py-12 sm:py-16"}`}
+      >
+        <div
+          className={
+            aside
+              ? "grid min-w-0 lg:grid-cols-[minmax(0,0.9fr)_auto] gap-10 items-center"
+              : undefined
+          }
+        >
           <div className="page-hero-copy min-w-0 max-w-3xl">
-            {breadcrumbs?.length ? <Breadcrumbs items={breadcrumbs} className="mb-5" /> : null}
+            {breadcrumbs?.length ? (
+              <Breadcrumbs items={breadcrumbs} className="mb-5" />
+            ) : null}
             <LedgerRoute />
             <Eyebrow>{eyebrow}</Eyebrow>
             <h1
               className={
-                elevated
-                  ? "page-h1 page-h1--elevated mb-5"
-                  : "page-h1 mb-4"
+                elevated ? "page-h1 page-h1--elevated mb-5" : "page-h1 mb-4"
               }
             >
               {title}
             </h1>
-            {intro && <p className="text-[16px] text-structural leading-relaxed max-w-2xl">{intro}</p>}
+            {intro && (
+              <p className="text-[16px] text-structural leading-relaxed max-w-2xl">
+                {intro}
+              </p>
+            )}
           </div>
-          {aside ? <div className="page-hero-aside mt-6 min-w-0 max-w-full lg:mt-0">{aside}</div> : null}
+          {aside ? (
+            <div className="page-hero-aside mt-6 min-w-0 max-w-full lg:mt-0">
+              {aside}
+            </div>
+          ) : null}
         </div>
       </div>
     </section>

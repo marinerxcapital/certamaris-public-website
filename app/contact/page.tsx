@@ -3,6 +3,7 @@ import { BoundaryPanel } from "@/components/BoundaryPanel";
 import { Button } from "@/components/Button";
 import { ContactForm } from "@/components/ContactForm";
 import { PageHero } from "@/components/PageHero";
+import { PageHeroSignal } from "@/components/PageHeroSignal";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
 import { pageMetadata } from "@/lib/metadata";
@@ -12,7 +13,7 @@ import { CONTACT_INTENTS } from "@/lib/faq-pricing";
 export const metadata = pageMetadata(
   "Contact",
   "Contact CertaMaris for a product demo, readiness conversation, procurement or security diligence, support, partnership, press, or careers.",
-  "/contact"
+  "/contact",
 );
 
 const expectations = [
@@ -50,15 +51,38 @@ export default function ContactPage() {
         eyebrow="Contact"
         title="Tell us what you need — we will route it and follow up."
         intro="Use the multi-intent form for demos, readiness calls, procurement, security diligence, and other paths. Submit your details and we will contact you to arrange a suitable time."
+        aside={
+          <PageHeroSignal
+            eyebrow="Routing desk"
+            items={[
+              {
+                label: "Available paths",
+                value: String(CONTACT_INTENTS.length),
+              },
+              {
+                label: "Scheduling",
+                value: hasScheduling
+                  ? "Configured after qualification"
+                  : "Arrange by follow-up",
+              },
+              { label: "Delivery boundary", value: "No timed SLA" },
+            ]}
+            href="#contact-form"
+            linkLabel="Open the request form"
+          />
+        }
       />
 
       <Section spacing="compact" surface="paper">
         <Reveal className="max-w-3xl mb-6">
           <Eyebrow>Intent paths</Eyebrow>
-          <h2 className="text-[22px] sm:text-[26px] leading-[1.16] mb-3">Pick a path or use the form selector.</h2>
+          <h2 className="text-[22px] sm:text-[26px] leading-[1.16] mb-3">
+            Pick a path or use the form selector.
+          </h2>
           <p className="text-[14px] text-structural leading-relaxed mb-5">
-            Links set <span className="font-mono text-[13px]">?intent=</span> so the form opens on the right path.
-            You can also switch intents inside the form.
+            Links set <span className="font-mono text-[13px]">?intent=</span> so
+            the form opens on the right path. You can also switch intents inside
+            the form.
           </p>
         </Reveal>
         <div className="flex flex-wrap gap-2">
@@ -66,7 +90,7 @@ export default function ContactPage() {
             <a
               key={intent.id}
               href={`/contact?intent=${intent.id}`}
-              className="rounded-full border border-navy/15 bg-white px-3.5 py-1.5 text-[13px] font-medium text-navy hover:border-ocean/40 hover:text-ocean"
+              className="inline-flex min-h-11 items-center rounded-full border border-navy/15 bg-white px-3.5 py-1.5 text-[13px] font-medium text-navy hover:border-ocean/40 hover:text-ocean"
             >
               {intent.label}
             </a>
@@ -81,8 +105,9 @@ export default function ContactPage() {
               Need diligence material?
             </p>
             <p className="mt-2 text-[14.5px] leading-relaxed text-structural">
-              The full buyer packet is maintained in the Trust Center. Use this page to route a request or open the
-              procurement materials path directly.
+              The full buyer packet is maintained in the Trust Center. Use this
+              page to route a request or open the procurement materials path
+              directly.
             </p>
             <div className="mt-4 flex flex-wrap gap-3">
               <Button href="/trust" variant="secondary">
@@ -96,15 +121,19 @@ export default function ContactPage() {
         </Reveal>
       </Section>
 
-      <Section>
+      <Section id="contact-form">
         <div className="grid lg:grid-cols-[1fr_1.2fr] gap-14">
           <Reveal>
             <Eyebrow>What to expect</Eyebrow>
             <div className="space-y-6 mt-4">
               {expectations.map((item) => (
                 <div key={item.title}>
-                  <h3 className="text-[15.5px] font-semibold mb-1">{item.title}</h3>
-                  <p className="text-[14px] text-structural leading-relaxed">{item.body}</p>
+                  <h3 className="text-[15.5px] font-semibold mb-1">
+                    {item.title}
+                  </h3>
+                  <p className="text-[14px] text-structural leading-relaxed">
+                    {item.body}
+                  </p>
                 </div>
               ))}
             </div>
@@ -114,16 +143,27 @@ export default function ContactPage() {
               </p>
               <ul className="mt-3 space-y-2">
                 {requestChecklist.map((item) => (
-                  <li key={item} className="flex gap-2.5 text-[13.5px] leading-6 text-structural">
-                    <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-ocean" />
+                  <li
+                    key={item}
+                    className="flex gap-2.5 text-[13.5px] leading-6 text-structural"
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-ocean"
+                    />
                     {item}
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="mt-8 pt-6 border-t space-y-4" style={{ borderColor: "var(--hairline)" }}>
+            <div
+              className="mt-8 pt-6 border-t space-y-4"
+              style={{ borderColor: "var(--hairline)" }}
+            >
               <div>
-                <p className="text-[13px] text-structural mb-1">Prefer email?</p>
+                <p className="text-[13px] text-structural mb-1">
+                  Prefer email?
+                </p>
                 <a
                   href={`mailto:${APP_SALES_EMAIL}`}
                   className="text-[15px] font-medium text-ocean hover:underline"
@@ -135,9 +175,14 @@ export default function ContactPage() {
               {hasScheduling && (
                 <div>
                   <p className="text-[13px] text-structural mb-2">
-                    Prefer to pick a time yourself? Scheduling is optional and separate from the request form.
+                    Prefer to pick a time yourself? Scheduling is optional and
+                    separate from the request form.
                   </p>
-                  <Button href={APP_SCHEDULING_URL} variant="secondary" external>
+                  <Button
+                    href={APP_SCHEDULING_URL}
+                    variant="secondary"
+                    external
+                  >
                     Book a time
                   </Button>
                 </div>
@@ -157,7 +202,9 @@ export default function ContactPage() {
               <Suspense
                 fallback={
                   <div className="space-y-3" role="status">
-                    <p className="text-[14px] text-structural">Loading contact form…</p>
+                    <p className="text-[14px] text-structural">
+                      Loading contact form…
+                    </p>
                     <p className="text-[14px] text-structural">
                       If the form does not load, email{" "}
                       <a

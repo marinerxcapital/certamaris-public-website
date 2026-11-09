@@ -687,7 +687,7 @@ body {
 }
 
 .page-hero-polished {
-  min-height: clamp(250px, 31vh, 400px);
+  min-height: clamp(220px, 26vh, 340px);
 }
 
 .page-hero-polished::before {
@@ -733,11 +733,40 @@ body {
 .page-hero-signal {
   position: relative;
   overflow: hidden;
+  width: min(100%, 340px);
   border: 1px solid var(--hairline);
   border-radius: var(--radius-card);
   background: #ffffff;
   box-shadow: var(--shadow-raised);
   padding: 18px;
+}
+
+.page-hero-signal-row {
+  display: grid;
+  gap: 0.25rem;
+  border-top: 1px solid var(--hairline);
+  padding-top: 0.75rem;
+}
+
+.page-hero-signal-row:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.page-hero-signal-row dt {
+  color: var(--ink-tertiary);
+  font-family: var(--font-mono), Consolas, monospace;
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.page-hero-signal-row dd {
+  margin: 0;
+  color: var(--ink-primary);
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.35;
 }
 
 .product-exhibit > div:first-child {

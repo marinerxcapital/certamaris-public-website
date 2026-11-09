@@ -3,7 +3,11 @@ import { BoundaryPanel } from "@/components/BoundaryPanel";
 import { Button } from "@/components/Button";
 import { CustodyStripBand } from "@/components/CustodyStripBand";
 import { PageHero } from "@/components/PageHero";
-import { ProductScreenFrame, ProductScreenTile } from "@/components/ProductScreens";
+import { PageHeroSignal } from "@/components/PageHeroSignal";
+import {
+  ProductScreenFrame,
+  ProductScreenTile,
+} from "@/components/ProductScreens";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
 import { pageMetadata } from "@/lib/metadata";
@@ -13,7 +17,7 @@ import { solutionsPages } from "@/lib/solutions-audience";
 export const metadata = pageMetadata(
   "Solutions",
   "Fleet cyber compliance solutions for audit readiness, IMO and IACS work, evidence, findings, CAPA verification, plans, SBOM assurance, and reporting.",
-  "/solutions"
+  "/solutions",
 );
 
 const featuredScreen = productProofScreens.fleetInventory;
@@ -31,18 +35,40 @@ export default function SolutionsPage() {
         eyebrow="Solutions"
         title="Concrete maritime workflows — from fleet scope to released readiness packages."
         intro="Twelve solutions describe how CertaMaris supports operators, DPAs, IT/OT teams, and leadership without claiming automatic compliance, class endorsement, or guaranteed survey outcomes."
+        aside={
+          <PageHeroSignal
+            eyebrow="Workflow library"
+            items={[
+              {
+                label: "Solution routes",
+                value: String(solutionsPages.length),
+              },
+              { label: "Assurance chain", value: "REQ → PKG" },
+              { label: "Proof surface", value: "Sanitized captures" },
+            ]}
+            href="/demo#scrub-tour"
+            linkLabel="Scrub the product tour"
+          />
+        }
       />
 
-      <CustodyStripBand href="/demo#scrub-tour" label="Scrub the product tour" />
+      <CustodyStripBand
+        href="/demo#scrub-tour"
+        label="Scrub the product tour"
+      />
 
-      <nav aria-label="Jump to solution" className="jump-nav border-b" style={{ borderColor: "var(--hairline)" }}>
+      <nav
+        aria-label="Jump to solution"
+        className="jump-nav border-b"
+        style={{ borderColor: "var(--hairline)" }}
+      >
         <div className="shell py-4 flex flex-wrap gap-x-5 gap-y-2">
           {solutionsPages.map((item) => (
             <Link
               key={item.slug}
               href={`/solutions/${item.slug}`}
               prefetch={false}
-              className="text-[13.5px] font-medium text-navy hover:text-ocean transition-colors"
+              className="inline-flex min-h-11 items-center text-[13.5px] font-medium text-navy hover:text-ocean transition-colors"
             >
               {item.title}
             </Link>
@@ -55,15 +81,19 @@ export default function SolutionsPage() {
           <Reveal>
             <Eyebrow>Operating proof</Eyebrow>
             <h2 className="section-h2 section-h2--lg mb-5">
-              Start with fleet scope. Follow the trail into evidence and readiness.
+              Start with fleet scope. Follow the trail into evidence and
+              readiness.
             </h2>
             <p className="text-[15.5px] text-structural leading-relaxed mb-6">
-              Sanitized product views — not decorative mockups. Solutions map to the same controlled record as the
-              platform modules.
+              Sanitized product views — not decorative mockups. Solutions map to
+              the same controlled record as the platform modules.
             </p>
             <ul className="space-y-2.5">
               {supportingScreens.map((screen) => (
-                <li key={screen.src} className="flex gap-2.5 text-[14.5px] text-navy/85">
+                <li
+                  key={screen.src}
+                  className="flex gap-2.5 text-[14.5px] text-navy/85"
+                >
                   <span aria-hidden="true" className="text-ocean">
                     —
                   </span>
@@ -82,7 +112,9 @@ export default function SolutionsPage() {
               priority
               galleryOrder={featuredScreen.galleryOrder}
             />
-            <p className="mt-4 text-[13.5px] text-structural leading-relaxed">{featuredScreen.body}</p>
+            <p className="mt-4 text-[13.5px] text-structural leading-relaxed">
+              {featuredScreen.body}
+            </p>
           </Reveal>
         </div>
         <Reveal delay={0.1} className="mt-10 grid gap-5 sm:grid-cols-3">
@@ -104,7 +136,9 @@ export default function SolutionsPage() {
       <Section surface="paper" spacing="compact">
         <Reveal className="mb-8 max-w-2xl">
           <Eyebrow>All solutions</Eyebrow>
-          <h2 className="section-h2 section-h2--lg">Choose a workflow to inspect.</h2>
+          <h2 className="section-h2 section-h2--lg">
+            Choose a workflow to inspect.
+          </h2>
         </Reveal>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {solutionsPages.map((item, index) => (
@@ -117,9 +151,15 @@ export default function SolutionsPage() {
               <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-ocean mb-2">
                 {String(index + 1).padStart(2, "0")}
               </p>
-              <h3 className="text-[16px] font-semibold mb-2 group-hover:text-ocean">{item.title}</h3>
-              <p className="text-[13.5px] text-structural leading-relaxed line-clamp-3">{item.intro}</p>
-              <span className="inline-block mt-3 text-[13px] font-semibold text-ocean">View solution</span>
+              <h3 className="text-[16px] font-semibold mb-2 group-hover:text-ocean">
+                {item.title}
+              </h3>
+              <p className="text-[13.5px] text-structural leading-relaxed line-clamp-3">
+                {item.intro}
+              </p>
+              <span className="inline-block mt-3 text-[13px] font-semibold text-ocean">
+                View solution
+              </span>
             </Link>
           ))}
         </div>

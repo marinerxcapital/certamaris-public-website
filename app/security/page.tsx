@@ -2,8 +2,12 @@ import Link from "next/link";
 import { BoundaryPanel } from "@/components/BoundaryPanel";
 import { Button } from "@/components/Button";
 import { PageHero } from "@/components/PageHero";
+import { PageHeroSignal } from "@/components/PageHeroSignal";
 import { PageOutline } from "@/components/PageOutline";
-import { ProductScreenFrame, ProductScreenTile } from "@/components/ProductScreens";
+import {
+  ProductScreenFrame,
+  ProductScreenTile,
+} from "@/components/ProductScreens";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
 import { StatusBadge } from "@/components/StatusBadge";
@@ -21,7 +25,7 @@ export const metadata = pageMetadata(
   "Security",
   "How CertaMaris handles tenancy, access control, encryption, logging, and related platform controls with honest maturity labels.",
   "/security",
-  { image: "/og/certamaris-security-2026-08-product-experience.png" }
+  { image: "/og/certamaris-security-2026-08-product-experience.png" },
 );
 
 function formatReviewDate(isoDate: string): string {
@@ -45,6 +49,24 @@ export default function SecurityPage() {
         eyebrow="Security"
         title="What's implemented, what's planned, and what's not claimed."
         intro="This page separates implemented platform controls from configurable terms, planned capabilities, NDA materials, and controls not currently claimed on this website."
+        aside={
+          <PageHeroSignal
+            eyebrow="Control vocabulary"
+            items={[
+              {
+                label: "Status model",
+                value: "Current · Configurable · Planned",
+              },
+              {
+                label: "Control scope",
+                value: "Access · encryption · operations",
+              },
+              { label: "Boundary", value: "No certification claim" },
+            ]}
+            href="/trust/procurement"
+            linkLabel="Open procurement context"
+          />
+        }
       />
 
       <PageOutline
@@ -61,30 +83,46 @@ export default function SecurityPage() {
 
       <Section id="security-status" spacing="compact">
         <Reveal className="max-w-3xl">
-          <p className="text-[13px] font-mono text-structural mb-6">Last reviewed: {reviewedLabel}</p>
+          <p className="text-[13px] font-mono text-structural mb-6">
+            Last reviewed: {reviewedLabel}
+          </p>
           <Eyebrow>Status legend</Eyebrow>
-          <ul className="mt-3 flex flex-wrap gap-3" aria-label="Security control status legend">
+          <ul
+            className="mt-3 flex flex-wrap gap-3"
+            aria-label="Security control status legend"
+          >
             {TRUST_STATUS_LEGEND.map((item) => (
               <li
                 key={item.status}
                 className="liquid-glass liquid-glass--subtle lg-pad-sm flex max-w-xs items-start gap-2.5"
               >
                 <StatusBadge trustStatus={item.status} />
-                <p className="pt-0.5 text-[13px] leading-snug text-structural">{item.description}</p>
+                <p className="pt-0.5 text-[13px] leading-snug text-structural">
+                  {item.description}
+                </p>
               </li>
             ))}
           </ul>
           <p className="mt-6 text-[14px] text-structural leading-relaxed">
             Related:{" "}
-            <Link href="/trust" className="font-medium text-ocean hover:underline">
+            <Link
+              href="/trust"
+              className="font-medium text-ocean hover:underline"
+            >
               Trust Center
             </Link>
             {" · "}
-            <Link href="/trust/procurement" className="font-medium text-ocean hover:underline">
+            <Link
+              href="/trust/procurement"
+              className="font-medium text-ocean hover:underline"
+            >
               Procurement package
             </Link>
             {" · "}
-            <Link href="/trust/responsible-disclosure" className="font-medium text-ocean hover:underline">
+            <Link
+              href="/trust/responsible-disclosure"
+              className="font-medium text-ocean hover:underline"
+            >
               Responsible disclosure
             </Link>
           </p>
@@ -95,11 +133,13 @@ export default function SecurityPage() {
         <Reveal className="max-w-2xl mb-10">
           <Eyebrow>Platform controls</Eyebrow>
           <h2 className="section-h2 section-h2--lg mb-4">
-            Tenancy, identity, encryption, operations, and assurance — with status labels.
+            Tenancy, identity, encryption, operations, and assurance — with
+            status labels.
           </h2>
           <p className="text-[15px] text-structural leading-relaxed">
-            The list below describes how CertaMaris operates the multi-tenant application. It is not a certification
-            package, pen-test report, or substitute for contractual security exhibits.
+            The list below describes how CertaMaris operates the multi-tenant
+            application. It is not a certification package, pen-test report, or
+            substitute for contractual security exhibits.
           </p>
         </Reveal>
         <div className="max-w-3xl space-y-4">
@@ -110,8 +150,12 @@ export default function SecurityPage() {
                   <p className="mb-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-ocean">
                     {item.category}
                   </p>
-                  <h3 className="mb-1.5 text-[15.5px] font-semibold">{item.title}</h3>
-                  <p className="text-[14px] leading-relaxed text-structural">{item.summary}</p>
+                  <h3 className="mb-1.5 text-[15.5px] font-semibold">
+                    {item.title}
+                  </h3>
+                  <p className="text-[14px] leading-relaxed text-structural">
+                    {item.summary}
+                  </p>
                 </div>
                 <StatusBadge trustStatus={item.status} />
               </div>
@@ -123,13 +167,18 @@ export default function SecurityPage() {
       <Section id="data-processing" spacing="compact">
         <Reveal className="max-w-2xl">
           <Eyebrow>Data processing</Eyebrow>
-          <h2 className="text-[26px] leading-[1.16] mb-4">{SECURITY_PAGE_SECTIONS.dataProcessing.title}</h2>
+          <h2 className="text-[26px] leading-[1.16] mb-4">
+            {SECURITY_PAGE_SECTIONS.dataProcessing.title}
+          </h2>
           <p className="text-[15px] text-structural leading-relaxed mb-4">
             {SECURITY_PAGE_SECTIONS.dataProcessing.body}
           </p>
           <p className="text-[15px] text-structural leading-relaxed">
             Product subprocessors are available on request. See{" "}
-            <Link href="/legal/subprocessors" className="font-medium text-ocean hover:underline">
+            <Link
+              href="/legal/subprocessors"
+              className="font-medium text-ocean hover:underline"
+            >
               Subprocessors
             </Link>
             .
@@ -140,21 +189,28 @@ export default function SecurityPage() {
       <Section id="hosting" surface="paper" spacing="compact">
         <Reveal className="max-w-2xl">
           <Eyebrow>Hosting</Eyebrow>
-          <h2 className="text-[26px] leading-[1.16] mb-4">{SECURITY_PAGE_SECTIONS.hosting.title}</h2>
-          <p className="text-[15px] text-structural leading-relaxed">{SECURITY_PAGE_SECTIONS.hosting.body}</p>
+          <h2 className="text-[26px] leading-[1.16] mb-4">
+            {SECURITY_PAGE_SECTIONS.hosting.title}
+          </h2>
+          <p className="text-[15px] text-structural leading-relaxed">
+            {SECURITY_PAGE_SECTIONS.hosting.body}
+          </p>
         </Reveal>
       </Section>
 
       <Section id="shared-responsibility" spacing="compact">
         <Reveal className="max-w-2xl">
           <Eyebrow>Shared responsibility</Eyebrow>
-          <h2 className="text-[26px] leading-[1.16] mb-4">{SECURITY_PAGE_SECTIONS.sharedResponsibility.title}</h2>
+          <h2 className="text-[26px] leading-[1.16] mb-4">
+            {SECURITY_PAGE_SECTIONS.sharedResponsibility.title}
+          </h2>
           <p className="text-[15px] text-structural leading-relaxed mb-3">
             {SECURITY_PAGE_SECTIONS.sharedResponsibility.body}
           </p>
           <p className="text-[15px] text-structural leading-relaxed">
-            Specific contractual security commitments, data-processing terms, and incident notification timelines are
-            defined in your customer agreement, not on this page.
+            Specific contractual security commitments, data-processing terms,
+            and incident notification timelines are defined in your customer
+            agreement, not on this page.
           </p>
         </Reveal>
       </Section>
@@ -162,10 +218,13 @@ export default function SecurityPage() {
       <Section id="security-package" surface="paper" spacing="compact">
         <Reveal className="max-w-2xl">
           <Eyebrow>Security package</Eyebrow>
-          <h2 className="text-[26px] leading-[1.16] mb-4">How to request materials for procurement.</h2>
+          <h2 className="text-[26px] leading-[1.16] mb-4">
+            How to request materials for procurement.
+          </h2>
           <p className="text-[15px] text-structural leading-relaxed mb-6">
-            For questionnaires, subprocessors, architecture overviews, or other security documentation needed during
-            active procurement, use the procurement path or contact the security mailbox.
+            For questionnaires, subprocessors, architecture overviews, or other
+            security documentation needed during active procurement, use the
+            procurement path or contact the security mailbox.
           </p>
           <div className="flex flex-wrap gap-3 mb-6">
             <Button href="/trust/procurement">Procurement package</Button>
@@ -181,13 +240,22 @@ export default function SecurityPage() {
               >
                 {SECURITY_EMAIL}
               </a>
-              <span className="text-structural"> — security package and questionnaire requests</span>
+              <span className="text-structural">
+                {" "}
+                — security package and questionnaire requests
+              </span>
             </li>
             <li>
-              <Link href="/trust" className="font-medium text-ocean hover:underline">
+              <Link
+                href="/trust"
+                className="font-medium text-ocean hover:underline"
+              >
                 Trust Center
               </Link>
-              <span className="text-structural"> — disclosure, status, and procurement overview</span>
+              <span className="text-structural">
+                {" "}
+                — disclosure, status, and procurement overview
+              </span>
             </li>
           </ul>
         </Reveal>
@@ -205,10 +273,14 @@ export default function SecurityPage() {
         </Reveal>
         <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-14 items-center mb-12">
           <Reveal>
-            <h3 className="text-[20px] leading-[1.2] mb-4">Controls and requirements stay linked for review.</h3>
+            <h3 className="text-[20px] leading-[1.2] mb-4">
+              Controls and requirements stay linked for review.
+            </h3>
             <p className="text-[15px] text-structural leading-relaxed mb-4">
-              The product shows control ownership, criticality, status, implementation context, known exceptions, mapped
-              requirements, and validation dates so access and evidence decisions can be reviewed in one place.
+              The product shows control ownership, criticality, status,
+              implementation context, known exceptions, mapped requirements, and
+              validation dates so access and evidence decisions can be reviewed
+              in one place.
             </p>
             <div className="flex flex-wrap gap-2">
               <StatusBadge status="ok" label="Mapped control" />

@@ -3,7 +3,11 @@ import { Suspense } from "react";
 import { BoundaryPanel } from "@/components/BoundaryPanel";
 import { JsonLd } from "@/components/JsonLd";
 import { PageHero } from "@/components/PageHero";
-import { ProductScreenFrame, ProductScreenTile } from "@/components/ProductScreens";
+import { PageHeroSignal } from "@/components/PageHeroSignal";
+import {
+  ProductScreenFrame,
+  ProductScreenTile,
+} from "@/components/ProductScreens";
 import { Reveal, RevealGroup } from "@/components/Reveal";
 import { ResourcesFilter } from "@/components/ResourcesFilter";
 import { Eyebrow, Section } from "@/components/Section";
@@ -16,7 +20,7 @@ export const metadata = pageMetadata(
   "Resources",
   "Plain-language explainers, guides, and checklists on IMO cyber-risk management, IACS UR E26/E27, evidence, and fleet cyber governance.",
   "/resources",
-  { image: "/og/certamaris-resources-2026-08-product-experience.png" }
+  { image: "/og/certamaris-resources-2026-08-product-experience.png" },
 );
 
 export default function ResourcesPage() {
@@ -40,10 +44,22 @@ export default function ResourcesPage() {
         eyebrow="Resources"
         title="Plain-language explainers on maritime cyber compliance."
         intro="Operator-focused explainers, guides, and checklists authored by CertaMaris Editorial. Not legal advice."
-        breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "Resources" },
-        ]}
+        aside={
+          <PageHeroSignal
+            eyebrow="Editorial library"
+            items={[
+              { label: "Published explainers", value: String(articles.length) },
+              {
+                label: "Product bridge",
+                value: "Evidence · findings · readiness",
+              },
+              { label: "Editorial boundary", value: "Not legal advice" },
+            ]}
+            href="#product-reading-paths"
+            linkLabel="Read with the product in mind"
+          />
+        }
+        breadcrumbs={[{ label: "Home", href: "/" }, { label: "Resources" }]}
       />
 
       <Section>
@@ -54,14 +70,18 @@ export default function ResourcesPage() {
               Each explainer points back to an operating workflow.
             </h2>
             <p className="text-[15.5px] text-structural leading-relaxed">
-              The resource library is more useful when readers can see where the concept lives: requirement mapping,
-              evidence sufficiency, findings, risk decisions, corrective actions, readiness packages, and governance
-              reporting.
+              The resource library is more useful when readers can see where the
+              concept lives: requirement mapping, evidence sufficiency,
+              findings, risk decisions, corrective actions, readiness packages,
+              and governance reporting.
             </p>
             <ul className="mt-5 space-y-2">
               {productLinksForResources.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="text-[14.5px] font-medium text-ocean hover:underline">
+                  <Link
+                    href={link.href}
+                    className="text-[14.5px] font-medium text-ocean hover:underline"
+                  >
                     {link.title} →
                   </Link>
                 </li>
@@ -78,12 +98,17 @@ export default function ResourcesPage() {
         </div>
       </Section>
 
-      <Section surface="paper">
+      <Section id="product-reading-paths" surface="paper">
         <Reveal className="max-w-2xl mb-12">
           <Eyebrow>Product reading paths</Eyebrow>
-          <h2 className="section-h2 section-h2--lg">Start with the workflow, then go deeper.</h2>
+          <h2 className="section-h2 section-h2--lg">
+            Start with the workflow, then go deeper.
+          </h2>
         </Reveal>
-        <RevealGroup className="grid md:grid-cols-2 lg:grid-cols-3 gap-6" stagger={0.05}>
+        <RevealGroup
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+          stagger={0.05}
+        >
           <ProductScreenTile
             {...productProofScreens.requirementMapping}
             title="Regulatory intelligence"
@@ -115,14 +140,22 @@ export default function ResourcesPage() {
       <Section>
         <Reveal className="max-w-2xl mb-8">
           <Eyebrow>Library</Eyebrow>
-          <h2 className="section-h2 section-h2--lg">Search, filter, and read.</h2>
+          <h2 className="section-h2 section-h2--lg">
+            Search, filter, and read.
+          </h2>
           <p className="text-[15px] text-structural mt-3 leading-relaxed">
             Filter by topic, tag, or type. Also see the{" "}
-            <Link href="/glossary" className="font-medium text-ocean hover:underline">
+            <Link
+              href="/glossary"
+              className="font-medium text-ocean hover:underline"
+            >
               glossary
             </Link>{" "}
             and{" "}
-            <Link href="/topics" className="font-medium text-ocean hover:underline">
+            <Link
+              href="/topics"
+              className="font-medium text-ocean hover:underline"
+            >
               topic landings
             </Link>
             .

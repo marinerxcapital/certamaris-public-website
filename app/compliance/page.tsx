@@ -2,18 +2,26 @@ import Link from "next/link";
 import { BoundaryPanel } from "@/components/BoundaryPanel";
 import { JsonLd } from "@/components/JsonLd";
 import { PageHero } from "@/components/PageHero";
-import { ProductScreenFrame, ProductScreenTile } from "@/components/ProductScreens";
+import { PageHeroSignal } from "@/components/PageHeroSignal";
+import {
+  ProductScreenFrame,
+  ProductScreenTile,
+} from "@/components/ProductScreens";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
 import { pageMetadata } from "@/lib/metadata";
 import { productProofScreens } from "@/lib/product-screens";
-import { complianceNavLinks, frameworks, REGULATORY_LAST_REVIEWED } from "@/lib/regulatory";
+import {
+  complianceNavLinks,
+  frameworks,
+  REGULATORY_LAST_REVIEWED,
+} from "@/lib/regulatory";
 import { breadcrumbListSchema, webPageSchema } from "@/lib/seo-schema";
 
 export const metadata = pageMetadata(
   "Compliance",
   "Maritime cyber compliance authority: IMO MSC.428(98), IACS UR E26/E27, standards context, official sources, and honest mapping methodology.",
-  "/compliance"
+  "/compliance",
 );
 
 function formatReviewDate(isoDate: string): string {
@@ -75,25 +83,47 @@ export default function CompliancePage() {
         eyebrow="Compliance"
         title="The regulatory landscape, explained plainly."
         intro="Authority pages, official sources, and honest product mapping status. Not legal or regulatory advice — official texts control."
-        breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "Compliance" },
-        ]}
+        aside={
+          <PageHeroSignal
+            eyebrow="Authority index"
+            items={[
+              { label: "Framework records", value: String(frameworks.length) },
+              {
+                label: "Navigation paths",
+                value: String(complianceNavLinks.length),
+              },
+              { label: "Source rule", value: "Official texts control" },
+            ]}
+            href="/compliance/official-sources"
+            linkLabel="Review official sources"
+          />
+        }
+        breadcrumbs={[{ label: "Home", href: "/" }, { label: "Compliance" }]}
       />
 
       <Section>
         <Reveal className="max-w-2xl mb-10">
-          <p className="text-[13px] font-mono text-structural mb-6">Last reviewed: {reviewedLabel}</p>
+          <p className="text-[13px] font-mono text-structural mb-6">
+            Last reviewed: {reviewedLabel}
+          </p>
           <Eyebrow>Authority nest</Eyebrow>
-          <h2 className="section-h2 section-h2--lg">Explore by instrument family.</h2>
+          <h2 className="section-h2 section-h2--lg">
+            Explore by instrument family.
+          </h2>
         </Reveal>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {complianceNavLinks.map((item) => (
             <Reveal key={item.href}>
               <Link href={item.href} className="premium-card block h-full p-5">
-                <h3 className="text-[15px] font-semibold text-navy mb-2">{item.title}</h3>
-                <p className="text-[13.5px] text-structural leading-relaxed mb-3">{item.description}</p>
-                <span className="text-[13.5px] font-medium text-ocean">Open →</span>
+                <h3 className="text-[15px] font-semibold text-navy mb-2">
+                  {item.title}
+                </h3>
+                <p className="text-[13.5px] text-structural leading-relaxed mb-3">
+                  {item.description}
+                </p>
+                <span className="text-[13.5px] font-medium text-ocean">
+                  Open →
+                </span>
               </Link>
             </Reveal>
           ))}
@@ -104,16 +134,24 @@ export default function CompliancePage() {
         <div className="grid lg:grid-cols-[280px_1fr] gap-14">
           <Reveal>
             <Eyebrow>01</Eyebrow>
-            <h2 className="text-[24px] leading-[1.2]">IMO cyber-risk management</h2>
+            <h2 className="text-[24px] leading-[1.2]">
+              IMO cyber-risk management
+            </h2>
           </Reveal>
           <Reveal delay={0.06} className="max-w-2xl space-y-4">
             <p className="text-[15.5px] text-structural leading-relaxed">
-              IMO Resolution MSC.428(98) encourages administrations to ensure cyber risks are appropriately addressed
-              in existing safety management systems, no later than the first annual verification of the company&apos;s
-              Document of Compliance after 1 January 2021. It does not create a standalone certification scheme —
-              it treats cyber risk as a category of risk an SMS is already required to manage under the ISM Code.
+              IMO Resolution MSC.428(98) encourages administrations to ensure
+              cyber risks are appropriately addressed in existing safety
+              management systems, no later than the first annual verification of
+              the company&apos;s Document of Compliance after 1 January 2021. It
+              does not create a standalone certification scheme — it treats
+              cyber risk as a category of risk an SMS is already required to
+              manage under the ISM Code.
             </p>
-            <Link href="/compliance/imo" className="inline-block text-[14.5px] font-medium text-ocean hover:underline">
+            <Link
+              href="/compliance/imo"
+              className="inline-block text-[14.5px] font-medium text-ocean hover:underline"
+            >
               IMO authority pages →
             </Link>
           </Reveal>
@@ -128,12 +166,16 @@ export default function CompliancePage() {
           </Reveal>
           <Reveal delay={0.06} className="max-w-2xl space-y-4">
             <p className="text-[15.5px] text-structural leading-relaxed">
-              IACS Unified Requirements E26 and E27 target cyber resilience at design and construction for new
-              construction contracts signed on or after 1 July 2024. Ship-level (E26) and systems/equipment-level
-              (E27) evidence differ from operational SMS cyber risk management — mixed fleets need both stories kept
-              distinct.
+              IACS Unified Requirements E26 and E27 target cyber resilience at
+              design and construction for new construction contracts signed on
+              or after 1 July 2024. Ship-level (E26) and systems/equipment-level
+              (E27) evidence differ from operational SMS cyber risk management —
+              mixed fleets need both stories kept distinct.
             </p>
-            <Link href="/compliance/iacs" className="inline-block text-[14.5px] font-medium text-ocean hover:underline">
+            <Link
+              href="/compliance/iacs"
+              className="inline-block text-[14.5px] font-medium text-ocean hover:underline"
+            >
               IACS authority pages →
             </Link>
           </Reveal>
@@ -144,7 +186,9 @@ export default function CompliancePage() {
         <div className="grid lg:grid-cols-[280px_1fr] gap-14">
           <Reveal>
             <Eyebrow>03</Eyebrow>
-            <h2 className="text-[24px] leading-[1.2]">Frameworks tracked here</h2>
+            <h2 className="text-[24px] leading-[1.2]">
+              Frameworks tracked here
+            </h2>
           </Reveal>
           <Reveal delay={0.06} className="max-w-2xl">
             <ul className="grid sm:grid-cols-2 gap-2 text-[14px] text-structural">
@@ -155,7 +199,10 @@ export default function CompliancePage() {
                   </span>
                   <span>
                     <span className="font-medium text-navy">{f.shortName}</span>
-                    <span className="text-structural/80"> — {f.issuingAuthority.split("—")[0].trim()}</span>
+                    <span className="text-structural/80">
+                      {" "}
+                      — {f.issuingAuthority.split("—")[0].trim()}
+                    </span>
                   </span>
                 </li>
               ))}
@@ -173,15 +220,23 @@ export default function CompliancePage() {
       <Section spacing="compact">
         <Reveal className="max-w-2xl mb-10">
           <Eyebrow>Further reading</Eyebrow>
-          <h2 className="section-h2 section-h2--lg">Source explainers and operational notes.</h2>
+          <h2 className="section-h2 section-h2--lg">
+            Source explainers and operational notes.
+          </h2>
         </Reveal>
         <div className="grid md:grid-cols-3 gap-5">
           {resourceLinks.map((item) => (
             <Reveal key={item.href}>
               <Link href={item.href} className="premium-card block h-full p-5">
-                <h3 className="text-[15px] font-semibold text-navy mb-2">{item.title}</h3>
-                <p className="text-[13.5px] text-structural leading-relaxed mb-3">{item.body}</p>
-                <span className="text-[13.5px] font-medium text-ocean">Read →</span>
+                <h3 className="text-[15px] font-semibold text-navy mb-2">
+                  {item.title}
+                </h3>
+                <p className="text-[13.5px] text-structural leading-relaxed mb-3">
+                  {item.body}
+                </p>
+                <span className="text-[13.5px] font-medium text-ocean">
+                  Read →
+                </span>
               </Link>
             </Reveal>
           ))}
@@ -193,14 +248,20 @@ export default function CompliancePage() {
           <Reveal>
             <Eyebrow>How the product supports the work</Eyebrow>
             <h2 className="section-h2 section-h2--lg mb-5">
-              Mapped requirements become structured work — not a product claim of compliance.
+              Mapped requirements become structured work — not a product claim
+              of compliance.
             </h2>
             <p className="text-[15.5px] text-structural leading-relaxed mb-4">
-              Where teams use CertaMaris, source requirements connect to control objectives, implementation notes,
-              evidence, exceptions, validation history, and coverage status so reviewers can see what a clause
-              touches. The platform organizes that trail; it does not determine applicability or outcomes.
+              Where teams use CertaMaris, source requirements connect to control
+              objectives, implementation notes, evidence, exceptions, validation
+              history, and coverage status so reviewers can see what a clause
+              touches. The platform organizes that trail; it does not determine
+              applicability or outcomes.
             </p>
-            <Link href="/compliance/mapping-methodology" className="inline-block text-[14.5px] font-medium text-ocean hover:underline">
+            <Link
+              href="/compliance/mapping-methodology"
+              className="inline-block text-[14.5px] font-medium text-ocean hover:underline"
+            >
               Mapping methodology →
             </Link>
           </Reveal>
