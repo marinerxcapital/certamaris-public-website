@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { BrandLogo } from "@/components/BrandLogo";
-import { CommandPalette } from "@/components/CommandPalette";
 import {
   APP_GET_STARTED_URL,
   APP_SIGN_IN_URL,
@@ -22,6 +22,22 @@ import {
 
 const FOCUSABLE =
   'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
+
+const CommandPalette = dynamic(
+  () =>
+    import("@/components/CommandPalette").then(
+      (module) => module.CommandPalette,
+    ),
+  {
+    ssr: false,
+    loading: () => (
+      <span
+        className="palette-trigger inline-flex min-h-11 min-w-[78px] items-center justify-center"
+        aria-hidden="true"
+      />
+    ),
+  },
+);
 
 function megaColumns(groupId: string, sectionCount = 0): string {
   if (sectionCount >= 3 || groupId === "solutions") return "sm:grid-cols-2 lg:grid-cols-3";

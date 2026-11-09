@@ -73,6 +73,8 @@ export default function PlatformPage() {
             <ProductExhibit
               {...productProofScreens.executiveReporting}
               priority
+              crop="top"
+              className="hero-executive-frame"
               sizes="(min-width: 1024px) 420px, 80vw"
             />
           </div>

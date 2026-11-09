@@ -36,6 +36,12 @@ export default function HomePage() {
 
   return (
     <>
+      <link
+        rel="preload"
+        as="image"
+        href="/videos/certamaris-hero-poster.jpg"
+        fetchPriority="high"
+      />
       <HomeHero />
 
       <Section id="capabilities" surface="paper" spacing="major">

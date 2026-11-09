@@ -3,7 +3,7 @@ import { IBM_Plex_Mono, Inter, Space_Grotesk } from "next/font/google";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { PixelGridBackground } from "@/components/PixelGridBackground";
-import { ProductGalleryHost } from "@/components/ProductGalleryHost";
+import { ProductGalleryLoader } from "@/components/ProductGalleryLoader";
 import {
   SITE_CANONICAL_URL,
   SITE_NAME,
@@ -115,7 +115,7 @@ export default function RootLayout({
             </main>
             <Footer />
           </div>
-          <ProductGalleryHost />
+          <ProductGalleryLoader />
         </div>
       </body>
     </html>
