@@ -17,9 +17,9 @@ clearly labeled integration points.
 | **App** | Separate: https://app.certamaris.com |
 | **Agent memory (START HERE)** | [`docs/AGENT_MEMORY.md`](docs/AGENT_MEMORY.md) |
 | **Codex handoff** | [`docs/CODEX_MARKETING_TAKEOVER.md`](docs/CODEX_MARKETING_TAKEOVER.md) |
-| **Latest deploy note** | [`docs/2026-11-07-product-exhibit-viewer-deployment.md`](docs/2026-11-07-product-exhibit-viewer-deployment.md) |
+| **Latest deploy note** | [`docs/2026-11-09-second-polish-deployment.md`](docs/2026-11-09-second-polish-deployment.md) |
 | **Latest handoff** | [`docs/CERTAMARIS_MARKETING_REVAMP_HANDOFF_2026-09-26.md`](docs/CERTAMARIS_MARKETING_REVAMP_HANDOFF_2026-09-26.md) (superseded same day by the pixel-grid revert note) |
-| **Latest production change** | Shared premium product exhibit viewer deployed from code commit `e56dbf0`: Worker `f4047440-be48-4d22-80f1-0d1a0bc1c1b6`; rollback `12c9e77f-a6aa-4cc6-adb2-b3bbaeaa6a16`. Prior visual baseline: Pixel Grid restored sitewide, vessel hero deleted, and Assurance Helix unmounted from `/` on owner direction - Worker `8852bbb1-dd35-4492-bb5b-c61319027f51`. |
+| **Latest production change** | Full-site second polish from code commit `7f1fe6f`: route-family hero signals, reduced interior hero dead space, 44px navigation targets, poster-first hero preload, and truthful Windows Lighthouse QA. Worker `6f5e4be4-d9d6-481b-a2ac-88f57bde4fe5`; rollback `f4047440-be48-4d22-80f1-0d1a0bc1c1b6`. |
 | **CI note (2026-09-26)** | The Actions `deploy` job is blocked, twice over: (1) the GitHub account is billing-locked, so jobs do not start at all (run `36232400278`: "The job was not started because your account is locked due to a billing issue"); (2) once unlocked, `npm run ci:validate` fails on `npm audit` (`next@16.2.12`, `sharp@0.35.3`). Deploy locally with `npm run build:static` (explicit webpack static export) + `npx wrangler deploy --config wrangler.jsonc --keep-vars`. See `docs/ci-billing.md`. |
 | **Latest UX pass** | UX/accessibility audit fix `46f0370`; previous product experience upgrade `dfb009f` plus pricing table keyboard-access closeout `0084f51` |
 | **Link-preview code commit** | `190533a` - link-preview branding fix (PR #9); prior feature content `df5f174` (PR #6) |

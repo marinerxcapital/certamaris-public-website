@@ -1,7 +1,7 @@
 # CODEX TAKEOVER — CertaMaris Marketing Website
 
 **Prepared:** 2026-08-01 · SuperGrok  
-**Updated:** 2026-11-07 (product exhibit viewer release) · Codex
+**Updated:** 2026-11-09 (full-site second polish release) · Codex
 **Audience:** Codex / Cursor / any successor agent  
 **Status:** Live production site organized; **this repo is the only deploy SoT**
 
@@ -17,7 +17,8 @@
 | **Authenticated app (separate)** | https://app.certamaris.com — do **not** merge into this repo |
 | **GitHub** | https://github.com/marinerxcapital/certamaris-public-website |
 | **Branch** | `codex/assurance-helix-hero-20260926` is the current local production branch; `main` remains the canonical remote branch when CI is unblocked. |
-| **Latest production change (2026-11-07)** | Shared product exhibit viewer for real application captures: accessible full-resolution modal, annotation context, previous/next navigation, focus/scroll contracts, mobile layout, failed-asset recovery, and reduced-motion handling. Code `e56dbf0`; final redeploy Worker `f4047440-be48-4d22-80f1-0d1a0bc1c1b6` at 100%; rollback `12c9e77f-a6aa-4cc6-adb2-b3bbaeaa6a16`. Evidence: `docs/2026-11-07-product-exhibit-viewer-deployment.md`. |
+| **Latest production change (2026-11-09)** | Full-site second polish: route-family hero signals, reduced interior hero dead space, 44px navigation targets, poster-first hero preload, and truthful seven-route Lighthouse QA. Code `7f1fe6f`; Worker `6f5e4be4-d9d6-481b-a2ac-88f57bde4fe5` at 100%; rollback `f4047440-be48-4d22-80f1-0d1a0bc1c1b6`. Evidence: `docs/2026-11-09-second-polish-deployment.md`. |
+| **Previous production change (2026-11-07)** | Shared product exhibit viewer for real application captures: accessible full-resolution modal, annotation context, previous/next navigation, focus/scroll contracts, mobile layout, failed-asset recovery, and reduced-motion handling. Code `e56dbf0`; final redeploy Worker `f4047440-be48-4d22-80f1-0d1a0bc1c1b6` at 100%; rollback `12c9e77f-a6aa-4cc6-adb2-b3bbaeaa6a16`. Evidence: `docs/2026-11-07-product-exhibit-viewer-deployment.md`. |
 | **Previous production change (2026-10-26)** | Full-site vision polish: shared grid/PageHero/legal/AI-policy clipping fixes across 37 routes, long-page outlines, 44px shared-control remediation, and contextual accessible link names. Code `f093a87`; Worker `a17ddd35-f7c8-4e6b-8c5a-3b77f1d13b79` at 100%; prior version `106e7258-b712-4252-9331-8ca4718e21ed`. Evidence: `docs/2026-10-26-full-site-polish-deployment.md`, `docs/full-site-polish/`. |
 | **Previous production change (2026-10-22)** | SEO/indexation integrity release: alias canonicals and 301 consolidation, exact 95/95 sitemap parity, visible breadcrumb/schema alignment, homepage category title, social-card MIME correctness, and strict SEO regression gates. Code `58e9c53`; Worker `106e7258-b712-4252-9331-8ca4718e21ed` at 100%; prior version `ffe4337d-8b08-4e4f-a837-0ed085b8ea5c`. Evidence: `docs/2026-10-22-seo-optimization-deployment.md`, `docs/seo/SEO_QA_EVIDENCE.md`. |
 | **Production baseline before 2026-10-22** | **Pixel Grid restored; vessel hero deleted and Assurance Helix unmounted from `/` on owner direction** - Worker version `8852bbb1-dd35-4492-bb5b-c61319027f51`; note `docs/2026-09-26-pixel-grid-restore-and-hero-revert.md`. Previous: cinematic vessel-video hero (Worker `ea419440-583c-46c9-8208-24306cd4e7f9`, note `docs/2026-09-26-landing-video-hero-deployment.md`); rotating logo mark `e90fe17` (Worker `c2be68c9-259c-4ece-a254-9aebc64ca8f8`); mockup-match Assurance Helix pass `7c5a641` (Worker `547c484b-45ab-4191-b118-ccfdf7914711`); `4be9ffb`; `46675ea`; live-but-uncommitted drift committed as `d49fba1` (2026-09-21 security.txt + legacy legal titles) |

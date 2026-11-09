@@ -1,3 +1,32 @@
+# Full-site second polish LIVE - 2026-11-09 (CURRENT)
+
+**Production:** `https://certamaris.com` - Worker `certamaris-site` version
+`6f5e4be4-d9d6-481b-a2ac-88f57bde4fe5` @100%; previous
+`f4047440-be48-4d22-80f1-0d1a0bc1c1b6`.
+
+- Added factual route-family hero signals across Solutions, Security, Resources,
+  FAQ, Compliance, Trust, and Contact using existing source counts and
+  boundaries only.
+- Reduced interior hero dead space, centered hero asides, raised contact and
+  solution navigation targets, and changed hero media preload from `auto` to
+  `metadata`.
+- Repaired the Windows Lighthouse wrapper. Fresh seven-route live results now
+  have truthful process status 0 and are stored under
+  `artifacts/lighthouse/polish-live-20261109/summary.json`.
+- Source/live hero reconciliation confirmed the current ship/video direction;
+  no historical hero deletion or reintroduction was performed.
+- Evidence: `docs/2026-11-09-second-polish-deployment.md`.
+
+Rollback:
+
+```powershell
+npx wrangler versions deploy f4047440-be48-4d22-80f1-0d1a0bc1c1b6@100% --config wrangler.jsonc -y
+```
+
+**Status:** PRODUCTION DEPLOYED AND LIVE-VERIFIED
+
+---
+
 # Product exhibit viewer LIVE - 2026-11-07 (CURRENT)
 
 **Production:** `https://certamaris.com` - Worker `certamaris-site` version
