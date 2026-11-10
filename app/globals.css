@@ -3044,12 +3044,25 @@ figure.product-showcase-frame > div:first-child {
   text-transform: none;
 }
 
+.hero-video-stage {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #dceaf2;
+}
+
+.hero-video-poster,
 .hero-video {
   display: block;
   width: 100%;
-  aspect-ratio: 16 / 9;
+  height: 100%;
   background: #dceaf2;
   object-fit: cover;
+}
+
+.hero-video {
+  position: absolute;
+  inset: 0;
 }
 
 @media (max-width: 639px) {
