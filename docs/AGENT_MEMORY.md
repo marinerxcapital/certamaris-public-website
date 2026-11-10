@@ -1,4 +1,34 @@
-# Full-site second polish LIVE - 2026-11-09 (CURRENT)
+# CertaMaris marketing polish — FINAL LIVE 2026-11-10
+
+## Final residual close-out — 2026-11-10 01:24 UTC
+
+The current live production state is Worker `certamaris-site` version
+`3a821759-89d5-4936-8fd4-ad6a1f50281a` @100% from source HEAD `8537eea` on
+`codex/assurance-helix-hero-20260926`. The net implementation is `759fbf6`;
+the measured poster-first experiment `5c896cf` was reverted before the final
+deployment. Safe rollback is `6f5e4be4-d9d6-481b-a2ac-88f57bde4fe5`.
+
+- Platform hero now uses the existing executive-readiness screenshot with a
+  deliberate top crop while retaining full-resolution access.
+- Product exhibit host and command palette are asynchronously split from the
+  initial sitewide client bundle.
+- Final live gates: 103/103 routes, product images 42/42 across the six
+  product routes, live lightbox pass, 95 routes × 340 visual observations with
+  0 failures, and seven fresh Lighthouse processes with exit status 0.
+- Final Lighthouse artifact: `artifacts/lighthouse/final-live-20261109/summary.json`.
+- Chrome DevTools performance-trace MCP was unavailable; only executed
+  Lighthouse and browser QA evidence is claimed.
+- Homepage LCP remains variable around 3.9 seconds in the available live
+  Lighthouse environment; platform and demo TBT materially improved.
+- Pre-existing generated SEO files remain preserved and unstaged.
+
+Rollback:
+
+```powershell
+npx wrangler versions deploy 6f5e4be4-d9d6-481b-a2ac-88f57bde4fe5@100% --config wrangler.jsonc -y
+```
+
+## Historical 2026-11-09 baseline (superseded by the close-out above)
 
 **Production:** `https://certamaris.com` - Worker `certamaris-site` version
 `6f5e4be4-d9d6-481b-a2ac-88f57bde4fe5` @100%; previous

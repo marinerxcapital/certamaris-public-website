@@ -271,3 +271,22 @@ Fallback addresses: `skyler@certamaris.com`, `sales@certamaris.com`.
 
 **Signed:** SuperGrok · 2026-08-01  
 **Countersigned / updated:** Codex · 2026-08-24
+
+---
+
+## Final residual close-out — 2026-11-10
+
+- Canonical source remained `C:\certamaris-startup-site-pnpm\certamaris-startup-site`;
+  stale monorepo marketing copies were not edited.
+- Final source HEAD: `8537eea`; net implementation: `759fbf6`.
+- Final live Worker: `certamaris-site` version
+  `3a821759-89d5-4936-8fd4-ad6a1f50281a` @100%.
+- Safe rollback: `6f5e4be4-d9d6-481b-a2ac-88f57bde4fe5`.
+- Final evidence: 103/103 live routes, product images 42/42, live lightbox
+  pass, 95-route/340-observation visual matrix pass, and fresh seven-route
+  Lighthouse process status 0.
+- Final Lighthouse summary:
+  `artifacts/lighthouse/final-live-20261109/summary.json`.
+- Chrome DevTools performance-trace MCP was unavailable; trace-level claims
+  remain unverified. Homepage LCP remains variable; platform and demo TBT
+  improved materially.
