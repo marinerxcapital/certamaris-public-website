@@ -1,3 +1,5 @@
+Current public release (2026-11-18): Worker `a8a3251f-4cb3-4cd9-94c8-6cc9833b228a`, source `684f038`, branch `codex/public-redesign-bold-20261118`. The bold editorial homepage and shared public-site system are deployed and live-verified. See [release evidence](docs/2026-11-18-bold-editorial-redesign.md). Older production snapshots below are historical.
+
 # CertaMaris — Public Marketing Website
 
 Maritime cyber compliance and assurance software for fleet-scale operators.
@@ -440,3 +442,8 @@ Required repository secrets:
 - `CLOUDFLARE_API_TOKEN`
 
 As of 2026-08-24, the GitHub Actions workflow can deploy to Cloudflare Workers from `main`. Do not print, copy, or replace repository secrets unless explicitly authorized.
+
+
+## 2026-11-18 - Bold editorial public-site release
+
+Current public-site release: see docs/2026-11-18-bold-editorial-redesign.md. Public site deployed and live-verified at https://certamaris.com, Worker `a8a3251f-4cb3-4cd9-94c8-6cc9833b228a` at 100%, source `684f038c2cddfaa3ac168ca32890052f1f5bd8f5` on `codex/public-redesign-bold-20261118`. Four-section editorial homepage and shared system cover 105 HTML entries; pricing/legal/contact/demo/app handoff preserved. Build, full QA, lightbox, responsive/a11y and local/live browser gates passed. Evidence and honest limits: `C:\certamaris-startup-site-pnpm\certamaris-startup-site\docs\2026-11-18-bold-editorial-redesign.md`. No API/platform/E2EE/Stripe/Railway deployment is implied.

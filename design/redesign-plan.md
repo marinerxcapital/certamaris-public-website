@@ -225,3 +225,8 @@ hash pipeline.
   the nav width, first-fold geometry, 760×455 helix viewport, and target demo
   ids (`REQ-026` → `PKG-004`) while preserving the fixed object order
   `REQ → APP → CTL → ASM → EVD → FND → RSK → CAP → QA → PKG`.
+
+
+## 2026-11-18 - Bold editorial public-site release
+
+The earlier plan above is historical. The approved 2026-11-17 bold package supersedes its homepage direction. Runtime tokens and layouts are now in app/editorial.css; see ../docs/2026-11-18-bold-editorial-redesign.md for verified release details.
