@@ -1,0 +1,30 @@
+[
+  {
+    "file": "SpaceGrotesk-Bold.ttf",
+    "embedded_notices": {
+      "0": [
+        "Copyright 2020 The Space Grotesk Project Authors (https://github.com/floriankarsten/space-grotesk)"
+      ],
+      "8": [],
+      "9": [],
+      "13": [],
+      "14": [
+        "https://scripts.sil.org/OFL"
+      ]
+    }
+  },
+  {
+    "file": "Inter-Regular.ttf",
+    "embedded_notices": {
+      "0": [
+        "Copyright 2016 The Inter Project Authors (https://github.com/rsms/inter)"
+      ],
+      "8": [],
+      "9": [],
+      "13": [],
+      "14": [
+        "https://openfontlicense.org"
+      ]
+    }
+  }
+]

@@ -34,9 +34,14 @@ function resolveFile(urlPath) {
   const candidates =
     clean === "/"
       ? [path.join(OUT, "index.html")]
-      : [path.join(OUT, clean), path.join(OUT, `${clean}.html`), path.join(OUT, clean, "index.html")];
+      : [
+          path.join(OUT, clean),
+          path.join(OUT, `${clean}.html`),
+          path.join(OUT, clean, "index.html"),
+        ];
   for (const candidate of candidates) {
-    if (fs.existsSync(candidate) && fs.statSync(candidate).isFile()) return candidate;
+    if (fs.existsSync(candidate) && fs.statSync(candidate).isFile())
+      return candidate;
   }
   return null;
 }
@@ -48,13 +53,20 @@ const server = http.createServer((req, res) => {
     res.end("not found");
     return;
   }
-  res.writeHead(200, { "content-type": MIME[path.extname(file)] || "application/octet-stream" });
+  res.writeHead(200, {
+    "content-type": MIME[path.extname(file)] || "application/octet-stream",
+  });
   res.end(fs.readFileSync(file));
 });
 
 async function assertNoOverflow(page, label) {
-  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
-  if (overflow > 0) throw new Error(`${label} has ${overflow}px horizontal overflow`);
+  const overflow = await page.evaluate(
+    () =>
+      document.documentElement.scrollWidth -
+      document.documentElement.clientWidth,
+  );
+  if (overflow > 0)
+    throw new Error(`${label} has ${overflow}px horizontal overflow`);
 }
 
 async function main() {
@@ -63,8 +75,12 @@ async function main() {
   }
 
   await new Promise((resolve) => server.listen(PORT, resolve));
-  const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined });
-  const context = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+  const browser = await chromium.launch({
+    executablePath: process.env.CHROMIUM_PATH || undefined,
+  });
+  const context = await browser.newContext({
+    viewport: { width: 1280, height: 900 },
+  });
   const page = await context.newPage();
   const base = `http://127.0.0.1:${PORT}`;
   const failures = [];
@@ -79,69 +95,124 @@ async function main() {
     }
   }
 
-  await step("homepage record chain is abbreviated and links to platform", async () => {
-    await page.goto(`${base}/`, { waitUntil: "load" });
-    await page.getByText("REQ").first().waitFor();
-    await page.getByText("EVD").first().waitFor();
-    await page.getByText("FND").first().waitFor();
-    await page.getByText("CAP").first().waitFor();
-    await page.getByText("PKG").first().waitFor();
-    const href = await page.getByRole("link", { name: /See the full record chain/ }).getAttribute("href");
-    if (href !== "/platform") throw new Error(`unexpected full chain href: ${href}`);
-    await assertNoOverflow(page, "homepage abbreviated chain");
-  });
+  await step(
+    "homepage connected workflow retains provenance and tour handoff",
+    async () => {
+      await page.goto(`${base}/`, { waitUntil: "load" });
+      const workflow = page.locator(".cm-workflow");
+      for (const name of [
+        "Requirements",
+        "Evidence",
+        "Findings",
+        "Corrective actions",
+        "Readiness packages",
+      ]) {
+        await workflow.getByRole("heading", { name, exact: true }).waitFor();
+      }
+      await page
+        .getByText(
+          "Simplified overview. Applicability, controls, assessments, risk and QA remain part of the full record.",
+        )
+        .waitFor();
+      if (
+        (await page
+          .getByRole("link", { name: /Follow the product tour/ })
+          .getAttribute("href")) !== "/demo#scrub-tour"
+      )
+        throw new Error("Tour handoff changed");
+      if ((await page.locator(".cm-home h1").count()) !== 1)
+        throw new Error("Expected one homepage H1");
+      if (
+        (await page
+          .locator(".cm-home")
+          .getByText("Illustrative interface concept \u00b7 demo data", {
+            exact: true,
+          })
+          .count()) !== 2
+      )
+        throw new Error("Concept provenance missing");
+      await assertNoOverflow(page, "homepage connected workflow");
+    },
+  );
 
-  await step("demo inspector restores query stage and navigates lineage", async () => {
-    await page.goto(`${base}/demo?stage=EVD#chain-inspector`, { waitUntil: "load" });
-    await page.getByText("EVD-0847").first().waitFor();
-    await page.getByRole("button", { name: /CAP-0455/ }).click();
-    await page.getByRole("heading", { name: /Re-review crossover rules/ }).waitFor();
-    await page.getByText("Demonstration fixture only").waitFor();
-    await assertNoOverflow(page, "demo inspector");
-  });
+  await step(
+    "demo inspector restores query stage and navigates lineage",
+    async () => {
+      await page.goto(`${base}/demo?stage=EVD#chain-inspector`, {
+        waitUntil: "load",
+      });
+      await page.getByText("EVD-0847").first().waitFor();
+      await page.getByRole("button", { name: /CAP-0455/ }).click();
+      await page
+        .getByRole("heading", { name: /Re-review crossover rules/ })
+        .waitFor();
+      await page.getByText("Demonstration fixture only").waitFor();
+      await assertNoOverflow(page, "demo inspector");
+    },
+  );
 
   await step("pricing restores share URL and reproduces estimate", async () => {
-    await page.goto(`${base}/pricing?fleet=24&contracted=12&remoteQa=1&onboard=1`, { waitUntil: "load" });
+    await page.goto(
+      `${base}/pricing?fleet=24&contracted=12&remoteQa=1&onboard=1`,
+      { waitUntil: "load" },
+    );
     await page.locator('[data-qa="pricing-calculator-v2"]').waitFor();
     await page.getByText("$312,000").waitFor();
     await page.getByLabel("Total fleet vessels exact count").evaluate((el) => {
-      if (el.value !== "24") throw new Error(`expected fleet 24, got ${el.value}`);
+      if (el.value !== "24")
+        throw new Error(`expected fleet 24, got ${el.value}`);
     });
     await page.getByLabel("Contracted vessels exact count").evaluate((el) => {
-      if (el.value !== "12") throw new Error(`expected contracted 12, got ${el.value}`);
+      if (el.value !== "12")
+        throw new Error(`expected contracted 12, got ${el.value}`);
     });
     await page.getByRole("button", { name: "Share estimate" }).click();
-    await page.waitForFunction(() => window.location.search.includes("fleet=24") && window.location.search.includes("remoteQa=1"));
+    await page.waitForFunction(
+      () =>
+        window.location.search.includes("fleet=24") &&
+        window.location.search.includes("remoteQa=1"),
+    );
     await page.goto(page.url(), { waitUntil: "load" });
     await page.getByText("$312,000").waitFor();
     await assertNoOverflow(page, "pricing");
   });
 
   await step("persona path points to relevant demo context", async () => {
-    await page.goto(`${base}/who-we-serve/maritime-it-ot`, { waitUntil: "load" });
+    await page.goto(`${base}/who-we-serve/maritime-it-ot`, {
+      waitUntil: "load",
+    });
     await page.locator('[data-qa="role-record-path"]').waitFor();
     await page.getByText("IT / OT path").waitFor();
-    const href = await page.getByRole("link", { name: "Open this demo path" }).getAttribute("href");
+    const href = await page
+      .getByRole("link", { name: "Open this demo path" })
+      .getAttribute("href");
     if (!href?.includes("stage=CTL") || !href.includes("#chain-inspector")) {
       throw new Error(`unexpected demo path href: ${href}`);
     }
     await assertNoOverflow(page, "persona path");
   });
 
-  await step("evidence simulator creates finding, corrective action, and reset state", async () => {
-    await page.goto(`${base}/platform/evidence`, { waitUntil: "load" });
-    await page.locator('[data-qa="evidence-simulator-v2"]').waitFor();
-    await page.locator("#drift-time").fill("180");
-    await page.getByRole("button", { name: /EVD-0994/ }).click();
-    await page.getByRole("button", { name: "Apply reviewer decision" }).click();
-    await page.getByText("Reviewer created finding").waitFor();
-    await page.getByText("CAP-0561").waitFor();
-    await page.getByRole("button", { name: "Submit refreshed evidence" }).click();
-    await page.getByText("Resolved / reset state").waitFor();
-    await page.getByRole("button", { name: "Reset demo" }).click();
-    await page.getByText("Awaiting reviewer").waitFor();
-    await assertNoOverflow(page, "evidence simulator");
-  });
+  await step(
+    "evidence simulator creates finding, corrective action, and reset state",
+    async () => {
+      await page.goto(`${base}/platform/evidence`, { waitUntil: "load" });
+      await page.locator('[data-qa="evidence-simulator-v2"]').waitFor();
+      await page.locator("#drift-time").fill("180");
+      await page.getByRole("button", { name: /EVD-0994/ }).click();
+      await page
+        .getByRole("button", { name: "Apply reviewer decision" })
+        .click();
+      await page.getByText("Reviewer created finding").waitFor();
+      await page.getByText("CAP-0561").waitFor();
+      await page
+        .getByRole("button", { name: "Submit refreshed evidence" })
+        .click();
+      await page.getByText("Resolved / reset state").waitFor();
+      await page.getByRole("button", { name: "Reset demo" }).click();
+      await page.getByText("Awaiting reviewer").waitFor();
+      await assertNoOverflow(page, "evidence simulator");
+    },
+  );
 
   await context.close();
   await browser.close();

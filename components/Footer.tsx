@@ -1,86 +1,80 @@
 import Link from "next/link";
-import { ComplianceDisclaimer } from "@/components/ComplianceDisclaimer";
-import {
-  APP_GET_STARTED_URL,
-  APP_SIGN_IN_URL,
-  FOOTER_GROUPS,
-  PRIMARY_CTA_LABEL,
-  SIGN_IN_LABEL,
-  SITE_TAGLINE,
-} from "@/lib/constants";
-
+import { BrandLogo } from "@/components/BrandLogo";
+import { APP_SIGN_IN_URL } from "@/lib/constants";
+const groups = [
+  {
+    title: "Product",
+    links: [
+      ["Platform overview", "/platform"],
+      ["Product demo", "/demo"],
+      ["Pricing", "/pricing"],
+    ],
+  },
+  {
+    title: "Company",
+    links: [
+      ["About CertaMaris", "/about"],
+      ["Contact", "/contact"],
+      ["Sign in", APP_SIGN_IN_URL],
+    ],
+  },
+  {
+    title: "Trust & legal",
+    links: [
+      ["Security", "/security"],
+      ["Trust Center", "/trust"],
+      ["Privacy", "/legal/privacy"],
+      ["Terms", "/legal/terms"],
+      ["Accessibility", "/accessibility"],
+    ],
+  },
+];
 export function Footer() {
   return (
-    <footer className="footer-premium bg-navy text-white">
-      <div className="shell py-16 sm:py-20">
-        <div className="mb-12 flex flex-col gap-6 border-b border-white/15 pb-10 md:flex-row md:items-end md:justify-between">
-          <div className="max-w-md">
-            <picture>
-              <source
-                type="image/webp"
-                srcSet="/brand/optimized/certamaris-footer-212.webp 1x, /brand/optimized/certamaris-footer-424.webp 2x"
-              />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/brand/optimized/certamaris-footer-212.webp"
-                alt="CertaMaris"
-                width={212}
-                height={39}
-                loading="lazy"
-                decoding="async"
-                className="footer-logo mb-4 h-auto w-[188px] sm:w-[212px]"
-              />
-            </picture>
-            <p className="text-[14px] leading-relaxed text-white/70">{SITE_TAGLINE}</p>
-          </div>
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-            <a
-              href={APP_SIGN_IN_URL}
-              className="inline-flex min-h-11 items-center justify-center rounded-md border border-white/30 px-5 py-2.5 text-[14px] font-semibold text-white transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-navy"
-              data-integration-point="sign-in"
-            >
-              {SIGN_IN_LABEL}
-            </a>
+    <footer className="cm-footer">
+      <div className="cm-container cm-footer-inner">
+        <div className="cm-footer-grid">
+          <div className="cm-footer-brand">
             <Link
-              href={APP_GET_STARTED_URL}
-              className="inline-flex min-h-11 items-center justify-center rounded-md bg-white px-5 py-2.5 text-[14px] font-semibold text-navy transition-colors hover:bg-white/92 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-navy"
-              data-integration-point="get-started"
+              className="cm-brand-link"
+              href="/"
+              aria-label="CertaMaris home"
             >
-              {PRIMARY_CTA_LABEL}
+              <BrandLogo />
             </Link>
+            <p>
+              Maritime cyber compliance,
+              <br />
+              assurance and readiness.
+            </p>
           </div>
-        </div>
-
-        <div className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:grid-cols-4">
-          {FOOTER_GROUPS.map((group) => (
+          {groups.map((group) => (
             <div key={group.title}>
-              <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.12em] text-white/70">{group.title}</p>
-              <ul className="space-y-2.5">
+              <h2>{group.title}</h2>
+              <ul>
                 {group.links.map(([label, href]) => (
-                  <li key={`${group.title}-${href}-${label}`}>
-                    <Link
-                      href={href}
-                      className="inline-flex min-h-11 items-center rounded-sm text-[14px] text-white/88 underline-offset-4 transition-colors hover:text-white hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-navy"
-                    >
-                      {label}
-                    </Link>
+                  <li key={href}>
+                    <Link href={href}>{label}</Link>
                   </li>
                 ))}
               </ul>
             </div>
           ))}
         </div>
-
-        <div className="mt-14 flex flex-col gap-4 border-t border-white/15 pt-6 md:flex-row md:items-start md:justify-between">
-          <ComplianceDisclaimer inverse className="max-w-2xl" />
-          <div className="flex flex-col gap-2 text-[13px] text-white/72 md:items-end md:pt-0.5">
-            <Link
-              href="/sitemap"
-              className="inline-flex min-h-11 items-center rounded-sm font-semibold text-white/88 underline-offset-4 transition-colors hover:text-white hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-navy"
-            >
-              Full sitemap
-            </Link>
-            <p className="whitespace-nowrap">© {new Date().getFullYear()} CertaMaris. All rights reserved.</p>
+        <div className="cm-footer-legal">
+          <p>
+            CertaMaris supports compliance workflows. It does not certify
+            compliance or guarantee audit, survey or inspection outcomes.
+          </p>
+          <p>
+            Official sources control. Qualified human review is required for
+            compliance and applicability decisions.
+          </p>
+          <div className="cm-footer-bottom">
+            <p>
+              © {new Date().getFullYear()} CertaMaris. All rights reserved.
+            </p>
+            <Link href="/sitemap">Full sitemap →</Link>
           </div>
         </div>
       </div>

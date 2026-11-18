@@ -1,30 +1,34 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./lib/**/*.{ts,tsx}"],
+  content: [
+    "./app/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./lib/**/*.{ts,tsx}",
+  ],
   theme: {
     colors: {
       transparent: "transparent",
       current: "currentColor",
       white: "#FFFFFF",
       navy: {
-        DEFAULT: "#061E36",
-        ink: "#061E36",
+        DEFAULT: "#10263B",
+        ink: "#10263B",
         deep: "#041526",
       },
       ocean: {
-        DEFAULT: "#126FAA",
-        deep: "#0E5A8A",
+        DEFAULT: "#1B54DB",
+        deep: "#1648BB",
         light: "#4FADE0",
-        wash: "#E7F3FB",
+        wash: "#F5F1FC",
       },
       paper: {
-        DEFAULT: "#F5F8FA",
+        DEFAULT: "#F7F4FC",
         raised: "#EEF3F6",
       },
       structural: {
         /* Darker body copy for contrast over Pixel Grid (was #5C6D7E) */
-        DEFAULT: "#243748",
+        DEFAULT: "#526477",
         hairline: "rgba(6,30,54,0.14)",
         hairlineStrong: "rgba(6,30,54,0.26)",
       },
@@ -36,8 +40,8 @@ const config: Config = {
         cautionBg: "#FBF1DF",
         critical: "#B3261E",
         criticalBg: "#FBEAE9",
-        info: "#0E5A8A",
-        infoBg: "#E7F3FB",
+        info: "#1648BB",
+        infoBg: "#F5F1FC",
         inactive: "#5C6D7E",
         inactiveBg: "#EEF2F5",
       },

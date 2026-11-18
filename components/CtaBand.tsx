@@ -35,13 +35,16 @@ type CtaBandProps = {
 };
 
 const baseBtn =
-  "inline-flex items-center justify-center gap-2 rounded-md px-6 py-3 text-[15px] font-semibold transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ocean";
+  "inline-flex min-h-[44px] items-center justify-center gap-2 rounded-md px-6 py-3 text-[16px] font-semibold transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ocean";
 
-function actionClasses(variant: NonNullable<CtaBandAction["variant"]>, inverse: boolean): string {
+function actionClasses(
+  variant: NonNullable<CtaBandAction["variant"]>,
+  inverse: boolean,
+): string {
   if (variant === "primary") {
     return inverse
       ? `${baseBtn} bg-white text-navy hover:bg-white/92`
-      : `${baseBtn} bg-navy text-white hover:bg-[#0e3a68]`;
+      : `${baseBtn} bg-ocean text-white hover:bg-ocean-deep`;
   }
   if (variant === "secondary") {
     return inverse
@@ -53,18 +56,36 @@ function actionClasses(variant: NonNullable<CtaBandAction["variant"]>, inverse: 
     : `${baseBtn} text-navy hover:text-ocean`;
 }
 
-function CtaLink({ action, inverse }: { action: CtaBandAction; inverse: boolean }) {
+function CtaLink({
+  action,
+  inverse,
+}: {
+  action: CtaBandAction;
+  inverse: boolean;
+}) {
   const variant = action.variant ?? "primary";
   const classes = actionClasses(variant, inverse);
   if (action.external || action.href.startsWith("http")) {
     return (
-      <a href={action.href} className={classes} data-integration-point={action.href.includes("login") ? "sign-in" : "get-started"}>
+      <a
+        href={action.href}
+        className={classes}
+        data-integration-point={
+          action.href.includes("login") ? "sign-in" : "get-started"
+        }
+      >
         {action.label}
       </a>
     );
   }
   return (
-    <Link href={action.href} className={classes} data-integration-point={action.href.includes("intent=demo") ? "get-started" : undefined}>
+    <Link
+      href={action.href}
+      className={classes}
+      data-integration-point={
+        action.href.includes("intent=demo") ? "get-started" : undefined
+      }
+    >
       {action.label}
     </Link>
   );
@@ -81,7 +102,7 @@ export function CtaBand({
   primary,
   secondary,
   tertiary = false,
-  surface = "navy",
+  surface = "paper",
   className = "",
   children,
 }: CtaBandProps) {
@@ -122,34 +143,66 @@ export function CtaBand({
           {inverse ? (
             <LiquidGlass variant="dark" padding="lg">
               {eyebrow ? (
-                <p className="mb-3 font-mono text-[12px] uppercase tracking-[0.14em] text-white/80">{eyebrow}</p>
+                <p className="mb-3 font-mono text-[12px] uppercase tracking-[0.14em] text-white/80">
+                  {eyebrow}
+                </p>
               ) : null}
-              <h2 className="mb-4 text-[30px] leading-[1.08] text-white sm:text-[40px]">{title}</h2>
+              <h2 className="mb-4 text-[30px] leading-[1.08] text-white sm:text-[40px]">
+                {title}
+              </h2>
               {description ? (
-                <p className="max-w-xl text-[15.5px] leading-relaxed text-white/72">{description}</p>
+                <p className="max-w-xl text-[15.5px] leading-relaxed text-white/72">
+                  {description}
+                </p>
               ) : null}
               {children}
             </LiquidGlass>
           ) : (
             <div>
               {eyebrow ? (
-                <p className="mb-3 font-mono text-[12px] uppercase tracking-[0.14em] text-ocean-deep">{eyebrow}</p>
+                <p className="mb-3 font-mono text-[12px] uppercase tracking-[0.14em] text-ocean-deep">
+                  {eyebrow}
+                </p>
               ) : null}
-              <h2 className="mb-4 text-[30px] leading-[1.08] text-navy sm:text-[40px]">{title}</h2>
+              <h2 className="mb-4 text-[30px] leading-[1.08] text-navy sm:text-[40px]">
+                {title}
+              </h2>
               {description ? (
-                <p className="max-w-xl text-[15.5px] leading-relaxed text-navy/72">{description}</p>
+                <p className="max-w-xl text-[15.5px] leading-relaxed text-navy/72">
+                  {description}
+                </p>
               ) : null}
               {children}
             </div>
           )}
         </div>
         <div className="flex flex-col gap-3 sm:flex-row lg:justify-end lg:self-center">
-          {primaryAction ? <CtaLink action={{ ...primaryAction, variant: primaryAction.variant ?? "primary" }} inverse={inverse} /> : null}
+          {primaryAction ? (
+            <CtaLink
+              action={{
+                ...primaryAction,
+                variant: primaryAction.variant ?? "primary",
+              }}
+              inverse={inverse}
+            />
+          ) : null}
           {secondaryAction ? (
-            <CtaLink action={{ ...secondaryAction, variant: secondaryAction.variant ?? "secondary" }} inverse={inverse} />
+            <CtaLink
+              action={{
+                ...secondaryAction,
+                variant: secondaryAction.variant ?? "secondary",
+              }}
+              inverse={inverse}
+            />
           ) : null}
           {tertiaryAction ? (
-            <CtaLink action={{ ...tertiaryAction, variant: tertiaryAction.variant ?? "ghost" }} inverse={inverse} />
+            <CtaLink
+              action={{
+                ...tertiaryAction,
+                variant: tertiaryAction.variant ?? "ghost",
+              }}
+              inverse={inverse}
+            />
           ) : null}
         </div>
       </div>

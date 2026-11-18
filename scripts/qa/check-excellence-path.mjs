@@ -7,18 +7,25 @@
 
 import path from "node:path";
 
-import { OUT_DIR, exitCode, pathExists, printReport, readText } from "./lib.mjs";
+import {
+  OUT_DIR,
+  exitCode,
+  pathExists,
+  printReport,
+  readText,
+} from "./lib.mjs";
 
 const routeChecks = [
   {
     route: "/",
     candidates: ["index.html"],
     required: [
-      "Forwardable review route",
+      "Clarity for your review team.",
       "/demo#scrub-tour",
       "/pricing",
       "/trust/procurement",
-      "/contact?intent=procurement",
+      "/security",
+      "/contact?intent=demo",
     ],
   },
   {
@@ -38,11 +45,18 @@ const routeChecks = [
   {
     route: "/trust",
     candidates: [path.join("trust", "index.html"), "trust.html"],
-    required: ["Forwardable review route", "/trust/ai-policy", "/legal/privacy"],
+    required: [
+      "Forwardable review route",
+      "/trust/ai-policy",
+      "/legal/privacy",
+    ],
   },
   {
     route: "/trust/procurement",
-    candidates: [path.join("trust", "procurement", "index.html"), path.join("trust", "procurement.html")],
+    candidates: [
+      path.join("trust", "procurement", "index.html"),
+      path.join("trust", "procurement.html"),
+    ],
     required: [
       "Procurement review path",
       "Public security controls",
@@ -66,7 +80,8 @@ const routeChecks = [
 async function readRouteHtml(page) {
   for (const candidate of page.candidates) {
     const filePath = path.join(OUT_DIR, candidate);
-    if (await pathExists(filePath)) return { filePath, html: await readText(filePath) };
+    if (await pathExists(filePath))
+      return { filePath, html: await readText(filePath) };
   }
   return { filePath: null, html: null };
 }

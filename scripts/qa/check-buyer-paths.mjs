@@ -6,46 +6,67 @@
 
 import path from "node:path";
 
-import { OUT_DIR, exitCode, pathExists, printReport, readText } from "./lib.mjs";
+import {
+  OUT_DIR,
+  exitCode,
+  pathExists,
+  printReport,
+  readText,
+} from "./lib.mjs";
 
 const pages = [
   {
     route: "/",
     candidates: ["index.html"],
     required: [
-      "Buyer diligence",
-      "#sample-record",
-      "#buyer-diligence",
+      "Enterprise evaluation",
+      'id="sample-record"',
+      'id="buyer-diligence"',
       "/pricing",
       "/trust/procurement",
-      "/trust/assurance-model",
-      "/trust/ai-policy",
+      "/security",
       "/legal/privacy",
-      "/contact?intent=procurement",
       "/contact?intent=demo",
     ],
   },
   {
     route: "/pricing",
     candidates: [path.join("pricing", "index.html"), "pricing.html"],
-    required: ["Package snapshot", "#package-comparison", "/trust/procurement", "/contact?intent=procurement"],
+    required: [
+      "Package snapshot",
+      "#package-comparison",
+      "/trust/procurement",
+      "/contact?intent=procurement",
+    ],
   },
   {
     route: "/trust",
     candidates: [path.join("trust", "index.html"), "trust.html"],
-    required: ["Buyer diligence", "/trust/procurement", "/trust/assurance-model", "/trust/ai-policy"],
+    required: [
+      "Buyer diligence",
+      "/trust/procurement",
+      "/trust/assurance-model",
+      "/trust/ai-policy",
+    ],
   },
   {
     route: "/contact",
     candidates: [path.join("contact", "index.html"), "contact.html"],
-    required: ["Need diligence material?", "/trust", "/trust/procurement", "/pricing", "/contact?intent=procurement"],
+    required: [
+      "Need diligence material?",
+      "/trust",
+      "/trust/procurement",
+      "/pricing",
+      "/contact?intent=procurement",
+    ],
   },
 ];
 
 async function readRouteHtml(page) {
   for (const candidate of page.candidates) {
     const filePath = path.join(OUT_DIR, candidate);
-    if (await pathExists(filePath)) return { filePath, html: await readText(filePath) };
+    if (await pathExists(filePath))
+      return { filePath, html: await readText(filePath) };
   }
   return { filePath: null, html: null };
 }

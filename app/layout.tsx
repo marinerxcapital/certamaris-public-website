@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Mono, Inter, Space_Grotesk } from "next/font/google";
+import localFont from "next/font/local";
+import { IBM_Plex_Mono } from "next/font/google";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
-import { PixelGridBackground } from "@/components/PixelGridBackground";
+import { EditorialMotion } from "@/components/EditorialMotion";
 import { ProductGalleryLoader } from "@/components/ProductGalleryLoader";
 import {
   SITE_CANONICAL_URL,
@@ -17,16 +18,19 @@ import {
   websiteSchema,
 } from "@/lib/seo-schema";
 import "./globals.css";
+import "./editorial.css";
 
-const display = Space_Grotesk({
-  subsets: ["latin"],
-  weight: ["500", "700"],
+const display = localFont({
+  src: "../public/redesign-bold/space-grotesk-latin.woff2",
+  weight: "300 700",
   variable: "--font-display",
+  display: "swap",
 });
-const body = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+const body = localFont({
+  src: "../public/redesign-bold/inter-latin.woff2",
+  weight: "100 900",
   variable: "--font-body",
+  display: "swap",
 });
 const mono = IBM_Plex_Mono({
   subsets: ["latin"],
@@ -107,7 +111,7 @@ export default function RootLayout({
               dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
             />
           ))}
-          <PixelGridBackground />
+          <EditorialMotion />
           <div className="relative z-10">
             <Nav />
             <main id="main-content" tabIndex={-1}>

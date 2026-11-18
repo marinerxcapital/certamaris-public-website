@@ -40,8 +40,10 @@ const CommandPalette = dynamic(
 );
 
 function megaColumns(groupId: string, sectionCount = 0): string {
-  if (sectionCount >= 3 || groupId === "solutions") return "sm:grid-cols-2 lg:grid-cols-3";
-  if (sectionCount === 2 || groupId === "product" || groupId === "resources") return "sm:grid-cols-2";
+  if (sectionCount >= 3 || groupId === "solutions")
+    return "sm:grid-cols-2 lg:grid-cols-3";
+  if (sectionCount === 2 || groupId === "product" || groupId === "resources")
+    return "sm:grid-cols-2";
   if (groupId === "trust") return "sm:grid-cols-2 lg:grid-cols-3";
   return "sm:grid-cols-2";
 }
@@ -86,7 +88,9 @@ function MegaPanel({
   return (
     <div className="p-5 sm:p-6">
       <div className="mb-4 flex flex-wrap items-baseline justify-between gap-2">
-        <p className="font-mono text-[11px] uppercase tracking-[0.1em] text-structural">{group.label}</p>
+        <p className="font-mono text-[11px] uppercase tracking-[0.1em] text-structural">
+          {group.label}
+        </p>
         {group.href ? (
           <Link
             href={group.href}
@@ -107,7 +111,9 @@ function MegaPanel({
               </p>
               <ul className="grid gap-0.5">
                 {section.links.map((item) => (
-                  <li key={`${group.id}-${section.title}-${item.href}-${item.label}`}>
+                  <li
+                    key={`${group.id}-${section.title}-${item.href}-${item.label}`}
+                  >
                     <MegaLink item={item} path={path} onNavigate={onNavigate} />
                   </li>
                 ))}
@@ -219,8 +225,10 @@ export function Nav() {
         return;
       }
       if (event.key !== "Tab" || !sheet) return;
-      const nodes = Array.from(sheet.querySelectorAll<HTMLElement>(FOCUSABLE)).filter(
-        (el) => !el.hasAttribute("disabled") && el.offsetParent !== null
+      const nodes = Array.from(
+        sheet.querySelectorAll<HTMLElement>(FOCUSABLE),
+      ).filter(
+        (el) => !el.hasAttribute("disabled") && el.offsetParent !== null,
       );
       if (nodes.length === 0) return;
       const first = nodes[0];
@@ -265,7 +273,9 @@ export function Nav() {
         return;
       }
       if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
-      const ids = NAV_PRIMARY.filter((g) => !isDirectNavGroup(g)).map((g) => g.id);
+      const ids = NAV_PRIMARY.filter((g) => !isDirectNavGroup(g)).map(
+        (g) => g.id,
+      );
       const idx = ids.indexOf(openMenuId!);
       if (idx < 0 || ids.length === 0) return;
       event.preventDefault();
@@ -295,7 +305,7 @@ export function Nav() {
     mounted &&
     mobileOpen &&
     createPortal(
-      <div className="nav-mobile-root lg:hidden" role="presentation">
+      <div className="nav-mobile-root xl:hidden" role="presentation">
         <button
           type="button"
           className="nav-mobile-backdrop"
@@ -312,7 +322,12 @@ export function Nav() {
           role="dialog"
         >
           <div className="nav-mobile-sheet-header">
-            <Link href="/" className="flex min-w-0 items-center" aria-label="CertaMaris home" onClick={closeMobile}>
+            <Link
+              href="/"
+              className="flex min-w-0 items-center"
+              aria-label="CertaMaris home"
+              onClick={closeMobile}
+            >
               <BrandLogo />
             </Link>
             <button
@@ -373,13 +388,20 @@ export function Nav() {
                       </span>
                     </button>
                     {expanded ? (
-                      <ul id={panelId} className="border-b border-[rgba(11,42,74,0.08)] bg-[rgba(231,243,251,0.35)] pb-2">
+                      <ul
+                        id={panelId}
+                        className="border-b border-[rgba(11,42,74,0.08)] bg-[rgba(231,243,251,0.35)] pb-2"
+                      >
                         {group.children.map((item: SiteLink) => {
                           const active = isNavLinkActive(path, item.href);
                           const isHub =
-                            group.href != null && hrefPathname(item.href) === hrefPathname(group.href);
+                            group.href != null &&
+                            hrefPathname(item.href) ===
+                              hrefPathname(group.href);
                           return (
-                            <li key={`m-${group.id}-${item.href}-${item.label}`}>
+                            <li
+                              key={`m-${group.id}-${item.href}-${item.label}`}
+                            >
                               <Link
                                 href={item.href}
                                 className={`flex min-h-11 items-center px-5 py-2.5 text-[15px] ${
@@ -421,11 +443,11 @@ export function Nav() {
           </div>
         </nav>
       </div>,
-      document.body
+      document.body,
     );
 
   return (
-    <header className="sticky top-0 z-50 px-3 pt-3 sm:px-4">
+    <header className="cm-site-header sticky top-0 z-50">
       <a href="#main-content" className="skip-link">
         Skip to main content
       </a>
@@ -435,14 +457,38 @@ export function Nav() {
             scrolled ? "shadow-[0_6px_18px_rgba(11,42,74,0.06)]" : ""
           }`}
         >
-          <Link href="/" className="flex min-h-11 min-w-0 shrink items-center" aria-label="CertaMaris home">
+          <Link
+            href="/"
+            className="flex min-h-11 min-w-0 shrink items-center"
+            aria-label="CertaMaris home"
+          >
             <BrandLogo />
           </Link>
 
-          <nav aria-label="Primary" className="hidden items-center gap-0 lg:flex" ref={menuRef}>
+          {path === "/" && (
+            <nav className="cm-simple-nav" aria-label="Homepage navigation">
+              {[
+                ["/platform", "Platform"],
+                ["/demo", "Product demo"],
+                ["/security", "Security"],
+                ["/pricing", "Pricing"],
+              ].map(([href, label]) => (
+                <Link key={href} href={href}>
+                  {label}
+                </Link>
+              ))}
+            </nav>
+          )}
+          <nav
+            aria-label="Primary"
+            className="hidden items-center gap-0 xl:flex"
+            ref={menuRef}
+          >
             {NAV_PRIMARY.map((group) => {
               const direct = isDirectNavGroup(group);
-              const active = isNavGroupActive(path, group) || (!direct && openMenuId === group.id);
+              const active =
+                isNavGroupActive(path, group) ||
+                (!direct && openMenuId === group.id);
               const panelId = `${menuBaseId}-${group.id}`;
               const isOpen = !direct && openMenuId === group.id;
 
@@ -452,7 +498,9 @@ export function Nav() {
                     key={group.id}
                     href={group.href}
                     className={navLinkClass(active)}
-                    aria-current={isNavLinkActive(path, group.href) ? "page" : undefined}
+                    aria-current={
+                      isNavLinkActive(path, group.href) ? "page" : undefined
+                    }
                     onClick={closeDesktopMenu}
                   >
                     {group.label}
@@ -471,7 +519,11 @@ export function Nav() {
                   aria-expanded={isOpen}
                   aria-haspopup="true"
                   aria-controls={isOpen ? panelId : undefined}
-                  onClick={() => setOpenMenuId((prev) => (prev === group.id ? null : group.id))}
+                  onClick={() =>
+                    setOpenMenuId((prev) =>
+                      prev === group.id ? null : group.id,
+                    )
+                  }
                 >
                   {group.label}
                   <span
@@ -491,12 +543,16 @@ export function Nav() {
                 aria-label={`${openGroup.label} menu`}
                 className="nav-dropdown absolute left-0 right-0 top-full z-[60] mt-2 w-full max-h-[min(70vh,560px)] overflow-y-auto"
               >
-                <MegaPanel group={openGroup} path={path} onNavigate={closeDesktopMenu} />
+                <MegaPanel
+                  group={openGroup}
+                  path={path}
+                  onNavigate={closeDesktopMenu}
+                />
               </div>
             ) : null}
           </nav>
 
-          <div className="hidden items-center gap-1 lg:flex">
+          <div className="hidden items-center gap-1 xl:flex">
             <CommandPalette />
             <a
               href={APP_SIGN_IN_URL}
@@ -517,7 +573,7 @@ export function Nav() {
           <button
             ref={mobileButtonRef}
             type="button"
-            className="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center gap-2 rounded-md px-3 py-2 text-[15px] font-semibold text-navy lg:hidden"
+            className="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center gap-2 rounded-md px-3 py-2 text-[15px] font-semibold text-navy xl:hidden"
             aria-expanded={mobileOpen}
             aria-controls={drawerId}
             aria-haspopup="dialog"

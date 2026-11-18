@@ -188,7 +188,7 @@ async function runEmptyStateInteractions(page) {
     );
   }
 
-  await page.goto(routeUrl("/"), { waitUntil: "load", timeout: 45000 });
+  await page.goto(routeUrl("/"), { waitUntil: "networkidle", timeout: 45000 });
   await page.keyboard.press("Control+K");
   const search = page.getByRole("combobox", { name: "Search pages" });
   await search.waitFor({ state: "visible", timeout: 5000 });
