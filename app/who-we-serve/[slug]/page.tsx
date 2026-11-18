@@ -14,21 +14,34 @@ export function generateStaticParams() {
   return audiencePages.map((a) => ({ slug: a.slug }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
   const page = getAudiencePage(slug);
   if (!page) return {};
   return pageMetadata(page.title, page.intro, `/who-we-serve/${page.slug}`);
 }
 
-export default async function AudienceDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function AudienceDetailPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
   const page = getAudiencePage(slug);
   if (!page) notFound();
 
   return (
     <>
-      <PageHero emphasis="elevated" eyebrow={page.eyebrow} title={page.headline} intro={page.intro} />
+      <PageHero
+        emphasis="elevated"
+        eyebrow={page.eyebrow}
+        title={page.headline}
+        intro={page.intro}
+      />
 
       <Section spacing="compact">
         <div className="grid lg:grid-cols-2 gap-10">
@@ -36,7 +49,10 @@ export default async function AudienceDetailPage({ params }: { params: Promise<{
             <Eyebrow>Responsibilities</Eyebrow>
             <ul className="mt-3 space-y-2">
               {page.responsibilities.map((item) => (
-                <li key={item} className="flex gap-2 text-[14.5px] text-navy/85">
+                <li
+                  key={item}
+                  className="flex gap-2 text-[14.5px] text-navy/85"
+                >
                   <span className="text-ocean" aria-hidden>
                     —
                   </span>
@@ -48,7 +64,10 @@ export default async function AudienceDetailPage({ params }: { params: Promise<{
               <Eyebrow>Common problems</Eyebrow>
               <ul className="mt-3 space-y-2">
                 {page.problems.map((item) => (
-                  <li key={item} className="flex gap-2 text-[14.5px] text-navy/85">
+                  <li
+                    key={item}
+                    className="flex gap-2 text-[14.5px] text-navy/85"
+                  >
                     <span className="text-ocean" aria-hidden>
                       —
                     </span>
@@ -62,7 +81,10 @@ export default async function AudienceDetailPage({ params }: { params: Promise<{
             <Eyebrow>How CertaMaris supports the role</Eyebrow>
             <ul className="mt-3 space-y-2">
               {page.howSupports.map((item) => (
-                <li key={item} className="flex gap-2 text-[14.5px] text-navy/85">
+                <li
+                  key={item}
+                  className="flex gap-2 text-[14.5px] text-navy/85"
+                >
                   <span className="text-ocean" aria-hidden>
                     —
                   </span>
@@ -88,15 +110,22 @@ export default async function AudienceDetailPage({ params }: { params: Promise<{
               <h2 className="mt-3 text-[24px] leading-[1.14] text-navy sm:text-[28px]">
                 {page.roleArtifact.title}
               </h2>
-              <p className="mt-3 text-[14.5px] leading-relaxed text-structural">{page.roleArtifact.body}</p>
+              <p className="mt-3 cm-copy leading-relaxed text-structural">
+                {page.roleArtifact.body}
+              </p>
             </div>
             <ul className="grid gap-3">
               {page.roleArtifact.details.map((item, index) => (
-                <li key={item} className="rounded-md border border-navy/10 bg-white/74 p-4">
+                <li
+                  key={item}
+                  className="rounded-md border border-navy/10 bg-white/74 p-4"
+                >
                   <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.1em] text-ocean">
                     {String(index + 1).padStart(2, "0")}
                   </span>
-                  <p className="mt-1 text-[14px] leading-relaxed text-structural">{item}</p>
+                  <p className="mt-1 text-[14px] leading-relaxed text-structural">
+                    {item}
+                  </p>
                 </li>
               ))}
             </ul>
@@ -110,7 +139,10 @@ export default async function AudienceDetailPage({ params }: { params: Promise<{
             <Eyebrow>What this role can see</Eyebrow>
             <ul className="mt-3 space-y-2">
               {page.canSee.map((item) => (
-                <li key={item} className="text-[14.5px] text-structural leading-relaxed">
+                <li
+                  key={item}
+                  className="text-[14.5px] text-structural leading-relaxed"
+                >
                   — {item}
                 </li>
               ))}
@@ -120,7 +152,10 @@ export default async function AudienceDetailPage({ params }: { params: Promise<{
             <Eyebrow>What this role can do</Eyebrow>
             <ul className="mt-3 space-y-2">
               {page.canDo.map((item) => (
-                <li key={item} className="text-[14.5px] text-structural leading-relaxed">
+                <li
+                  key={item}
+                  className="text-[14.5px] text-structural leading-relaxed"
+                >
                   — {item}
                 </li>
               ))}
@@ -136,12 +171,16 @@ export default async function AudienceDetailPage({ params }: { params: Promise<{
               <p className="font-mono text-[11px] uppercase tracking-[0.1em] text-structural mb-2">
                 Does not replace
               </p>
-              <p className="text-[14.5px] text-navy/80 leading-relaxed">{page.doesNotReplace}</p>
+              <p className="cm-copy text-navy/80 leading-relaxed">
+                {page.doesNotReplace}
+              </p>
             </div>
           </Reveal>
           <Reveal delay={0.05}>
             <Eyebrow>Implementation involvement</Eyebrow>
-            <p className="text-[15px] text-structural leading-relaxed mb-6">{page.implementationInvolvement}</p>
+            <p className="cm-copy text-structural leading-relaxed mb-6">
+              {page.implementationInvolvement}
+            </p>
             <Eyebrow>Outputs</Eyebrow>
             <ul className="mt-3 space-y-2">
               {page.outputs.map((item) => (
@@ -158,7 +197,9 @@ export default async function AudienceDetailPage({ params }: { params: Promise<{
         <Section surface="paper" spacing="compact">
           <Reveal className="mb-6">
             <Eyebrow>FAQs</Eyebrow>
-            <h2 className="text-[24px] sm:text-[30px] leading-[1.14]">Common questions</h2>
+            <h2 className="text-[24px] sm:text-[30px] leading-[1.14]">
+              Common questions
+            </h2>
           </Reveal>
           <FaqAccordion items={page.faqs} />
         </Section>

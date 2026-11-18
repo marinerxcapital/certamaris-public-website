@@ -23,16 +23,27 @@ export function generateStaticParams() {
   return productModules.map((m) => ({ slug: m.slug }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
   const mod = getProductModule(slug);
   if (!mod) return {};
   return pageMetadata(mod.title, mod.intro, `/platform/${mod.slug}`, {
-    image: mod.slug === "evidence" ? "/og/certamaris-evidence-2026-08-product-experience.png" : undefined,
+    image:
+      mod.slug === "evidence"
+        ? "/og/certamaris-evidence-2026-08-product-experience.png"
+        : undefined,
   });
 }
 
-export default async function PlatformModulePage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function PlatformModulePage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
   const mod = getProductModule(slug);
   if (!mod) notFound();
@@ -50,7 +61,11 @@ export default async function PlatformModulePage({ params }: { params: Promise<{
         aside={
           screen ? (
             <div className="w-full max-w-[min(380px,100%)] lg:w-[380px]">
-              <ProductScreenFrame {...screen} priority sizes="(min-width: 1024px) 380px, 80vw" />
+              <ProductScreenFrame
+                {...screen}
+                priority
+                sizes="(min-width: 1024px) 380px, 80vw"
+              />
             </div>
           ) : null
         }
@@ -60,20 +75,28 @@ export default async function PlatformModulePage({ params }: { params: Promise<{
         <Reveal className="flex flex-wrap items-center gap-3 mb-8">
           <StatusBadge status={maturity.badgeStatus} label={maturity.label} />
           <p className="text-[14px] text-structural">
-            <span className="font-semibold text-navy">Primary buyers:</span> {mod.buyer}
+            <span className="font-semibold text-navy">Primary buyers:</span>{" "}
+            {mod.buyer}
           </p>
         </Reveal>
         <div className="grid lg:grid-cols-2 gap-10">
           <Reveal>
             <Eyebrow>Operational problem</Eyebrow>
-            <p className="text-[15.5px] text-structural leading-relaxed">{mod.problem}</p>
+            <p className="cm-copy text-structural leading-relaxed">
+              {mod.problem}
+            </p>
           </Reveal>
           <Reveal delay={0.05}>
             <Eyebrow>Workflow</Eyebrow>
             <ol className="space-y-2.5">
               {mod.workflow.map((step, i) => (
-                <li key={step} className="flex gap-2.5 text-[14.5px] text-navy/85">
-                  <span className="font-mono text-ocean text-[12px] shrink-0">{String(i + 1).padStart(2, "0")}</span>
+                <li
+                  key={step}
+                  className="flex gap-2.5 text-[14.5px] text-navy/85"
+                >
+                  <span className="font-mono text-ocean text-[12px] shrink-0">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
                   {step}
                 </li>
               ))}
@@ -95,11 +118,12 @@ export default async function PlatformModulePage({ params }: { params: Promise<{
           <Reveal className="mb-8 max-w-2xl">
             <Eyebrow>Integration catalogue</Eyebrow>
             <h2 className="section-h2 section-h2--lg">
-              Availability labels — Available, Configurable, Custom, Planned, Not supported
+              Availability labels — Available, Configurable, Custom, Planned,
+              Not supported
             </h2>
-            <p className="mt-4 text-[15px] text-structural leading-relaxed">
-              Only verified categories are listed. Live SIEM and maritime ERP connectors are not claimed as standard
-              available features.
+            <p className="mt-4 cm-copy text-structural leading-relaxed">
+              Only verified categories are listed. Live SIEM and maritime ERP
+              connectors are not claimed as standard available features.
             </p>
           </Reveal>
           <div className="grid sm:grid-cols-2 gap-5">
@@ -112,10 +136,17 @@ export default async function PlatformModulePage({ params }: { params: Promise<{
                       {item.category}
                     </p>
                     <div className="mb-2 flex flex-wrap items-center gap-2">
-                      <h3 className="text-[16px] font-semibold">{item.title}</h3>
-                      <StatusBadge status={badge.badgeStatus} label={badge.label} />
+                      <h3 className="cm-subheading font-semibold">
+                        {item.title}
+                      </h3>
+                      <StatusBadge
+                        status={badge.badgeStatus}
+                        label={badge.label}
+                      />
                     </div>
-                    <p className="text-[14px] text-structural leading-relaxed">{item.summary}</p>
+                    <p className="text-[14px] text-structural leading-relaxed">
+                      {item.summary}
+                    </p>
                   </article>
                 </Reveal>
               );
@@ -126,7 +157,9 @@ export default async function PlatformModulePage({ params }: { params: Promise<{
         <Section surface="paper" spacing="compact">
           <Reveal className="mb-8 max-w-2xl">
             <Eyebrow>Capabilities</Eyebrow>
-            <h2 className="section-h2 section-h2--lg">What this module covers</h2>
+            <h2 className="section-h2 section-h2--lg">
+              What this module covers
+            </h2>
           </Reveal>
           <div className="grid sm:grid-cols-2 gap-5">
             {mod.capabilities.map((cap) => {
@@ -135,10 +168,17 @@ export default async function PlatformModulePage({ params }: { params: Promise<{
                 <Reveal key={cap.title}>
                   <article className="liquid-glass liquid-glass--subtle lg-pad-md h-full">
                     <div className="mb-2 flex flex-wrap items-center gap-2">
-                      <h3 className="text-[16px] font-semibold">{cap.title}</h3>
-                      <StatusBadge status={badge.badgeStatus} label={badge.label} />
+                      <h3 className="cm-subheading font-semibold">
+                        {cap.title}
+                      </h3>
+                      <StatusBadge
+                        status={badge.badgeStatus}
+                        label={badge.label}
+                      />
                     </div>
-                    <p className="text-[14px] text-structural leading-relaxed">{cap.body}</p>
+                    <p className="text-[14px] text-structural leading-relaxed">
+                      {cap.body}
+                    </p>
                   </article>
                 </Reveal>
               );
@@ -153,7 +193,10 @@ export default async function PlatformModulePage({ params }: { params: Promise<{
             <Eyebrow>Inputs</Eyebrow>
             <ul className="mt-3 space-y-2">
               {mod.inputs.map((item) => (
-                <li key={item} className="flex gap-2 text-[14.5px] text-navy/85">
+                <li
+                  key={item}
+                  className="flex gap-2 text-[14.5px] text-navy/85"
+                >
                   <span className="text-ocean" aria-hidden>
                     —
                   </span>
@@ -166,7 +209,10 @@ export default async function PlatformModulePage({ params }: { params: Promise<{
             <Eyebrow>Outputs</Eyebrow>
             <ul className="mt-3 space-y-2">
               {mod.outputs.map((item) => (
-                <li key={item} className="flex gap-2 text-[14.5px] text-navy/85">
+                <li
+                  key={item}
+                  className="flex gap-2 text-[14.5px] text-navy/85"
+                >
                   <span className="text-ocean" aria-hidden>
                     —
                   </span>
@@ -181,11 +227,16 @@ export default async function PlatformModulePage({ params }: { params: Promise<{
       <Section surface="paper" spacing="compact">
         <Reveal className="mb-6 max-w-2xl">
           <Eyebrow>Limitations</Eyebrow>
-          <h2 className="text-[24px] sm:text-[30px] leading-[1.14]">Honest boundaries</h2>
+          <h2 className="text-[24px] sm:text-[30px] leading-[1.14]">
+            Honest boundaries
+          </h2>
         </Reveal>
         <ul className="grid sm:grid-cols-2 gap-3">
           {mod.limitations.map((item) => (
-            <li key={item} className="liquid-glass liquid-glass--subtle lg-pad-sm text-[14px] text-navy/80 leading-relaxed">
+            <li
+              key={item}
+              className="liquid-glass liquid-glass--subtle lg-pad-sm text-[14px] text-navy/80 leading-relaxed"
+            >
               {item}
             </li>
           ))}
@@ -196,7 +247,9 @@ export default async function PlatformModulePage({ params }: { params: Promise<{
         <Section spacing="compact">
           <Reveal className="mb-6 max-w-2xl">
             <Eyebrow>FAQs</Eyebrow>
-            <h2 className="text-[24px] sm:text-[30px] leading-[1.14]">Common questions</h2>
+            <h2 className="text-[24px] sm:text-[30px] leading-[1.14]">
+              Common questions
+            </h2>
           </Reveal>
           <FaqAccordion items={mod.faqs} />
         </Section>

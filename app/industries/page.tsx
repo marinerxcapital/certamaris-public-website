@@ -21,7 +21,7 @@ export const metadata: Metadata = pageMetadata(
   {
     noIndex: true,
     canonicalPath: "/who-we-serve",
-  }
+  },
 );
 
 export default function IndustriesRedirectHubPage() {
@@ -38,9 +38,12 @@ export default function IndustriesRedirectHubPage() {
       <Section spacing="compact">
         <Reveal className="mb-6 max-w-2xl">
           <Eyebrow>Permanent destination</Eyebrow>
-          <p className="text-[15.5px] text-structural leading-relaxed mb-6">
+          <p className="cm-copy text-structural leading-relaxed mb-6">
             You are being redirected to{" "}
-            <Link href="/who-we-serve" className="font-semibold text-ocean hover:underline">
+            <Link
+              href="/who-we-serve"
+              className="font-semibold text-ocean hover:underline"
+            >
               /who-we-serve
             </Link>
             . Role pages:

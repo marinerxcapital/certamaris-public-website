@@ -32,7 +32,7 @@ export function Section({
   return createElement(
     Tag,
     { id, className: `${spacingClass} ${surfaceClass} ${className}` },
-    <div className="shell relative z-10">{children}</div>
+    <div className="shell relative z-10">{children}</div>,
   );
 }
 
@@ -47,17 +47,26 @@ export function ReferenceLabel({
 }) {
   return (
     <p
-      className={`inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.14em] ${
+      className={`cm-section-label inline-flex items-center gap-2 uppercase ${
         inverse ? "text-white/80" : "text-ocean-deep"
       } ${className}`}
     >
-      <span aria-hidden="true" className="h-px w-3 shrink-0 bg-current opacity-60" />
+      <span
+        aria-hidden="true"
+        className="h-px w-3 shrink-0 bg-current opacity-60"
+      />
       {children}
     </p>
   );
 }
 
-export function Eyebrow({ children, inverse = false }: { children: ReactNode; inverse?: boolean }) {
+export function Eyebrow({
+  children,
+  inverse = false,
+}: {
+  children: ReactNode;
+  inverse?: boolean;
+}) {
   return (
     <ReferenceLabel inverse={inverse} className="mb-3">
       {children}

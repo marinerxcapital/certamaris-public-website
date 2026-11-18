@@ -10,7 +10,7 @@ import { implementationSteps } from "@/lib/solutions-audience";
 export const metadata = pageMetadata(
   "Implementation",
   "CertaMaris onboarding: discovery, configuration, vessel and user setup, evidence migration, launch, and continuous assurance.",
-  "/implementation"
+  "/implementation",
 );
 
 const principles = [
@@ -49,10 +49,19 @@ export default function ImplementationPage() {
         </Reveal>
         <ol className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           {implementationSteps.map((step) => (
-            <li key={step.number} className="liquid-glass liquid-glass--subtle lg-pad-md">
-              <span className="font-mono text-ocean text-[13px]">{step.number}</span>
-              <h3 className="text-[16px] font-semibold mt-2 mb-1.5">{step.title}</h3>
-              <p className="text-[13.5px] text-structural leading-relaxed">{step.detail}</p>
+            <li
+              key={step.number}
+              className="liquid-glass liquid-glass--subtle lg-pad-md"
+            >
+              <span className="font-mono text-ocean text-[13px]">
+                {step.number}
+              </span>
+              <h3 className="cm-subheading font-semibold mt-2 mb-1.5">
+                {step.title}
+              </h3>
+              <p className="text-[13.5px] text-structural leading-relaxed">
+                {step.detail}
+              </p>
             </li>
           ))}
         </ol>
@@ -61,13 +70,20 @@ export default function ImplementationPage() {
       <Section surface="paper" spacing="compact">
         <Reveal className="mb-8 max-w-2xl">
           <Eyebrow>Principles</Eyebrow>
-          <h2 className="text-[26px] sm:text-[32px] leading-[1.14]">What we will not skip.</h2>
+          <h2 className="text-[26px] sm:text-[32px] leading-[1.14]">
+            What we will not skip.
+          </h2>
         </Reveal>
         <div className="grid sm:grid-cols-2 gap-4">
           {principles.map((item) => (
-            <article key={item.title} className="liquid-glass liquid-glass--default lg-pad-md">
-              <h3 className="text-[16px] font-semibold mb-2">{item.title}</h3>
-              <p className="text-[14px] text-structural leading-relaxed">{item.body}</p>
+            <article
+              key={item.title}
+              className="liquid-glass liquid-glass--default lg-pad-md"
+            >
+              <h3 className="cm-subheading font-semibold mb-2">{item.title}</h3>
+              <p className="text-[14px] text-structural leading-relaxed">
+                {item.body}
+              </p>
             </article>
           ))}
         </div>
@@ -78,18 +94,29 @@ export default function ImplementationPage() {
           <Eyebrow>What you bring</Eyebrow>
           <ul className="mt-4 space-y-2 text-[15px] text-structural leading-relaxed">
             <li>— Vessel inventory and accountable shore roles</li>
-            <li>— Priority systems and existing evidence (even if imperfect)</li>
+            <li>
+              — Priority systems and existing evidence (even if imperfect)
+            </li>
             <li>— Applicability decisions from qualified personnel</li>
             <li>— Identity and integration requirements for IT/OT</li>
           </ul>
           <div className="mt-8 flex flex-wrap gap-4">
-            <Link href="/platform" className="text-[14px] font-semibold text-ocean hover:underline">
+            <Link
+              href="/platform"
+              className="text-[14px] font-semibold text-ocean hover:underline"
+            >
               Platform modules
             </Link>
-            <Link href="/platform/integrations" className="text-[14px] font-semibold text-ocean hover:underline">
+            <Link
+              href="/platform/integrations"
+              className="text-[14px] font-semibold text-ocean hover:underline"
+            >
               Integrations catalogue
             </Link>
-            <Link href="/who-we-serve" className="text-[14px] font-semibold text-ocean hover:underline">
+            <Link
+              href="/who-we-serve"
+              className="text-[14px] font-semibold text-ocean hover:underline"
+            >
               Who we serve
             </Link>
           </div>

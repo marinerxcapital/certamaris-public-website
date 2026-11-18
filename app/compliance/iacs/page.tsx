@@ -6,13 +6,16 @@ import { PageHero } from "@/components/PageHero";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
 import { pageMetadata } from "@/lib/metadata";
-import { getFrameworksByCategory, REGULATORY_LAST_REVIEWED_LABEL } from "@/lib/regulatory";
+import {
+  getFrameworksByCategory,
+  REGULATORY_LAST_REVIEWED_LABEL,
+} from "@/lib/regulatory";
 import { breadcrumbListSchema, webPageSchema } from "@/lib/seo-schema";
 
 export const metadata = pageMetadata(
   "IACS UR E26 & E27",
   "IACS Unified Requirements E26 and E27: design-stage cyber resilience, contract-date applicability, and mapping status.",
-  "/compliance/iacs"
+  "/compliance/iacs",
 );
 
 export default function ComplianceIacsPage() {
@@ -23,7 +26,8 @@ export default function ComplianceIacsPage() {
         data={[
           webPageSchema({
             title: "IACS UR E26 & E27",
-            description: "Ship-level and equipment-level cyber resilience unified requirements.",
+            description:
+              "Ship-level and equipment-level cyber resilience unified requirements.",
             path: "/compliance/iacs",
             dateModified: "2026-07-31",
           }),
@@ -47,18 +51,28 @@ export default function ComplianceIacsPage() {
       <Section>
         <Reveal className="max-w-2xl mb-8">
           <Eyebrow>Last reviewed {REGULATORY_LAST_REVIEWED_LABEL}</Eyebrow>
-          <p className="text-[15.5px] text-structural leading-relaxed">
-            E26 (ship) and E27 (systems/equipment) work together. Keep design/class evidence separate from operational
-            SMS cyber risk management under IMO instruments.
+          <p className="cm-copy text-structural leading-relaxed">
+            E26 (ship) and E27 (systems/equipment) work together. Keep
+            design/class evidence separate from operational SMS cyber risk
+            management under IMO instruments.
           </p>
           <div className="mt-4 flex flex-wrap gap-4 text-[14px]">
-            <Link href="/resources/iacs-ur-e26-e27-overview" className="font-medium text-ocean hover:underline">
+            <Link
+              href="/resources/iacs-ur-e26-e27-overview"
+              className="font-medium text-ocean hover:underline"
+            >
               Full explainer →
             </Link>
-            <Link href="/topics/iacs-ur-e26" className="font-medium text-ocean hover:underline">
+            <Link
+              href="/topics/iacs-ur-e26"
+              className="font-medium text-ocean hover:underline"
+            >
               Topic: E26 →
             </Link>
-            <Link href="/topics/iacs-ur-e27" className="font-medium text-ocean hover:underline">
+            <Link
+              href="/topics/iacs-ur-e27"
+              className="font-medium text-ocean hover:underline"
+            >
               Topic: E27 →
             </Link>
           </div>

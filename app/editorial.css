@@ -1,4 +1,148 @@
 /* CM-WEB-REDESIGN-BOLD-01. Native layouts; references stay review-only. */
+:root {
+  --cm-reading-size: clamp(1rem, 0.94rem + 0.18vw, 1.125rem);
+  --cm-subheading-size: clamp(1.25rem, 1.12rem + 0.4vw, 1.5rem);
+  --cm-caption-size: 0.875rem;
+}
+.cm-copy {
+  font-size: var(--cm-reading-size);
+  line-height: 1.7;
+}
+.cm-subheading {
+  font-size: var(--cm-subheading-size);
+  line-height: 1.25;
+  font-weight: 600;
+}
+.cm-section-label {
+  font-family: var(--font-body), sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+.cm-footer .cm-brand-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+.cm-interior-hero {
+  padding-left: 0;
+}
+.cm-interior-hero::before {
+  content: none;
+}
+.page-hero-section .cm-section-label {
+  margin-bottom: 24px;
+}
+.page-hero-aside .premium-card,
+.page-hero-aside .liquid-glass {
+  box-shadow: none;
+}
+.cm-outline-link {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  line-height: 1.5;
+  padding-block: 6px;
+}
+.legal-document-content {
+  max-width: 78ch;
+  font-size: 16px;
+}
+.legal-document-content p {
+  font-size: 16px;
+  line-height: 1.8;
+}
+.legal-document-content h2 {
+  margin-top: 36px;
+}
+main:not(:has(.cm-home))
+  form
+  input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]),
+main:not(:has(.cm-home)) form select {
+  min-height: 48px;
+  font-size: 16px;
+  border-radius: 8px;
+}
+main input[type="range"] {
+  min-height: 44px;
+  accent-color: #1b54db;
+}
+main form label {
+  line-height: 1.5;
+}
+.cm-exhibit-title {
+  min-width: 0;
+  padding-block: 12px;
+  font-family: var(--font-body), sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+.cm-exhibit-original {
+  font-size: 13px;
+  font-weight: 600;
+}
+.product-exhibit figcaption .exhibit-caption-row {
+  font-size: 14px;
+  line-height: 1.55;
+}
+.cm-gallery-hint {
+  margin-bottom: 16px;
+  font-size: 14px;
+  color: #526477;
+}
+.cm-gallery-tabs {
+  scroll-padding-inline: 16px;
+  scrollbar-width: thin;
+  scrollbar-color: #526477 #f7f4fc;
+}
+.cm-gallery-tabs [role="tab"] {
+  font-size: 14px;
+  min-height: 48px;
+}
+.cm-gallery-navigation {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+  border-top: 1px solid #dce3ed;
+  padding-top: 12px;
+}
+.cm-gallery-navigation button {
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid #dce3ed;
+  border-radius: 8px;
+  color: #1b54db;
+  font-weight: 600;
+}
+.cm-gallery-navigation button:disabled {
+  color: #526477;
+  background: #f7f4fc;
+  cursor: default;
+}
+.cm-gallery-navigation p {
+  font-size: 14px;
+  color: #526477;
+}
+@media (max-width: 600px) {
+  .cm-exhibit-title {
+    font-size: 12px;
+  }
+  .cm-exhibit-original {
+    font-size: 12px;
+  }
+  .cm-gallery-navigation p {
+    order: -1;
+    width: 100%;
+  }
+  .page-hero-aside {
+    margin-top: 12px;
+  }
+}
 .text-structural\/80,
 .text-structural\/70 {
   color: #526477;
@@ -1250,4 +1394,16 @@ h4 {
   .cm-hero .cm-action-secondary {
     min-width: 246px;
   }
+}
+
+/* Page outlines remain visible and wrap, avoiding an undiscoverable mobile rail. */
+.cm-page-outline {
+  flex-wrap: wrap;
+}
+.cm-page-outline a {
+  white-space: normal;
+  max-width: 100%;
+}
+.cm-gallery-tabs [role="tab"] {
+  scroll-margin-inline: 16px;
 }

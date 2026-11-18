@@ -84,7 +84,7 @@ export default function SolutionsPage() {
               Start with fleet scope. Follow the trail into evidence and
               readiness.
             </h2>
-            <p className="text-[15.5px] text-structural leading-relaxed mb-6">
+            <p className="cm-copy text-structural leading-relaxed mb-6">
               Sanitized product views — not decorative mockups. Solutions map to
               the same controlled record as the platform modules.
             </p>
@@ -151,7 +151,7 @@ export default function SolutionsPage() {
               <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-ocean mb-2">
                 {String(index + 1).padStart(2, "0")}
               </p>
-              <h3 className="text-[16px] font-semibold mb-2 group-hover:text-ocean">
+              <h3 className="cm-subheading font-semibold mb-2 group-hover:text-ocean">
                 {item.title}
               </h3>
               <p className="text-[13.5px] text-structural leading-relaxed line-clamp-3">

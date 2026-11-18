@@ -18,13 +18,16 @@ export default function ContactSubmittedPage() {
       />
       <Section spacing="compact">
         <div className="mx-auto max-w-2xl rounded-md border border-navy/10 bg-white p-6 shadow-sm sm:p-8">
-          <p className="text-[15px] leading-relaxed text-structural">
-            This confirmation contains no submitted personal information. If you need to add context,
-            reply when the CertaMaris team contacts you rather than submitting the same request again.
+          <p className="cm-copy leading-relaxed text-structural">
+            This confirmation contains no submitted personal information. If you
+            need to add context, reply when the CertaMaris team contacts you
+            rather than submitting the same request again.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Button href="/">Return home</Button>
-            <Button href="/resources" variant="secondary">Browse resources</Button>
+            <Button href="/resources" variant="secondary">
+              Browse resources
+            </Button>
           </div>
         </div>
       </Section>

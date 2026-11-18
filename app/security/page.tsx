@@ -136,7 +136,7 @@ export default function SecurityPage() {
             Tenancy, identity, encryption, operations, and assurance — with
             status labels.
           </h2>
-          <p className="text-[15px] text-structural leading-relaxed">
+          <p className="cm-copy text-structural leading-relaxed">
             The list below describes how CertaMaris operates the multi-tenant
             application. It is not a certification package, pen-test report, or
             substitute for contractual security exhibits.
@@ -150,7 +150,7 @@ export default function SecurityPage() {
                   <p className="mb-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-ocean">
                     {item.category}
                   </p>
-                  <h3 className="mb-1.5 text-[15.5px] font-semibold">
+                  <h3 className="mb-1.5 cm-subheading font-semibold">
                     {item.title}
                   </h3>
                   <p className="text-[14px] leading-relaxed text-structural">
@@ -170,10 +170,10 @@ export default function SecurityPage() {
           <h2 className="text-[26px] leading-[1.16] mb-4">
             {SECURITY_PAGE_SECTIONS.dataProcessing.title}
           </h2>
-          <p className="text-[15px] text-structural leading-relaxed mb-4">
+          <p className="cm-copy text-structural leading-relaxed mb-4">
             {SECURITY_PAGE_SECTIONS.dataProcessing.body}
           </p>
-          <p className="text-[15px] text-structural leading-relaxed">
+          <p className="cm-copy text-structural leading-relaxed">
             Product subprocessors are available on request. See{" "}
             <Link
               href="/legal/subprocessors"
@@ -192,7 +192,7 @@ export default function SecurityPage() {
           <h2 className="text-[26px] leading-[1.16] mb-4">
             {SECURITY_PAGE_SECTIONS.hosting.title}
           </h2>
-          <p className="text-[15px] text-structural leading-relaxed">
+          <p className="cm-copy text-structural leading-relaxed">
             {SECURITY_PAGE_SECTIONS.hosting.body}
           </p>
         </Reveal>
@@ -204,10 +204,10 @@ export default function SecurityPage() {
           <h2 className="text-[26px] leading-[1.16] mb-4">
             {SECURITY_PAGE_SECTIONS.sharedResponsibility.title}
           </h2>
-          <p className="text-[15px] text-structural leading-relaxed mb-3">
+          <p className="cm-copy text-structural leading-relaxed mb-3">
             {SECURITY_PAGE_SECTIONS.sharedResponsibility.body}
           </p>
-          <p className="text-[15px] text-structural leading-relaxed">
+          <p className="cm-copy text-structural leading-relaxed">
             Specific contractual security commitments, data-processing terms,
             and incident notification timelines are defined in your customer
             agreement, not on this page.
@@ -221,7 +221,7 @@ export default function SecurityPage() {
           <h2 className="text-[26px] leading-[1.16] mb-4">
             How to request materials for procurement.
           </h2>
-          <p className="text-[15px] text-structural leading-relaxed mb-6">
+          <p className="cm-copy text-structural leading-relaxed mb-6">
             For questionnaires, subprocessors, architecture overviews, or other
             security documentation needed during active procurement, use the
             procurement path or contact the security mailbox.
@@ -267,7 +267,7 @@ export default function SecurityPage() {
           <h2 className="section-h2 section-h2--lg mb-4">
             {SECURITY_PAGE_SECTIONS.productVsVendor.title}
           </h2>
-          <p className="text-[15px] text-structural leading-relaxed">
+          <p className="cm-copy text-structural leading-relaxed">
             {SECURITY_PAGE_SECTIONS.productVsVendor.body}
           </p>
         </Reveal>
@@ -276,7 +276,7 @@ export default function SecurityPage() {
             <h3 className="text-[20px] leading-[1.2] mb-4">
               Controls and requirements stay linked for review.
             </h3>
-            <p className="text-[15px] text-structural leading-relaxed mb-4">
+            <p className="cm-copy text-structural leading-relaxed mb-4">
               The product shows control ownership, criticality, status,
               implementation context, known exceptions, mapped requirements, and
               validation dates so access and evidence decisions can be reviewed

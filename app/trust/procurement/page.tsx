@@ -10,7 +10,7 @@ import { procurementContent } from "@/lib/trust-corporate";
 export const metadata = pageMetadata(
   "Procurement",
   "Request NDA, DPA, MSA, security questionnaire, subprocessor list, architecture overview, and related CertaMaris procurement materials.",
-  "/trust/procurement"
+  "/trust/procurement",
 );
 
 export default function ProcurementPage() {
@@ -31,7 +31,9 @@ export default function ProcurementPage() {
                 href="/security"
                 className="rounded-md border border-navy/10 bg-white/70 p-3 transition hover:border-ocean/35 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ocean focus-visible:ring-offset-2"
               >
-                <span className="block text-[14px] font-semibold text-navy">Public security controls</span>
+                <span className="block text-[14px] font-semibold text-navy">
+                  Public security controls
+                </span>
                 <span className="mt-1 block text-[12.5px] leading-5 text-structural">
                   Review implemented, planned, and unclaimed security posture.
                 </span>
@@ -40,18 +42,24 @@ export default function ProcurementPage() {
                 href="/trust/assurance-model"
                 className="rounded-md border border-navy/10 bg-white/70 p-3 transition hover:border-ocean/35 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ocean focus-visible:ring-offset-2"
               >
-                <span className="block text-[14px] font-semibold text-navy">Assurance model one-pager</span>
+                <span className="block text-[14px] font-semibold text-navy">
+                  Assurance model one-pager
+                </span>
                 <span className="mt-1 block text-[12.5px] leading-5 text-structural">
-                  Trace requirement, evidence, finding, action, and release boundaries.
+                  Trace requirement, evidence, finding, action, and release
+                  boundaries.
                 </span>
               </a>
               <a
                 href={procurementContent.requestHref}
                 className="rounded-md border border-ocean/20 bg-ocean/5 p-3 transition hover:border-ocean/45 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ocean focus-visible:ring-offset-2"
               >
-                <span className="block text-[14px] font-semibold text-navy">{procurementContent.requestLabel}</span>
+                <span className="block text-[14px] font-semibold text-navy">
+                  {procurementContent.requestLabel}
+                </span>
                 <span className="mt-1 block text-[12.5px] leading-5 text-structural">
-                  Send organization context and the document list through the routed request.
+                  Send organization context and the document list through the
+                  routed request.
                 </span>
               </a>
             </div>
@@ -71,13 +79,17 @@ export default function ProcurementPage() {
 
         <Reveal className="max-w-2xl mb-10">
           <Eyebrow>Start here</Eyebrow>
-          <h2 className="text-[26px] leading-[1.16] mb-4">Request the package you need</h2>
-          <p className="text-[15px] text-structural leading-relaxed mb-6">
-            Use the contact form with procurement intent, or email sales / security with your organization and document
-            list.
+          <h2 className="text-[26px] leading-[1.16] mb-4">
+            Request the package you need
+          </h2>
+          <p className="cm-copy text-structural leading-relaxed mb-6">
+            Use the contact form with procurement intent, or email sales /
+            security with your organization and document list.
           </p>
           <div className="flex flex-wrap gap-3 mb-4">
-            <Button href={procurementContent.requestHref}>{procurementContent.requestLabel}</Button>
+            <Button href={procurementContent.requestHref}>
+              {procurementContent.requestLabel}
+            </Button>
             <Button href="/trust/assurance-model" variant="secondary">
               Assurance model one-pager
             </Button>
@@ -125,21 +137,29 @@ export default function ProcurementPage() {
       <Section surface="paper" spacing="compact">
         <Reveal className="max-w-2xl mb-10">
           <Eyebrow>Materials</Eyebrow>
-          <h2 className="text-[28px] sm:text-[32px] leading-[1.14] mb-3">What you can request</h2>
-          <p className="text-[15px] text-structural leading-relaxed">
-            Items below are requestable during qualified evaluation. Public legal documents and the complete PDF legal
-            library are available from the legal library; signed customer-specific materials remain negotiated.
+          <h2 className="text-[28px] sm:text-[32px] leading-[1.14] mb-3">
+            What you can request
+          </h2>
+          <p className="cm-copy text-structural leading-relaxed">
+            Items below are requestable during qualified evaluation. Public
+            legal documents and the complete PDF legal library are available
+            from the legal library; signed customer-specific materials remain
+            negotiated.
           </p>
           <p className="mt-4 text-[14px] text-structural leading-relaxed">
-            Execution templates in the library are unsigned templates for review. They are not executed customer
-            agreements, issued legal holds, completed corporate resolutions, or individualized contracts.
+            Execution templates in the library are unsigned templates for
+            review. They are not executed customer agreements, issued legal
+            holds, completed corporate resolutions, or individualized contracts.
           </p>
         </Reveal>
         <RevealGroup className="grid gap-4 sm:grid-cols-2" stagger={0.04}>
           {procurementContent.materials.map((item) => (
-            <div key={item.title} className="premium-card flex flex-col gap-3 p-5">
+            <div
+              key={item.title}
+              className="premium-card flex flex-col gap-3 p-5"
+            >
               <div className="flex items-start justify-between gap-3">
-                <h3 className="text-[15.5px] font-semibold">
+                <h3 className="cm-subheading font-semibold">
                   {"href" in item && item.href ? (
                     <a href={item.href} className="hover:text-ocean">
                       {item.title}
@@ -150,9 +170,14 @@ export default function ProcurementPage() {
                 </h3>
                 <StatusBadge trustStatus={item.status} />
               </div>
-              <p className="text-[14px] leading-relaxed text-structural">{item.body}</p>
+              <p className="text-[14px] leading-relaxed text-structural">
+                {item.body}
+              </p>
               {"href" in item && item.href ? (
-                <a href={item.href} className="text-[13.5px] font-semibold text-ocean hover:underline">
+                <a
+                  href={item.href}
+                  className="text-[13.5px] font-semibold text-ocean hover:underline"
+                >
                   Open leave-behind
                 </a>
               ) : null}
@@ -164,7 +189,9 @@ export default function ProcurementPage() {
       <Section spacing="compact">
         <Reveal className="max-w-2xl mb-8">
           <Eyebrow>Process</Eyebrow>
-          <h2 className="text-[26px] leading-[1.16]">How procurement requests are handled</h2>
+          <h2 className="text-[26px] leading-[1.16]">
+            How procurement requests are handled
+          </h2>
         </Reveal>
         <ol className="max-w-3xl space-y-4">
           {procurementContent.howItWorks.map((step, index) => (
@@ -172,7 +199,7 @@ export default function ProcurementPage() {
               <span className="font-mono text-[13px] text-ocean shrink-0 pt-0.5">
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <p className="text-[14.5px] text-structural leading-relaxed">{step}</p>
+              <p className="cm-copy text-structural leading-relaxed">{step}</p>
             </Reveal>
           ))}
         </ol>

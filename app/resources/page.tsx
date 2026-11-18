@@ -69,7 +69,7 @@ export default function ResourcesPage() {
             <h2 className="section-h2 section-h2--lg mb-5">
               Each explainer points back to an operating workflow.
             </h2>
-            <p className="text-[15.5px] text-structural leading-relaxed">
+            <p className="cm-copy text-structural leading-relaxed">
               The resource library is more useful when readers can see where the
               concept lives: requirement mapping, evidence sufficiency,
               findings, risk decisions, corrective actions, readiness packages,
@@ -143,7 +143,7 @@ export default function ResourcesPage() {
           <h2 className="section-h2 section-h2--lg">
             Search, filter, and read.
           </h2>
-          <p className="text-[15px] text-structural mt-3 leading-relaxed">
+          <p className="cm-copy text-structural mt-3 leading-relaxed">
             Filter by topic, tag, or type. Also see the{" "}
             <Link
               href="/glossary"

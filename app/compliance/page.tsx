@@ -115,7 +115,7 @@ export default function CompliancePage() {
           {complianceNavLinks.map((item) => (
             <Reveal key={item.href}>
               <Link href={item.href} className="premium-card block h-full p-5">
-                <h3 className="text-[15px] font-semibold text-navy mb-2">
+                <h3 className="cm-subheading font-semibold text-navy mb-2">
                   {item.title}
                 </h3>
                 <p className="text-[13.5px] text-structural leading-relaxed mb-3">
@@ -139,7 +139,7 @@ export default function CompliancePage() {
             </h2>
           </Reveal>
           <Reveal delay={0.06} className="max-w-2xl space-y-4">
-            <p className="text-[15.5px] text-structural leading-relaxed">
+            <p className="cm-copy text-structural leading-relaxed">
               IMO Resolution MSC.428(98) encourages administrations to ensure
               cyber risks are appropriately addressed in existing safety
               management systems, no later than the first annual verification of
@@ -165,7 +165,7 @@ export default function CompliancePage() {
             <h2 className="text-[24px] leading-[1.2]">IACS UR E26 &amp; E27</h2>
           </Reveal>
           <Reveal delay={0.06} className="max-w-2xl space-y-4">
-            <p className="text-[15.5px] text-structural leading-relaxed">
+            <p className="cm-copy text-structural leading-relaxed">
               IACS Unified Requirements E26 and E27 target cyber resilience at
               design and construction for new construction contracts signed on
               or after 1 July 2024. Ship-level (E26) and systems/equipment-level
@@ -228,7 +228,7 @@ export default function CompliancePage() {
           {resourceLinks.map((item) => (
             <Reveal key={item.href}>
               <Link href={item.href} className="premium-card block h-full p-5">
-                <h3 className="text-[15px] font-semibold text-navy mb-2">
+                <h3 className="cm-subheading font-semibold text-navy mb-2">
                   {item.title}
                 </h3>
                 <p className="text-[13.5px] text-structural leading-relaxed mb-3">
@@ -251,7 +251,7 @@ export default function CompliancePage() {
               Mapped requirements become structured work — not a product claim
               of compliance.
             </h2>
-            <p className="text-[15.5px] text-structural leading-relaxed mb-4">
+            <p className="cm-copy text-structural leading-relaxed mb-4">
               Where teams use CertaMaris, source requirements connect to control
               objectives, implementation notes, evidence, exceptions, validation
               history, and coverage status so reviewers can see what a clause

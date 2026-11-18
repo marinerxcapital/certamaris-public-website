@@ -23,8 +23,12 @@ export const metadata = pageMetadata(
   FOUNDER_SHORT_BIO,
   "/about/leadership",
   {
-    keywords: ["Skyler Brown", "CertaMaris founder", "maritime cyber compliance leadership"],
-  }
+    keywords: [
+      "Skyler Brown",
+      "CertaMaris founder",
+      "maritime cyber compliance leadership",
+    ],
+  },
 );
 
 export default function LeadershipPage() {
@@ -61,8 +65,12 @@ export default function LeadershipPage() {
                 sizes="(min-width: 1024px) 360px, (min-width: 640px) 320px, 85vw"
               />
               <div className="mt-3 text-center lg:text-left">
-                <p className="text-[15px] font-semibold text-navy">{FOUNDER_NAME}</p>
-                <p className="text-[13.5px] text-structural">{FOUNDER_TITLE_LONG}</p>
+                <p className="cm-copy font-semibold text-navy">
+                  {FOUNDER_NAME}
+                </p>
+                <p className="text-[13.5px] text-structural">
+                  {FOUNDER_TITLE_LONG}
+                </p>
               </div>
             </div>
           </Reveal>
@@ -72,13 +80,16 @@ export default function LeadershipPage() {
             <h2 className="mb-2 text-[28px] leading-[1.12] sm:text-[34px]">
               {FOUNDER_NAME}
             </h2>
-            <p className="mb-6 text-[15px] font-medium text-ocean">
+            <p className="mb-6 cm-copy font-medium text-ocean">
               {FOUNDER_TITLE}, CertaMaris
             </p>
 
             <div className="mb-8 space-y-4">
               {bioParagraphs.map((paragraph) => (
-                <p key={paragraph.slice(0, 48)} className="text-[15.5px] leading-relaxed text-structural">
+                <p
+                  key={paragraph.slice(0, 48)}
+                  className="cm-copy leading-relaxed text-structural"
+                >
                   {paragraph}
                 </p>
               ))}
@@ -86,7 +97,10 @@ export default function LeadershipPage() {
 
             <div className="mb-8">
               <Eyebrow>Credentials</Eyebrow>
-              <ul className="mt-1 flex flex-wrap gap-2" aria-label="Verified credentials">
+              <ul
+                className="mt-1 flex flex-wrap gap-2"
+                aria-label="Verified credentials"
+              >
                 {FOUNDER_CREDENTIALS.map((item) => (
                   <li
                     key={item}
@@ -99,7 +113,9 @@ export default function LeadershipPage() {
             </div>
 
             <div className="mb-8 flex flex-wrap gap-3">
-              <Button href={leadershipContent.demoHref}>{leadershipContent.demoLabel}</Button>
+              <Button href={leadershipContent.demoHref}>
+                {leadershipContent.demoLabel}
+              </Button>
               <Button href={leadershipContent.aboutHref} variant="secondary">
                 About CertaMaris
               </Button>
@@ -124,7 +140,9 @@ export default function LeadershipPage() {
           <h2 className="mb-4 text-[26px] leading-[1.16] sm:text-[30px]">
             Built for fragmented compliance records.
           </h2>
-          <p className="text-[15.5px] leading-relaxed text-structural">{leadershipContent.whyFounded}</p>
+          <p className="cm-copy leading-relaxed text-structural">
+            {leadershipContent.whyFounded}
+          </p>
         </Reveal>
       </Section>
 
@@ -132,8 +150,16 @@ export default function LeadershipPage() {
         eyebrow="Next step"
         title="See how CertaMaris structures maritime cyber compliance work."
         description="Request a readiness conversation, or read more about the company mission and product philosophy."
-        primary={{ label: leadershipContent.demoLabel, href: leadershipContent.demoHref, variant: "primary" }}
-        secondary={{ label: "About CertaMaris", href: leadershipContent.aboutHref, variant: "secondary" }}
+        primary={{
+          label: leadershipContent.demoLabel,
+          href: leadershipContent.demoHref,
+          variant: "primary",
+        }}
+        secondary={{
+          label: "About CertaMaris",
+          href: leadershipContent.aboutHref,
+          variant: "secondary",
+        }}
         tertiary={false}
       />
     </>

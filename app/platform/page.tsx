@@ -17,7 +17,7 @@ import { productProofScreens } from "@/lib/product-screens";
 export const metadata = pageMetadata(
   "Platform",
   "CertaMaris platform hierarchy: company, fleet, and vessel portals with assessments, evidence, findings, plans, intelligence, reports, and integrations.",
-  "/platform"
+  "/platform",
 );
 
 const showcaseBeats = [
@@ -87,9 +87,9 @@ export default function PlatformPage() {
           <h2 className="section-h2 section-h2--lg">
             Company & fleet → vessel → controlled work objects.
           </h2>
-          <p className="mt-4 text-[15px] leading-relaxed text-structural">
-            Human users receive individual auditable identities. CertaMaris does not advertise a shared
-            vessel password model.
+          <p className="mt-4 cm-copy leading-relaxed text-structural">
+            Human users receive individual auditable identities. CertaMaris does
+            not advertise a shared vessel password model.
           </p>
         </Reveal>
         <ol className="platform-hierarchy-spine">
@@ -99,12 +99,14 @@ export default function PlatformPage() {
                 {String(index + 1).padStart(2, "0")}
               </span>
               <div className="min-w-0">
-                <h3 className="text-[17px] font-semibold">
+                <h3 className="cm-subheading font-semibold">
                   <Link href={level.href} className="hover:text-ocean">
                     {level.title}
                   </Link>
                 </h3>
-                <p className="mt-1 text-[14.5px] leading-relaxed text-structural">{level.summary}</p>
+                <p className="mt-1 cm-copy leading-relaxed text-structural">
+                  {level.summary}
+                </p>
                 <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
                   {level.bullets.slice(0, 3).map((bullet) => (
                     <li key={bullet} className="text-[13px] text-navy/75">
@@ -134,19 +136,31 @@ export default function PlatformPage() {
           <h2 className="section-h2 section-h2--lg">
             Four moments that prove the chain is real.
           </h2>
-          <p className="mt-4 text-[15px] leading-relaxed text-structural">
-            Sanitized product captures — illustrative, not customer data or outcome guarantees.
+          <p className="mt-4 cm-copy leading-relaxed text-structural">
+            Sanitized product captures — illustrative, not customer data or
+            outcome guarantees.
           </p>
         </Reveal>
         <div className="grid gap-8 lg:grid-cols-2">
           {showcaseBeats.map((beat, index) => (
-            <Reveal key={beat.id} delay={index * 0.04} className="platform-beat">
+            <Reveal
+              key={beat.id}
+              delay={index * 0.04}
+              className="platform-beat"
+            >
               <p className="mb-3 font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-[#0e5a8a]">
                 Beat {String(index + 1).padStart(2, "0")}
               </p>
-              <h3 className="mb-2 text-[18px] font-semibold text-navy">{beat.title}</h3>
-              <p className="mb-4 text-[14.5px] leading-relaxed text-structural">{beat.body}</p>
-              <ProductExhibit {...beat.screen} sizes="(min-width: 1024px) 42vw, 100vw" />
+              <h3 className="mb-2 cm-subheading font-semibold text-navy">
+                {beat.title}
+              </h3>
+              <p className="mb-4 cm-copy leading-relaxed text-structural">
+                {beat.body}
+              </p>
+              <ProductExhibit
+                {...beat.screen}
+                sizes="(min-width: 1024px) 42vw, 100vw"
+              />
             </Reveal>
           ))}
         </div>
@@ -161,9 +175,12 @@ export default function PlatformPage() {
       <Section spacing="compact">
         <Reveal className="mb-8 max-w-2xl">
           <Eyebrow>Traceability</Eyebrow>
-          <h2 className="section-h2">The operating unit is the connected chain.</h2>
-          <p className="mt-4 text-[15px] leading-relaxed text-structural">
-            Not a separate dashboard for each step — one inspectable custody thread.
+          <h2 className="section-h2">
+            The operating unit is the connected chain.
+          </h2>
+          <p className="mt-4 cm-copy leading-relaxed text-structural">
+            Not a separate dashboard for each step — one inspectable custody
+            thread.
           </p>
         </Reveal>
         <AssuranceStepper variant="full" />
@@ -172,18 +189,27 @@ export default function PlatformPage() {
       <Section surface="paper" spacing="compact" id="modules">
         <Reveal className="mb-8 max-w-2xl">
           <Eyebrow>Modules</Eyebrow>
-          <h2 className="section-h2 section-h2--lg">Explore every platform surface.</h2>
-          <p className="mt-4 text-[15px] leading-relaxed text-structural">
-            Module pages describe the operating surface. Security and procurement pages carry the detailed
-            maturity, configuration, and NDA material labels.
+          <h2 className="section-h2 section-h2--lg">
+            Explore every platform surface.
+          </h2>
+          <p className="mt-4 cm-copy leading-relaxed text-structural">
+            Module pages describe the operating surface. Security and
+            procurement pages carry the detailed maturity, configuration, and
+            NDA material labels.
           </p>
           <p className="mt-3 text-[13.5px] leading-relaxed text-structural">
             Review current control status in{" "}
-            <Link href="/security" className="font-semibold text-ocean hover:underline">
+            <Link
+              href="/security"
+              className="font-semibold text-ocean hover:underline"
+            >
               Security
             </Link>{" "}
             and procurement material boundaries in{" "}
-            <Link href="/trust/procurement" className="font-semibold text-ocean hover:underline">
+            <Link
+              href="/trust/procurement"
+              className="font-semibold text-ocean hover:underline"
+            >
               Procurement
             </Link>
             .
@@ -225,8 +251,10 @@ export default function PlatformPage() {
               key={item.title}
               className="border-b border-navy/10 py-4 first:pt-0 sm:[&:nth-child(-n+2)]:pt-0"
             >
-              <h3 className="mb-1 text-[15px] font-semibold">{item.title}</h3>
-              <p className="text-[13.5px] leading-relaxed text-structural">{item.body}</p>
+              <h3 className="mb-1 cm-subheading font-semibold">{item.title}</h3>
+              <p className="text-[13.5px] leading-relaxed text-structural">
+                {item.body}
+              </p>
             </li>
           ))}
         </ul>

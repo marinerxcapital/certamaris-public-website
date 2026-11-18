@@ -21,7 +21,7 @@ import { aboutContent } from "@/lib/trust-corporate";
 export const metadata = pageMetadata(
   "About CertaMaris",
   "CertaMaris is maritime cyber compliance software connecting company, fleet, and vessel requirements, evidence, findings, and readiness reporting.",
-  "/about"
+  "/about",
 );
 
 export default function AboutPage() {
@@ -33,10 +33,7 @@ export default function AboutPage() {
         eyebrow={aboutContent.eyebrow}
         title={aboutContent.title}
         intro={aboutContent.intro}
-        breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "About" },
-        ]}
+        breadcrumbs={[{ label: "Home", href: "/" }, { label: "About" }]}
       />
 
       <PageOutline
@@ -54,9 +51,15 @@ export default function AboutPage() {
       <Section id="why-certamaris" spacing="compact">
         <Reveal className="max-w-3xl">
           <Eyebrow>{aboutContent.whyExists.eyebrow}</Eyebrow>
-          <h2 className="section-h2 section-h2--lg mb-5">{aboutContent.whyExists.title}</h2>
-          <p className="text-[15.5px] text-structural leading-relaxed mb-4">{aboutContent.whyExists.body}</p>
-          <p className="text-[15.5px] text-structural leading-relaxed">{aboutContent.mission}</p>
+          <h2 className="section-h2 section-h2--lg mb-5">
+            {aboutContent.whyExists.title}
+          </h2>
+          <p className="cm-copy text-structural leading-relaxed mb-4">
+            {aboutContent.whyExists.body}
+          </p>
+          <p className="cm-copy text-structural leading-relaxed">
+            {aboutContent.mission}
+          </p>
         </Reveal>
       </Section>
 
@@ -67,18 +70,27 @@ export default function AboutPage() {
           <h2 className="section-h2 section-h2--lg mb-4">
             {aboutContent.operatingModel.title}
           </h2>
-          <p className="text-[15.5px] text-structural leading-relaxed">{aboutContent.operatingModel.intro}</p>
+          <p className="cm-copy text-structural leading-relaxed">
+            {aboutContent.operatingModel.intro}
+          </p>
         </Reveal>
         <RevealGroup className="grid sm:grid-cols-3 gap-5" stagger={0.05}>
           {aboutContent.operatingModel.levels.map((level) => (
             <div key={level.title} className="premium-card p-6">
-              <h3 className="text-[16.5px] font-semibold mb-2">{level.title}</h3>
-              <p className="text-[14.5px] text-structural leading-relaxed">{level.body}</p>
+              <h3 className="text-[16.5px] font-semibold mb-2">
+                {level.title}
+              </h3>
+              <p className="cm-copy text-structural leading-relaxed">
+                {level.body}
+              </p>
             </div>
           ))}
         </RevealGroup>
         <Reveal className="mt-8">
-          <Link href="/platform" className="text-[14px] font-semibold text-ocean hover:underline">
+          <Link
+            href="/platform"
+            className="text-[14px] font-semibold text-ocean hover:underline"
+          >
             View platform hierarchy
           </Link>
         </Reveal>
@@ -89,8 +101,9 @@ export default function AboutPage() {
         <Reveal className="max-w-2xl mb-10">
           <Eyebrow>Leadership</Eyebrow>
           <h2 className="section-h2 section-h2--lg mb-4">Leadership</h2>
-          <p className="text-[15.5px] text-structural leading-relaxed">
-            CertaMaris is founder-led. Additional executive profiles will be published as roles and individuals are confirmed.
+          <p className="cm-copy text-structural leading-relaxed">
+            CertaMaris is founder-led. Additional executive profiles will be
+            published as roles and individuals are confirmed.
           </p>
         </Reveal>
         <LeadershipGrid />
@@ -100,13 +113,17 @@ export default function AboutPage() {
       <Section id="product-philosophy" surface="paper">
         <Reveal className="max-w-2xl mb-12">
           <Eyebrow>Product philosophy</Eyebrow>
-          <h2 className="section-h2 section-h2--lg">How CertaMaris is built to behave.</h2>
+          <h2 className="section-h2 section-h2--lg">
+            How CertaMaris is built to behave.
+          </h2>
         </Reveal>
         <RevealGroup className="grid sm:grid-cols-2 gap-5" stagger={0.06}>
           {aboutContent.philosophy.map((item) => (
             <div key={item.title} className="premium-card p-6">
               <h3 className="text-[16.5px] font-semibold mb-2">{item.title}</h3>
-              <p className="text-[14px] text-structural leading-relaxed">{item.body}</p>
+              <p className="text-[14px] text-structural leading-relaxed">
+                {item.body}
+              </p>
             </div>
           ))}
         </RevealGroup>
@@ -120,13 +137,19 @@ export default function AboutPage() {
             <h2 className="section-h2 section-h2--lg mb-4">
               {aboutContent.doesNotReplace.title}
             </h2>
-            <p className="text-[15px] text-structural leading-relaxed">{aboutContent.doesNotReplace.intro}</p>
+            <p className="cm-copy text-structural leading-relaxed">
+              {aboutContent.doesNotReplace.intro}
+            </p>
           </Reveal>
           <RevealGroup className="grid gap-4" stagger={0.05}>
             {aboutContent.doesNotReplace.items.map((item) => (
               <div key={item.title} className="premium-card p-5">
-                <h3 className="mb-1.5 text-[16px] font-semibold">{item.title}</h3>
-                <p className="text-[14px] leading-relaxed text-structural">{item.body}</p>
+                <h3 className="mb-1.5 cm-subheading font-semibold">
+                  {item.title}
+                </h3>
+                <p className="text-[14px] leading-relaxed text-structural">
+                  {item.body}
+                </p>
               </div>
             ))}
           </RevealGroup>
@@ -137,13 +160,26 @@ export default function AboutPage() {
       <Section id="company-pages" surface="paper" spacing="compact">
         <Reveal className="max-w-2xl mb-10">
           <Eyebrow>Company pages</Eyebrow>
-          <h2 className="text-[26px] leading-[1.14]">Corporate, leadership, partners, careers, and press.</h2>
+          <h2 className="text-[26px] leading-[1.14]">
+            Corporate, leadership, partners, careers, and press.
+          </h2>
         </Reveal>
-        <RevealGroup className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4" stagger={0.04}>
+        <RevealGroup
+          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"
+          stagger={0.04}
+        >
           {aboutContent.relatedLinks.map((link) => (
-            <Link key={link.href} href={link.href} className="premium-card p-5 block hover:border-ocean/30">
-              <h3 className="text-[15.5px] font-semibold mb-1.5">{link.title}</h3>
-              <p className="text-[13.5px] text-structural leading-relaxed">{link.description}</p>
+            <Link
+              key={link.href}
+              href={link.href}
+              className="premium-card p-5 block hover:border-ocean/30"
+            >
+              <h3 className="cm-subheading font-semibold mb-1.5">
+                {link.title}
+              </h3>
+              <p className="text-[13.5px] text-structural leading-relaxed">
+                {link.description}
+              </p>
             </Link>
           ))}
         </RevealGroup>
@@ -165,9 +201,22 @@ export default function AboutPage() {
       <CtaBand
         title="See how CertaMaris maps to your fleet."
         description="Request a demo for a readiness walkthrough, explore the platform hierarchy, or sign in if you already have access."
-        primary={{ label: "Request a demo", href: "/contact?intent=demo", variant: "primary" }}
-        secondary={{ label: "View platform", href: "/platform", variant: "secondary" }}
-        tertiary={{ label: SIGN_IN_LABEL, href: APP_SIGN_IN_URL, external: true, variant: "ghost" }}
+        primary={{
+          label: "Request a demo",
+          href: "/contact?intent=demo",
+          variant: "primary",
+        }}
+        secondary={{
+          label: "View platform",
+          href: "/platform",
+          variant: "secondary",
+        }}
+        tertiary={{
+          label: SIGN_IN_LABEL,
+          href: APP_SIGN_IN_URL,
+          external: true,
+          variant: "ghost",
+        }}
       />
     </>
   );

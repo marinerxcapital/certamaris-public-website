@@ -5,12 +5,20 @@ import { PageHero } from "@/components/PageHero";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
 import type { TopicPage } from "@/lib/topics";
-import { breadcrumbListSchema, faqPageSchema, webPageSchema } from "@/lib/seo-schema";
+import {
+  breadcrumbListSchema,
+  faqPageSchema,
+  webPageSchema,
+} from "@/lib/seo-schema";
 
 export function TopicPageView({ topic }: { topic: TopicPage }) {
   const path = `/topics/${topic.slug}`;
   const schemas = [
-    webPageSchema({ title: topic.title, description: topic.metaDescription, path }),
+    webPageSchema({
+      title: topic.title,
+      description: topic.metaDescription,
+      path,
+    }),
     breadcrumbListSchema([
       { name: "Home", path: "/" },
       { name: "Topics", path: "/topics" },
@@ -39,8 +47,12 @@ export function TopicPageView({ topic }: { topic: TopicPage }) {
         <div className="max-w-2xl space-y-10">
           {topic.sections.map((section) => (
             <Reveal key={section.heading}>
-              <h2 className="text-[22px] sm:text-[25px] leading-tight mb-3">{section.heading}</h2>
-              <p className="text-[15.5px] text-structural leading-relaxed">{section.body}</p>
+              <h2 className="text-[22px] sm:text-[25px] leading-tight mb-3">
+                {section.heading}
+              </h2>
+              <p className="cm-copy text-structural leading-relaxed">
+                {section.body}
+              </p>
             </Reveal>
           ))}
         </div>
@@ -56,8 +68,12 @@ export function TopicPageView({ topic }: { topic: TopicPage }) {
             {topic.faqs.map((faq) => (
               <Reveal key={faq.question}>
                 <div className="premium-card p-5">
-                  <h3 className="text-[15.5px] font-semibold text-navy mb-2">{faq.question}</h3>
-                  <p className="text-[14.5px] text-structural leading-relaxed">{faq.answer}</p>
+                  <h3 className="cm-subheading font-semibold text-navy mb-2">
+                    {faq.question}
+                  </h3>
+                  <p className="cm-copy text-structural leading-relaxed">
+                    {faq.answer}
+                  </p>
                 </div>
               </Reveal>
             ))}
@@ -72,7 +88,10 @@ export function TopicPageView({ topic }: { topic: TopicPage }) {
             <ul className="mt-3 space-y-2">
               {topic.relatedResources.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="text-[14.5px] font-medium text-ocean hover:underline">
+                  <Link
+                    href={link.href}
+                    className="text-[14.5px] font-medium text-ocean hover:underline"
+                  >
                     {link.title}
                   </Link>
                 </li>
@@ -85,7 +104,10 @@ export function TopicPageView({ topic }: { topic: TopicPage }) {
               <ul className="mt-3 space-y-2">
                 {topic.relatedCompliance.map((link) => (
                   <li key={link.href}>
-                    <Link href={link.href} className="text-[14.5px] font-medium text-ocean hover:underline">
+                    <Link
+                      href={link.href}
+                      className="text-[14.5px] font-medium text-ocean hover:underline"
+                    >
                       {link.title}
                     </Link>
                   </li>
@@ -98,7 +120,10 @@ export function TopicPageView({ topic }: { topic: TopicPage }) {
             <ul className="mt-3 space-y-2">
               {topic.productLinks.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="text-[14.5px] font-medium text-ocean hover:underline">
+                  <Link
+                    href={link.href}
+                    className="text-[14.5px] font-medium text-ocean hover:underline"
+                  >
                     {link.title}
                   </Link>
                 </li>

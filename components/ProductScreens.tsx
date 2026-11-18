@@ -390,7 +390,7 @@ export function ProductExhibit({
     >
       <div className="overflow-hidden rounded-lg border border-navy/15 bg-white shadow-card">
         <div className="flex min-h-11 items-center justify-between gap-2 border-b border-navy/10 bg-paper px-3">
-          <span className="truncate font-mono text-[11px] uppercase tracking-[0.1em] text-structural">
+          <span className="cm-exhibit-title text-structural">
             Exhibit · {label}
           </span>
           {showFullResolution ? (
@@ -398,7 +398,7 @@ export function ProductExhibit({
               href={resolvedFullSrc}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex min-h-11 shrink-0 items-center rounded border border-transparent px-2 font-mono text-[10px] uppercase tracking-[0.08em] text-[#0b6597] underline-offset-2 hover:border-ocean/20 hover:bg-white hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ocean"
+              className="cm-exhibit-original inline-flex min-h-[44px] shrink-0 items-center rounded border border-transparent px-2 text-ocean underline-offset-2 hover:border-ocean/20 hover:bg-white hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ocean"
             >
               Full resolution<span aria-hidden="true"> ↗</span>
               <span className="sr-only">

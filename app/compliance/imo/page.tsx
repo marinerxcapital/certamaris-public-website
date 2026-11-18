@@ -6,13 +6,16 @@ import { PageHero } from "@/components/PageHero";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
 import { pageMetadata } from "@/lib/metadata";
-import { getFrameworksByCategory, REGULATORY_LAST_REVIEWED_LABEL } from "@/lib/regulatory";
+import {
+  getFrameworksByCategory,
+  REGULATORY_LAST_REVIEWED_LABEL,
+} from "@/lib/regulatory";
 import { breadcrumbListSchema, webPageSchema } from "@/lib/seo-schema";
 
 export const metadata = pageMetadata(
   "IMO Cyber Risk Instruments",
   "IMO MSC.428(98), ISM Code context, and MSC-FAL.1/Circ.3 guidelines — official metadata, operational implications, and honest CertaMaris mapping status.",
-  "/compliance/imo"
+  "/compliance/imo",
 );
 
 export default function ComplianceImoPage() {
@@ -23,7 +26,8 @@ export default function ComplianceImoPage() {
         data={[
           webPageSchema({
             title: "IMO Cyber Risk Instruments",
-            description: "MSC.428(98), ISM context, and MSC-FAL guidelines for maritime cyber risk management.",
+            description:
+              "MSC.428(98), ISM context, and MSC-FAL guidelines for maritime cyber risk management.",
             path: "/compliance/imo",
             dateModified: "2026-07-31",
           }),
@@ -47,18 +51,29 @@ export default function ComplianceImoPage() {
       <Section>
         <Reveal className="max-w-2xl mb-8">
           <Eyebrow>Last reviewed {REGULATORY_LAST_REVIEWED_LABEL}</Eyebrow>
-          <p className="text-[15.5px] text-structural leading-relaxed">
-            Cyber risk under IMO is SMS-shaped. These entries summarize instrument purpose, applicability notes, and
-            how CertaMaris supports related workflows without claiming certification or legal interpretation.
+          <p className="cm-copy text-structural leading-relaxed">
+            Cyber risk under IMO is SMS-shaped. These entries summarize
+            instrument purpose, applicability notes, and how CertaMaris supports
+            related workflows without claiming certification or legal
+            interpretation.
           </p>
           <div className="mt-4 flex flex-wrap gap-4 text-[14px]">
-            <Link href="/compliance/iacs" className="font-medium text-ocean hover:underline">
+            <Link
+              href="/compliance/iacs"
+              className="font-medium text-ocean hover:underline"
+            >
               IACS UR E26/E27 →
             </Link>
-            <Link href="/resources/imo-msc-428-98-explained" className="font-medium text-ocean hover:underline">
+            <Link
+              href="/resources/imo-msc-428-98-explained"
+              className="font-medium text-ocean hover:underline"
+            >
               Full MSC.428(98) explainer →
             </Link>
-            <Link href="/topics/imo-msc-428-98-compliance" className="font-medium text-ocean hover:underline">
+            <Link
+              href="/topics/imo-msc-428-98-compliance"
+              className="font-medium text-ocean hover:underline"
+            >
               Topic landing →
             </Link>
           </div>

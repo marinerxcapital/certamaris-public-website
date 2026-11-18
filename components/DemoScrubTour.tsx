@@ -36,12 +36,15 @@ export function DemoScrubTour() {
 
   useEffect(() => {
     if (!ready) return;
-    const beatId = persona?.demoBeatId ?? new URLSearchParams(window.location.search).get("beat");
+    const beatId =
+      persona?.demoBeatId ??
+      new URLSearchParams(window.location.search).get("beat");
     setIndex(getDemoScrubBeatIndex(beatId));
   }, [ready, persona?.demoBeatId]);
 
   const beat = DEMO_SCRUB_BEATS[index] ?? DEMO_SCRUB_BEATS[0];
-  const progress = DEMO_SCRUB_BEATS.length <= 1 ? 1 : index / (DEMO_SCRUB_BEATS.length - 1);
+  const progress =
+    DEMO_SCRUB_BEATS.length <= 1 ? 1 : index / (DEMO_SCRUB_BEATS.length - 1);
 
   const goTo = useCallback((next: number) => {
     const clamped = Math.max(0, Math.min(DEMO_SCRUB_BEATS.length - 1, next));
@@ -86,12 +89,12 @@ export function DemoScrubTour() {
     <div className="scrub-tour liquid-glass liquid-glass--strong lg-pad-md">
       <div className="flex flex-col gap-4 border-b border-navy/10 pb-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-[#0e5a8a]">
+          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-ocean-deep">
             Scrub tour · REQ → PKG
           </p>
           <p className="mt-1 text-[14px] text-structural">
-            Drag the rail or select a beat. Screens are sanitized product captures — not live
-            customer data or outcome guarantees.
+            Drag the rail or select a beat. Screens are sanitized product
+            captures — not live customer data or outcome guarantees.
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
@@ -105,8 +108,9 @@ export function DemoScrubTour() {
               {playing ? "Pause" : "Play tour"}
             </button>
           ) : null}
-          <span className="font-mono text-[12px] tabular-nums text-[#0e5a8a]">
-            {String(index + 1).padStart(2, "0")} / {String(DEMO_SCRUB_BEATS.length).padStart(2, "0")}
+          <span className="font-mono text-[12px] tabular-nums text-ocean-deep">
+            {String(index + 1).padStart(2, "0")} /{" "}
+            {String(DEMO_SCRUB_BEATS.length).padStart(2, "0")}
           </span>
         </div>
       </div>
@@ -135,7 +139,10 @@ export function DemoScrubTour() {
 
       <div className="scrub-rail mt-6" onKeyDown={onRailKeyDown}>
         <div className="scrub-track" aria-hidden="true">
-          <div className="scrub-track-fill" style={{ width: `${Math.max(4, progress * 100)}%` }} />
+          <div
+            className="scrub-track-fill"
+            style={{ width: `${Math.max(4, progress * 100)}%` }}
+          />
         </div>
         <input
           ref={scrubRef}
@@ -216,18 +223,26 @@ export function DemoScrubTour() {
 function BeatCopy({ beat }: { beat: (typeof DEMO_SCRUB_BEATS)[number] }) {
   return (
     <article className="scrub-copy">
-      <p className="font-mono text-[12px] font-semibold uppercase tracking-[0.14em] text-[#0e5a8a]">
+      <p className="font-mono text-[12px] font-semibold uppercase tracking-[0.14em] text-ocean-deep">
         {beat.index}
       </p>
-      <h3 className="mt-3 text-[22px] font-semibold leading-snug text-navy sm:text-[26px]">{beat.title}</h3>
-      <p className="mt-3 text-[15px] leading-relaxed text-structural">{beat.body}</p>
+      <h3 className="mt-3 text-[22px] font-semibold leading-snug text-navy sm:text-[26px]">
+        {beat.title}
+      </h3>
+      <p className="mt-3 cm-copy leading-relaxed text-structural">
+        {beat.body}
+      </p>
       <dl className="mt-5 grid gap-3 border-t border-navy/10 pt-4 sm:grid-cols-2">
         <div>
-          <dt className="font-mono text-[10.5px] uppercase tracking-[0.12em] text-ocean">Owner</dt>
+          <dt className="font-mono text-[10.5px] uppercase tracking-[0.12em] text-ocean">
+            Owner
+          </dt>
           <dd className="mt-1 text-[13.5px] text-navy">{beat.owner}</dd>
         </div>
         <div>
-          <dt className="font-mono text-[10.5px] uppercase tracking-[0.12em] text-ocean">Decision</dt>
+          <dt className="font-mono text-[10.5px] uppercase tracking-[0.12em] text-ocean">
+            Decision
+          </dt>
           <dd className="mt-1 text-[13.5px] text-navy">{beat.decision}</dd>
         </div>
       </dl>

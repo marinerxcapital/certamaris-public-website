@@ -19,13 +19,22 @@ export default function ContactDeliveryFailedPage() {
       />
       <Section spacing="compact">
         <div className="mx-auto max-w-2xl rounded-md border border-navy/10 bg-white p-6 shadow-sm sm:p-8">
-          <p className="text-[15px] leading-relaxed text-structural">
-            Email <a className="font-semibold text-ocean underline underline-offset-2" href={`mailto:${APP_SALES_EMAIL}`}>{APP_SALES_EMAIL}</a>{" "}
-            with the same details. Do not include passwords, authentication factors, recovery codes, or exploit payloads.
+          <p className="cm-copy leading-relaxed text-structural">
+            Email{" "}
+            <a
+              className="font-semibold text-ocean underline underline-offset-2"
+              href={`mailto:${APP_SALES_EMAIL}`}
+            >
+              {APP_SALES_EMAIL}
+            </a>{" "}
+            with the same details. Do not include passwords, authentication
+            factors, recovery codes, or exploit payloads.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Button href="/contact">Try the form again</Button>
-            <Button href="/" variant="secondary">Return home</Button>
+            <Button href="/" variant="secondary">
+              Return home
+            </Button>
           </div>
         </div>
       </Section>

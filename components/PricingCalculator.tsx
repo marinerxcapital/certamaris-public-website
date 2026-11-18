@@ -24,7 +24,9 @@ function hydrateFromQuery(): PricingCalculatorState {
 }
 
 export function PricingCalculator() {
-  const [input, setInput] = useState<PricingCalculatorState>(DEFAULT_PRICING_STATE);
+  const [input, setInput] = useState<PricingCalculatorState>(
+    DEFAULT_PRICING_STATE,
+  );
   const [copied, setCopied] = useState(false);
   const [hydrated, setHydrated] = useState(false);
 
@@ -41,18 +43,28 @@ export function PricingCalculator() {
 
   const estimate = useMemo(() => calculatePricingEstimate(input), [input]);
   const query = serializePricingSearchParams(estimate.state).toString();
-  const shareUrl = hydrated && typeof window !== "undefined" ? `${window.location.origin}/pricing?${query}` : `/pricing?${query}`;
-  const minimumApplies = estimate.billedVessels > estimate.state.contractedVessels;
+  const shareUrl =
+    hydrated && typeof window !== "undefined"
+      ? `${window.location.origin}/pricing?${query}`
+      : `/pricing?${query}`;
+  const minimumApplies =
+    estimate.billedVessels > estimate.state.contractedVessels;
   const invalid = !estimate.validation.valid;
 
   const update = (patch: Partial<PricingCalculatorState>) => {
     setCopied(false);
     setInput((current) => {
       const next = { ...current, ...patch };
-      if (patch.totalFleetVessels !== undefined && next.contractedVessels > patch.totalFleetVessels) {
+      if (
+        patch.totalFleetVessels !== undefined &&
+        next.contractedVessels > patch.totalFleetVessels
+      ) {
         next.contractedVessels = patch.totalFleetVessels;
       }
-      if (patch.contractedVessels !== undefined && patch.contractedVessels > next.totalFleetVessels) {
+      if (
+        patch.contractedVessels !== undefined &&
+        patch.contractedVessels > next.totalFleetVessels
+      ) {
         next.contractedVessels = next.totalFleetVessels;
       }
       return next;
@@ -73,7 +85,10 @@ export function PricingCalculator() {
   const quoteHref = `/contact?intent=procurement&fleet=${estimate.state.totalFleetVessels}&contracted=${estimate.state.contractedVessels}&tier=${estimate.tier.id}&estimatedAnnual=${estimate.annualTotalUsd}`;
 
   return (
-    <div className="liquid-glass liquid-glass--subtle lg-pad-lg" data-qa="pricing-calculator-v2">
+    <div
+      className="liquid-glass liquid-glass--subtle lg-pad-lg"
+      data-qa="pricing-calculator-v2"
+    >
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,0.82fr)] lg:items-start">
         <div>
           <div className="mb-3 flex flex-wrap items-center gap-2">
@@ -82,12 +97,16 @@ export function PricingCalculator() {
             </p>
             <StatusBadge status="caution" label="Non-binding estimate" />
           </div>
-          <h2 id="pricing-calculator-heading" className="section-h2 section-h2--lg mb-4">
+          <h2
+            id="pricing-calculator-heading"
+            className="section-h2 section-h2--lg mb-4"
+          >
             Estimate annual platform and optional assurance services.
           </h2>
-          <p className="max-w-2xl text-[15px] leading-relaxed text-structural">
-            Enter total fleet and contracted-vessel scope separately. The estimate uses published annual platform
-            pricing plus optional remote QA-reviewed reports or on-board assessment anchors.
+          <p className="max-w-2xl cm-copy leading-relaxed text-structural">
+            Enter total fleet and contracted-vessel scope separately. The
+            estimate uses published annual platform pricing plus optional remote
+            QA-reviewed reports or on-board assessment anchors.
           </p>
 
           <div
@@ -117,7 +136,9 @@ export function PricingCalculator() {
               </p>
             ) : null}
             <fieldset className="grid gap-3">
-              <legend className="text-[13.5px] font-semibold text-navy">Optional services</legend>
+              <legend className="text-[13.5px] font-semibold text-navy">
+                Optional services
+              </legend>
               <Toggle
                 id="remote-qa"
                 checked={estimate.state.remoteQaReports}
@@ -141,29 +162,56 @@ export function PricingCalculator() {
           aria-live="polite"
           className="rounded-md border border-ocean/20 bg-white/82 p-5 shadow-[0_10px_24px_rgba(11,42,74,0.06)]"
         >
-          <p className="font-mono text-[12px] uppercase tracking-[0.1em] text-ocean-deep">{estimate.tier.name}</p>
+          <p className="font-mono text-[12px] uppercase tracking-[0.1em] text-ocean-deep">
+            {estimate.tier.name}
+          </p>
           <p className="mt-2 font-display text-[34px] font-semibold leading-none text-navy sm:text-[40px]">
             {formatUsd(estimate.annualTotalUsd)}
-            <span className="ml-2 font-body text-[15px] font-normal text-structural">estimate</span>
+            <span className="ml-2 font-body text-[15px] font-normal text-structural">
+              estimate
+            </span>
           </p>
           <dl className="mt-4 grid gap-2 text-[13.5px] leading-relaxed text-structural">
-            <Line label="Platform fee" value={formatUsd(estimate.platformAnnualUsd)} />
-            <Line label="Contracted-vessel licenses" value={formatUsd(estimate.licenseAnnualUsd)} />
-            <Line label="Remote QA-reviewed reports" value={formatUsd(estimate.remoteQaAnnualUsd)} />
-            <Line label="On-board assessments" value={formatUsd(estimate.onboardAnnualUsd)} />
-            <Line label="Contracted / total vessels" value={`${estimate.state.contractedVessels} / ${estimate.state.totalFleetVessels}`} />
+            <Line
+              label="Platform fee"
+              value={formatUsd(estimate.platformAnnualUsd)}
+            />
+            <Line
+              label="Contracted-vessel licenses"
+              value={formatUsd(estimate.licenseAnnualUsd)}
+            />
+            <Line
+              label="Remote QA-reviewed reports"
+              value={formatUsd(estimate.remoteQaAnnualUsd)}
+            />
+            <Line
+              label="On-board assessments"
+              value={formatUsd(estimate.onboardAnnualUsd)}
+            />
+            <Line
+              label="Contracted / total vessels"
+              value={`${estimate.state.contractedVessels} / ${estimate.state.totalFleetVessels}`}
+            />
           </dl>
           <p className="mt-3 text-[12.5px] leading-relaxed text-structural">
-            {formatUsd(estimate.tier.platformFeeUsd)} platform + {formatUsd(estimate.tier.perVesselUsd)} x{" "}
-            {estimate.billedVessels} billed vessel{estimate.billedVessels === 1 ? "" : "s"}.
-            {minimumApplies ? ` ${estimate.tier.name} minimum applies.` : " Billing matches contracted-vessel count."}
+            {formatUsd(estimate.tier.platformFeeUsd)} platform +{" "}
+            {formatUsd(estimate.tier.perVesselUsd)} x {estimate.billedVessels}{" "}
+            billed vessel{estimate.billedVessels === 1 ? "" : "s"}.
+            {minimumApplies
+              ? ` ${estimate.tier.name} minimum applies.`
+              : " Billing matches contracted-vessel count."}
           </p>
           <p className="mt-3 rounded-md border border-navy/10 bg-paper/70 p-3 text-[12.5px] leading-relaxed text-structural">
-            This is a non-binding estimate, not a formal quote. Final pricing is subject to confirmed scope, contract
-            terms, taxes, travel, expenses, and customer-specific services.
+            This is a non-binding estimate, not a formal quote. Final pricing is
+            subject to confirmed scope, contract terms, taxes, travel, expenses,
+            and customer-specific services.
           </p>
           <div className="mt-5 flex flex-wrap gap-3">
-            <Button href={quoteHref} aria-disabled={invalid} className={invalid ? "pointer-events-none opacity-55" : ""}>
+            <Button
+              href={quoteHref}
+              aria-disabled={invalid}
+              className={invalid ? "pointer-events-none opacity-55" : ""}
+            >
               Scope this estimate
             </Button>
             <Button href="#package-comparison" variant="secondary">
@@ -200,12 +248,18 @@ function VesselInput({
   const hintId = `${id}-hint`;
   const numberId = `${id}-exact`;
   const valueText =
-    value >= PRICING_RANGE_MAX_VESSELS ? `${value} vessels, range at 60 plus` : `${value} vessels`;
+    value >= PRICING_RANGE_MAX_VESSELS
+      ? `${value} vessels, range at 60 plus`
+      : `${value} vessels`;
 
   return (
     <div className="grid gap-3">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <label id={labelId} htmlFor={id} className="text-[13.5px] font-semibold text-navy">
+        <label
+          id={labelId}
+          htmlFor={id}
+          className="text-[13.5px] font-semibold text-navy"
+        >
           {label}
         </label>
         <p id={hintId} className="font-mono text-[12px] text-structural">
@@ -227,7 +281,9 @@ function VesselInput({
           aria-valuenow={rangeValue}
           aria-valuetext={valueText}
           className="w-full accent-[#1478B8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ocean focus-visible:ring-offset-2"
-          onChange={(event) => onChange(clampVesselCount(Number(event.target.value)))}
+          onChange={(event) =>
+            onChange(clampVesselCount(Number(event.target.value)))
+          }
         />
         <input
           id={numberId}
@@ -275,8 +331,12 @@ function Toggle({
         className="mt-1 h-4 w-4 accent-[#1478B8] focus-visible:outline focus-visible:outline-2 focus-visible:outline-ocean"
       />
       <span>
-        <span className="block text-[14px] font-semibold text-navy">{label}</span>
-        <span className="mt-0.5 block text-[12.5px] leading-relaxed text-structural">{detail}</span>
+        <span className="block text-[14px] font-semibold text-navy">
+          {label}
+        </span>
+        <span className="mt-0.5 block text-[12.5px] leading-relaxed text-structural">
+          {detail}
+        </span>
       </span>
     </label>
   );

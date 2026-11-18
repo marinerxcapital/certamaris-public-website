@@ -2,7 +2,11 @@
 
 import { useEffect, useMemo, useState, type FormEvent } from "react";
 import { useSearchParams } from "next/navigation";
-import { APP_SALES_EMAIL, APP_SCHEDULING_URL, NEXT_PUBLIC_CONTACT_ENDPOINT } from "@/lib/constants";
+import {
+  APP_SALES_EMAIL,
+  APP_SCHEDULING_URL,
+  NEXT_PUBLIC_CONTACT_ENDPOINT,
+} from "@/lib/constants";
 import { CONTACT_FIELD_LIMITS } from "@/lib/contact-request";
 import {
   DOCUMENT_REQUEST_OPTIONS,
@@ -27,10 +31,16 @@ type ContactFormProps = {
   className?: string;
 };
 
-export function ContactForm({ defaultIntent = "demo", lockIntent = false, className = "" }: ContactFormProps) {
+export function ContactForm({
+  defaultIntent = "demo",
+  lockIntent = false,
+  className = "",
+}: ContactFormProps) {
   const searchParams = useSearchParams();
   const urlIntent = searchParams.get("intent");
-  const [intentId, setIntentId] = useState(() => getContactIntent(urlIntent ?? defaultIntent).id);
+  const [intentId, setIntentId] = useState(
+    () => getContactIntent(urlIntent ?? defaultIntent).id,
+  );
   const intent = useMemo(() => getContactIntent(intentId), [intentId]);
   const demoLite = Boolean(intent.demoLite);
   const fullSalesFields = intent.salesFields && !demoLite;
@@ -66,7 +76,9 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
 
     const elapsed = Date.now() - formStartedAt;
     if (elapsed < MIN_SUBMIT_MS) {
-      setErrors({ form: "Please take a moment to complete the form before submitting." });
+      setErrors({
+        form: "Please take a moment to complete the form before submitting.",
+      });
       return;
     }
 
@@ -80,28 +92,35 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
     const objective = String(data.get("objective") ?? "").trim();
     const timeline = String(data.get("timeline") ?? "").trim();
     const currentProcess = String(data.get("currentProcess") ?? "").trim();
-    const documentRequestType = String(data.get("documentRequestType") ?? "").trim();
+    const documentRequestType = String(
+      data.get("documentRequestType") ?? "",
+    ).trim();
     const message = String(data.get("message") ?? "").trim();
     const documentInterest = data.get("documentInterest") === "on";
 
     if (!name) nextErrors.name = "Enter your name.";
     if (!email) nextErrors.email = "Enter a work email.";
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) nextErrors.email = "Enter a valid email address.";
-    if ((intent.salesFields || demoLite) && !company) nextErrors.company = "Enter your company name.";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+      nextErrors.email = "Enter a valid email address.";
+    if ((intent.salesFields || demoLite) && !company)
+      nextErrors.company = "Enter your company name.";
     if (demoLite) {
       if (!fleetSize) nextErrors.fleetSize = "Select a fleet size.";
       if (!objective) nextErrors.objective = "Select a primary objective.";
-      if (message.length > 4000) nextErrors.message = "Keep the note under 4,000 characters.";
+      if (message.length > 4000)
+        nextErrors.message = "Keep the note under 4,000 characters.";
     } else if (fullSalesFields) {
       if (!fleetSize) nextErrors.fleetSize = "Select a fleet size.";
       if (!vesselCount) nextErrors.vesselCount = "Select a vessel count range.";
       if (!objective) nextErrors.objective = "Select an objective.";
       if (!timeline) nextErrors.timeline = "Select a timeline.";
       if (!message) nextErrors.message = "Tell us briefly what you need.";
-      else if (message.length > 4000) nextErrors.message = "Keep the note under 4,000 characters.";
+      else if (message.length > 4000)
+        nextErrors.message = "Keep the note under 4,000 characters.";
     } else {
       if (!message) nextErrors.message = "Tell us briefly what you need.";
-      else if (message.length > 4000) nextErrors.message = "Keep the note under 4,000 characters.";
+      else if (message.length > 4000)
+        nextErrors.message = "Keep the note under 4,000 characters.";
     }
 
     setErrors(nextErrors);
@@ -152,8 +171,13 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
       if (documentRequestType && documentRequestType !== "None") {
         payload.documentRequestType = documentRequestType;
       }
-      if (documentInterest || intent.id === "security" || intent.id === "procurement") {
-        payload.securityPackageIntent = documentInterest || intent.id === "security";
+      if (
+        documentInterest ||
+        intent.id === "security" ||
+        intent.id === "procurement"
+      ) {
+        payload.securityPackageIntent =
+          documentInterest || intent.id === "security";
       }
 
       const response = await fetch(endpoint, {
@@ -187,8 +211,7 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
       form.reset();
     } catch {
       setErrors({
-        form:
-          "The website could not deliver this request. Please email skyler@certamaris.com or sales@certamaris.com with the same details.",
+        form: "The website could not deliver this request. Please email skyler@certamaris.com or sales@certamaris.com with the same details.",
       });
       setStatus("error");
     }
@@ -203,20 +226,32 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
       : null;
 
     return (
-      <div role="status" className={`liquid-glass liquid-glass--strong lg-pad-lg ${className}`} tabIndex={-1}>
-        <p className="font-mono text-[12px] uppercase tracking-[0.1em] text-ocean mb-2">Request received</p>
-        <h3 className="text-[20px] font-semibold mb-2">Thanks. Your request has been sent.</h3>
+      <div
+        role="status"
+        className={`liquid-glass liquid-glass--strong lg-pad-lg ${className}`}
+        tabIndex={-1}
+      >
+        <p className="font-mono text-[12px] uppercase tracking-[0.1em] text-ocean mb-2">
+          Request received
+        </p>
+        <h3 className="text-[20px] font-semibold mb-2">
+          Thanks. Your request has been sent.
+        </h3>
         {displayTime && (
-          <p className="text-[13px] text-structural mb-3 font-mono">Submitted {displayTime}</p>
+          <p className="text-[13px] text-structural mb-3 font-mono">
+            Submitted {displayTime}
+          </p>
         )}
-        <p className="mb-3 text-[14.5px] leading-relaxed text-structural">
+        <p className="mb-3 cm-copy leading-relaxed text-structural">
           {hasScheduling
             ? "Your request was received. You can also pick a time with the scheduling link below."
             : "Submit your details and we will contact you to arrange a suitable time. This form does not book a calendar slot by itself."}
         </p>
-        <p className="mb-4 text-[14.5px] leading-relaxed text-structural">
-          Your request was tagged <span className="font-mono text-navy">{intent.subjectTag}</span> for internal routing.
-          We will follow up using the email you provided, as soon as practical.
+        <p className="mb-4 cm-copy leading-relaxed text-structural">
+          Your request was tagged{" "}
+          <span className="font-mono text-navy">{intent.subjectTag}</span> for
+          internal routing. We will follow up using the email you provided, as
+          soon as practical.
         </p>
         {hasScheduling ? (
           <p className="text-[14px] leading-relaxed text-structural">
@@ -233,8 +268,9 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
           </p>
         ) : demoLite ? (
           <p className="rounded-md border border-navy/10 bg-paper/80 p-3 text-[13px] leading-relaxed text-structural">
-            Self-serve scheduling is not configured on this site yet. After qualification, a booking link can be added
-            here without changing this request path.
+            Self-serve scheduling is not configured on this site yet. After
+            qualification, a booking link can be added here without changing
+            this request path.
           </p>
         ) : null}
       </div>
@@ -252,16 +288,27 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
       aria-describedby="contact-form-note"
     >
       <div>
-        <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-ocean mb-2">{intent.eyebrow}</p>
-        <h2 className="text-[24px] sm:text-[28px] leading-[1.12] mb-2">{intent.title}</h2>
-        <p id="contact-form-note" className="text-[14px] leading-relaxed text-structural">
-          {intent.intro} This is a routed request, not a live chat or CRM portal.
+        <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-ocean mb-2">
+          {intent.eyebrow}
+        </p>
+        <h2 className="text-[24px] sm:text-[28px] leading-[1.12] mb-2">
+          {intent.title}
+        </h2>
+        <p
+          id="contact-form-note"
+          className="text-[14px] leading-relaxed text-structural"
+        >
+          {intent.intro} This is a routed request, not a live chat or CRM
+          portal.
         </p>
       </div>
 
       {!lockIntent && (
         <div>
-          <label htmlFor="intent" className="block text-[13.5px] font-medium text-navy mb-1.5">
+          <label
+            htmlFor="intent"
+            className="block text-[13.5px] font-medium text-navy mb-1.5"
+          >
             How can we help?
           </label>
           <select
@@ -294,7 +341,8 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
             })}
           </select>
           <p className="mt-1.5 text-[12.5px] leading-relaxed text-structural">
-            Changes the fields and routes the request with a subject tag for internal email handling.
+            Changes the fields and routes the request with a subject tag for
+            internal email handling.
           </p>
         </div>
       )}
@@ -302,10 +350,22 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
       {/* Honeypot field: hidden from sighted and screen-reader users, bots still fill it. */}
       <div
         aria-hidden="true"
-        style={{ position: "absolute", left: "-9999px", width: 1, height: 1, overflow: "hidden" }}
+        style={{
+          position: "absolute",
+          left: "-9999px",
+          width: 1,
+          height: 1,
+          overflow: "hidden",
+        }}
       >
         <label htmlFor="company_website">Company website</label>
-        <input type="text" id="company_website" name="company_website" tabIndex={-1} autoComplete="off" />
+        <input
+          type="text"
+          id="company_website"
+          name="company_website"
+          tabIndex={-1}
+          autoComplete="off"
+        />
       </div>
       <input type="hidden" name="formStartedAt" value={String(formStartedAt)} />
       <input type="hidden" name="idempotencyKey" value={idempotencyKey} />
@@ -417,14 +477,21 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
           </div>
 
           <div>
-            <label htmlFor="currentProcess" className="mb-1.5 block text-[13.5px] font-medium text-navy">
+            <label
+              htmlFor="currentProcess"
+              className="mb-1.5 block text-[13.5px] font-medium text-navy"
+            >
               Current process{" "}
               <span className="font-normal text-structural" aria-hidden="true">
                 (optional)
               </span>
             </label>
-            <p id="currentProcess-helper" className="mb-2 text-[12.5px] leading-relaxed text-structural">
-              How you track cyber evidence, findings, or readiness today (spreadsheets, SMS tools, email, etc.).
+            <p
+              id="currentProcess-helper"
+              className="mb-2 text-[12.5px] leading-relaxed text-structural"
+            >
+              How you track cyber evidence, findings, or readiness today
+              (spreadsheets, SMS tools, email, etc.).
             </p>
             <textarea
               id="currentProcess"
@@ -447,8 +514,14 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
               placeholder="Select if needed (optional)"
             />
             <div className="flex flex-col justify-end">
-              <div className="rounded-sm border px-3.5 py-3" style={{ borderColor: "var(--hairline-strong)" }}>
-                <label htmlFor="documentInterest" className="flex cursor-pointer items-start gap-3">
+              <div
+                className="rounded-sm border px-3.5 py-3"
+                style={{ borderColor: "var(--hairline-strong)" }}
+              >
+                <label
+                  htmlFor="documentInterest"
+                  className="flex cursor-pointer items-start gap-3"
+                >
                   <input
                     id="documentInterest"
                     name="documentInterest"
@@ -471,25 +544,32 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
         </>
       )}
 
-      {(intent.id === "security" || intent.id === "procurement") && !intent.salesFields && (
-        <SelectField
-          label="Document request type"
-          name="documentRequestType"
-          options={[...DOCUMENT_REQUEST_OPTIONS].filter((o) => o !== "None")}
-          helper="What materials or support do you need?"
-          required={false}
-          placeholder="Select document type (optional)"
-        />
-      )}
+      {(intent.id === "security" || intent.id === "procurement") &&
+        !intent.salesFields && (
+          <SelectField
+            label="Document request type"
+            name="documentRequestType"
+            options={[...DOCUMENT_REQUEST_OPTIONS].filter((o) => o !== "None")}
+            helper="What materials or support do you need?"
+            required={false}
+            placeholder="Select document type (optional)"
+          />
+        )}
 
       <div>
-        <label htmlFor="message" className="mb-1.5 block text-[13.5px] font-medium text-navy">
+        <label
+          htmlFor="message"
+          className="mb-1.5 block text-[13.5px] font-medium text-navy"
+        >
           {demoLite ? "Anything else to prepare" : "Message"}{" "}
           <span className="font-normal text-structural" aria-hidden="true">
             {demoLite ? "(optional)" : "(required)"}
           </span>
         </label>
-        <p id="message-helper" className="mb-2 text-[12.5px] leading-relaxed text-structural">
+        <p
+          id="message-helper"
+          className="mb-2 text-[12.5px] leading-relaxed text-structural"
+        >
           {demoLite
             ? "Optional context — survey pressure, vessel types, or who should join. Leave blank if the five fields above are enough."
             : fullSalesFields
@@ -503,13 +583,23 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
           required={!demoLite}
           aria-required={demoLite ? undefined : true}
           className="w-full rounded-sm border bg-white px-3.5 py-2.5 text-[15px]"
-          style={{ borderColor: errors.message ? "var(--status-critical)" : "var(--hairline-strong)" }}
+          style={{
+            borderColor: errors.message
+              ? "var(--status-critical)"
+              : "var(--hairline-strong)",
+          }}
           aria-invalid={Boolean(errors.message)}
-          aria-describedby={errors.message ? "message-helper message-error" : "message-helper"}
+          aria-describedby={
+            errors.message ? "message-helper message-error" : "message-helper"
+          }
           maxLength={CONTACT_FIELD_LIMITS.message}
         />
         {errors.message && (
-          <p id="message-error" className="mt-1.5 text-[13px]" style={{ color: "var(--status-critical)" }}>
+          <p
+            id="message-error"
+            className="mt-1.5 text-[13px]"
+            style={{ color: "var(--status-critical)" }}
+          >
             {errors.message}
           </p>
         )}
@@ -517,12 +607,14 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
 
       {demoLite && hasScheduling && (
         <p className="rounded-md border border-ocean/15 bg-ocean/5 px-3.5 py-3 text-[13px] leading-relaxed text-structural">
-          After you submit, a scheduling link will be available so you can pick a time if you prefer.
+          After you submit, a scheduling link will be available so you can pick
+          a time if you prefer.
         </p>
       )}
 
       <p className="text-[12.5px] leading-relaxed text-structural">
-        By submitting, you agree we may use the details you provide to respond to this request. See our{" "}
+        By submitting, you agree we may use the details you provide to respond
+        to this request. See our{" "}
         <a href="/legal/privacy" className="text-ocean hover:underline">
           Privacy notice
         </a>
@@ -533,7 +625,10 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
         <p
           role="alert"
           className="text-[14px] rounded-sm px-4 py-3"
-          style={{ background: "var(--status-critical-bg)", color: "var(--status-critical)" }}
+          style={{
+            background: "var(--status-critical-bg)",
+            color: "var(--status-critical)",
+          }}
         >
           {errors.form ?? (
             <>
@@ -554,7 +649,7 @@ export function ContactForm({ defaultIntent = "demo", lockIntent = false, classN
       <button
         type="submit"
         disabled={status === "submitting"}
-        className="inline-flex w-full items-center justify-center rounded-md bg-[#116fa8] px-7 py-3 text-[15px] font-semibold text-white transition-colors hover:bg-[#0f639a] disabled:opacity-60 sm:w-auto"
+        className="inline-flex w-full items-center justify-center rounded-md bg-ocean px-7 py-3 text-[15px] font-semibold text-white transition-colors hover:bg-ocean-deep disabled:opacity-60 sm:w-auto"
       >
         {status === "submitting" ? "Sending..." : intent.submitLabel}
       </button>
@@ -583,7 +678,10 @@ function SelectField({
   const errorId = `${name}-error`;
   return (
     <div>
-      <label htmlFor={name} className="block text-[13.5px] font-medium text-navy mb-1.5">
+      <label
+        htmlFor={name}
+        className="block text-[13.5px] font-medium text-navy mb-1.5"
+      >
         {label}
         {required ? (
           <span className="font-normal text-structural" aria-hidden="true">
@@ -603,7 +701,11 @@ function SelectField({
         required={required}
         aria-required={required ? true : undefined}
         className="w-full border rounded-sm bg-white px-3.5 py-2.5 text-[15px]"
-        style={{ borderColor: error ? "var(--status-critical)" : "var(--hairline-strong)" }}
+        style={{
+          borderColor: error
+            ? "var(--status-critical)"
+            : "var(--hairline-strong)",
+        }}
         aria-invalid={Boolean(error)}
         aria-describedby={error ? `${helperId} ${errorId}` : helperId}
         defaultValue=""
@@ -617,11 +719,18 @@ function SelectField({
           </option>
         ))}
       </select>
-      <p id={helperId} className="mt-1.5 text-[12.5px] leading-relaxed text-structural">
+      <p
+        id={helperId}
+        className="mt-1.5 text-[12.5px] leading-relaxed text-structural"
+      >
         {helper}
       </p>
       {error && (
-        <p id={errorId} className="mt-1.5 text-[13px]" style={{ color: "var(--status-critical)" }}>
+        <p
+          id={errorId}
+          className="mt-1.5 text-[13px]"
+          style={{ color: "var(--status-critical)" }}
+        >
           {error}
         </p>
       )}
@@ -645,7 +754,15 @@ function Field({
   type?: string;
   error?: string;
   autoComplete?: string;
-  inputMode?: "email" | "text" | "search" | "tel" | "url" | "numeric" | "decimal" | "none";
+  inputMode?:
+    | "email"
+    | "text"
+    | "search"
+    | "tel"
+    | "url"
+    | "numeric"
+    | "decimal"
+    | "none";
   maxLength?: number;
   helper: string;
   required?: boolean;
@@ -654,7 +771,10 @@ function Field({
   const errorId = `${name}-error`;
   return (
     <div>
-      <label htmlFor={name} className="block text-[13.5px] font-medium text-navy mb-1.5">
+      <label
+        htmlFor={name}
+        className="block text-[13.5px] font-medium text-navy mb-1.5"
+      >
         {label}
         {required ? (
           <span className="font-normal text-structural" aria-hidden="true">
@@ -678,15 +798,26 @@ function Field({
         required={required}
         aria-required={required ? true : undefined}
         className="w-full border rounded-sm bg-white px-3.5 py-2.5 text-[15px]"
-        style={{ borderColor: error ? "var(--status-critical)" : "var(--hairline-strong)" }}
+        style={{
+          borderColor: error
+            ? "var(--status-critical)"
+            : "var(--hairline-strong)",
+        }}
         aria-invalid={Boolean(error)}
         aria-describedby={error ? `${helperId} ${errorId}` : helperId}
       />
-      <p id={helperId} className="mt-1.5 text-[12.5px] leading-relaxed text-structural">
+      <p
+        id={helperId}
+        className="mt-1.5 text-[12.5px] leading-relaxed text-structural"
+      >
         {helper}
       </p>
       {error && (
-        <p id={errorId} className="mt-1.5 text-[13px]" style={{ color: "var(--status-critical)" }}>
+        <p
+          id={errorId}
+          className="mt-1.5 text-[13px]"
+          style={{ color: "var(--status-critical)" }}
+        >
           {error}
         </p>
       )}

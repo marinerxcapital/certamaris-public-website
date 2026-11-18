@@ -104,7 +104,7 @@ export default function ContactPage() {
             <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-ocean">
               Need diligence material?
             </p>
-            <p className="mt-2 text-[14.5px] leading-relaxed text-structural">
+            <p className="mt-2 cm-copy leading-relaxed text-structural">
               The full buyer packet is maintained in the Trust Center. Use this
               page to route a request or open the procurement materials path
               directly.
@@ -128,7 +128,7 @@ export default function ContactPage() {
             <div className="space-y-6 mt-4">
               {expectations.map((item) => (
                 <div key={item.title}>
-                  <h3 className="text-[15.5px] font-semibold mb-1">
+                  <h3 className="cm-subheading font-semibold mb-1">
                     {item.title}
                   </h3>
                   <p className="text-[14px] text-structural leading-relaxed">

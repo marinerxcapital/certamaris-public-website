@@ -15,7 +15,7 @@ export const metadata: Metadata = pageMetadata(
   {
     noIndex: true,
     canonicalPath: "/demo",
-  }
+  },
 );
 
 export default function SamplePlatformRedirectPage() {
@@ -23,11 +23,16 @@ export default function SamplePlatformRedirectPage() {
     <main className="shell py-24">
       <SamplePlatformClientRedirect />
       <div className="premium-card mx-auto max-w-lg p-8 text-center">
-        <p className="font-mono text-[12px] uppercase tracking-[0.1em] text-ocean mb-2">Moved permanently</p>
-        <h1 className="text-[24px] font-semibold mb-3">Sample platform is now the product demo.</h1>
-        <p className="text-[14.5px] text-structural leading-relaxed mb-6">
-          This path has moved to <span className="font-mono text-navy">/demo</span>. If you are not redirected
-          automatically, use the link below.
+        <p className="font-mono text-[12px] uppercase tracking-[0.1em] text-ocean mb-2">
+          Moved permanently
+        </p>
+        <h1 className="text-[24px] font-semibold mb-3">
+          Sample platform is now the product demo.
+        </h1>
+        <p className="cm-copy text-structural leading-relaxed mb-6">
+          This path has moved to{" "}
+          <span className="font-mono text-navy">/demo</span>. If you are not
+          redirected automatically, use the link below.
         </p>
         <Link
           href="/demo"

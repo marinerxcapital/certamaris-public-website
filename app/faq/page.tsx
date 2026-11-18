@@ -66,7 +66,7 @@ export default function FaqPage() {
             Last reviewed: {reviewedLabel}
           </p>
           <Eyebrow>Categories</Eyebrow>
-          <p className="text-[14.5px] text-structural leading-relaxed">
+          <p className="cm-copy text-structural leading-relaxed">
             Jump to a topic. Every answer below is also included in the page FAQ
             schema for discoverability.
           </p>
@@ -125,7 +125,7 @@ export default function FaqPage() {
               <h2 className="text-[22px] sm:text-[26px] leading-[1.16] mb-2">
                 Talk with CertaMaris.
               </h2>
-              <p className="text-[14.5px] text-structural leading-relaxed">
+              <p className="cm-copy text-structural leading-relaxed">
                 Request a demo or readiness conversation. Submit your details
                 and we will contact you to arrange a suitable time.
               </p>

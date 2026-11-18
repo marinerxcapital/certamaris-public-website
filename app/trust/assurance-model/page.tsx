@@ -13,10 +13,21 @@ import { TRACEABILITY_CHAIN } from "@/lib/product-hierarchy";
 export const metadata = pageMetadata(
   "Assurance Model One-Pager",
   "Printable CertaMaris assurance model leave-behind: requirement to readiness package chain plus regulatory boundary for procurement and legal review.",
-  "/trust/assurance-model"
+  "/trust/assurance-model",
 );
 
-const CHAIN_CODES = ["REQ", "APP", "CTL", "ASM", "EVD", "FND", "RSK", "CAP", "QA", "PKG"];
+const CHAIN_CODES = [
+  "REQ",
+  "APP",
+  "CTL",
+  "ASM",
+  "EVD",
+  "FND",
+  "RSK",
+  "CAP",
+  "QA",
+  "PKG",
+];
 
 /**
  * Procurement-grade leave-behind: one screen that prints cleanly to PDF.
@@ -59,12 +70,14 @@ export default function AssuranceModelPage() {
               Maritime cyber assurance · Leave-behind
             </p>
             <h2 className="mt-4 text-[26px] font-semibold leading-tight text-navy sm:text-[32px]">
-              One controlled record from requirement to released readiness package.
+              One controlled record from requirement to released readiness
+              package.
             </h2>
-            <p className="mt-3 max-w-3xl text-[15px] leading-relaxed text-structural">
-              CertaMaris structures maritime cyber compliance work for company, fleet, and vessel
-              contexts: requirements, controls, evidence, findings, corrective actions, and review
-              packages stay linked — so readiness is assembled from live work, not a last-week document
+            <p className="mt-3 max-w-3xl cm-copy leading-relaxed text-structural">
+              CertaMaris structures maritime cyber compliance work for company,
+              fleet, and vessel contexts: requirements, controls, evidence,
+              findings, corrective actions, and review packages stay linked — so
+              readiness is assembled from live work, not a last-week document
               scramble.
             </p>
           </header>
@@ -82,8 +95,12 @@ export default function AssuranceModelPage() {
                   <span className="font-mono text-[11px] font-semibold tracking-[0.08em] text-[#0e5a8a]">
                     {String(index + 1).padStart(2, "0")} {CHAIN_CODES[index]}
                   </span>
-                  <p className="mt-1 text-[14.5px] font-semibold text-navy">{step.title}</p>
-                  <p className="mt-1 text-[13px] leading-relaxed text-structural">{step.detail}</p>
+                  <p className="mt-1 cm-copy font-semibold text-navy">
+                    {step.title}
+                  </p>
+                  <p className="mt-1 text-[13px] leading-relaxed text-structural">
+                    {step.detail}
+                  </p>
                 </li>
               ))}
             </ol>
@@ -93,19 +110,41 @@ export default function AssuranceModelPage() {
             <div>
               <Eyebrow>What the product does</Eyebrow>
               <ul className="mt-3 space-y-2 text-[14px] leading-relaxed text-navy/85">
-                <li>Keeps company / fleet / vessel hierarchy with individual auditable identities.</li>
-                <li>Maps requirements to controls and evidence with review state and freshness.</li>
-                <li>Owns findings and CAPA through verification — not unchecked status flips.</li>
-                <li>Assembles readiness packages from approved live records.</li>
+                <li>
+                  Keeps company / fleet / vessel hierarchy with individual
+                  auditable identities.
+                </li>
+                <li>
+                  Maps requirements to controls and evidence with review state
+                  and freshness.
+                </li>
+                <li>
+                  Owns findings and CAPA through verification — not unchecked
+                  status flips.
+                </li>
+                <li>
+                  Assembles readiness packages from approved live records.
+                </li>
               </ul>
             </div>
             <div>
               <Eyebrow>What it does not do</Eyebrow>
               <ul className="mt-3 space-y-2 text-[14px] leading-relaxed text-navy/85">
-                <li>Does not certify compliance or guarantee survey / audit outcomes.</li>
-                <li>Does not replace class, flag, counsel, or the SMS / DOC process.</li>
-                <li>Does not auto-decide applicability — qualified humans decide.</li>
-                <li>Does not invent customer logos, metrics, or unpublished certifications.</li>
+                <li>
+                  Does not certify compliance or guarantee survey / audit
+                  outcomes.
+                </li>
+                <li>
+                  Does not replace class, flag, counsel, or the SMS / DOC
+                  process.
+                </li>
+                <li>
+                  Does not auto-decide applicability — qualified humans decide.
+                </li>
+                <li>
+                  Does not invent customer logos, metrics, or unpublished
+                  certifications.
+                </li>
               </ul>
             </div>
           </div>
@@ -114,12 +153,16 @@ export default function AssuranceModelPage() {
             <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-ocean">
               Regulatory boundary
             </p>
-            <p className="mt-2 text-[14px] leading-relaxed text-navy/80">{REGULATORY_BOUNDARY}</p>
+            <p className="mt-2 text-[14px] leading-relaxed text-navy/80">
+              {REGULATORY_BOUNDARY}
+            </p>
           </aside>
 
           <footer className="mt-8 flex flex-wrap items-end justify-between gap-4 border-t border-navy/10 pt-5">
             <div>
-              <p className="text-[14px] font-semibold text-navy">certamaris.com</p>
+              <p className="text-[14px] font-semibold text-navy">
+                certamaris.com
+              </p>
               <p className="mt-1 text-[13px] text-structural">
                 sales@certamaris.com · security@certamaris.com
               </p>
@@ -138,11 +181,17 @@ export default function AssuranceModelPage() {
         <Reveal className="mt-8 no-print">
           <p className="text-[14px] text-structural">
             Need NDA materials or a security questionnaire?{" "}
-            <Link href="/trust/procurement" className="font-semibold text-ocean hover:underline">
+            <Link
+              href="/trust/procurement"
+              className="font-semibold text-ocean hover:underline"
+            >
               Open procurement
             </Link>{" "}
             or{" "}
-            <Link href="/contact?intent=procurement" className="font-semibold text-ocean hover:underline">
+            <Link
+              href="/contact?intent=procurement"
+              className="font-semibold text-ocean hover:underline"
+            >
               request a package
             </Link>
             .

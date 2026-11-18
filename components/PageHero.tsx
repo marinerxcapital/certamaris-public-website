@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 import { Breadcrumbs, type BreadcrumbItem } from "@/components/Breadcrumbs";
-import { LedgerRoute } from "@/components/LedgerRoute";
 import { Eyebrow } from "@/components/Section";
 
 export function PageHero({
@@ -41,11 +40,10 @@ export function PageHero({
               : undefined
           }
         >
-          <div className="page-hero-copy min-w-0 max-w-3xl">
+          <div className="page-hero-copy min-w-0 max-w-3xl cm-interior-hero">
             {breadcrumbs?.length ? (
               <Breadcrumbs items={breadcrumbs} className="mb-5" />
             ) : null}
-            <LedgerRoute />
             <Eyebrow>{eyebrow}</Eyebrow>
             <h1
               className={

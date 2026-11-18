@@ -214,6 +214,57 @@ async function main() {
     },
   );
 
+  await step(
+    "mobile gallery navigation preserves tab state and local scrolling",
+    async () => {
+      await page.setViewportSize({ width: 390, height: 844 });
+      await page.goto(`${base}/demo#owner-corporate`, {
+        waitUntil: "networkidle",
+      });
+      const tabs = page.getByRole("tablist", { name: "Demo product views" });
+      await tabs.scrollIntoViewIfNeeded();
+      await page
+        .getByRole("button", { name: "Next product view", exact: true })
+        .click();
+      await page
+        .getByRole("tab", { name: "Client Admin", exact: true })
+        .waitFor();
+      if (
+        (await page
+          .getByRole("tab", { name: "Client Admin", exact: true })
+          .getAttribute("aria-selected")) !== "true"
+      )
+        throw new Error("Next did not select Client Admin");
+      const first = page.getByRole("tab", {
+        name: "Owner / Governance",
+        exact: true,
+      });
+      await first.focus();
+      await page.keyboard.press("End");
+      const last = page.getByRole("tab", {
+        name: "Readiness Packages",
+        exact: true,
+      });
+      if ((await last.getAttribute("aria-selected")) !== "true")
+        throw new Error("End did not select last tab");
+      await page
+        .getByRole("button", { name: "Next product view", exact: true })
+        .waitFor();
+      if (
+        !(await page
+          .getByRole("button", { name: "Next product view", exact: true })
+          .isDisabled())
+      )
+        throw new Error("Next must disable at endpoint");
+      await page.keyboard.press("Home");
+      await first.focus();
+      await page.keyboard.press("Home");
+      if ((await first.getAttribute("aria-selected")) !== "true")
+        throw new Error("Home did not restore first tab");
+      await assertNoOverflow(page, "mobile gallery navigation");
+    },
+  );
+
   await context.close();
   await browser.close();
   server.close();

@@ -112,7 +112,7 @@ export default function TrustCenterPage() {
           <h2 className="mb-3 text-[24px] leading-[1.16] sm:text-[28px]">
             Claims stay labeled — never upgraded for marketing.
           </h2>
-          <p className="mb-5 max-w-2xl text-[15px] leading-relaxed text-structural">
+          <p className="mb-5 max-w-2xl cm-copy leading-relaxed text-structural">
             Trust and security pages use one StatusBadge system. Planned stays
             Planned. Not claimed stays not claimed. Formal certifications are
             not invented here.
@@ -149,7 +149,7 @@ export default function TrustCenterPage() {
               key={item.title}
               className="rounded-md border border-navy/10 bg-white/85 p-5"
             >
-              <h3 className="mb-2 text-[15.5px] font-semibold text-navy">
+              <h3 className="mb-2 cm-subheading font-semibold text-navy">
                 {item.title}
               </h3>
               <p className="text-[14px] leading-relaxed text-structural">
@@ -166,7 +166,7 @@ export default function TrustCenterPage() {
           <h2 className="section-h2 section-h2--lg">
             Security through status — organized for procurement.
           </h2>
-          <p className="mt-4 text-[15px] leading-relaxed text-structural">
+          <p className="mt-4 cm-copy leading-relaxed text-structural">
             Browse by diligence topic. Each destination is an existing public
             route or an in-page operating summary.
           </p>
@@ -182,7 +182,7 @@ export default function TrustCenterPage() {
                   <div>
                     <h3
                       id={`trust-cat-${category.id}`}
-                      className="text-[18px] font-semibold text-navy"
+                      className="cm-subheading font-semibold text-navy"
                     >
                       {category.title}
                     </h3>
@@ -220,7 +220,7 @@ export default function TrustCenterPage() {
           <h2 className="section-h2 section-h2--lg">
             Infrastructure, continuity, and data movement.
           </h2>
-          <p className="mt-4 text-[15px] leading-relaxed text-structural">
+          <p className="mt-4 cm-copy leading-relaxed text-structural">
             High-level posture for security and procurement reviewers. Detailed
             control status lives on the security page; contractual recovery and
             residency terms are handled in procurement.
@@ -237,7 +237,7 @@ export default function TrustCenterPage() {
                 <h3 className="mb-3 mt-2 text-[20px] leading-[1.2] text-navy">
                   {topic.title}
                 </h3>
-                <p className="max-w-3xl text-[15px] leading-relaxed text-structural">
+                <p className="max-w-3xl cm-copy leading-relaxed text-structural">
                   {topic.body}
                 </p>
               </article>

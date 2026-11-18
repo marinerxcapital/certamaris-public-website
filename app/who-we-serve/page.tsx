@@ -10,7 +10,7 @@ import { audiencePages } from "@/lib/solutions-audience";
 export const metadata = pageMetadata(
   "Who We Serve",
   "How ship owners, operators, technical managers, IT/OT teams, vessel officers, survey stakeholders, insurers, and service providers use CertaMaris.",
-  "/who-we-serve"
+  "/who-we-serve",
 );
 
 export default function WhoWeServePage() {
@@ -23,7 +23,11 @@ export default function WhoWeServePage() {
         intro="Owners, operators, DPAs, IT/OT teams, vessel officers, survey stakeholders, insurers, and service providers each need a different cut of the same work. CertaMaris does not claim endorsement by class, flag, government, or insurers."
       />
 
-      <nav aria-label="Jump to role" className="jump-nav border-b" style={{ borderColor: "var(--hairline)" }}>
+      <nav
+        aria-label="Jump to role"
+        className="jump-nav border-b"
+        style={{ borderColor: "var(--hairline)" }}
+      >
         <div className="shell py-4 flex flex-wrap gap-x-5 gap-y-2">
           {audiencePages.map((item) => (
             <Link
@@ -54,9 +58,15 @@ export default function WhoWeServePage() {
               <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-ocean mb-2">
                 {String(index + 1).padStart(2, "0")}
               </p>
-              <h3 className="text-[17px] font-semibold mb-2 group-hover:text-ocean">{item.title}</h3>
-              <p className="text-[14px] text-structural leading-relaxed mb-3">{item.headline}</p>
-              <span className="text-[13px] font-semibold text-ocean">View role fit</span>
+              <h3 className="cm-subheading font-semibold mb-2 group-hover:text-ocean">
+                {item.title}
+              </h3>
+              <p className="text-[14px] text-structural leading-relaxed mb-3">
+                {item.headline}
+              </p>
+              <span className="text-[13px] font-semibold text-ocean">
+                View role fit
+              </span>
             </Link>
           ))}
         </div>
@@ -65,8 +75,9 @@ export default function WhoWeServePage() {
       <Section surface="paper" spacing="compact">
         <Reveal className="max-w-3xl">
           <Eyebrow>Role-first information architecture</Eyebrow>
-          <p className="text-[15px] text-structural leading-relaxed">
-            Stakeholder roles are the organizing concept for CertaMaris, so this section is the canonical audience hub.
+          <p className="cm-copy text-structural leading-relaxed">
+            Stakeholder roles are the organizing concept for CertaMaris, so this
+            section is the canonical audience hub.
           </p>
         </Reveal>
       </Section>

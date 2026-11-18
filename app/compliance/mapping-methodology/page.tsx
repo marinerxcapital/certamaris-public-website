@@ -11,7 +11,7 @@ import { breadcrumbListSchema, webPageSchema } from "@/lib/seo-schema";
 export const metadata = pageMetadata(
   "Control Mapping Methodology",
   "How CertaMaris structures requirement-to-control mapping for maritime cyber work with explicit status, review, and source authority.",
-  "/compliance/mapping-methodology"
+  "/compliance/mapping-methodology",
 );
 
 const statuses: { status: MappingStatus; meaning: string }[] = [
@@ -32,7 +32,8 @@ const statuses: { status: MappingStatus; meaning: string }[] = [
   },
   {
     status: "not-natively-mapped",
-    meaning: "No native product mapping claimed. Do not infer coverage from marketing adjacency.",
+    meaning:
+      "No native product mapping claimed. Do not infer coverage from marketing adjacency.",
   },
 ];
 
@@ -43,14 +44,18 @@ export default function MappingMethodologyPage() {
         data={[
           webPageSchema({
             title: "Control Mapping Methodology",
-            description: "Honest methodology for requirement-to-control mapping in CertaMaris.",
+            description:
+              "Honest methodology for requirement-to-control mapping in CertaMaris.",
             path: "/compliance/mapping-methodology",
             dateModified: "2026-07-31",
           }),
           breadcrumbListSchema([
             { name: "Home", path: "/" },
             { name: "Compliance", path: "/compliance" },
-            { name: "Mapping methodology", path: "/compliance/mapping-methodology" },
+            {
+              name: "Mapping methodology",
+              path: "/compliance/mapping-methodology",
+            },
           ]),
         ]}
       />
@@ -69,11 +74,26 @@ export default function MappingMethodologyPage() {
           <Reveal>
             <Eyebrow>Principles</Eyebrow>
             <ul className="mt-4 space-y-3 text-[15.5px] text-structural leading-relaxed list-disc pl-5">
-              <li>Official instrument text and qualified human review control applicability.</li>
-              <li>IT and OT controls may stay distinct while linking to the same requirement layer.</li>
-              <li>Evidence must pass sufficiency (relevance, reliability, completeness, review) — upload is not acceptance.</li>
-              <li>Design/class evidence (e.g. E26/E27) is stored and labeled separately from SMS operational evidence.</li>
-              <li>We do not claim native automatic mappings that do not exist in the product.</li>
+              <li>
+                Official instrument text and qualified human review control
+                applicability.
+              </li>
+              <li>
+                IT and OT controls may stay distinct while linking to the same
+                requirement layer.
+              </li>
+              <li>
+                Evidence must pass sufficiency (relevance, reliability,
+                completeness, review) — upload is not acceptance.
+              </li>
+              <li>
+                Design/class evidence (e.g. E26/E27) is stored and labeled
+                separately from SMS operational evidence.
+              </li>
+              <li>
+                We do not claim native automatic mappings that do not exist in
+                the product.
+              </li>
             </ul>
           </Reveal>
           <Reveal>
@@ -81,18 +101,26 @@ export default function MappingMethodologyPage() {
             <div className="mt-4 space-y-4">
               {statuses.map((row) => (
                 <div key={row.status} className="premium-card p-5">
-                  <h2 className="text-[15px] font-semibold text-navy mb-2">{mappingStatusLabel(row.status)}</h2>
-                  <p className="text-[14.5px] text-structural leading-relaxed">{row.meaning}</p>
+                  <h2 className="text-[15px] font-semibold text-navy mb-2">
+                    {mappingStatusLabel(row.status)}
+                  </h2>
+                  <p className="cm-copy text-structural leading-relaxed">
+                    {row.meaning}
+                  </p>
                 </div>
               ))}
             </div>
           </Reveal>
           <Reveal>
             <Eyebrow>Product trail</Eyebrow>
-            <p className="mt-3 text-[15.5px] text-structural leading-relaxed">
-              In CertaMaris, mapped work typically flows requirement → control objective / implementation context →
-              evidence and exceptions → findings and corrective actions → readiness package. See the{" "}
-              <Link href="/platform" className="font-medium text-ocean hover:underline">
+            <p className="mt-3 cm-copy text-structural leading-relaxed">
+              In CertaMaris, mapped work typically flows requirement → control
+              objective / implementation context → evidence and exceptions →
+              findings and corrective actions → readiness package. See the{" "}
+              <Link
+                href="/platform"
+                className="font-medium text-ocean hover:underline"
+              >
                 platform
               </Link>{" "}
               for the operational UI.

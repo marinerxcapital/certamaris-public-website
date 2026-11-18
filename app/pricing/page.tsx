@@ -22,7 +22,7 @@ export const metadata = pageMetadata(
   "Pricing",
   "Annual platform-plus-contracted-vessel pricing for Core, Assurance, and Enterprise, plus separately priced remote and on-board assurance engagements.",
   "/pricing",
-  { image: "/og/certamaris-pricing-2026-08-product-experience.png" }
+  { image: "/og/certamaris-pricing-2026-08-product-experience.png" },
 );
 
 function formatReviewDate(isoDate: string): string {
@@ -48,7 +48,10 @@ const commercialModel = [
 ];
 
 const factors = [
-  { title: "Fleet size", body: "The number of vessels and facilities brought into scope." },
+  {
+    title: "Fleet size",
+    body: "The number of vessels and facilities brought into scope.",
+  },
   {
     title: "Operational complexity",
     body: "Vessel types, flag states, and the number of technical managers or DPAs involved.",
@@ -118,7 +121,8 @@ const comparisonPackages = [
   {
     key: "fleetAssurance",
     label: "Fleet Assurance",
-    getValue: (row: (typeof pricingComparisonRows)[number]) => row.fleetAssurance,
+    getValue: (row: (typeof pricingComparisonRows)[number]) =>
+      row.fleetAssurance,
   },
   {
     key: "enterprise",
@@ -129,7 +133,9 @@ const comparisonPackages = [
 
 export default function PricingPage() {
   const priceFor = (name: string) =>
-    pricingTiers.find((tier) => name.toLowerCase().includes(tier.name.toLowerCase()));
+    pricingTiers.find((tier) =>
+      name.toLowerCase().includes(tier.name.toLowerCase()),
+    );
   const reviewedLabel = formatReviewDate(REGULATORY_LAST_REVIEWED);
 
   return (
@@ -152,27 +158,45 @@ export default function PricingPage() {
                   className="rounded-md border border-navy/10 bg-white/70 p-3 transition hover:border-ocean/35 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ocean focus-visible:ring-offset-2"
                 >
                   <span className="flex items-baseline justify-between gap-3">
-                    <span className="text-[14px] font-semibold text-navy">{tier.name}</span>
-                    <span className="text-right font-mono text-[11px] text-ocean">{tier.audience}</span>
+                    <span className="text-[14px] font-semibold text-navy">
+                      {tier.name}
+                    </span>
+                    <span className="text-right font-mono text-[11px] text-ocean">
+                      {tier.audience}
+                    </span>
                   </span>
                   <span className="mt-1 block text-[12.5px] leading-5 text-structural">
                     {tier.platformFee} + {tier.vesselPrice}
                   </span>
-                  <span className="mt-1 block text-[12px] leading-5 text-structural">{tier.minimumNote}</span>
+                  <span className="mt-1 block text-[12px] leading-5 text-structural">
+                    {tier.minimumNote}
+                  </span>
                 </a>
               ))}
             </div>
             <div className="mt-4 grid gap-2 border-t border-navy/10 pt-4 text-[13px]">
-              <a href="#pricing-plans" className="font-semibold text-navy hover:text-ocean hover:underline">
+              <a
+                href="#pricing-plans"
+                className="font-semibold text-navy hover:text-ocean hover:underline"
+              >
                 Review package shapes
               </a>
-              <a href="#pricing-calculator" className="font-semibold text-navy hover:text-ocean hover:underline">
+              <a
+                href="#pricing-calculator"
+                className="font-semibold text-navy hover:text-ocean hover:underline"
+              >
                 Open live estimate
               </a>
-              <a href="#package-comparison" className="font-semibold text-navy hover:text-ocean hover:underline">
+              <a
+                href="#package-comparison"
+                className="font-semibold text-navy hover:text-ocean hover:underline"
+              >
                 Compare package detail
               </a>
-              <a href="/trust/procurement" className="font-semibold text-navy hover:text-ocean hover:underline">
+              <a
+                href="/trust/procurement"
+                className="font-semibold text-navy hover:text-ocean hover:underline"
+              >
                 Review procurement packet
               </a>
             </div>
@@ -182,15 +206,19 @@ export default function PricingPage() {
 
       <Section id="pricing-plans" spacing="compact">
         <Reveal className="mb-10 max-w-2xl">
-          <p className="mb-6 font-mono text-[13px] text-structural">Last reviewed: {reviewedLabel}</p>
+          <p className="mb-6 font-mono text-[13px] text-structural">
+            Last reviewed: {reviewedLabel}
+          </p>
           <Eyebrow>1 · Package shapes</Eyebrow>
           <h2 className="mb-4 text-[27px] leading-[1.16] sm:text-[32px]">
             Start with the plan that matches fleet structure.
           </h2>
-          <p className="text-[15px] leading-relaxed text-structural">{PRICING_BASIS_NOTE}</p>
+          <p className="cm-copy leading-relaxed text-structural">
+            {PRICING_BASIS_NOTE}
+          </p>
           <p className="mt-3 text-[13.5px] leading-relaxed text-structural">
-            Audience labels describe fit — not a “most popular” ranking. After you pick a shape, estimate annual cost
-            with the calculator below.
+            Audience labels describe fit — not a “most popular” ranking. After
+            you pick a shape, estimate annual cost with the calculator below.
           </p>
         </Reveal>
         <div className="grid gap-5 md:grid-cols-3">
@@ -202,9 +230,13 @@ export default function PricingPage() {
         </div>
         <Reveal className="mt-6">
           <p className="max-w-3xl text-[13.5px] leading-relaxed text-structural">
-            The tier above sets the annual platform fee and per-vessel license. Assurance engagements are priced
-            separately — see the published anchors below.{" "}
-            <a href="#pricing-calculator" className="font-medium text-ocean hover:underline">
+            The tier above sets the annual platform fee and per-vessel license.
+            Assurance engagements are priced separately — see the published
+            anchors below.{" "}
+            <a
+              href="#pricing-calculator"
+              className="font-medium text-ocean hover:underline"
+            >
               Jump to the estimate calculator
             </a>
             .
@@ -218,8 +250,9 @@ export default function PricingPage() {
           <h2 className="text-[24px] leading-[1.16] sm:text-[28px]">
             Then size annual platform cost for your contracted vessels.
           </h2>
-          <p className="mt-3 text-[14.5px] leading-relaxed text-structural">
-            Use the slider or type an exact vessel count. The estimate is non-binding and uses published anchors only.
+          <p className="mt-3 cm-copy leading-relaxed text-structural">
+            Use the slider or type an exact vessel count. The estimate is
+            non-binding and uses published anchors only.
           </p>
         </Reveal>
         <Reveal>
@@ -233,9 +266,10 @@ export default function PricingPage() {
             <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-ocean">
               Procurement review
             </p>
-            <p className="mt-2 text-[14.5px] leading-relaxed text-structural">
-              Security, procurement, legal, and AI/data boundaries live in the Trust Center so pricing stays focused
-              on estimate scope and package fit.
+            <p className="mt-2 cm-copy leading-relaxed text-structural">
+              Security, procurement, legal, and AI/data boundaries live in the
+              Trust Center so pricing stays focused on estimate scope and
+              package fit.
             </p>
             <Button href="/trust" variant="secondary" className="mt-4">
               Open Trust Center
@@ -250,9 +284,10 @@ export default function PricingPage() {
           <h2 className="text-[27px] sm:text-[32px] leading-[1.16] mb-4">
             Platform fee plus contracted-vessel licensing.
           </h2>
-          <p className="text-[15px] text-structural leading-relaxed">
-            Every subscription is an annual platform fee with a per-vessel license for the billable fleet count.
-            There is no per-seat pricing, and assurance engagements are priced separately.
+          <p className="cm-copy text-structural leading-relaxed">
+            Every subscription is an annual platform fee with a per-vessel
+            license for the billable fleet count. There is no per-seat pricing,
+            and assurance engagements are priced separately.
           </p>
         </Reveal>
         <Reveal>
@@ -263,7 +298,9 @@ export default function PricingPage() {
             tabIndex={0}
           >
             <table className="w-full min-w-[720px] border-collapse text-left text-[13.5px]">
-              <caption className="sr-only">CertaMaris annual pricing tiers</caption>
+              <caption className="sr-only">
+                CertaMaris annual pricing tiers
+              </caption>
               <thead>
                 <tr className="border-b border-navy/10 bg-paper">
                   <th scope="col" className="px-4 py-3 font-semibold text-navy">
@@ -285,14 +322,28 @@ export default function PricingPage() {
               </thead>
               <tbody>
                 {pricingTiers.map((tier) => (
-                  <tr key={tier.id} className="border-b border-navy/8 last:border-0">
-                    <th scope="row" className="px-4 py-3 font-medium text-navy align-top">
+                  <tr
+                    key={tier.id}
+                    className="border-b border-navy/8 last:border-0"
+                  >
+                    <th
+                      scope="row"
+                      className="px-4 py-3 font-medium text-navy align-top"
+                    >
                       {tier.name}
                     </th>
-                    <td className="px-4 py-3 text-structural align-top">{tier.fleetGate}</td>
-                    <td className="px-4 py-3 text-structural align-top">{tier.platformFee}</td>
-                    <td className="px-4 py-3 text-structural align-top">{tier.vesselPrice}</td>
-                    <td className="px-4 py-3 text-structural align-top">{tier.minimumNote}</td>
+                    <td className="px-4 py-3 text-structural align-top">
+                      {tier.fleetGate}
+                    </td>
+                    <td className="px-4 py-3 text-structural align-top">
+                      {tier.platformFee}
+                    </td>
+                    <td className="px-4 py-3 text-structural align-top">
+                      {tier.vesselPrice}
+                    </td>
+                    <td className="px-4 py-3 text-structural align-top">
+                      {tier.minimumNote}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -301,23 +352,37 @@ export default function PricingPage() {
         </Reveal>
         <Reveal className="mt-8">
           <div className="premium-card p-6">
-            <h3 className="text-[16px] font-semibold mb-3">Price anchors</h3>
+            <h3 className="cm-subheading font-semibold mb-3">Price anchors</h3>
             <ul className="grid gap-2 sm:grid-cols-2">
               {PRICE_ANCHORS.map((anchor) => (
-                <li key={anchor.label} className="flex gap-2.5 text-[14px] leading-relaxed text-structural">
-                  <span aria-hidden="true" className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-ocean" />
+                <li
+                  key={anchor.label}
+                  className="flex gap-2.5 text-[14px] leading-relaxed text-structural"
+                >
+                  <span
+                    aria-hidden="true"
+                    className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-ocean"
+                  />
                   <span>
-                    <strong className="font-medium text-navy">{anchor.label}:</strong> {anchor.value}
+                    <strong className="font-medium text-navy">
+                      {anchor.label}:
+                    </strong>{" "}
+                    {anchor.value}
                   </span>
                 </li>
               ))}
             </ul>
             <p className="mt-4 text-[12.5px] text-structural leading-relaxed">
-              A QA-reviewed report is a CertaMaris quality and assurance review — not certification, class approval,
-              legal advice, or a guarantee of regulatory compliance. Prices are USD and exclude taxes, travel, and
-              expenses. Contract terms are 12-month, non-cancelable commitments billed annually in advance. Review
-              how CertaMaris handles AI providers and data classification in the{" "}
-              <a href="/trust/ai-policy" className="font-medium text-ocean hover:underline">
+              A QA-reviewed report is a CertaMaris quality and assurance review
+              — not certification, class approval, legal advice, or a guarantee
+              of regulatory compliance. Prices are USD and exclude taxes,
+              travel, and expenses. Contract terms are 12-month, non-cancelable
+              commitments billed annually in advance. Review how CertaMaris
+              handles AI providers and data classification in the{" "}
+              <a
+                href="/trust/ai-policy"
+                className="font-medium text-ocean hover:underline"
+              >
                 AI Provider &amp; Data Classification Policy
               </a>
               .
@@ -335,14 +400,21 @@ export default function PricingPage() {
             <div className="mt-8">
               <div className="max-w-2xl mb-8">
                 <Eyebrow>Comparison</Eyebrow>
-                <h2 className="text-[27px] sm:text-[32px] leading-[1.16] mb-4">Capability matrix by package.</h2>
-                <p className="text-[15px] text-structural leading-relaxed">
-                  Compare vessel scope, users, entities, portals, assessments, evidence, plans, reports, continuous
-                  assurance, integrations, API, SSO, SCIM, support, onboarding, retention, audit history, and
-                  professional services. Values describe depth — not list prices.
+                <h2 className="text-[27px] sm:text-[32px] leading-[1.16] mb-4">
+                  Capability matrix by package.
+                </h2>
+                <p className="cm-copy text-structural leading-relaxed">
+                  Compare vessel scope, users, entities, portals, assessments,
+                  evidence, plans, reports, continuous assurance, integrations,
+                  API, SSO, SCIM, support, onboarding, retention, audit history,
+                  and professional services. Values describe depth — not list
+                  prices.
                 </p>
               </div>
-              <div className="grid gap-3 md:hidden" aria-label="Package capability comparison">
+              <div
+                className="grid gap-3 md:hidden"
+                aria-label="Package capability comparison"
+              >
                 {comparisonPackages.map((pkg, index) => (
                   <details
                     key={pkg.key}
@@ -354,7 +426,10 @@ export default function PricingPage() {
                     </summary>
                     <dl className="mt-4 grid gap-3">
                       {pricingComparisonRows.map((row) => (
-                        <div key={`${pkg.key}-${row.key}`} className="border-t border-navy/8 pt-3">
+                        <div
+                          key={`${pkg.key}-${row.key}`}
+                          className="border-t border-navy/8 pt-3"
+                        >
                           <dt className="text-[12px] font-semibold uppercase tracking-[0.08em] text-ocean">
                             {row.feature}
                           </dt>
@@ -373,28 +448,47 @@ export default function PricingPage() {
               >
                 <table className="w-full min-w-[720px] border-collapse text-left text-[13.5px]">
                   <caption className="sr-only">
-                    Feature comparison across Fleet Core, Fleet Assurance, and Enterprise packages
+                    Feature comparison across Fleet Core, Fleet Assurance, and
+                    Enterprise packages
                   </caption>
                   <thead>
                     <tr className="border-b border-navy/10 bg-paper">
-                      <th scope="col" className="px-4 py-3 font-semibold text-navy">
+                      <th
+                        scope="col"
+                        className="px-4 py-3 font-semibold text-navy"
+                      >
                         Feature
                       </th>
-                      <th scope="col" className="px-4 py-3 font-semibold text-navy">
+                      <th
+                        scope="col"
+                        className="px-4 py-3 font-semibold text-navy"
+                      >
                         Fleet Core
                       </th>
-                      <th scope="col" className="px-4 py-3 font-semibold text-navy">
+                      <th
+                        scope="col"
+                        className="px-4 py-3 font-semibold text-navy"
+                      >
                         Fleet Assurance
                       </th>
-                      <th scope="col" className="px-4 py-3 font-semibold text-navy">
+                      <th
+                        scope="col"
+                        className="px-4 py-3 font-semibold text-navy"
+                      >
                         Enterprise
                       </th>
                     </tr>
                   </thead>
                   <tbody>
                     {pricingComparisonRows.map((row) => (
-                      <tr key={row.key} className="border-b border-navy/8 last:border-0">
-                        <th scope="row" className="px-4 py-3 font-medium text-navy align-top">
+                      <tr
+                        key={row.key}
+                        className="border-b border-navy/8 last:border-0"
+                      >
+                        <th
+                          scope="row"
+                          className="px-4 py-3 font-medium text-navy align-top"
+                        >
                           {row.feature}
                         </th>
                         <td className="px-4 py-3 text-structural align-top">
@@ -411,21 +505,31 @@ export default function PricingPage() {
                   </tbody>
                 </table>
               </div>
-              <p className="mt-4 text-[12.5px] text-structural leading-relaxed max-w-3xl">{PRICING_BASIS_NOTE}</p>
+              <p className="mt-4 text-[12.5px] text-structural leading-relaxed max-w-3xl">
+                {PRICING_BASIS_NOTE}
+              </p>
             </div>
 
             <div className="mt-10 grid lg:grid-cols-[1.05fr_0.95fr] gap-10 items-start">
               <PackageRecommender />
               <div className="premium-card p-8">
-                <p className="font-mono text-[12px] uppercase tracking-[0.1em] text-ocean mb-3">Scope a proposal</p>
-                <h3 className="text-[22px] font-semibold mb-3">Tell us about your fleet.</h3>
-                <p className="text-[14.5px] text-structural leading-relaxed mb-6">
-                  A readiness request gives CertaMaris the minimum context needed to discuss whether the platform fits
-                  your fleet and what scope would need to be priced. There is no free perpetual trial; access is
-                  arranged through a sales-assisted conversation.
+                <p className="font-mono text-[12px] uppercase tracking-[0.1em] text-ocean mb-3">
+                  Scope a proposal
+                </p>
+                <h3 className="text-[22px] font-semibold mb-3">
+                  Tell us about your fleet.
+                </h3>
+                <p className="cm-copy text-structural leading-relaxed mb-6">
+                  A readiness request gives CertaMaris the minimum context
+                  needed to discuss whether the platform fits your fleet and
+                  what scope would need to be priced. There is no free perpetual
+                  trial; access is arranged through a sales-assisted
+                  conversation.
                 </p>
                 <div className="flex flex-wrap gap-3">
-                  <Button href="/contact?intent=demo">{PRIMARY_CTA_LABEL}</Button>
+                  <Button href="/contact?intent=demo">
+                    {PRIMARY_CTA_LABEL}
+                  </Button>
                   <Button href="/demo" variant="secondary">
                     Product demo tour
                   </Button>
@@ -446,17 +550,22 @@ export default function PricingPage() {
             <h2 className="text-[27px] sm:text-[32px] leading-[1.16] mb-5">
               Platform subscription and optional services are quoted separately.
             </h2>
-            <p className="text-[15px] text-structural leading-relaxed">
-              The commercial model keeps product access distinct from professional work. That avoids mixing annual
-              software scope with one-time onboarding or assessment effort.
+            <p className="cm-copy text-structural leading-relaxed">
+              The commercial model keeps product access distinct from
+              professional work. That avoids mixing annual software scope with
+              one-time onboarding or assessment effort.
             </p>
           </Reveal>
           <Reveal delay={0.06}>
             <div className="space-y-4">
               {commercialModel.map((item) => (
                 <div key={item.title} className="premium-card p-6">
-                  <h3 className="text-[16px] font-semibold mb-2">{item.title}</h3>
-                  <p className="text-[14px] text-structural leading-relaxed">{item.body}</p>
+                  <h3 className="cm-subheading font-semibold mb-2">
+                    {item.title}
+                  </h3>
+                  <p className="text-[14px] text-structural leading-relaxed">
+                    {item.body}
+                  </p>
                 </div>
               ))}
             </div>
@@ -468,12 +577,18 @@ export default function PricingPage() {
         <div className="grid lg:grid-cols-2 gap-14 items-start">
           <Reveal>
             <Eyebrow>How pricing works</Eyebrow>
-            <h2 className="text-[27px] sm:text-[32px] leading-[1.16] mb-5">Five factors shape every quote.</h2>
+            <h2 className="text-[27px] sm:text-[32px] leading-[1.16] mb-5">
+              Five factors shape every quote.
+            </h2>
             <div className="space-y-5">
               {factors.map((item) => (
                 <div key={item.title}>
-                  <h3 className="text-[15.5px] font-semibold mb-1">{item.title}</h3>
-                  <p className="text-[14px] text-structural leading-relaxed">{item.body}</p>
+                  <h3 className="cm-subheading font-semibold mb-1">
+                    {item.title}
+                  </h3>
+                  <p className="text-[14px] text-structural leading-relaxed">
+                    {item.body}
+                  </p>
                 </div>
               ))}
             </div>
@@ -481,8 +596,14 @@ export default function PricingPage() {
           <Reveal delay={0.08}>
             <ul className="space-y-3">
               {engagementSignals.map((signal) => (
-                <li key={signal} className="premium-card flex gap-3 p-4 text-[14.5px] leading-relaxed text-navy/85">
-                  <span aria-hidden="true" className="mt-1 h-2 w-2 shrink-0 rounded-full bg-ocean" />
+                <li
+                  key={signal}
+                  className="premium-card flex gap-3 p-4 text-[14.5px] leading-relaxed text-navy/85"
+                >
+                  <span
+                    aria-hidden="true"
+                    className="mt-1 h-2 w-2 shrink-0 rounded-full bg-ocean"
+                  />
                   {signal}
                 </li>
               ))}
@@ -494,14 +615,20 @@ export default function PricingPage() {
       <Section surface="paper" spacing="compact">
         <Reveal className="max-w-2xl mb-10">
           <Eyebrow>Engagement path</Eyebrow>
-          <h2 className="text-[27px] sm:text-[32px] leading-[1.16]">From inquiry to priced scope.</h2>
+          <h2 className="text-[27px] sm:text-[32px] leading-[1.16]">
+            From inquiry to priced scope.
+          </h2>
         </Reveal>
         <div className="grid md:grid-cols-3 gap-5">
           {engagementPath.map((step) => (
             <Reveal key={step.title}>
               <div className="premium-card h-full p-6">
-                <h3 className="mb-2 text-[16px] font-semibold">{step.title}</h3>
-                <p className="text-[14px] leading-relaxed text-structural">{step.body}</p>
+                <h3 className="mb-2 cm-subheading font-semibold">
+                  {step.title}
+                </h3>
+                <p className="text-[14px] leading-relaxed text-structural">
+                  {step.body}
+                </p>
               </div>
             </Reveal>
           ))}
@@ -513,10 +640,13 @@ export default function PricingPage() {
           <div className="premium-card flex flex-col gap-6 p-8 md:flex-row md:items-center md:justify-between">
             <div className="max-w-xl">
               <Eyebrow>Next step</Eyebrow>
-              <h2 className="text-[24px] sm:text-[28px] leading-[1.16] mb-3">Request a scoped proposal.</h2>
-              <p className="text-[14.5px] text-structural leading-relaxed">
-                Enterprise and multi-org buyers can review current security posture on the security page before
-                engaging. All access is sales-assisted.
+              <h2 className="text-[24px] sm:text-[28px] leading-[1.16] mb-3">
+                Request a scoped proposal.
+              </h2>
+              <p className="cm-copy text-structural leading-relaxed">
+                Enterprise and multi-org buyers can review current security
+                posture on the security page before engaging. All access is
+                sales-assisted.
               </p>
             </div>
             <div className="flex flex-wrap gap-3 shrink-0">
