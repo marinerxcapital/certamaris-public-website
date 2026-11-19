@@ -59,19 +59,19 @@ export default function ComplianceIacsPage() {
           <div className="mt-4 flex flex-wrap gap-4 text-[14px]">
             <Link
               href="/resources/iacs-ur-e26-e27-overview"
-              className="font-medium text-ocean hover:underline"
+              className="cm-action-link font-medium text-ocean hover:underline"
             >
               Full explainer →
             </Link>
             <Link
               href="/topics/iacs-ur-e26"
-              className="font-medium text-ocean hover:underline"
+              className="cm-action-link font-medium text-ocean hover:underline"
             >
               Topic: E26 →
             </Link>
             <Link
               href="/topics/iacs-ur-e27"
-              className="font-medium text-ocean hover:underline"
+              className="cm-action-link font-medium text-ocean hover:underline"
             >
               Topic: E27 →
             </Link>

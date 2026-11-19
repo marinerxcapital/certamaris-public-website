@@ -103,19 +103,19 @@ export default function ImplementationPage() {
           <div className="mt-8 flex flex-wrap gap-4">
             <Link
               href="/platform"
-              className="text-[14px] font-semibold text-ocean hover:underline"
+              className="cm-action-link text-[14px] font-semibold text-ocean hover:underline"
             >
               Platform modules
             </Link>
             <Link
               href="/platform/integrations"
-              className="text-[14px] font-semibold text-ocean hover:underline"
+              className="cm-action-link text-[14px] font-semibold text-ocean hover:underline"
             >
               Integrations catalogue
             </Link>
             <Link
               href="/who-we-serve"
-              className="text-[14px] font-semibold text-ocean hover:underline"
+              className="cm-action-link text-[14px] font-semibold text-ocean hover:underline"
             >
               Who we serve
             </Link>

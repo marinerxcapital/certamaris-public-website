@@ -97,7 +97,7 @@ export default function GlossaryPage() {
                       <li key={link.href}>
                         <Link
                           href={link.href}
-                          className="text-[13.5px] font-medium text-ocean hover:underline"
+                          className="cm-action-link text-[13.5px] font-medium text-ocean hover:underline"
                         >
                           {link.title} →
                         </Link>

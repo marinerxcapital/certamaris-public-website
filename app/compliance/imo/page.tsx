@@ -60,19 +60,19 @@ export default function ComplianceImoPage() {
           <div className="mt-4 flex flex-wrap gap-4 text-[14px]">
             <Link
               href="/compliance/iacs"
-              className="font-medium text-ocean hover:underline"
+              className="cm-action-link font-medium text-ocean hover:underline"
             >
               IACS UR E26/E27 →
             </Link>
             <Link
               href="/resources/imo-msc-428-98-explained"
-              className="font-medium text-ocean hover:underline"
+              className="cm-action-link font-medium text-ocean hover:underline"
             >
               Full MSC.428(98) explainer →
             </Link>
             <Link
               href="/topics/imo-msc-428-98-compliance"
-              className="font-medium text-ocean hover:underline"
+              className="cm-action-link font-medium text-ocean hover:underline"
             >
               Topic landing →
             </Link>

@@ -177,25 +177,25 @@ export default function PricingPage() {
             <div className="mt-4 grid gap-2 border-t border-navy/10 pt-4 text-[13px]">
               <a
                 href="#pricing-plans"
-                className="font-semibold text-navy hover:text-ocean hover:underline"
+                className="cm-action-link font-semibold text-navy hover:text-ocean hover:underline"
               >
                 Review package shapes
               </a>
               <a
                 href="#pricing-calculator"
-                className="font-semibold text-navy hover:text-ocean hover:underline"
+                className="cm-action-link font-semibold text-navy hover:text-ocean hover:underline"
               >
                 Open live estimate
               </a>
               <a
                 href="#package-comparison"
-                className="font-semibold text-navy hover:text-ocean hover:underline"
+                className="cm-action-link font-semibold text-navy hover:text-ocean hover:underline"
               >
                 Compare package detail
               </a>
               <a
                 href="/trust/procurement"
-                className="font-semibold text-navy hover:text-ocean hover:underline"
+                className="cm-action-link font-semibold text-navy hover:text-ocean hover:underline"
               >
                 Review procurement packet
               </a>

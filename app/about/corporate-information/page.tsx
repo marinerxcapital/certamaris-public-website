@@ -63,7 +63,7 @@ export default function CorporateInformationPage() {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="font-medium text-ocean hover:underline"
+                  className="cm-action-link font-medium text-ocean hover:underline"
                 >
                   {item.label}
                 </Link>

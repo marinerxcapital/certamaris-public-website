@@ -265,6 +265,19 @@ async function main() {
     },
   );
 
+  await step("manual keyboard scrubbing pauses tour playback", async () => {
+    await page.emulateMedia({ reducedMotion: "no-preference" });
+    await page.goto(`${base}/demo`, { waitUntil: "load" });
+    await page.getByRole("button", { name: "Play tour", exact: true }).click();
+    await page.getByRole("button", { name: "Pause", exact: true }).waitFor();
+    const rail = page.getByRole("slider", { name: "Scrub product tour beats" });
+    await rail.focus();
+    await page.keyboard.press("End");
+    await page.getByRole("button", { name: "Play tour", exact: true }).waitFor();
+    if ((await rail.inputValue()) !== "7") throw new Error("End did not select beat eight");
+    await page.emulateMedia({ reducedMotion: "reduce" });
+  });
+
   await context.close();
   await browser.close();
   server.close();

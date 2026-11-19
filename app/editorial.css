@@ -13,6 +13,19 @@
   line-height: 1.25;
   font-weight: 600;
 }
+.cm-action-link {
+  display: inline-flex;
+  align-items: center;
+  min-width: 44px;
+  min-height: 44px;
+  max-width: 100%;
+  padding-block: 8px;
+  line-height: 1.5;
+}
+.cm-action-link:focus-visible {
+  outline: 2px solid #1b54db;
+  outline-offset: 3px;
+}
 .cm-section-label {
   font-family: var(--font-body), sans-serif;
   font-size: 13px;

@@ -89,7 +89,7 @@ export default function AboutPage() {
         <Reveal className="mt-8">
           <Link
             href="/platform"
-            className="text-[14px] font-semibold text-ocean hover:underline"
+            className="cm-action-link text-[14px] font-semibold text-ocean hover:underline"
           >
             View platform hierarchy
           </Link>

@@ -19,7 +19,7 @@ export function CustodyStripBand({
           <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-[#0e5a8a]">
             01 REQ → 10 PKG
           </p>
-          <Link href={href} className="text-[13px] font-semibold text-ocean hover:underline">
+          <Link href={href} className="cm-action-link text-[13px] font-semibold text-ocean hover:underline">
             {label}
           </Link>
         </div>

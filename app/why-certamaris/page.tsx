@@ -110,19 +110,19 @@ export default function WhyCertaMarisPage() {
           <div className="flex flex-wrap gap-3">
             <Link
               href="/platform"
-              className="text-[14px] font-semibold text-ocean hover:underline"
+              className="cm-action-link text-[14px] font-semibold text-ocean hover:underline"
             >
               Platform hierarchy
             </Link>
             <Link
               href="/implementation"
-              className="text-[14px] font-semibold text-ocean hover:underline"
+              className="cm-action-link text-[14px] font-semibold text-ocean hover:underline"
             >
               Implementation
             </Link>
             <Link
               href="/security"
-              className="text-[14px] font-semibold text-ocean hover:underline"
+              className="cm-action-link text-[14px] font-semibold text-ocean hover:underline"
             >
               Security & Trust
             </Link>

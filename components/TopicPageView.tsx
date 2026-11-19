@@ -90,7 +90,7 @@ export function TopicPageView({ topic }: { topic: TopicPage }) {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-[14.5px] font-medium text-ocean hover:underline"
+                    className="cm-action-link text-[14.5px] font-medium text-ocean hover:underline"
                   >
                     {link.title}
                   </Link>
@@ -106,7 +106,7 @@ export function TopicPageView({ topic }: { topic: TopicPage }) {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-[14.5px] font-medium text-ocean hover:underline"
+                      className="cm-action-link text-[14.5px] font-medium text-ocean hover:underline"
                     >
                       {link.title}
                     </Link>
@@ -122,7 +122,7 @@ export function TopicPageView({ topic }: { topic: TopicPage }) {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-[14.5px] font-medium text-ocean hover:underline"
+                    className="cm-action-link text-[14.5px] font-medium text-ocean hover:underline"
                   >
                     {link.title}
                   </Link>

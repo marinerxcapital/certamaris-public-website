@@ -57,6 +57,9 @@ export function DemoScrubTour() {
   }, [reduced]);
 
   const onRailKeyDown = (event: React.KeyboardEvent) => {
+    if (["ArrowRight", "ArrowDown", "ArrowLeft", "ArrowUp", "Home", "End"].includes(event.key)) {
+      setPlaying(false);
+    }
     if (event.key === "ArrowRight" || event.key === "ArrowDown") {
       event.preventDefault();
       goTo(index + 1);

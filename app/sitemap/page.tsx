@@ -35,7 +35,7 @@ export default function SitemapPage() {
                 <ul className="mt-4 space-y-2">
                   {group.links.map(([label, href]) => (
                     <li key={`${group.title}-${href}-${label}`}>
-                      <Link href={href} className="text-[14.5px] font-semibold text-ocean hover:underline">
+                      <Link href={href} className="cm-action-link text-[14.5px] font-semibold text-ocean hover:underline">
                         {label}
                       </Link>
                     </li>

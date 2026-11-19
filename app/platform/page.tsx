@@ -100,7 +100,7 @@ export default function PlatformPage() {
               </span>
               <div className="min-w-0">
                 <h3 className="cm-subheading font-semibold">
-                  <Link href={level.href} className="hover:text-ocean">
+                  <Link href={level.href} className="cm-action-link hover:text-ocean">
                     {level.title}
                   </Link>
                 </h3>
@@ -120,7 +120,7 @@ export default function PlatformPage() {
                 <Link
                   prefetch={false}
                   href={level.href}
-                  className="mt-3 inline-block text-[13.5px] font-semibold text-ocean hover:underline"
+                  className="cm-action-link mt-3 inline-block text-[13.5px] font-semibold text-ocean hover:underline"
                 >
                   Open module
                 </Link>

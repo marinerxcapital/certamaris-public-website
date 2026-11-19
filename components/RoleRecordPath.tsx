@@ -113,7 +113,7 @@ export function RoleRecordPath({ slug }: { slug: string }) {
 
       <div className="mt-5 flex flex-wrap gap-3">
         <Button href={path.ctaHref}>Open this demo path</Button>
-        <Link href="/trust/assurance-model" className="self-center text-[14px] font-semibold text-ocean hover:underline">
+        <Link href="/trust/assurance-model" className="cm-action-link self-center text-[14px] font-semibold text-ocean hover:underline">
           Assurance model
         </Link>
       </div>

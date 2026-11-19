@@ -176,7 +176,7 @@ export default function ProcurementPage() {
               {"href" in item && item.href ? (
                 <a
                   href={item.href}
-                  className="text-[13.5px] font-semibold text-ocean hover:underline"
+                  className="cm-action-link text-[13.5px] font-semibold text-ocean hover:underline"
                 >
                   Open leave-behind
                 </a>
