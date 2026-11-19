@@ -158,7 +158,7 @@ export default function ProcurementPage() {
               key={item.title}
               className="premium-card flex flex-col gap-3 p-5"
             >
-              <div className="flex items-start justify-between gap-3">
+              <div className="flex flex-col items-start gap-3">
                 <h3 className="cm-subheading font-semibold">
                   {"href" in item && item.href ? (
                     <a href={item.href} className="hover:text-ocean">

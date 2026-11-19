@@ -1,6 +1,5 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
 import { type KeyboardEvent, useEffect, useId, useRef, useState } from "react";
 import { Button } from "@/components/Button";
 import { ProductScreenImage } from "@/components/ProductScreens";
@@ -94,13 +93,6 @@ const tabs: DemoTab[] = [
   },
 ];
 
-const panelMotion = {
-  initial: { opacity: 0.5, y: 10 },
-  animate: { opacity: 1, y: 0 },
-  exit: { opacity: 0.5, y: -8 },
-  transition: { duration: 0.2, ease: [0.16, 1, 0.3, 1] as const },
-};
-
 function DemoTabPanel({ tab }: { tab: DemoTab }) {
   const annotations = tab.screen.annotations?.slice(0, 3) ?? [];
 
@@ -124,15 +116,15 @@ function DemoTabPanel({ tab }: { tab: DemoTab }) {
 
       <figure className="product-exhibit m-0">
         <div className="overflow-hidden rounded-lg border border-navy/15 bg-white shadow-card">
-          <div className="flex min-h-11 items-center justify-between gap-2 border-b border-navy/10 bg-paper px-3">
-            <span className="truncate font-mono text-[11px] uppercase tracking-[0.1em] text-structural">
+          <div className="flex min-h-11 flex-col items-start justify-between gap-2 border-b border-navy/10 bg-paper px-3 py-2 sm:flex-row sm:items-center">
+            <span className="text-[14px] font-semibold leading-snug text-structural">
               Exhibit · {tab.screen.label}
             </span>
             <a
               href={tab.screen.fullSrc ?? tab.screen.src}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex min-h-11 shrink-0 items-center rounded border border-transparent px-2 font-mono text-[10px] uppercase tracking-[0.08em] text-[#0b6597] underline-offset-2 hover:border-ocean/20 hover:bg-white hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ocean"
+              className="inline-flex min-h-11 shrink-0 items-center rounded border border-transparent px-2 text-[13px] font-semibold text-ocean underline-offset-2 hover:border-ocean/20 hover:bg-white hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ocean"
             >
               Full resolution<span aria-hidden="true"> ↗</span>
               <span className="sr-only">
@@ -329,15 +321,9 @@ export function DemoTourGallery() {
         aria-labelledby={`${baseId}-tab-${active.id}`}
         className="mt-6"
       >
-        {reduced ? (
+        <div key={active.id} className="cm-demo-panel cm-demo-panel--gallery">
           <DemoTabPanel tab={active} />
-        ) : (
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.div key={active.id} {...panelMotion}>
-              <DemoTabPanel tab={active} />
-            </motion.div>
-          </AnimatePresence>
-        )}
+        </div>
       </div>
     </div>
   );

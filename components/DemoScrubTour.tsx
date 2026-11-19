@@ -1,6 +1,5 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { ProductScreenFrame } from "@/components/ProductScreens";
 import { PersonaPicker, usePersonaSelection } from "@/components/PersonaEntry";
@@ -9,13 +8,6 @@ import { getPersona } from "@/lib/personas";
 import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 
 const AUTO_MS = 5200;
-
-const beatMotion = {
-  initial: { opacity: 0.55, y: 12 },
-  animate: { opacity: 1, y: 0 },
-  exit: { opacity: 0.55, y: -8 },
-  transition: { duration: 0.32, ease: [0.16, 1, 0.3, 1] as const },
-};
 
 /**
  * Cinematic scrub tour for /demo: drag or click the custody rail, or play
@@ -27,12 +19,7 @@ export function DemoScrubTour() {
   const labelId = useId();
   const [index, setIndex] = useState(0);
   const [playing, setPlaying] = useState(false);
-  const [hydrated, setHydrated] = useState(false);
   const scrubRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    setHydrated(true);
-  }, []);
 
   useEffect(() => {
     if (!ready) return;
@@ -186,34 +173,18 @@ export function DemoScrubTour() {
 
       <div className="mt-8 grid gap-6 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:items-start">
         <div className="min-w-0">
-          {reduced || !hydrated ? (
+          <div key={beat.id} className="cm-demo-panel">
             <BeatCopy beat={beat} />
-          ) : (
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.div key={beat.id} {...beatMotion}>
-                <BeatCopy beat={beat} />
-              </motion.div>
-            </AnimatePresence>
-          )}
+          </div>
         </div>
         <div className="min-w-0">
-          {reduced || !hydrated ? (
+          <div key={beat.id} className="cm-demo-panel">
             <ProductScreenFrame
               {...beat.screen}
               priority={index === 0}
               sizes="(min-width: 1024px) 46vw, 100vw"
             />
-          ) : (
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.div key={beat.id} {...beatMotion}>
-                <ProductScreenFrame
-                  {...beat.screen}
-                  priority={index === 0}
-                  sizes="(min-width: 1024px) 46vw, 100vw"
-                />
-              </motion.div>
-            </AnimatePresence>
-          )}
+          </div>
         </div>
       </div>
     </div>

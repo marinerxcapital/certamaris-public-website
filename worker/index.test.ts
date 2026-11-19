@@ -79,6 +79,24 @@ test("contact endpoint returns 405 with Allow and applies security headers", asy
   assert.equal(response.headers.get("x-content-type-options"), "nosniff");
 });
 
+test("conditional HTML revalidation retains the cached hashed CSP", async () => {
+  const bindings = env().bindings;
+  bindings.ASSETS.fetch = async () => new Response(null, {
+    status: 304,
+    headers: { "Content-Type": "text/html; charset=utf-8", ETag: '"same-html"' },
+  });
+  const response = await worker.fetch(new Request("https://certamaris.com/demo", {
+    headers: { "If-None-Match": '"same-html"' },
+  }), bindings);
+  assert.equal(response.status, 304);
+  assert.equal(response.headers.get("etag"), '"same-html"');
+  // Sending a new hashless policy would overwrite the cached 200 policy and
+  // block Next's inline hydration scripts on reload.
+  assert.equal(response.headers.get("content-security-policy"), null);
+  assert.equal(response.headers.get("x-content-type-options"), "nosniff");
+  assert.equal(await response.text(), "");
+});
+
 test("contact endpoint rejects oversized requests and rate-limited sources", async () => {
   const oversized = await worker.fetch(post("x".repeat(32 * 1024 + 1)), env().bindings);
   assert.equal(oversized.status, 413);

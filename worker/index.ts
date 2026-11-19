@@ -136,7 +136,12 @@ async function withHeaders(response: Response, request: Request): Promise<Respon
   for (const [key, value] of Object.entries(SECURITY_HEADERS)) {
     headers.set(key, value);
   }
-  headers.set("Content-Security-Policy", await contentSecurityPolicy(response));
+  // A 304 has no representation body from which to calculate inline hashes.
+  // Omit the policy update so HTTP cache revalidation retains the policy from
+  // the matching 200 response, together with its cached HTML (RFC 9111 4.3.4).
+  if (response.status !== 304) {
+    headers.set("Content-Security-Policy", await contentSecurityPolicy(response));
+  }
 
   if (url.pathname.startsWith("/_next/static/")) {
     headers.set("Cache-Control", IMMUTABLE_CACHE);

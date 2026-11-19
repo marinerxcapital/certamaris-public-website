@@ -145,8 +145,8 @@ export default function SecurityPage() {
         <div className="max-w-3xl space-y-4">
           {securityTrustControls.map((item) => (
             <Reveal key={item.id}>
-              <div className="premium-card flex items-start justify-between gap-6 p-5">
-                <div>
+              <div className="premium-card flex flex-col items-start justify-between gap-4 p-5 sm:flex-row sm:gap-6">
+                <div className="min-w-0 flex-1">
                   <p className="mb-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-ocean">
                     {item.category}
                   </p>
