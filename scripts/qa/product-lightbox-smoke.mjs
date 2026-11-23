@@ -48,9 +48,9 @@ function resolveFile(urlPath) {
 const TRIGGER = 'main button[data-testid="product-screen-trigger"]';
 const DIALOG = '[data-testid="product-lightbox"]';
 
-async function openFirst(page, base, { viewport, tap = false } = {}) {
+async function openFirst(page, base, { viewport, tap = false, route = "/platform" } = {}) {
   if (viewport) await page.setViewportSize(viewport);
-  await page.goto(`${base}/platform`, { waitUntil: "load" });
+  await page.goto(`${base}${route}`, { waitUntil: "load" });
   const trigger = page.locator(TRIGGER).first();
   await trigger.waitFor({ state: "visible", timeout: 15000 });
   await trigger.scrollIntoViewIfNeeded();
@@ -58,6 +58,66 @@ async function openFirst(page, base, { viewport, tap = false } = {}) {
   else await trigger.click();
   await page.locator(DIALOG).waitFor({ state: "visible" });
   return trigger;
+}
+
+
+// Wait out the 220ms scale(0.985) entry animation (and any other finite
+// animation). A mid-animation box read reports ~43.34px for a 44px control.
+// Infinite animations (if any) are ignored so this cannot hang.
+async function waitForFiniteAnimations(page) {
+  await page.waitForFunction(
+    () =>
+      document
+        .getAnimations()
+        .filter((animation) => animation.effect?.getComputedTiming().iterations !== Infinity)
+        .every((animation) => animation.playState !== "running"),
+    undefined,
+    { timeout: 5000 },
+  );
+}
+
+function measure390Controls(page) {
+  return page.evaluate(() => {
+    const measure = (el) => {
+      if (!el) return { present: false };
+      const r = el.getBoundingClientRect();
+      const cs = getComputedStyle(el);
+      const hit = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+      return {
+        present: true,
+        rect: { x: r.x, y: r.y, w: r.width, h: r.height },
+        layoutBox: { w: el.offsetWidth, h: el.offsetHeight },
+        inViewport:
+          r.left >= 0 && r.top >= 0 && r.right <= innerWidth && r.bottom <= innerHeight,
+        visible: cs.visibility !== "hidden" && cs.display !== "none" && Number(cs.opacity) > 0,
+        hitIsSelf: Boolean(hit && (el === hit || el.contains(hit))),
+        disabled: Boolean(el.disabled),
+      };
+    };
+    return {
+      close: measure(document.querySelector('[data-testid="product-lightbox-close"]')),
+      previous: measure(document.querySelector('[data-testid="product-lightbox-previous"]')),
+      next: measure(document.querySelector('[data-testid="product-lightbox-next"]')),
+      overflowX: document.documentElement.scrollWidth > innerWidth,
+      bodyOverflow: document.body.style.overflow,
+    };
+  });
+}
+
+function assertMin44(label, control, { required = true } = {}) {
+  if (!control?.present) {
+    if (required) throw new Error(`${label} missing at 390px`);
+    return;
+  }
+  if (!control.visible || !control.inViewport || !control.hitIsSelf) {
+    throw new Error(`${label} not visible/reachable: ${JSON.stringify(control)}`);
+  }
+  if (control.rect.w < 44 || control.rect.h < 44) {
+    throw new Error(`${label} rendered box under 44px: ${JSON.stringify(control.rect)}`);
+  }
+  if (control.layoutBox.w < 44 || control.layoutBox.h < 44) {
+    throw new Error(`${label} layout box under 44px: ${JSON.stringify(control.layoutBox)}`);
+  }
 }
 
 const dialogTitle = (page) => page.locator(`${DIALOG} h2`).textContent();
@@ -243,52 +303,43 @@ async function extendedChecks(browser, base) {
     hasTouch: true,
     isMobile: true,
   });
-  const mpage = await mctx.newPage();
-  await record("mobile390CloseVisibleAndUsable", async () => {
-    await openFirst(mpage, base, { tap: true });
-    await mpage.waitForFunction(
-      () => document.querySelector('[data-testid="product-lightbox"] img')?.naturalWidth > 0,
-      undefined,
-      { timeout: 15000 },
-    );
-    // The dialog enters with a 220ms scale(0.985) animation; a bounding box read
-    // mid-animation reports 43.34px for a 44px control. Wait for it to settle.
-    await mpage.waitForFunction(
-      () =>
-        document
-          .getAnimations()
-          .filter((animation) => animation.effect?.getComputedTiming().iterations !== Infinity)
-          .every((animation) => animation.playState !== "running"),
-      undefined,
-      { timeout: 5000 },
-    );
-    const m = await mpage.evaluate(() => {
-      const close = document.querySelector('[data-testid="product-lightbox-close"]');
-      const r = close.getBoundingClientRect();
-      const cx = r.left + r.width / 2;
-      const cy = r.top + r.height / 2;
-      const hit = document.elementFromPoint(cx, cy);
-      const cs = getComputedStyle(close);
-      return {
-        rect: { x: r.x, y: r.y, w: r.width, h: r.height },
-        layoutBox: { w: close.offsetWidth, h: close.offsetHeight },
-        inViewport: r.left >= 0 && r.top >= 0 && r.right <= innerWidth && r.bottom <= innerHeight,
-        hitIsClose: Boolean(hit && close.contains(hit)),
-        visible: cs.visibility !== "hidden" && cs.display !== "none" && Number(cs.opacity) > 0,
-        overflowX: document.documentElement.scrollWidth > innerWidth,
-        bodyOverflow: document.body.style.overflow,
-      };
-    });
-    if (!m.visible || !m.inViewport || !m.hitIsClose) throw new Error("close not visible/reachable: " + JSON.stringify(m));
-    if (m.rect.w < 43.5 || m.rect.h < 43.5) throw new Error("close target under 44px: " + JSON.stringify(m.rect));
-    if (m.overflowX) throw new Error("horizontal overflow at 390px");
-    if (m.bodyOverflow !== "hidden") throw new Error("scroll not locked on mobile");
-    await mpage.locator('[data-testid="product-lightbox-close"]').tap();
-    await mpage.locator(DIALOG).waitFor({ state: "detached", timeout: 3000 });
-    await mpage.waitForTimeout(150);
-    const focus = await triggerFocused(mpage);
-    if (!focus.restored) throw new Error("focus not restored after tapping close");
-    return { ...m, focus };
+  // Why the 38.39px /platform prev/next miss slipped through: this 390px check
+  // only measured the close button (already 44px after the pin) and never the
+  // .product-gallery-nav previous/next controls. A later CSS rule set those to
+  // min-width: 2.4rem (38.39px). Measure close, previous, and next — layout box
+  // and rendered box, after finite animations settle — on /platform (where nav
+  // exists) and on a second multi-exhibit page so a single-exhibit route like
+  // /demo cannot hide a nav-size regression.
+  const routes390 = ["/platform", "/resources"];
+  await record("mobile390ClosePrevNextTargets", async () => {
+    const byRoute = {};
+    for (const route of routes390) {
+      const page = await mctx.newPage();
+      try {
+        await openFirst(page, base, { tap: true, route });
+        await page.waitForFunction(
+          () => document.querySelector('[data-testid="product-lightbox"] img')?.naturalWidth > 0,
+          undefined,
+          { timeout: 15000 },
+        );
+        await waitForFiniteAnimations(page);
+        const m = await measure390Controls(page);
+        assertMin44(`${route} close`, m.close);
+        assertMin44(`${route} previous`, m.previous);
+        assertMin44(`${route} next`, m.next);
+        if (m.overflowX) throw new Error(`${route} horizontal overflow at 390px`);
+        if (m.bodyOverflow !== "hidden") throw new Error(`${route} scroll not locked on mobile`);
+        await page.locator('[data-testid="product-lightbox-close"]').tap();
+        await page.locator(DIALOG).waitFor({ state: "detached", timeout: 3000 });
+        await page.waitForTimeout(150);
+        const focus = await triggerFocused(page);
+        if (!focus.restored) throw new Error(`${route} focus not restored after tapping close`);
+        byRoute[route] = { ...m, focus };
+      } finally {
+        await page.close();
+      }
+    }
+    return { base, viewport: "390x844", routes: routes390, byRoute };
   });
   await mctx.close();
   return out;
