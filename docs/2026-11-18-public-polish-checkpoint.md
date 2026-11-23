@@ -1,3 +1,5 @@
+SUPERSEDED 2026-11-22: this checkpoint's status (NOT DEPLOYED, production a8a3251f) is historical. The polished source was committed (d585a52, 924e02e, 7847dde) and deployed as Worker version `bec27015-81fa-4a31-bc96-bb92da895f42` (created 2026-11-19 12:29:36 ET (09:29:36 PT)); the finish pass and final state are in [2026-11-22-public-polish-release.md](./2026-11-22-public-polish-release.md) (active `6e8989d9-e429-4034-b931-65f5438a698e` after Deploy 2 of `ba0f382`; Deploy 1 was `ef6aacf5-193f-495a-a6ac-8e300a55270e`). Text below is unchanged history.
+
 # Public-site polish implementation checkpoint - 2026-11-18 21:57 UTC
 
 Status: IMPLEMENTED PARTIAL / LOCAL GATES PASS / NOT DEPLOYED. Agent: Codex, GPT-6 per runtime identity; precise variant unavailable.
