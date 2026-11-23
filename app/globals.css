@@ -4748,8 +4748,8 @@ figure.product-showcase-frame > div:first-child {
 }
 
 .product-gallery-nav {
-  min-width: 2.4rem;
-  min-height: 2.4rem;
+  min-width: 44px;
+  min-height: 44px;
   font-size: 1.1rem;
 }
 
