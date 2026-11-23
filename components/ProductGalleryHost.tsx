@@ -71,6 +71,11 @@ function ProductGalleryDialog({
         closeProductGallery(pathname);
         return;
       }
+      // ArrowLeft/Right always change exhibits, even when the stage is
+      // focused. That is the existing lightbox contract; we preventDefault
+      // so a horizontally overflowing stage cannot swallow the key without
+      // navigating. ArrowUp/Down are left alone so a vertically overflowing
+      // stage can still be scrolled with the keyboard.
       if (screenCount > 1 && event.key === "ArrowLeft") {
         event.preventDefault();
         moveProductScreen(pathname, -1);
@@ -116,7 +121,7 @@ function ProductGalleryDialog({
       document.body.style.overflow = previousOverflow;
       document.body.style.paddingRight = previousPaddingRight;
     };
-  }, [pathname, screen.id, screenCount]);
+  }, [pathname, screenCount]);
 
   const originalHref = screen.fullSrc || screen.src;
 
@@ -161,7 +166,15 @@ function ProductGalleryDialog({
         </header>
 
         <div className="product-gallery-body">
-          <div className="product-gallery-stage">
+          <div
+            className="product-gallery-stage"
+            data-testid="product-lightbox-stage"
+            tabIndex={0}
+            role="region"
+            aria-label={
+              screen.title?.trim() || screen.label?.trim() || "Exhibit image"
+            }
+          >
             {imageFailed ? (
               <div className="product-gallery-error" role="alert">
                 <strong>Exhibit unavailable</strong>

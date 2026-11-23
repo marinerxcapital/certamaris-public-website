@@ -4622,6 +4622,7 @@ figure.product-showcase-frame > div:first-child {
 
 .product-gallery-close:focus-visible,
 .product-gallery-nav:focus-visible,
+.product-gallery-stage:focus-visible,
 .product-gallery-original:focus-visible {
   outline: 2px solid var(--ocean, #126faa);
   outline-offset: 2px;

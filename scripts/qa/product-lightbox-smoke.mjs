@@ -226,6 +226,99 @@ async function extendedChecks(browser, base) {
     return { focusableCount };
   });
 
+  await record("stageFocusableTrapArrowsEscape", async () => {
+    await openFirst(page, base, { route: "/platform" });
+    await waitForFiniteAnimations(page);
+    const stageSel = '[data-testid="product-lightbox-stage"]';
+    const info = await page.evaluate((sel) => {
+      const stage = document.querySelector(sel);
+      const title = document.querySelector("#product-gallery-title")?.textContent?.trim() || "";
+      return {
+        present: Boolean(stage),
+        tabIndex: stage?.tabIndex,
+        role: stage?.getAttribute("role"),
+        ariaLabel: stage?.getAttribute("aria-label"),
+        title,
+      };
+    }, stageSel);
+    if (!info.present) throw new Error("stage missing");
+    if (info.tabIndex !== 0) throw new Error("stage tabIndex=" + info.tabIndex);
+    if (info.role !== "region") throw new Error("stage role=" + info.role);
+    if (!info.ariaLabel) throw new Error("stage missing aria-label");
+    if (info.ariaLabel !== info.title && info.ariaLabel !== "Exhibit image") {
+      throw new Error("aria-label mismatch: " + JSON.stringify(info));
+    }
+    const activeTestId = () =>
+      page.evaluate(
+        () =>
+          document.activeElement?.getAttribute("data-testid") ||
+          document.activeElement?.tagName ||
+          null,
+      );
+    const initial = await activeTestId();
+    if (initial !== "product-lightbox-close") throw new Error("initial focus=" + initial);
+    await page.keyboard.press("Tab");
+    if ((await activeTestId()) !== "product-lightbox-stage") {
+      throw new Error("Tab from close did not land on stage, got " + (await activeTestId()));
+    }
+    const outline = await page.evaluate((sel) => {
+      const cs = getComputedStyle(document.querySelector(sel));
+      return { style: cs.outlineStyle, width: cs.outlineWidth, color: cs.outlineColor };
+    }, stageSel);
+    if (outline.style === "none" || parseFloat(outline.width) <= 0) {
+      throw new Error("no focus-visible outline on stage: " + JSON.stringify(outline));
+    }
+    await page.keyboard.press("Shift+Tab");
+    if ((await activeTestId()) !== "product-lightbox-close") {
+      throw new Error("Shift+Tab from stage did not return to close, got " + (await activeTestId()));
+    }
+    const tabOrder = ["product-lightbox-close"];
+    for (let i = 0; i < 12; i++) {
+      await page.keyboard.press("Tab");
+      const id = await activeTestId();
+      tabOrder.push(id);
+      if (id === "product-lightbox-next") break;
+    }
+    if (tabOrder[1] !== "product-lightbox-stage") {
+      throw new Error("trap order after close is not stage: " + tabOrder.join(" -> "));
+    }
+    const prevAt = tabOrder.indexOf("product-lightbox-previous");
+    const nextAt = tabOrder.indexOf("product-lightbox-next");
+    if (prevAt < 2 || nextAt !== prevAt + 1) {
+      throw new Error("nav (prev -> next) not after stage in trap: " + tabOrder.join(" -> "));
+    }
+    if ((await activeTestId()) !== "product-lightbox-next") {
+      throw new Error("expected to sit on next after walking the trap");
+    }
+    await page.keyboard.press("Tab");
+    if ((await activeTestId()) !== "product-lightbox-close") {
+      throw new Error("Tab from next did not wrap to close, got " + (await activeTestId()));
+    }
+    await page.keyboard.press("Shift+Tab");
+    if ((await activeTestId()) !== "product-lightbox-next") {
+      throw new Error("Shift+Tab from close did not wrap to next, got " + (await activeTestId()));
+    }
+    await page.locator(stageSel).focus();
+    const first = await dialogTitle(page);
+    await page.keyboard.press("ArrowRight");
+    const second = await dialogTitle(page);
+    if (!second || second === first) throw new Error("ArrowRight from stage did not change exhibit");
+    const labelAfter = await page.getAttribute(stageSel, "aria-label");
+    if (labelAfter?.trim() !== second.trim()) {
+      throw new Error("aria-label did not follow exhibit: " + JSON.stringify({ labelAfter, second }));
+    }
+    await page.keyboard.press("ArrowLeft");
+    const back = await dialogTitle(page);
+    if (back !== first) throw new Error("ArrowLeft from stage did not return to the first exhibit");
+    await page.locator(stageSel).focus();
+    await page.keyboard.press("Escape");
+    await page.locator(DIALOG).waitFor({ state: "detached", timeout: 3000 });
+    await page.waitForTimeout(150);
+    const focus = await triggerFocused(page);
+    if (!focus.restored) throw new Error("focus not restored after Escape from the stage");
+    return { ariaLabel: info.ariaLabel, outline, tabOrder, first, second, focus };
+  });
+
   await record("backdropClickCloses", async () => {
     await openFirst(page, base);
     // A click inside the dialog must NOT close it.
