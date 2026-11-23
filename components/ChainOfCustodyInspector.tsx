@@ -151,7 +151,7 @@ export function ChainOfCustodyInspector() {
           </p>
 
           <div className="mt-5 flex flex-wrap gap-3">
-            <Button href={`/platform/${active.code === "EVD" ? "evidence" : active.code === "FND" || active.code === "CAP" ? "findings-corrective-actions" : active.code === "PKG" ? "reports-readiness" : "assessments"}`} variant="secondary">
+            <Button href={`/platform/${active.code === "EVD" ? "evidence" : active.code === "FND" || active.code === "CAP" ? "findings-corrective-actions" : active.code === "PKG" ? "reports-readiness" : "assessments"}`} variant="secondary" className="max-w-full !shrink !whitespace-normal text-center">
               Open related platform area
             </Button>
             <Button href="/contact?intent=demo" variant="ghost">

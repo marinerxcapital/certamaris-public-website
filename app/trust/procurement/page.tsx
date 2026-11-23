@@ -22,8 +22,8 @@ export default function ProcurementPage() {
         title={procurementContent.title}
         intro={procurementContent.intro}
         aside={
-          <div className="liquid-glass liquid-glass--subtle lg-pad-md w-full max-w-[25rem]">
-            <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-[#0e5a8a]">
+          <div className="liquid-glass liquid-glass--subtle lg-pad-md w-full max-w-[25rem] xl:max-w-[28rem]">
+            <p className="font-mono text-[13px] font-semibold uppercase tracking-[0.14em] text-[#0e5a8a]">
               Procurement review path
             </p>
             <div className="mt-4 grid gap-3">
@@ -31,10 +31,10 @@ export default function ProcurementPage() {
                 href="/security"
                 className="rounded-md border border-navy/10 bg-white/70 p-3 transition hover:border-ocean/35 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ocean focus-visible:ring-offset-2"
               >
-                <span className="block text-[14px] font-semibold text-navy">
+                <span className="block text-[16px] font-semibold text-navy">
                   Public security controls
                 </span>
-                <span className="mt-1 block text-[12.5px] leading-5 text-structural">
+                <span className="mt-1 block text-[14px] leading-6 text-structural">
                   Review implemented, planned, and unclaimed security posture.
                 </span>
               </a>
@@ -42,10 +42,10 @@ export default function ProcurementPage() {
                 href="/trust/assurance-model"
                 className="rounded-md border border-navy/10 bg-white/70 p-3 transition hover:border-ocean/35 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ocean focus-visible:ring-offset-2"
               >
-                <span className="block text-[14px] font-semibold text-navy">
+                <span className="block text-[16px] font-semibold text-navy">
                   Assurance model one-pager
                 </span>
-                <span className="mt-1 block text-[12.5px] leading-5 text-structural">
+                <span className="mt-1 block text-[14px] leading-6 text-structural">
                   Trace requirement, evidence, finding, action, and release
                   boundaries.
                 </span>
@@ -54,10 +54,10 @@ export default function ProcurementPage() {
                 href={procurementContent.requestHref}
                 className="rounded-md border border-ocean/20 bg-ocean/5 p-3 transition hover:border-ocean/45 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ocean focus-visible:ring-offset-2"
               >
-                <span className="block text-[14px] font-semibold text-navy">
+                <span className="block text-[16px] font-semibold text-navy">
                   {procurementContent.requestLabel}
                 </span>
-                <span className="mt-1 block text-[12.5px] leading-5 text-structural">
+                <span className="mt-1 block text-[14px] leading-6 text-structural">
                   Send organization context and the document list through the
                   routed request.
                 </span>

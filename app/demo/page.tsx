@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import { BoundaryPanel } from "@/components/BoundaryPanel";
 import { Button } from "@/components/Button";
 import { ChainOfCustodyInspector } from "@/components/ChainOfCustodyInspector";
@@ -9,11 +8,7 @@ import { DemoTourGallery } from "@/components/DemoTourGallery";
 import { PageHero } from "@/components/PageHero";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow, Section } from "@/components/Section";
-import {
-  APP_SALES_EMAIL,
-  APP_SCHEDULING_URL,
-  PRIMARY_CTA_LABEL,
-} from "@/lib/constants";
+import { APP_SCHEDULING_URL } from "@/lib/constants";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata(
@@ -131,34 +126,7 @@ export default function DemoPage() {
           </Reveal>
           <Reveal delay={0.06}>
             <div className="premium-card p-6 sm:p-8">
-              <Suspense
-                fallback={
-                  <div className="space-y-3" role="status">
-                    <p className="text-[14px] text-structural">
-                      Loading demo request form…
-                    </p>
-                    <p className="text-[14px] text-structural">
-                      If the form does not load, email{" "}
-                      <a
-                        href={`mailto:${APP_SALES_EMAIL}`}
-                        className="font-medium text-ocean hover:underline"
-                      >
-                        {APP_SALES_EMAIL}
-                      </a>{" "}
-                      or use{" "}
-                      <a
-                        href="/contact?intent=demo"
-                        className="font-medium text-ocean hover:underline"
-                      >
-                        {PRIMARY_CTA_LABEL}
-                      </a>
-                      .
-                    </p>
-                  </div>
-                }
-              >
-                <ContactForm defaultIntent="demo" lockIntent />
-              </Suspense>
+              <ContactForm defaultIntent="demo" lockIntent />
             </div>
           </Reveal>
         </div>

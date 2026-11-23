@@ -66,8 +66,8 @@ export default function PlatformPage() {
         title="The controlled record behind maritime cyber readiness."
         intro="Company, fleet, and vessel work share one assurance chain — requirements, controls, evidence, findings, actions, and released packages — with individual auditable identities at every level."
         aside={
-          <div className="w-full max-w-[min(420px,100%)] space-y-3 lg:w-[420px]">
-            <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-[#0e5a8a]">
+          <div className="w-full max-w-[min(420px,100%)] space-y-3 lg:w-[420px] xl:max-w-[600px] xl:w-[min(34vw,600px)]">
+            <p className="font-mono text-[13px] font-semibold uppercase tracking-[0.14em] text-[#0e5a8a]">
               CertaMaris · Platform
             </p>
             <ProductExhibit
@@ -75,7 +75,7 @@ export default function PlatformPage() {
               priority
               crop="top"
               className="hero-executive-frame"
-              sizes="(min-width: 1024px) 420px, 80vw"
+              sizes="(min-width: 1280px) min(34vw, 600px), (min-width: 1024px) 420px, 80vw"
             />
           </div>
         }

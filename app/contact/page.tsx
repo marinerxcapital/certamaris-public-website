@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import { BoundaryPanel } from "@/components/BoundaryPanel";
 import { Button } from "@/components/Button";
 import { ContactForm } from "@/components/ContactForm";
@@ -199,27 +198,7 @@ export default function ContactPage() {
           </Reveal>
           <Reveal delay={0.08}>
             <div className="premium-card p-7 sm:p-9">
-              <Suspense
-                fallback={
-                  <div className="space-y-3" role="status">
-                    <p className="text-[14px] text-structural">
-                      Loading contact form…
-                    </p>
-                    <p className="text-[14px] text-structural">
-                      If the form does not load, email{" "}
-                      <a
-                        href={`mailto:${APP_SALES_EMAIL}`}
-                        className="font-medium text-ocean hover:underline"
-                      >
-                        {APP_SALES_EMAIL}
-                      </a>
-                      .
-                    </p>
-                  </div>
-                }
-              >
-                <ContactForm defaultIntent="demo" />
-              </Suspense>
+              <ContactForm defaultIntent="demo" />
             </div>
           </Reveal>
         </div>

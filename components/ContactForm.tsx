@@ -1,6 +1,14 @@
 "use client";
 
-import { useEffect, useMemo, useState, type FormEvent } from "react";
+import {
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type FormEvent,
+} from "react";
 import { useSearchParams } from "next/navigation";
 import {
   APP_SALES_EMAIL,
@@ -23,6 +31,24 @@ type Status = "idle" | "submitting" | "success" | "error";
 
 const MIN_SUBMIT_MS = 2500;
 
+/**
+ * Reads `?intent=` without letting `useSearchParams` bail the whole form out
+ * of static prerendering: this tiny child renders nothing, and it lives in its
+ * own Suspense boundary inside ContactForm, so only this null-rendering child
+ * is client-rendered while the form markup stays in the static HTML.
+ */
+function ContactIntentFromUrl({
+  onIntent,
+}: {
+  onIntent: (urlIntent: string | null) => void;
+}) {
+  const urlIntent = useSearchParams().get("intent");
+  useEffect(() => {
+    onIntent(urlIntent);
+  }, [urlIntent, onIntent]);
+  return null;
+}
+
 type ContactFormProps = {
   /** Override when not reading from URL (e.g. embedded on pricing). */
   defaultIntent?: ContactIntentId | string;
@@ -36,10 +62,10 @@ export function ContactForm({
   lockIntent = false,
   className = "",
 }: ContactFormProps) {
-  const searchParams = useSearchParams();
-  const urlIntent = searchParams.get("intent");
+  // First render (server and client) always uses defaultIntent so the static
+  // HTML and hydration match; ?intent= is applied right after mount.
   const [intentId, setIntentId] = useState(
-    () => getContactIntent(urlIntent ?? defaultIntent).id,
+    () => getContactIntent(defaultIntent).id,
   );
   const intent = useMemo(() => getContactIntent(intentId), [intentId]);
   const demoLite = Boolean(intent.demoLite);
@@ -51,11 +77,17 @@ export function ContactForm({
   const [idempotencyKey, setIdempotencyKey] = useState("");
   const hasScheduling = Boolean(APP_SCHEDULING_URL.trim());
 
-  useEffect(() => {
-    if (lockIntent) return;
-    const next = getContactIntent(urlIntent ?? defaultIntent).id;
-    setIntentId(next);
-  }, [urlIntent, defaultIntent, lockIntent]);
+  const urlIntentApplied = useRef(false);
+  const applyUrlIntent = useCallback(
+    (urlIntent: string | null) => {
+      // Unchanged behavior: a locked form still honors ?intent= once (the old
+      // initial state did), but never follows later URL changes.
+      if (lockIntent && urlIntentApplied.current) return;
+      urlIntentApplied.current = true;
+      setIntentId(getContactIntent(urlIntent ?? defaultIntent).id);
+    },
+    [defaultIntent, lockIntent],
+  );
 
   useEffect(() => {
     setFormStartedAt(Date.now());
@@ -653,6 +685,9 @@ export function ContactForm({
       >
         {status === "submitting" ? "Sending..." : intent.submitLabel}
       </button>
+      <Suspense fallback={null}>
+        <ContactIntentFromUrl onIntent={applyUrlIntent} />
+      </Suspense>
     </form>
   );
 }

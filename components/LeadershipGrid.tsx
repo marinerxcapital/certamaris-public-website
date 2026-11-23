@@ -48,7 +48,7 @@ function FounderCard() {
       </span>
       <Link
         href="/about/leadership"
-        className="inline-flex min-h-11 items-center text-[13.5px] font-semibold text-ocean hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ocean"
+        className="inline-flex min-h-11 items-center text-[16px] font-semibold text-ocean hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ocean"
       >
         Full profile
       </Link>
@@ -67,9 +67,9 @@ function PlaceholderCard() {
           aria-hidden="true"
           focusable="false"
         >
-          <rect width="120" height="150" fill="#E7F3FB" />
-          <circle cx="60" cy="48" r="23" fill="#4FADE0" />
-          <path d="M60 78c-25 0-41 20-41 45v27h82v-27c0-25-16-45-41-45z" fill="#4FADE0" />
+          <rect width="120" height="150" fill="#F5F1FC" />
+          <circle cx="60" cy="48" r="23" fill="#D9C5F5" />
+          <path d="M60 78c-25 0-41 20-41 45v27h82v-27c0-25-16-45-41-45z" fill="#D9C5F5" />
         </svg>
       </div>
       <p className="mb-3 text-[13.5px] font-medium text-ocean">Executive — Joining Soon</p>

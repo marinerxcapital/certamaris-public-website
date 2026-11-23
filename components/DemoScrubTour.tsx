@@ -21,36 +21,68 @@ export function DemoScrubTour() {
   const [playing, setPlaying] = useState(false);
   const scrubRef = useRef<HTMLInputElement>(null);
 
+  // Initial restore, once after hydration. An explicit, valid ?beat= wins;
+  // the persona's beat applies only when the URL names no (valid) beat.
+  // Later persona changes move the beat from their own click handlers below.
+  const restoredRef = useRef(false);
   useEffect(() => {
-    if (!ready) return;
-    const beatId =
-      persona?.demoBeatId ??
-      new URLSearchParams(window.location.search).get("beat");
-    setIndex(getDemoScrubBeatIndex(beatId));
+    if (!ready || restoredRef.current) return;
+    restoredRef.current = true;
+    const beatParam = new URLSearchParams(window.location.search).get("beat");
+    const hasExplicitBeat = DEMO_SCRUB_BEATS.some(
+      (item) => item.id === beatParam,
+    );
+    setIndex(
+      getDemoScrubBeatIndex(
+        hasExplicitBeat ? beatParam : persona?.demoBeatId,
+      ),
+    );
   }, [ready, persona?.demoBeatId]);
 
   const beat = DEMO_SCRUB_BEATS[index] ?? DEMO_SCRUB_BEATS[0];
   const progress =
     DEMO_SCRUB_BEATS.length <= 1 ? 1 : index / (DEMO_SCRUB_BEATS.length - 1);
 
-  const goTo = useCallback((next: number) => {
-    const clamped = Math.max(0, Math.min(DEMO_SCRUB_BEATS.length - 1, next));
-    setIndex(clamped);
+  /**
+   * Mirror the beat into ?beat= with replaceState only (never pushState, so
+   * scrubbing does not add history entries). Other params and the hash are
+   * preserved; `null` removes the param.
+   */
+  const writeBeatToUrl = useCallback((beatIndex: number | null) => {
+    try {
+      const url = new URL(window.location.href);
+      if (beatIndex === null) url.searchParams.delete("beat");
+      else url.searchParams.set("beat", DEMO_SCRUB_BEATS[beatIndex].id);
+      // Pass null (not history.state): Next's patched history API only syncs its
+      // router state when the data is not its own internal state, and a stale
+      // router URL would later be written back over this one.
+      window.history.replaceState(
+        null,
+        "",
+        `${url.pathname}${url.search}${url.hash}`,
+      );
+    } catch {
+      // Ignore environments that block history mutation (e.g. sandboxed iframes).
+    }
   }, []);
+
+  const goTo = useCallback(
+    (next: number) => {
+      const clamped = Math.max(0, Math.min(DEMO_SCRUB_BEATS.length - 1, next));
+      setIndex(clamped);
+      writeBeatToUrl(clamped);
+    },
+    [writeBeatToUrl],
+  );
 
   useEffect(() => {
     if (!playing || reduced) return;
     const timer = window.setTimeout(() => {
-      setIndex((current) => {
-        if (current >= DEMO_SCRUB_BEATS.length - 1) {
-          setPlaying(false);
-          return current;
-        }
-        return current + 1;
-      });
+      if (index >= DEMO_SCRUB_BEATS.length - 1) setPlaying(false);
+      else goTo(index + 1);
     }, AUTO_MS);
     return () => window.clearTimeout(timer);
-  }, [playing, index, reduced]);
+  }, [playing, index, reduced, goTo]);
 
   useEffect(() => {
     if (reduced) setPlaying(false);
@@ -93,7 +125,16 @@ export function DemoScrubTour() {
               type="button"
               className="scrub-play"
               aria-pressed={playing}
-              onClick={() => setPlaying((value) => !value)}
+              onClick={() => {
+                if (playing) {
+                  setPlaying(false);
+                  return;
+                }
+                // Playing from the final beat would otherwise idle for one
+                // interval and stop; restart the walkthrough instead.
+                if (index >= DEMO_SCRUB_BEATS.length - 1) goTo(0);
+                setPlaying(true);
+              }}
             >
               {playing ? "Pause" : "Play tour"}
             </button>
@@ -119,7 +160,10 @@ export function DemoScrubTour() {
               persona
                 ? () => {
                     clear();
-                    goTo(0);
+                    setIndex(0);
+                    // "Show default" returns to the default tour and drops the
+                    // beat param instead of pinning beat one in the URL.
+                    writeBeatToUrl(null);
                   }
                 : undefined
             }
@@ -180,7 +224,19 @@ export function DemoScrubTour() {
             <BeatCopy beat={beat} />
           </div>
         </div>
-        <div className="min-w-0">
+        <div
+          className="min-w-0"
+          onClickCapture={(event) => {
+            // Opening the full exhibit must pause playback: advancing the beat
+            // remounts this frame, which would close the open viewer.
+            if (
+              (event.target as HTMLElement).closest(
+                '[data-testid="product-screen-trigger"]',
+              )
+            )
+              setPlaying(false);
+          }}
+        >
           <div key={beat.id} className="cm-demo-panel">
             <ProductScreenFrame
               {...beat.screen}

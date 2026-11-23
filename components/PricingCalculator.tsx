@@ -23,30 +23,41 @@ function hydrateFromQuery(): PricingCalculatorState {
   return parsePricingSearchParams(new URLSearchParams(window.location.search));
 }
 
+// Keep the current state object when a URL read yields identical values, so
+// React bails out instead of re-rendering the whole calculator (a plain
+// `/pricing` visit parses to a fresh object equal to the default state).
+function sameState(a: PricingCalculatorState, b: PricingCalculatorState) {
+  return (
+    a.totalFleetVessels === b.totalFleetVessels &&
+    a.contractedVessels === b.contractedVessels &&
+    a.remoteQaReports === b.remoteQaReports &&
+    a.onboardAssessments === b.onboardAssessments
+  );
+}
+
+function applyQueryState(current: PricingCalculatorState) {
+  const next = hydrateFromQuery();
+  return sameState(current, next) ? current : next;
+}
+
 export function PricingCalculator() {
   const [input, setInput] = useState<PricingCalculatorState>(
     DEFAULT_PRICING_STATE,
   );
   const [copied, setCopied] = useState(false);
-  const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
-    setInput(hydrateFromQuery());
-    setHydrated(true);
+    setInput(applyQueryState);
   }, []);
 
   useEffect(() => {
-    const onPopState = () => setInput(hydrateFromQuery());
+    const onPopState = () => setInput(applyQueryState);
     window.addEventListener("popstate", onPopState);
     return () => window.removeEventListener("popstate", onPopState);
   }, []);
 
   const estimate = useMemo(() => calculatePricingEstimate(input), [input]);
   const query = serializePricingSearchParams(estimate.state).toString();
-  const shareUrl =
-    hydrated && typeof window !== "undefined"
-      ? `${window.location.origin}/pricing?${query}`
-      : `/pricing?${query}`;
   const minimumApplies =
     estimate.billedVessels > estimate.state.contractedVessels;
   const invalid = !estimate.validation.valid;
@@ -73,6 +84,8 @@ export function PricingCalculator() {
 
   const copyShareUrl = async () => {
     const nextPath = `/pricing?${query}`;
+    // Only reachable from a click, so window is always available here.
+    const shareUrl = `${window.location.origin}${nextPath}`;
     window.history.pushState(null, "", nextPath);
     try {
       await navigator.clipboard.writeText(shareUrl);

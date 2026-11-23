@@ -146,8 +146,8 @@ export default function PricingPage() {
         title="Annual platform pricing, published."
         intro="CertaMaris pricing is a hybrid annual model: a platform fee plus contracted-vessel licensing, with separately priced assurance engagements. Vessel count is the recurring value metric — there is no per-seat charge."
         aside={
-          <div className="liquid-glass liquid-glass--subtle lg-pad-md w-full max-w-[27rem]">
-            <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-[#0e5a8a]">
+          <div className="liquid-glass liquid-glass--subtle lg-pad-md w-full max-w-[27rem] xl:max-w-[30rem]">
+            <p className="font-mono text-[13px] font-semibold uppercase tracking-[0.14em] text-[#0e5a8a]">
               Package snapshot
             </p>
             <div className="mt-4 grid gap-3">
@@ -158,23 +158,23 @@ export default function PricingPage() {
                   className="rounded-md border border-navy/10 bg-white/70 p-3 transition hover:border-ocean/35 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ocean focus-visible:ring-offset-2"
                 >
                   <span className="flex items-baseline justify-between gap-3">
-                    <span className="text-[14px] font-semibold text-navy">
+                    <span className="text-[16px] font-semibold text-navy">
                       {tier.name}
                     </span>
-                    <span className="text-right font-mono text-[11px] text-ocean">
+                    <span className="text-right font-mono text-[13px] text-ocean">
                       {tier.audience}
                     </span>
                   </span>
-                  <span className="mt-1 block text-[12.5px] leading-5 text-structural">
+                  <span className="mt-1 block text-[14px] leading-6 text-structural">
                     {tier.platformFee} + {tier.vesselPrice}
                   </span>
-                  <span className="mt-1 block text-[12px] leading-5 text-structural">
+                  <span className="mt-1 block text-[14px] leading-6 text-structural">
                     {tier.minimumNote}
                   </span>
                 </a>
               ))}
             </div>
-            <div className="mt-4 grid gap-2 border-t border-navy/10 pt-4 text-[13px]">
+            <div className="mt-4 grid gap-2 border-t border-navy/10 pt-4 text-[15px]">
               <a
                 href="#pricing-plans"
                 className="cm-action-link font-semibold text-navy hover:text-ocean hover:underline"

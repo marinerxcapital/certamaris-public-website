@@ -110,7 +110,14 @@ export function EvidenceFreshnessSimulator() {
 
   function refreshActiveEvidence() {
     setResetAtById((current) => ({ ...current, [active.id]: globalDay }));
-    setDecisionById((current) => ({ ...current, [active.id]: "resolved" }));
+    // Refreshing evidence restarts its clock. It resolves the linked finding and
+    // corrective action only when one exists; otherwise the refreshed evidence
+    // keeps its prior disposition instead of displaying a finding never raised.
+    setDecisionById((current) => {
+      const prior = current[active.id] ?? "not_reviewed";
+      if (prior !== "finding_created" && prior !== "resolved") return current;
+      return { ...current, [active.id]: "resolved" };
+    });
   }
 
   function resetDemo() {

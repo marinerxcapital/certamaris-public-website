@@ -76,8 +76,8 @@ export default function AboutPage() {
         </Reveal>
         <RevealGroup className="grid sm:grid-cols-3 gap-5" stagger={0.05}>
           {aboutContent.operatingModel.levels.map((level) => (
-            <div key={level.title} className="premium-card p-6">
-              <h3 className="text-[16.5px] font-semibold mb-2">
+            <div key={level.title} className="premium-card h-full p-6">
+              <h3 className="cm-subheading mb-3">
                 {level.title}
               </h3>
               <p className="cm-copy text-structural leading-relaxed">
@@ -89,7 +89,7 @@ export default function AboutPage() {
         <Reveal className="mt-8">
           <Link
             href="/platform"
-            className="cm-action-link text-[14px] font-semibold text-ocean hover:underline"
+            className="cm-action-link text-[18px] font-semibold text-ocean hover:underline"
           >
             View platform hierarchy
           </Link>
@@ -119,8 +119,8 @@ export default function AboutPage() {
         </Reveal>
         <RevealGroup className="grid sm:grid-cols-2 gap-5" stagger={0.06}>
           {aboutContent.philosophy.map((item) => (
-            <div key={item.title} className="premium-card p-6">
-              <h3 className="text-[16.5px] font-semibold mb-2">{item.title}</h3>
+            <div key={item.title} className="premium-card h-full p-6">
+              <h3 className="cm-subheading mb-3">{item.title}</h3>
               <p className="text-[14px] text-structural leading-relaxed">
                 {item.body}
               </p>

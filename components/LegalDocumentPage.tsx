@@ -37,7 +37,7 @@ export function LegalDocumentPage({
         />
 
         <div className="grid min-w-0 gap-8 lg:grid-cols-[280px_minmax(0,1fr)] lg:items-start">
-          <aside className="min-w-0 space-y-4 lg:sticky lg:top-32">
+          <aside className="min-w-0 space-y-4 lg:sticky lg:top-32 lg:max-h-[calc(100vh-9rem)] lg:overflow-y-auto">
             <div className="premium-card p-5">
               <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.12em] text-ocean">
                 Document
@@ -92,7 +92,7 @@ export function LegalDocumentPage({
               <p className="mb-2 font-mono text-[11px] uppercase tracking-[0.12em] text-ocean">
                 Package source
               </p>
-              <p className="text-[13.5px] leading-relaxed text-structural">
+              <p className="text-[13.5px] leading-relaxed text-structural [overflow-wrap:anywhere]">
                 {legalPackageSource.sourceArchive};{" "}
                 {legalPackageSource.generatedDate}. Public PDF SHA-256:
               </p>

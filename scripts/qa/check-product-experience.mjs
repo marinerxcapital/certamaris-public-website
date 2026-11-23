@@ -278,6 +278,72 @@ async function main() {
     await page.emulateMedia({ reducedMotion: "reduce" });
   });
 
+  await step(
+    "tour beat/URL: explicit ?beat= wins, replaceState only, Show default clears beat",
+    async () => {
+      await page.emulateMedia({ reducedMotion: "reduce" });
+      const sliderName = "Scrub product tour beats";
+      const rail = () => page.getByRole("slider", { name: sliderName });
+      const expectRail = async (value, label) => {
+        try {
+          await page.waitForFunction(
+            ([name, want]) =>
+              document.querySelector(`input[aria-label="${name}"]`)?.value === want,
+            [sliderName, String(value)],
+            { timeout: 5000 },
+          );
+        } catch {
+          throw new Error(`${label}: rail=${await rail().inputValue()}, expected ${value}`);
+        }
+      };
+      // Read location from the page itself: page.url() can lag history.replaceState updates.
+      const params = async () => new URL(await page.evaluate(() => location.href));
+
+      // Explicit beat beats persona; other params and hash survive the restore.
+      await page.goto(`${base}/demo?persona=ship-owners&beat=control&x=1#scrub-tour`, { waitUntil: "load" });
+      await expectRail(1, "beat param over persona");
+      // Persona applies only when there is no beat param, and is not written back as one.
+      await page.goto(`${base}/demo?persona=ship-owners`, { waitUntil: "load" });
+      await expectRail(4, "persona without beat param");
+      if ((await params()).searchParams.has("beat")) throw new Error("initial load wrote a beat param");
+      // An invalid beat is treated as absent.
+      await page.goto(`${base}/demo?persona=ship-owners&beat=bogus`, { waitUntil: "load" });
+      await expectRail(4, "invalid beat falls back to persona");
+
+      // Scrubbing writes the beat back with replaceState (history length unchanged).
+      await page.goto(`${base}/demo?x=1&beat=evidence#scrub-tour`, { waitUntil: "load" });
+      await expectRail(2, "beat=evidence restore");
+      const historyBefore = await page.evaluate(() => history.length);
+      await page.locator(".scrub-beat").nth(5).click();
+      await expectRail(5, "beat click");
+      let u = (await params());
+      if (u.searchParams.get("beat") !== "action" || u.searchParams.get("x") !== "1" || u.hash !== "#scrub-tour")
+        throw new Error(`beat click URL ${u.search}${u.hash}`);
+      await rail().focus();
+      await page.keyboard.press("ArrowLeft");
+      await expectRail(4, "ArrowLeft");
+      if ((await params()).searchParams.get("beat") !== "risk") throw new Error(`ArrowLeft URL ${(await params()).search}`);
+      if ((await page.evaluate(() => history.length)) !== historyBefore)
+        throw new Error("scrubbing added history entries (pushState?)");
+      await page.reload({ waitUntil: "load" });
+      await expectRail(4, "reload restores scrubbed beat");
+
+      // Choosing a persona moves the beat and mirrors it; Show default clears beat and persona.
+      await page.getByRole("button", { name: "Maritime IT / OT", exact: true }).click();
+      await expectRail(1, "persona click");
+      u = (await params());
+      if (u.searchParams.get("beat") !== "control" || u.searchParams.get("persona") !== "maritime-it-ot" || u.searchParams.get("x") !== "1" || u.hash !== "#scrub-tour")
+        throw new Error(`persona click URL ${u.search}${u.hash}`);
+      await page.getByRole("button", { name: "Show default", exact: true }).click();
+      await expectRail(0, "Show default");
+      u = (await params());
+      if (u.searchParams.has("beat") || u.searchParams.has("persona") || u.searchParams.get("x") !== "1" || u.hash !== "#scrub-tour")
+        throw new Error(`Show default URL ${u.search}${u.hash}`);
+      if ((await page.evaluate(() => history.length)) !== historyBefore)
+        throw new Error("persona/default added history entries");
+    },
+  );
+
   await context.close();
   await browser.close();
   server.close();

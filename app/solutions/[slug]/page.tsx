@@ -48,11 +48,11 @@ export default async function SolutionDetailPage({
         intro={page.intro}
         aside={
           screen ? (
-            <div className="w-full max-w-[min(380px,100%)] lg:w-[380px]">
+            <div className="w-full max-w-[min(380px,100%)] lg:w-[380px] 2xl:max-w-[520px] 2xl:w-[min(28vw,520px)]">
               <ProductScreenFrame
                 {...screen}
                 priority
-                sizes="(min-width: 1024px) 380px, 80vw"
+                sizes="(min-width: 1536px) min(28vw, 520px), (min-width: 1024px) 380px, 80vw"
               />
             </div>
           ) : null

@@ -35,7 +35,6 @@ export function EditorialMotion() {
         className="cm-motion-control"
         type="button"
         disabled={reduced}
-        aria-pressed={paused}
         onClick={() => {
           const next = !paused;
           setPaused(next);

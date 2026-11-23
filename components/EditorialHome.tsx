@@ -280,7 +280,7 @@ export function EditorialHome() {
         <div className="cm-closing-copy">
           <Label>See CertaMaris in context</Label>
           <h2 id="cm-closing-title">
-            See assurance in
+            See assurance in{" "}
             <br />
             your fleet’s context.
           </h2>

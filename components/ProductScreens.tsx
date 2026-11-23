@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import type { ProductScreenAnnotation } from "@/lib/product-screens";
 import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 
@@ -237,7 +237,7 @@ export function ProductExhibit({
   lightboxBody,
   priority = false,
   className = "",
-  sizes = "(min-width: 1024px) 50vw, (min-width: 640px) 80vw, 100vw",
+  sizes = "(min-width: 1024px) 50vw, (min-width: 640px) 85vw, 100vw",
   fullSrc,
   annotations,
   width = 1440,
@@ -247,7 +247,13 @@ export function ProductExhibit({
   interactive = true,
   showFullResolution = true,
 }: ProductScreenFrameProps) {
-  const visibleAnnotations = clampAnnotations(annotations);
+  // Memoized so re-renders do not re-run the registration effect below: an
+  // unregister/register cycle clears an open exhibit (closing the viewer) and
+  // moves this screen to the end of the viewer's navigation order.
+  const visibleAnnotations = useMemo(
+    () => clampAnnotations(annotations),
+    [annotations],
+  );
   const resolvedFullSrc = fullSrc ?? src;
   const resolvedTitle = lightboxTitle ?? title ?? label;
   const resolvedBody = lightboxBody ?? body ?? alt;
@@ -467,7 +473,11 @@ export function ProductScreenTile({
       className={`product-screen-tile grid content-start gap-3.5 ${tileClassName}`}
     >
       <ProductExhibit
-        sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 45vw, (min-width: 640px) 50vw, 100vw"
+        // Measured rendered widths (static build, 600-1920px): single column below
+        // 768px (up to ~637px), ~40-43vw at 768-1279px, 434-542px at 1280px+.
+        // The previous 25vw / 50vw slots were smaller than the rendered widths,
+        // so the browser chose lower-resolution candidates than needed.
+        sizes="(min-width: 1280px) min(36vw, 560px), (min-width: 768px) 45vw, 100vw"
         {...screen}
         title={title}
         body={body}

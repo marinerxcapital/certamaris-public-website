@@ -92,6 +92,14 @@ function ProductGalleryDialog({
 
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
+      const active = document.activeElement as HTMLElement | null;
+      // Focus can sit on the dialog itself (tabIndex=-1, e.g. after clicking
+      // non-interactive content) or outside it; wrap instead of escaping.
+      if (!active || !focusable.includes(active)) {
+        event.preventDefault();
+        (event.shiftKey ? last : first).focus();
+        return;
+      }
       if (event.shiftKey && document.activeElement === first) {
         event.preventDefault();
         last.focus();

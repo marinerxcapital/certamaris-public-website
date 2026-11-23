@@ -111,7 +111,6 @@ export default function RootLayout({
               dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
             />
           ))}
-          <EditorialMotion />
           <div className="relative z-10">
             <Nav />
             <main id="main-content" tabIndex={-1}>
@@ -119,6 +118,7 @@ export default function RootLayout({
             </main>
             <Footer />
           </div>
+          <EditorialMotion />
           <ProductGalleryLoader />
         </div>
       </body>

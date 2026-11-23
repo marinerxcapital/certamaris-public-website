@@ -18,7 +18,7 @@ export function PageHeroSignal({
 }) {
   return (
     <aside className="page-hero-signal" aria-label={eyebrow}>
-      <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-[#0e5a8a]">
+      <p className="font-mono text-[13px] font-semibold uppercase tracking-[0.14em] text-[#0e5a8a]">
         {eyebrow}
       </p>
       <dl className="mt-4 grid gap-3">
@@ -32,7 +32,7 @@ export function PageHeroSignal({
       {href && linkLabel ? (
         <Link
           href={href}
-          className="mt-5 inline-flex min-h-11 items-center text-[13px] font-semibold text-ocean hover:underline"
+          className="mt-5 inline-flex min-h-11 items-center text-[15px] font-semibold text-ocean xl:text-[16px] hover:underline"
         >
           {linkLabel}{" "}
           <span aria-hidden="true" className="ml-1">

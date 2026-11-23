@@ -201,6 +201,14 @@ export function DemoTourGallery() {
   const reduced = usePrefersReducedMotion();
   const baseId = useId();
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const previousRef = useRef<HTMLButtonElement>(null);
+  const nextRef = useRef<HTMLButtonElement>(null);
+  // Index whose tab has been centred; 0 = initial state (nothing to measure).
+  const centredIndexRef = useRef(0);
+  const reducedRef = useRef(reduced);
+  useEffect(() => {
+    reducedRef.current = reduced;
+  }, [reduced]);
 
   const activeIndex = Math.max(
     0,
@@ -209,16 +217,35 @@ export function DemoTourGallery() {
   const active = tabs[activeIndex] ?? tabs[0];
 
   useEffect(() => {
-    const tab = tabRefs.current[activeIndex];
-    const strip = tab?.parentElement;
-    if (!tab || !strip || strip.scrollWidth <= strip.clientWidth) return;
-    // Scroll the local strip only; changing a tab must not move the whole page.
-    const left =
-      tab.offsetLeft -
-      strip.offsetLeft -
-      (strip.clientWidth - tab.offsetWidth) / 2;
-    strip.scrollTo({ left, behavior: reduced ? "instant" : "smooth" });
-  }, [activeIndex, reduced]);
+    // The first tab already sits at scrollLeft 0, so there is nothing to centre
+    // on mount. Skipping here avoids scrollWidth/clientWidth/getBoundingClientRect
+    // reads during hydration (forced synchronous layout). The reduced-motion
+    // hook flipping after mount must not re-trigger a measurement either, so
+    // only a change of the selected tab is centred.
+    if (centredIndexRef.current === activeIndex) return;
+    // Interaction (or a deep-link hash) selected another tab: measure after the
+    // next paint instead of inside the effect so the read never blocks a frame.
+    const frame = requestAnimationFrame(() => {
+      centredIndexRef.current = activeIndex;
+      const tab = tabRefs.current[activeIndex];
+      const strip = tab?.parentElement;
+      if (!tab || !strip || strip.scrollWidth <= strip.clientWidth) return;
+      // Scroll the local strip only; changing a tab must not move the whole page.
+      // Measure against the strip's box (the strip is the tab's offsetParent, so
+      // subtracting strip.offsetLeft as well skewed the centring by the gutter).
+      const tabBox = tab.getBoundingClientRect();
+      const stripBox = strip.getBoundingClientRect();
+      const left =
+        strip.scrollLeft +
+        (tabBox.left - stripBox.left) -
+        (strip.clientWidth - tabBox.width) / 2;
+      strip.scrollTo({
+        left,
+        behavior: reducedRef.current ? "instant" : "smooth",
+      });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [activeIndex]);
 
   const select = (id: string) => {
     setActiveId(id);
@@ -296,8 +323,14 @@ export function DemoTourGallery() {
       <div className="cm-gallery-navigation">
         <button
           type="button"
+          ref={previousRef}
           disabled={activeIndex === 0}
-          onClick={() => select(tabs[activeIndex - 1].id)}
+          onClick={() => {
+            select(tabs[activeIndex - 1].id);
+            // Reaching the first view disables this button; keep keyboard
+            // focus on the gallery controls instead of dropping it to <body>.
+            if (activeIndex - 1 === 0) nextRef.current?.focus();
+          }}
           aria-label="Previous product view"
         >
           Previous view
@@ -307,8 +340,13 @@ export function DemoTourGallery() {
         </p>
         <button
           type="button"
+          ref={nextRef}
           disabled={activeIndex === tabs.length - 1}
-          onClick={() => select(tabs[activeIndex + 1].id)}
+          onClick={() => {
+            select(tabs[activeIndex + 1].id);
+            if (activeIndex + 1 === tabs.length - 1)
+              previousRef.current?.focus();
+          }}
           aria-label="Next product view"
         >
           Next view

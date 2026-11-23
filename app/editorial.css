@@ -414,7 +414,7 @@ h4 {
 .cm-hero h1 {
   font-size: 70px;
   line-height: 1.12;
-  margin: 32px 0 34px;
+  margin: 32px 0 30px;
   letter-spacing: -0.035em;
 }
 .cm-hero .cm-hero-subheading {
@@ -426,11 +426,11 @@ h4 {
   line-height: 1.12;
 }
 .cm-hero-description {
-  margin-top: 36px !important;
+  margin-top: 33px !important;
   line-height: 1.5;
 }
 .cm-hero .cm-actions {
-  margin-top: 56px;
+  margin-top: 54px;
 }
 .cm-audience {
   font-size: 16px;
@@ -542,7 +542,7 @@ h4 {
   left: 0;
   width: 640px;
   display: flex;
-  gap: 32px;
+  gap: 25px;
   border-top: 1px solid #dce3ed;
   padding-top: 32px;
   font-size: 25px;
@@ -552,7 +552,7 @@ h4 {
 .cm-hero-scope li + li:before {
   content: "→";
   color: #1b54db;
-  padding-right: 32px;
+  padding-right: 25px;
   font-family: var(--font-body);
 }
 .cm-platform {
@@ -616,7 +616,7 @@ h4 {
   font-size: 21px;
 }
 .cm-evidence-title {
-  font-size: 31px;
+  font-size: 28px;
   margin-top: 24px;
   padding-bottom: 18px;
   border-bottom: 1px solid #dce3ed;
@@ -651,7 +651,7 @@ h4 {
   gap: 24px;
 }
 .cm-workflow-heading h3 {
-  font-size: 38px;
+  font-size: 36px;
 }
 .cm-workflow ol {
   display: grid;
@@ -691,10 +691,10 @@ h4 {
 }
 .cm-benefits {
   display: grid;
-  gap: 40px;
+  gap: 36px;
 }
 .cm-benefits h3 {
-  font-size: 29px;
+  font-size: 27px;
   margin-bottom: 14px;
 }
 .cm-benefits p {
@@ -748,14 +748,14 @@ h4 {
   margin: 24px 0 20px;
 }
 .cm-diligence h4 {
-  font-size: 29px;
+  font-size: 26px;
   margin: 27px 0 14px;
 }
 .cm-diligence p {
   font-size: 18px;
 }
 .cm-diligence a {
-  margin-top: 20px;
+  margin-top: 12px;
 }
 .cm-closing {
   padding-top: 70px;
@@ -784,10 +784,10 @@ h4 {
   margin-top: 32px;
 }
 .cm-closing-copy > p:not(.cm-eyebrow):not(.cm-follow-up) {
-  margin-top: 44px;
+  margin-top: 40px;
 }
 .cm-closing-copy > .cm-action {
-  margin-top: 70px;
+  margin-top: 66px;
   min-width: 240px;
 }
 .cm-follow-up {
@@ -796,11 +796,11 @@ h4 {
 }
 .cm-package {
   border-top: 1px solid #dce3ed;
-  margin-top: 42px;
+  margin-top: 40px;
   padding-top: 32px;
 }
 .cm-package h3 {
-  font-size: 25px;
+  font-size: 24px;
   margin-bottom: 14px;
 }
 /* The shared interior compositions preserve their data, tools and document structures. */
@@ -829,6 +829,16 @@ h4 {
 .section-h2 {
   font-weight: 700 !important;
   letter-spacing: -0.035em;
+}
+/* Interior section headings were 26-34px at 1920 (globals.css clamp caps at
+   2rem/2.125rem) against the 58px homepage H2 - a 1.7x hierarchy drop between
+   the homepage and every route family. Lift the cap only on wide screens:
+   .section-h2 26px @<=625 (unchanged mobile), 39px @1440, 44px @>=1750; --lg 28px @<=632 (unchanged), 43.4px @1440, 48px @>=1685. */
+.section-h2 {
+  font-size: clamp(1.625rem, calc(1rem + 1.6vw), 2.75rem);
+}
+.section-h2.section-h2--lg {
+  font-size: clamp(1.75rem, calc(1rem + 1.9vw), 3rem);
 }
 .section-surface--page {
   background: #fff;
@@ -1044,6 +1054,16 @@ h4 {
   }
   .cm-closing h2 {
     font-size: 52px;
+  }
+}
+/* The generic 52px section-H2 step above also matched the illustrative concept
+   title (52px; wraps to 2 lines at 1280px). Scale it with the hero instead:
+   26px @601-1100 (stacked), 26.9px @1280, 28.3px @1440, 31.0px @1750, continuous
+   with the 31px base rule from 1751px (reference 31px @1920). The <=600px 28px
+   rule is untouched because this block stops at 601px. */
+@media (min-width: 601px) and (max-width: 1750px) {
+  .cm-home .cm-concept-heading h2 {
+    font-size: clamp(26px, calc(15.75px + 0.87vw), 31px);
   }
 }
 @media (max-width: 1100px) {
@@ -1391,6 +1411,24 @@ h4 {
     font-size: 18px;
   }
 }
+/* Proposal 04: the 02 rhythm edits are unscoped, so they also changed phones
+   (<=600px: page 29px shorter at 390/320). Restore the pre-02 values there;
+   phone behaviour stays exactly as Apollo/Lyra verified it. */
+@media (max-width: 600px) {
+  .cm-hero-description {
+    margin-top: 36px !important;
+  }
+  .cm-diligence h4 {
+    font-size: 29px;
+  }
+  .cm-diligence a {
+    margin-top: 20px;
+  }
+  .cm-package {
+    margin-top: 42px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .cm-block {
     animation: none !important;
@@ -1434,4 +1472,94 @@ h4 {
 }
 @media (prefers-reduced-motion: reduce) {
   .cm-demo-panel { animation: none; }
+}
+
+/* ---------- P5 (Apollo): skip layout/paint of off-screen interior sections ----------
+   content-visibility:auto lets the browser skip style/layout/paint for sections far
+   below the viewport during hydration re-renders. Content stays in the DOM and the
+   accessibility tree and remains findable (Ctrl+F), focusable and reachable.
+   SAFETY RULES (see /workspace/certamaris/apollo/p5-rationale.md):
+   - only <section> children of <main> WITHOUT an id (:not([id])), so no anchor/hash
+     target is ever skipped (#pricing-plans, #pricing-calculator, #package-comparison,
+     #chain-inspector, #scrub-tour, #request-demo are all excluded by that selector);
+   - never the first sections of a page (hero, custody strip, first viewport);
+   - the demo gallery section (id-less, owns hash-driven tab state and lightbox
+     triggers; Orion is editing it) is excluded by :last-child scoping.
+   Scoped with :has() to /pricing (#pricing-plans) and /demo (#scrub-tour); where
+   :has() or content-visibility is unsupported the block is ignored.
+   contain-intrinsic-size is the CONTENT-box height (section padding is added on top),
+   measured on production per width tier; 'auto' remembers the real size once rendered. */
+@supports (content-visibility: auto) and (selector(:has(*))) {
+  main:has(> #pricing-plans) > section:not([id]):nth-child(n + 4),
+  main:has(> #scrub-tour) > section:not([id]):last-child {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 600px;
+  }
+  /* /pricing: children are 1 hero, 2 #pricing-plans, 3 #pricing-calculator,
+     4-5 id-less, 6 #package-comparison, 7-11 id-less. /demo: only the last section. */
+  main:has(> #pricing-plans) > section:not([id]):nth-child(4) { contain-intrinsic-size: auto 240px; }
+  main:has(> #pricing-plans) > section:not([id]):nth-child(5) { contain-intrinsic-size: auto 1150px; }
+  main:has(> #pricing-plans) > section:not([id]):nth-child(7) { contain-intrinsic-size: auto 740px; }
+  main:has(> #pricing-plans) > section:not([id]):nth-child(8) { contain-intrinsic-size: auto 1095px; }
+  main:has(> #pricing-plans) > section:not([id]):nth-child(9) { contain-intrinsic-size: auto 650px; }
+  main:has(> #pricing-plans) > section:not([id]):nth-child(10) { contain-intrinsic-size: auto 411px; }
+  main:has(> #pricing-plans) > section:not([id]):nth-child(11) { contain-intrinsic-size: auto 235px; }
+  main:has(> #scrub-tour) > section:not([id]):last-child { contain-intrinsic-size: auto 235px; }
+  @media (min-width: 600px) {
+    main:has(> #pricing-plans) > section:not([id]):nth-child(4) { contain-intrinsic-size: auto 213px; }
+    main:has(> #pricing-plans) > section:not([id]):nth-child(5) { contain-intrinsic-size: auto 932px; }
+    main:has(> #pricing-plans) > section:not([id]):nth-child(7) { contain-intrinsic-size: auto 602px; }
+    main:has(> #pricing-plans) > section:not([id]):nth-child(8) { contain-intrinsic-size: auto 917px; }
+    main:has(> #pricing-plans) > section:not([id]):nth-child(9) { contain-intrinsic-size: auto 537px; }
+    main:has(> #pricing-plans) > section:not([id]):nth-child(10) { contain-intrinsic-size: auto 299px; }
+    main:has(> #pricing-plans) > section:not([id]):nth-child(11) { contain-intrinsic-size: auto 156px; }
+    main:has(> #scrub-tour) > section:not([id]):last-child { contain-intrinsic-size: auto 156px; }
+  }
+  @media (min-width: 768px) {
+    main:has(> #pricing-plans) > section:not([id]):nth-child(4) { contain-intrinsic-size: auto 187px; }
+    main:has(> #pricing-plans) > section:not([id]):nth-child(5) { contain-intrinsic-size: auto 909px; }
+    main:has(> #pricing-plans) > section:not([id]):nth-child(7) { contain-intrinsic-size: auto 571px; }
+    main:has(> #pricing-plans) > section:not([id]):nth-child(8) { contain-intrinsic-size: auto 833px; }
+    main:has(> #pricing-plans) > section:not([id]):nth-child(9) { contain-intrinsic-size: auto 409px; }
+    main:has(> #pricing-plans) > section:not([id]):nth-child(10) { contain-intrinsic-size: auto 410px; }
+    main:has(> #pricing-plans) > section:not([id]):nth-child(11) { contain-intrinsic-size: auto 133px; }
+    main:has(> #scrub-tour) > section:not([id]):last-child { contain-intrinsic-size: auto 133px; }
+  }
+  @media (min-width: 1024px) {
+    main:has(> #pricing-plans) > section:not([id]):nth-child(4) { contain-intrinsic-size: auto 188px; }
+    main:has(> #pricing-plans) > section:not([id]):nth-child(5) { contain-intrinsic-size: auto 811px; }
+    main:has(> #pricing-plans) > section:not([id]):nth-child(7) { contain-intrinsic-size: auto 392px; }
+    main:has(> #pricing-plans) > section:not([id]):nth-child(8) { contain-intrinsic-size: auto 576px; }
+    main:has(> #pricing-plans) > section:not([id]):nth-child(9) { contain-intrinsic-size: auto 320px; }
+    main:has(> #pricing-plans) > section:not([id]):nth-child(10) { contain-intrinsic-size: auto 236px; }
+    main:has(> #pricing-plans) > section:not([id]):nth-child(11) { contain-intrinsic-size: auto 111px; }
+    main:has(> #scrub-tour) > section:not([id]):last-child { contain-intrinsic-size: auto 111px; }
+  }
+  @media (min-width: 1280px) {
+    main:has(> #pricing-plans) > section:not([id]):nth-child(4) { contain-intrinsic-size: auto 190px; }
+    main:has(> #pricing-plans) > section:not([id]):nth-child(5) { contain-intrinsic-size: auto 684px; }
+    main:has(> #pricing-plans) > section:not([id]):nth-child(7) { contain-intrinsic-size: auto 330px; }
+    main:has(> #pricing-plans) > section:not([id]):nth-child(8) { contain-intrinsic-size: auto 477px; }
+    main:has(> #pricing-plans) > section:not([id]):nth-child(9) { contain-intrinsic-size: auto 283px; }
+    main:has(> #pricing-plans) > section:not([id]):nth-child(10) { contain-intrinsic-size: auto 209px; }
+    main:has(> #pricing-plans) > section:not([id]):nth-child(11) { contain-intrinsic-size: auto 110px; }
+    main:has(> #scrub-tour) > section:not([id]):last-child { contain-intrinsic-size: auto 110px; }
+  }
+  @media print {
+    main:has(> #pricing-plans) > section:not([id]),
+    main:has(> #scrub-tour) > section:not([id]) { content-visibility: visible; }
+  }
+}
+
+/* 320-354px: the Company -> Fleet -> Vessel strip is 307px wide at 20px and was cut off by .site-root overflow-x:clip. */
+@media (max-width: 359px) {
+  .cm-hero-scope {
+    font-size: 17px;
+    gap: 10px;
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+  .cm-hero-scope li + li:before {
+    padding-right: 10px;
+  }
 }

@@ -485,7 +485,7 @@ body {
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1280px) {
   .nav-mobile-root {
     display: none !important;
   }
@@ -756,17 +756,32 @@ body {
 .page-hero-signal-row dt {
   color: var(--ink-tertiary);
   font-family: var(--font-mono), Consolas, monospace;
-  font-size: 0.625rem;
-  letter-spacing: 0.1em;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 .page-hero-signal-row dd {
   margin: 0;
   color: var(--ink-primary);
-  font-size: 0.9rem;
+  font-size: 0.9375rem;
   font-weight: 600;
-  line-height: 1.35;
+  line-height: 1.4;
+}
+
+@media (min-width: 1280px) {
+  .page-hero-signal {
+    width: min(100%, 400px);
+    padding: 22px;
+  }
+
+  .page-hero-signal-row dt {
+    font-size: 0.8125rem;
+  }
+
+  .page-hero-signal-row dd {
+    font-size: 1rem;
+  }
 }
 
 .product-exhibit > div:first-child {
@@ -1468,6 +1483,14 @@ figure.product-showcase-frame > div:first-child {
   font-size: 13px;
   font-weight: 600;
   color: var(--ink-primary);
+}
+
+@media (max-width: 759px) {
+  .assurance-stepper-label {
+    white-space: normal;
+    overflow-wrap: anywhere;
+    text-overflow: clip;
+  }
 }
 
 @media (min-width: 760px) {
@@ -4347,9 +4370,7 @@ figure.product-showcase-frame > div:first-child {
   font-weight: 600;
   letter-spacing: 0.08em;
   color: #0e5a8a;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  overflow-wrap: anywhere;
 }
 
 .scrub-beat-code {
@@ -4578,8 +4599,10 @@ figure.product-showcase-frame > div:first-child {
 .product-gallery-close,
 .product-gallery-nav {
   display: inline-grid;
-  min-width: 2.75rem;
-  min-height: 2.75rem;
+  flex: none;
+  box-sizing: border-box;
+  min-width: 44px;
+  min-height: 44px;
   place-items: center;
   border: 1px solid rgba(11, 42, 74, 0.18);
   border-radius: 999px;

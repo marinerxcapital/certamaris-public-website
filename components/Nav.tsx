@@ -146,7 +146,7 @@ export function Nav() {
   const menuRef = useRef<HTMLDivElement>(null);
   const menuButtonRefs = useRef<Record<string, HTMLButtonElement | null>>({});
   const mobileButtonRef = useRef<HTMLButtonElement>(null);
-  const sheetRef = useRef<HTMLElement>(null);
+  const sheetRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => setMounted(true), []);
@@ -156,7 +156,10 @@ export function Nav() {
   const closeMobile = useCallback(() => {
     setMobileOpen(false);
     setMobileExpanded(null);
-    requestAnimationFrame(() => mobileButtonRef.current?.focus());
+    // preventScroll: refocusing the sticky Menu button otherwise scrolls the page (measured ~438px at 390x844) after the body scroll lock restores position.
+    requestAnimationFrame(() =>
+      mobileButtonRef.current?.focus({ preventScroll: true }),
+    );
   }, []);
 
   useEffect(() => {
@@ -260,7 +263,7 @@ export function Nav() {
         event.preventDefault();
         const id = openMenuId;
         setOpenMenuId(null);
-        if (id) menuButtonRefs.current[id]?.focus();
+        if (id) menuButtonRefs.current[id]?.focus({ preventScroll: true });
         return;
       }
       if (event.key === "ArrowDown") {
@@ -268,7 +271,7 @@ export function Nav() {
         const firstLink = panel?.querySelector<HTMLElement>("a[href]");
         if (firstLink) {
           event.preventDefault();
-          firstLink.focus();
+          firstLink.focus({ preventScroll: true });
         }
         return;
       }
@@ -284,7 +287,7 @@ export function Nav() {
           ? ids[(idx + 1) % ids.length]
           : ids[(idx - 1 + ids.length) % ids.length];
       setOpenMenuId(next);
-      menuButtonRefs.current[next]?.focus();
+      menuButtonRefs.current[next]?.focus({ preventScroll: true });
     }
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
@@ -313,13 +316,13 @@ export function Nav() {
           tabIndex={-1}
           onClick={closeMobile}
         />
-        <nav
+        <div
           ref={sheetRef}
           id={drawerId}
-          className="nav-mobile-sheet"
-          aria-label="Mobile navigation"
-          aria-modal="true"
           role="dialog"
+          aria-modal="true"
+          aria-label="Mobile navigation"
+          className="nav-mobile-sheet"
         >
           <div className="nav-mobile-sheet-header">
             <Link
@@ -342,7 +345,7 @@ export function Nav() {
             </button>
           </div>
 
-          <div className="nav-mobile-sheet-body">
+          <nav aria-label="Mobile" className="nav-mobile-sheet-body">
             <ul className="nav-mobile-link-list">
               {NAV_PRIMARY.map((group) => {
                 const groupActive = isNavGroupActive(path, group);
@@ -440,8 +443,8 @@ export function Nav() {
                 {PRIMARY_CTA_LABEL}
               </Link>
             </div>
-          </div>
-        </nav>
+          </nav>
+        </div>
       </div>,
       document.body,
     );
