@@ -20,7 +20,9 @@ const routeChecks = [
     route: "/",
     candidates: ["index.html"],
     required: [
-      "Clarity for your review team.",
+      "Enterprise evaluation",
+      "/demo#chain-inspector",
+      "/platform/reports-readiness",
       "/demo#scrub-tour",
       "/pricing",
       "/trust/procurement",

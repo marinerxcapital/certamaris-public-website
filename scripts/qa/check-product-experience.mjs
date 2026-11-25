@@ -96,42 +96,55 @@ async function main() {
   }
 
   await step(
-    "homepage connected workflow retains provenance and tour handoff",
+    "homepage exposes the disclosed action and public proof",
     async () => {
       await page.goto(`${base}/`, { waitUntil: "load" });
-      const workflow = page.locator(".cm-workflow");
-      for (const name of [
-        "Requirements",
-        "Evidence",
-        "Findings",
-        "Corrective actions",
-        "Readiness packages",
-      ]) {
-        await workflow.getByRole("heading", { name, exact: true }).waitFor();
-      }
-      await page
-        .getByText(
-          "Simplified overview. Applicability, controls, assessments, risk and QA remain part of the full record.",
-        )
-        .waitFor();
-      if (
-        (await page
-          .getByRole("link", { name: /Follow the product tour/ })
-          .getAttribute("href")) !== "/demo#scrub-tour"
-      )
-        throw new Error("Tour handoff changed");
-      if ((await page.locator(".cm-home h1").count()) !== 1)
-        throw new Error("Expected one homepage H1");
-      if (
-        (await page
-          .locator(".cm-home")
-          .getByText("Illustrative interface concept \u00b7 demo data", {
-            exact: true,
-          })
-          .count()) !== 2
-      )
-        throw new Error("Concept provenance missing");
-      await assertNoOverflow(page, "homepage connected workflow");
+      const headings = page.locator("main h1");
+      if ((await headings.count()) !== 1 ||
+          (await headings.innerText()).replace(/\s+/g, " ") !==
+            "See what’s ready. See what’s still open.")
+        throw new Error("Homepage headline changed");
+
+      await page.getByRole("link", { name: "Explore the sample package" }).click();
+      if (new URL(page.url()).hash !== "#sample-record")
+        throw new Error("Sample package anchor changed");
+
+      const packageSection = page.getByRole("region", { name: /Sample Fleet.*Readiness Package/ });
+      await packageSection.getByText("1 disclosed open action", { exact: false }).waitFor();
+      await packageSection.getByText("Illustrative version").waitFor();
+
+      const trigger = page.getByRole("button", { name: "Why is this still open?" });
+      await trigger.focus();
+      await page.keyboard.press("Enter");
+      const panel = page.getByRole("dialog");
+      await panel.getByText("EVD-0847 · Accepted for the Q2 review").waitFor();
+      await panel.getByText("QA-0290 · PKG-0067").waitFor();
+      if ((await panel.getByRole("link", { name: /Inspect the public demo chain/ })
+        .getAttribute("href")) !== "/demo#chain-inspector")
+        throw new Error("Sample record handoff changed");
+
+      await page.keyboard.press("Shift+Tab");
+      if (!(await panel.getByRole("link", { name: /Reports & Readiness/ })
+        .evaluate((link) => document.activeElement === link)))
+        throw new Error("Reverse tab did not wrap within the record panel");
+      await page.keyboard.press("Tab");
+      if (!(await panel.getByRole("button", { name: "Close record" })
+        .evaluate((button) => document.activeElement === button)))
+        throw new Error("Tab did not wrap within the record panel");
+
+      await page.keyboard.press("Escape");
+      await panel.waitFor({ state: "hidden" });
+      await page.waitForFunction(() =>
+        document.activeElement?.getAttribute("aria-controls") === "home-action-panel",
+      );
+
+      const demoLinks = page.locator("main").getByRole("link", { name: "Request a demo" });
+      if ((await demoLinks.count()) !== 2 ||
+          (await demoLinks.evaluateAll((links) => links.map((link) =>
+            link.getAttribute("href"),
+          ))).some((href) => href !== "/contact?intent=demo"))
+        throw new Error("Homepage demo handoff changed");
+      await assertNoOverflow(page, "homepage sample package");
     },
   );
 

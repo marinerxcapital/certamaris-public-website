@@ -1,302 +1,184 @@
 import Link from "next/link";
+import { SAMPLE_RECORD, SAMPLE_RECORD_VESSEL, type SampleRecordObject } from "@/lib/sample-record";
+import { HomeActionPanel, HomeVessel } from "./HomeMotion";
+import styles from "./EditorialHome.module.css";
 
-const image = "/redesign-bold/maritime-editorial-vessel.webp";
-const DemoBadge = () => <span className="cm-demo-badge">DEMO DATA</span>;
-const Label = ({ children }: { children: React.ReactNode }) => (
-  <p className="cm-eyebrow">{children}</p>
-);
-const RequestDemo = () => (
-  <Link href="/contact?intent=demo" className="cm-action">
-    Request a demo
-  </Link>
-);
+const demoHref = "/contact?intent=demo";
+const demoChainHref = "/demo#chain-inspector";
+const reportsHref = "/platform/reports-readiness";
+const action = SAMPLE_RECORD.find((record) => record.code === "CAP")!;
+const finding = SAMPLE_RECORD.find((record) => record.code === "FND")!;
+const evidence = SAMPLE_RECORD.find((record) => record.code === "EVD")!;
+const review = SAMPLE_RECORD.find((record) => record.code === "QA")!;
+const pkg = SAMPLE_RECORD.find((record) => record.code === "PKG")!;
+const due = action.fields.find(([label]) => label === "Due")![1];
+const criterion = finding.fields.find(([label]) => label === "Criterion")![1];
+const verification =
+  "An updated firewall rule-review log still needs to be attached and verified.";
+const releaseDecision = `Independent QA confirmed the record chain was complete and that evidence was current or covered by a documented exception. ${pkg.id} disclosed ${action.id} as open and recorded its owner, due date, and remaining verification.`;
 
 export function EditorialHome() {
   return (
-    <div className="cm-home">
-      <section className="cm-hero" aria-labelledby="cm-home-title">
-        <div className="cm-container cm-hero-inner">
-          <div className="cm-hero-copy">
-            <Label>Maritime cyber assurance</Label>
-            <h1 id="cm-home-title">
-              Maritime cyber
-              <br />
-              readiness.
+    <div className={styles.home}>
+      <section className={styles.hero} aria-labelledby="cm-home-title">
+        <HomeVessel>
+          <div className={styles.shell}>
+            <p className={styles.eyebrow}>Maritime cyber assurance</p>
+            <h1 id="cm-home-title" className={styles.headline}>
+              See what’s ready.
+              <span>See what’s still open.</span>
             </h1>
-            <p className="cm-hero-subheading">Clear across your fleet.</p>
-            <p className="cm-hero-description">
-              Connect requirements, evidence and accountable
-              <br className="cm-desktop-break" /> actions from company to
-              vessel.
+            <p className={styles.summary}>
+              Trace vessel evidence, findings, and corrective actions to the
+              fleet readiness package you share.
             </p>
-            <div className="cm-actions">
-              <RequestDemo />
-              <Link className="cm-action cm-action-secondary" href="/platform">
-                Explore the platform
+            <div className={styles.buttons}>
+              <a className={styles.primary} href="#sample-record">
+                Explore the sample package
+              </a>
+              <Link className={styles.secondary} href={demoHref}>
+                Request a demo
               </Link>
             </div>
-            <p className="cm-audience">
-              For shipowners, operators, technical managers,
-              <br className="cm-desktop-break" /> DPAs and maritime IT/OT
-              leaders.
+          </div>
+        </HomeVessel>
+      </section>
+
+      <section className={styles.package} id="capabilities" aria-labelledby="sample-record">
+        <div className={styles.shell}>
+          <div className={styles.packageIntro} id="evidence-chain">
+            <p className={styles.packageLabel}>
+              <span className={styles.demo}>Demo data</span>
+              {SAMPLE_RECORD_VESSEL}
+            </p>
+            <h2 className={styles.sectionTitle} id="sample-record" tabIndex={-1}>
+              Sample Fleet<br />Readiness Package
+            </h2>
+            <p className={styles.release}>
+              <span>{pkg.statusLabel}</span> · 1 disclosed open action
             </p>
           </div>
-          <div className="cm-hero-art">
-            <svg width="0" height="0" aria-hidden="true">
-              <defs>
-                <clipPath
-                  id="cm-vessel-silhouette"
-                  clipPathUnits="objectBoundingBox"
-                >
-                  <path d="M.235 0 H.904 V.912 Q.904 1 .852 1 H.183 Q.122 1 .096 .892 L.017 .615 Q-.009 .538 .017 .462 L.148 .092 Q.174 0 .235 0 Z" />
-                </clipPath>
-              </defs>
-            </svg>
-            {/* Supplied contextual artwork; not a customer installation. */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              className="cm-vessel-hero"
-              src={image}
-              width={1672}
-              height={941}
-              alt="Generated editorial artwork of a container vessel at sea"
-              fetchPriority="high"
-            />
-            <figure className="cm-action-concept">
-              <div className="cm-concept">
-                <div className="cm-concept-label">
-                  <Label>Corrective action</Label>
-                  <DemoBadge />
-                </div>
-                <div className="cm-concept-heading">
-                  <h2>Access review</h2>
-                  <span>Verification pending</span>
-                </div>
-                <dl>
-                  <dt>Owner</dt>
-                  <dd>Vessel team</dd>
-                  <dt>Linked evidence</dt>
-                  <dd>Access review record</dd>
-                </dl>
-                <p className="cm-verification">Verification before closure.</p>
+
+          <div className={styles.stage}>
+            <article className={styles.document} aria-label="Released sample package">
+              <div className={styles.documentTop}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/homepage-motion/certamaris-logo.webp" alt="CertaMaris" width={960} height={153} />
+                <p>{pkg.id} / V1.0 <span>Illustrative version</span></p>
               </div>
-              <figcaption>
-                Illustrative interface concept · demo data
-              </figcaption>
-            </figure>
-            <p className="cm-art-caption">
-              Maritime context · generated editorial artwork
-            </p>
+              <div className={styles.documentCover}>
+                <p className={styles.eyebrow}>Fleet readiness</p>
+                <h3>{SAMPLE_RECORD_VESSEL}</h3>
+                <p>Q2 evidence review</p>
+              </div>
+              <dl className={styles.documentFacts}>
+                <div><dt>Review scope</dt><dd>Bridge network and engine-monitoring VLAN</dd></div>
+                <div><dt>QA disposition</dt><dd>{review.id} · Passed completeness check</dd></div>
+                <div><dt>Release disclosure</dt><dd>{action.id} · Open pending verification</dd></div>
+              </dl>
+            </article>
+
+            <article className={styles.action} aria-labelledby="home-action-title">
+              <div className={styles.actionTop}>
+                <p className={styles.recordId}>{action.id}</p>
+                <span className={styles.status}>{action.statusLabel}</span>
+              </div>
+              <h3 id="home-action-title">{verification}</h3>
+              <dl className={styles.actionFacts}>
+                <div><dt>Finding</dt><dd>{finding.id}</dd></div>
+                <div><dt>Owner</dt><dd>{action.owner}</dd></div>
+                <div><dt>Due</dt><dd>{due}</dd></div>
+              </dl>
+              <HomeActionPanel>
+                <p className={styles.recordId}>{action.id} · Corrective action</p>
+                <h2 id="home-record-title">{verification}</h2>
+                <dl className={styles.panelFacts}>
+                  <div><dt>Finding</dt><dd>{finding.id}</dd></div>
+                  <div><dt>Owner</dt><dd>{action.owner}</dd></div>
+                  <div><dt>Due</dt><dd>{due}</dd></div>
+                  <div><dt>Disposition</dt><dd>{action.statusLabel}</dd></div>
+                </dl>
+                <section className={styles.panelSection}>
+                  <p className={styles.recordId}>{finding.id} · Finding</p>
+                  <h3>{finding.title}</h3>
+                  <p>The rule set was last reviewed two quarters ago. {criterion}.</p>
+                </section>
+                <section className={styles.panelSection}>
+                  <p className={styles.recordId}>{evidence.id} · Accepted for the Q2 review</p>
+                  <h3>Evidence reviewed</h3>
+                  <p>The reviewer accepted the versioned switch configuration export and network diagram v7 for the segmentation review.</p>
+                </section>
+                <section className={styles.panelSection}>
+                  <p className={styles.recordId}>Outstanding verification</p>
+                  <h3>Updated firewall rule-review log</h3>
+                  <p>Fleet IT/OT must attach the updated log. A reviewer must verify it before closing {action.id}.</p>
+                </section>
+                <section className={styles.panelSection}>
+                  <p className={styles.recordId}>{review.id} · {pkg.id}</p>
+                  <h3>Disclosed at release</h3>
+                  <p>{releaseDecision}</p>
+                </section>
+                <div className={styles.proofLinks}>
+                  <Link href={demoChainHref}>Inspect the public demo chain <span aria-hidden="true">→</span></Link>
+                  <Link href={reportsHref}>Reports &amp; Readiness <span aria-hidden="true">→</span></Link>
+                </div>
+              </HomeActionPanel>
+            </article>
           </div>
-          <ol className="cm-hero-scope" aria-label="Assurance scope">
-            <li>Company</li>
-            <li>Fleet</li>
-            <li>Vessel</li>
-          </ol>
         </div>
       </section>
-      <section
-        className="cm-platform cm-container"
-        id="capabilities"
-        aria-labelledby="cm-platform-title"
-      >
-        <div className="cm-platform-heading">
+
+      <section className={styles.brief} aria-labelledby="home-decision-title">
+        <div className={`${styles.shell} ${styles.briefGrid}`}>
           <div>
-            <Label>The platform, connected</Label>
-            <h2 id="cm-platform-title">One operating picture.</h2>
-          </div>
-          <p>
-            Company, fleet and vessel work share
-            <br className="cm-desktop-break" /> one controlled assurance record.
-          </p>
-        </div>
-        <ol className="cm-scope-ribbon">
-          {[
-            ["Company", "Program, roles and deliverables"],
-            ["Fleet", "Vessel readiness and open work"],
-            ["Vessel", "Controls, evidence and actions"],
-          ].map(([title, body]) => (
-            <li key={title}>
-              <h3>{title}</h3>
-              <p>{body}</p>
-            </li>
-          ))}
-        </ol>
-        <div className="cm-evidence" id="sample-record">
-          <div>
-            <h3>
-              Evidence has context.
-              <br />
-              Review keeps it useful.
-            </h3>
-            <p>
-              Keep the custodian, review state and
-              <br className="cm-desktop-break" /> linked work with the evidence
-              record.
-            </p>
-          </div>
-          <figure>
-            <div className="cm-concept">
-              <div className="cm-concept-label">
-                <Label>Vessel / evidence</Label>
-                <DemoBadge />
-              </div>
-              <h3 className="cm-evidence-title">Network segmentation</h3>
-              <div className="cm-evidence-state">
-                <p>Custodian · Vessel team</p>
-                <span>Awaiting review</span>
-              </div>
+            <p className={styles.eyebrow}>The release decision</p>
+            <h2 className={styles.sectionTitle} id="home-decision-title">QA passed.<br />The action stayed open.</h2>
+            <p className={styles.summary}>{releaseDecision}</p>
+            <div className={styles.proofLinks}>
+              <Link href={demoChainHref}>Inspect the public demo chain <span aria-hidden="true">→</span></Link>
+              <Link href={reportsHref}>Reports &amp; Readiness <span aria-hidden="true">→</span></Link>
             </div>
-            <figcaption>Illustrative interface concept · demo data</figcaption>
-          </figure>
-        </div>
-        <div className="cm-workflow">
-          <div className="cm-workflow-heading">
-            <h3>From requirement to readiness.</h3>
-            <Link href="/demo#scrub-tour">Follow the product tour →</Link>
           </div>
-          <ol>
-            {[
-              ["Requirements", "Source and scope"],
-              ["Evidence", "Review and freshness"],
-              ["Findings", "Condition and context"],
-              ["Corrective actions", "Ownership and verification"],
-              ["Readiness packages", "QA and release"],
-            ].map(([title, body]) => (
-              <li key={title}>
-                <h4>{title}</h4>
-                <p>{body}</p>
+          <ul className={styles.trace} aria-label="Records behind the release">
+            {([
+              [finding, finding.title],
+              [evidence, evidence.title],
+              [action, "Updated rule-review log awaiting verification"],
+              [review, "Completeness check passed"],
+              [pkg, "One disclosed open action"],
+            ] satisfies [SampleRecordObject, string][]).map(([record, description]) => (
+              <li key={record.id}>
+                <Link href={`/demo?stage=${record.code}#chain-inspector`}>
+                  <span className={styles.traceHeading}>
+                    {record.step}<span>{record.id}</span>
+                  </span>
+                  <span className={styles.traceSummary}>{description}</span>
+                </Link>
               </li>
             ))}
-          </ol>
-          <p className="cm-qualification">
-            Simplified overview. Applicability, controls, assessments, risk and
-            QA remain part of the full record.
-          </p>
+          </ul>
         </div>
       </section>
-      <section className="cm-operations" aria-labelledby="cm-operations-title">
-        <div className="cm-container cm-operations-inner">
-          <Label>Work that stays accountable</Label>
-          <h2 id="cm-operations-title">Every action has a next step.</h2>
-          <p className="cm-operations-intro">
-            Keep the owner, supporting evidence and verification connected.
-          </p>
-          <div className="cm-operations-grid">
-            <div className="cm-benefits">
-              {[
-                [
-                  "See open work",
-                  "Review findings and actions",
-                  "with vessel context intact.",
-                ],
-                [
-                  "Review the evidence",
-                  "Keep freshness and reviewer",
-                  "decisions with the record.",
-                ],
-                [
-                  "Prepare for release",
-                  "Bring approved work into",
-                  "readiness preparation.",
-                ],
-              ].map(([title, line1, line2]) => (
-                <div key={title}>
-                  <h3>{title}</h3>
-                  <p>
-                    {line1}
-                    <br />
-                    {line2}
-                  </p>
-                </div>
-              ))}
-            </div>
-            <figure>
-              <div className="cm-product-frame">
-                <div className="cm-product-label">
-                  <span>Corrective actions · public product capture</span>
-                  <DemoBadge />
-                </div>
-                <div className="cm-product-crop">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/redesign-bold/corrective-actions.png"
-                    width={1440}
-                    height={960}
-                    alt="Authentic demo capture showing three corrective action rows with owners and review states"
-                    loading="lazy"
-                  />
-                </div>
-              </div>
-              <figcaption>
-                Authentic public product capture · demo data · cropped
-              </figcaption>
-              <a
-                className="cm-full-capture"
-                href="/product/dashboard-v2/corrective-actions.png"
-              >
-                View full product capture →
-              </a>
-            </figure>
-          </div>
-        </div>
-        <div className="cm-diligence" id="buyer-diligence">
-          <div className="cm-container cm-diligence-grid">
-            <div>
-              <Label>Enterprise evaluation</Label>
-              <h3>Clarity for your review team.</h3>
-              <p>Public information first. Scoped diligence when needed.</p>
-            </div>
-            <div>
-              <h4>Security</h4>
-              <p>Published control status.</p>
-              <Link href="/security">Review security →</Link>
-            </div>
-            <div>
-              <h4>Procurement</h4>
-              <p>Evaluation materials.</p>
-              <Link href="/trust/procurement">Explore procurement →</Link>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section
-        className="cm-closing cm-container"
-        aria-labelledby="cm-closing-title"
+
+      <nav
+        className={`${styles.shell} ${styles.evaluation}`}
+        id="buyer-diligence"
+        aria-label="Enterprise evaluation"
       >
-        <figure>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={image}
-            width={490}
-            height={620}
-            alt="Generated maritime context: container vessel bow and deck at sea"
-            loading="lazy"
-          />
-          <figcaption>
-            Generated maritime context · illustrative artwork
-          </figcaption>
-        </figure>
-        <div className="cm-closing-copy">
-          <Label>See CertaMaris in context</Label>
-          <h2 id="cm-closing-title">
-            See assurance in{" "}
-            <br />
-            your fleet’s context.
-          </h2>
-          <p>
-            Tell us your company, fleet size and what you want to review.
-            <br className="cm-desktop-break" /> We’ll arrange a focused
-            demonstration of the relevant workflows.
-          </p>
-          <RequestDemo />
-          <p className="cm-follow-up">
-            The team follows up by email to arrange a time.
-          </p>
-          <div className="cm-package">
-            <h3>Fleet Core · Fleet Assurance · Enterprise</h3>
-            <Link href="/pricing">View pricing and package details →</Link>
+        <p>Enterprise evaluation</p>
+        <Link href="/demo#scrub-tour">Product tour</Link>
+        <Link href="/pricing">Pricing</Link>
+        <Link href="/security">Security</Link>
+        <Link href="/trust/procurement">Procurement</Link>
+      </nav>
+
+      <section className={styles.handoff} aria-labelledby="home-demo-title">
+        <div className={`${styles.shell} ${styles.handoffInner}`}>
+          <div>
+            <h2 id="home-demo-title">See it with your fleet.</h2>
+            <p>Walk through your evidence, exceptions, and reporting needs with CertaMaris.</p>
           </div>
+          <Link className={styles.primary} href={demoHref}>Request a demo</Link>
         </div>
       </section>
     </div>

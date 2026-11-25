@@ -42,6 +42,10 @@ type Env = {
 };
 
 const SITE_HOST = "certamaris.com";
+const HOMEPAGE_VIDEOS = new Set([
+  "/homepage-motion/bridge-daylight-loop.mp4",
+  "/homepage-motion/bridge-daylight-loop-mobile.mp4",
+]);
 const LEGACY_REDIRECTS = new Map([
   ["/industries", "/who-we-serve"],
   ["/sample-platform", "/demo"],
@@ -101,9 +105,48 @@ export default {
 
     const assetRequest = rewriteRscRequest(request);
     const response = await env.ASSETS.fetch(assetFetchRequest(assetRequest));
+    if (HOMEPAGE_VIDEOS.has(url.pathname)) {
+      return withHeaders(await homepageVideoResponse(response, request), request);
+    }
     return withHeaders(response, request);
   },
 };
+
+async function homepageVideoResponse(response: Response, request: Request): Promise<Response> {
+  if (response.status !== 200 || !response.headers.get("Content-Type")?.startsWith("video/mp4")) {
+    return response;
+  }
+
+  const headers = new Headers(response.headers);
+  headers.set("Accept-Ranges", "bytes");
+  const range = request.method === "GET" && /^bytes=(\d*)-(\d*)$/i.exec(
+    request.headers.get("Range") ?? "",
+  );
+  const ifRange = request.headers.get("If-Range");
+  const etag = headers.get("ETag");
+  if (
+    !range || (!range[1] && !range[2]) ||
+    (ifRange && (!etag?.startsWith('"') || ifRange !== etag))
+  ) {
+    return new Response(response.body, { status: 200, headers });
+  }
+
+  // Workers Static Assets returns the full MP4. Safari needs a 206 response
+  // for the byte ranges it requests when probing and playing inline video.
+  const bytes = await response.arrayBuffer();
+  const size = bytes.byteLength;
+  const start = range[1] ? Number(range[1]) : Math.max(0, size - Number(range[2]));
+  const end = range[1] && range[2] ? Math.min(size - 1, Number(range[2])) : size - 1;
+  if (start > end || start >= size) {
+    headers.set("Content-Range", `bytes */${size}`);
+    headers.set("Content-Length", "0");
+    return new Response(null, { status: 416, headers });
+  }
+
+  headers.set("Content-Range", `bytes ${start}-${end}/${size}`);
+  headers.set("Content-Length", String(end - start + 1));
+  return new Response(bytes.slice(start, end + 1), { status: 206, headers });
+}
 
 function assetFetchRequest(request: Request): Request {
   if (request.method !== "HEAD") return request;
