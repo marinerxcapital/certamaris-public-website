@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 import styles from "./EditorialHome.module.css";
 
 const motionKey = "cm.homepage.vessel-motion";
@@ -141,6 +141,23 @@ export function HomeVessel({ children }: { children: ReactNode }) {
   );
 }
 
+function keepFocusInPanel(event: KeyboardEvent<HTMLDialogElement>) {
+  if (event.key !== "Tab") return;
+  const controls = event.currentTarget.querySelectorAll<HTMLElement>(
+    "button:not([disabled]), a[href]",
+  );
+  const first = controls[0];
+  const last = controls[controls.length - 1];
+
+  if (event.shiftKey && document.activeElement === first) {
+    event.preventDefault();
+    last?.focus();
+  } else if (!event.shiftKey && document.activeElement === last) {
+    event.preventDefault();
+    first?.focus();
+  }
+}
+
 export function HomeActionPanel({ children }: { children: ReactNode }) {
   const panel = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
@@ -162,6 +179,7 @@ export function HomeActionPanel({ children }: { children: ReactNode }) {
         id="home-action-panel"
         className={styles.panel}
         aria-labelledby="home-record-title"
+        onKeyDown={keepFocusInPanel}
         onClose={() => trigger.current?.focus({ preventScroll: true })}
       >
         <div className={styles.panelInner}>

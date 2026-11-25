@@ -72,6 +72,48 @@ test("security headers hash inline blocks and enforce the required directives", 
   assert.equal(response.headers.get("x-frame-options"), "DENY");
 });
 
+test("homepage MP4s serve byte ranges for inline playback", async () => {
+  const bindings = env().bindings;
+  bindings.ASSETS.fetch = async () => new Response(new Uint8Array([10, 20, 30, 40, 50]), {
+    headers: { "Content-Type": "video/mp4", "Content-Length": "5", ETag: '"video-v1"' },
+  });
+  const url = "https://certamaris.com/homepage-motion/bridge-daylight-loop-mobile.mp4";
+  const partial = await worker.fetch(new Request(url, {
+    headers: { Range: "bytes=1-2", "If-Range": '"video-v1"' },
+  }), bindings);
+  assert.equal(partial.status, 206);
+  assert.equal(partial.headers.get("accept-ranges"), "bytes");
+  assert.equal(partial.headers.get("content-range"), "bytes 1-2/5");
+  assert.equal(partial.headers.get("content-length"), "2");
+  assert.deepEqual([...new Uint8Array(await partial.arrayBuffer())], [20, 30]);
+
+  const suffix = await worker.fetch(new Request(url, { headers: { Range: "bytes=-2" } }), bindings);
+  assert.equal(suffix.status, 206);
+  assert.deepEqual([...new Uint8Array(await suffix.arrayBuffer())], [40, 50]);
+
+  const invalid = await worker.fetch(new Request(url, { headers: { Range: "bytes=8-" } }), bindings);
+  assert.equal(invalid.status, 416);
+  assert.equal(invalid.headers.get("content-range"), "bytes */5");
+
+  const changed = await worker.fetch(new Request(url, {
+    headers: { Range: "bytes=1-2", "If-Range": '"video-v0"' },
+  }), bindings);
+  assert.equal(changed.status, 200);
+  assert.equal(changed.headers.get("content-range"), null);
+  assert.equal((await changed.arrayBuffer()).byteLength, 5);
+
+  const head = await worker.fetch(new Request(url, { method: "HEAD" }), bindings);
+  assert.equal(head.status, 200);
+  assert.equal(head.headers.get("accept-ranges"), "bytes");
+  assert.equal(head.body, null);
+
+  const other = await worker.fetch(new Request("https://certamaris.com/videos/certamaris-hero-demo.mp4", {
+    headers: { Range: "bytes=1-2" },
+  }), bindings);
+  assert.equal(other.status, 200);
+  assert.equal(other.headers.get("content-range"), null);
+});
+
 test("contact endpoint returns 405 with Allow and applies security headers", async () => {
   const response = await worker.fetch(new Request("https://certamaris.com/api/contact"), env().bindings);
   assert.equal(response.status, 405);

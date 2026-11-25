@@ -123,6 +123,15 @@ async function main() {
         .getAttribute("href")) !== "/demo#chain-inspector")
         throw new Error("Sample record handoff changed");
 
+      await page.keyboard.press("Shift+Tab");
+      if (!(await panel.getByRole("link", { name: /Reports & Readiness/ })
+        .evaluate((link) => document.activeElement === link)))
+        throw new Error("Reverse tab did not wrap within the record panel");
+      await page.keyboard.press("Tab");
+      if (!(await panel.getByRole("button", { name: "Close record" })
+        .evaluate((button) => document.activeElement === button)))
+        throw new Error("Tab did not wrap within the record panel");
+
       await page.keyboard.press("Escape");
       await panel.waitFor({ state: "hidden" });
       await page.waitForFunction(() =>
