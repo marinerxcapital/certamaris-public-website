@@ -465,7 +465,18 @@ export function Nav() {
             className="flex min-h-11 min-w-0 shrink items-center"
             aria-label="CertaMaris home"
           >
-            <BrandLogo />
+            {path === "/" ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                className="cm-home-wordmark"
+                src="/homepage-motion/certamaris-logo.webp"
+                alt=""
+                width={960}
+                height={153}
+              />
+            ) : (
+              <BrandLogo />
+            )}
           </Link>
 
           {path === "/" && (
