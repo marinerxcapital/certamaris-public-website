@@ -71,7 +71,14 @@
   position: absolute;
   inset: 0;
   content: "";
-  background: linear-gradient(90deg, #f3f8fd 0%, #f3f8fdf2 30%, #f3f8fde0 49%, #f3f8fd80 59%, #f3f8fd00 76%);
+  background: linear-gradient(
+    90deg,
+    #f3f8fd 0%,
+    #f3f8fdf2 30%,
+    #f3f8fde0 57%,
+    #f3f8fdd9 61%,
+    #f3f8fd00 76%
+  );
 }
 
 .heroContent {
@@ -123,7 +130,7 @@
 }
 
 .headline {
-  font-size: clamp(3rem, 5.95vw, 6.4rem);
+  font-size: clamp(2.625rem, 5.95vw, 6.4rem);
   max-width: 13.6em;
   line-height: 0.99;
 }
